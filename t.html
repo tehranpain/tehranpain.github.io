@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>中国说唱地图 - 点聚合优化版（仅严重重叠聚合）</title>
+  <style>
+    body { margin:0; padding:0; height:100vh; }
+    #map { width:100%; height:100%; }
+    .leaflet-popup-content { width:280px !important; padding:10px; }
+    /* 聚合簇样式优化 */
+    .custom-cluster {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <!-- Leaflet核心 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- 点聚合插件（解决遮挡核心） -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    // 1. 地图初始化
+    const map = L.map('map').setView([35, 105], 5);
+
+    // 2. 高德地图瓦片（中文+中国坐标系）
+    L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+      subdomains: ['1','2','3','4'],
+      attribution: '© 高德地图',
+      maxZoom: 18
+    }).addTo(map);
+
+    // 3. 完整歌手数据（你的所有歌手，未做任何修改）
+    const singers = [
+      {
+        name: "GAI周延",
+        fans: "238万",
+        lat: 29.55, lng: 106.54,
+        avatar: "https://i1.sndcdn.com/artworks-Qlz2GO8QFjaup59u-RWWzmQ-t500x500.jpg"
+      },
+      {
+        name: "马思唯",
+        fans: "411.5万",
+        lat: 30.80, lng: 103.89,
+        avatar: "https://packer.streetvoice.cn/wp-content/uploads/2025/10/%E9%A9%AC%E6%80%9D%E5%94%AF_%E8%97%9D%E4%BA%BA%E7%85%A7%E7%89%87.jpg"
+      },
+      {
+        name: "Vansdaddy",
+        fans: "25.7万",
+        lat: 31.10, lng: 105.10,
+        avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130"
+      },
+      {
+        name: "王以太",
+        fans: "179.5万",
+        lat: 30.66, lng: 104.08,
+        avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130"
+      },
+      {
+        name: "连麻Swimming",
+        fans: "86.5万",
+        lat: 30.64, lng: 104.05,
+        avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130"
+      },
+      {
+        name: "JinJiBeWater-隼",
+        fans: "60.3万",
+        lat: 30.60, lng: 104.07,
+        avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180"
+      },
+      {
+        name: "王齐铭WatchMe",
+        fans: "54.5万",
+        lat: 29.03, lng: 106.65,
+        avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130"
+      },
+      {
+        name: "布瑞吉Bridge",
+        fans: "53.3万",
+        lat: 29.53, lng: 106.45,
+        avatar: "https://p2.music.126.net/gXb33bFHyPOdEt0FhtJLjw==/109951170759192266.jpg?param=130y130"
+      },
+      {
+        name: "OneOne",
+        fans: "13.9万",
+        lat: 29.60, lng: 106.55,
+        avatar: "https://p2.music.126.net/8-TosHmJCJOGrL4plEu6XA==/109951169496788289.jpg?param=130y130"
+      },
+      {
+        name: "雾都L4WUDU",
+        fans: "17.5万",
+        lat: 29.51, lng: 106.51,
+        avatar: "https://p1.music.126.net/aHW4oJkgxKkHQ4-7CR0vcg==/109951166009026727.jpg?param=130y130"
+      },
+      {
+        name: "李佳隆",
+        fans: "74.4万",
+        lat: 30.82, lng: 106.10,
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcXnIjjAL2aUuJncM_LDwYt91CxW99SLH61FGM9wmVw_DZEuvUAjJYDIejddzN260kkQisC15UV_qB9X4Pm6BrXkrHFdQVRRQVJBLahYpIpg&s=10"
+      },
+ {
+        name: "KnowKnow",
+        fans: "114.9万",
+        lat: 32.05, lng: 118.78,
+        avatar: "https://p2.music.126.net/EI-opdeBAR11phjG14fwbg==/109951172883193186.jpg?param=130y130"
+      },
+ {
+        name: "Ty.",
+        fans: "74.8万",
+        lat: 30.68, lng: 104.06,
+        avatar: "https://p2.music.126.net/bQkoAJSN2mkUmDZDejF_Tg==/109951167060520225.jpg?param=130y130"
+      },
+ {
+        name: "PSY.P",
+        fans: "55.9万",
+        lat: 30.70, lng: 104.04,
+        avatar: "https://p1.music.126.net/US4CTFKDGExVsHqY0vWzHg==/109951172723960014.jpg?param=130y130"
+      },
+ {
+        name: "Tlatre特雷西",
+        fans: "14.9万",
+        lat: 30.680, lng: 121.02,
+        avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130"
+      },
+
+      {
+        name: "BOBBYNOPEACE",
+        fans: "41.3万",
+        lat: 30.65, lng: 104.14,
+        avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130"
+      },
+      {
+        name: "谢帝",
+        fans: "91.4万",
+        lat: 30.72, lng: 104.06,
+        avatar: "https://p2.music.126.net/ETplhG5gXynEQoLQkRhHXg==/109951171813624638.jpg?param=130y130"
+      },
+      {
+        name: "邓典果DDG",
+        fans: "38.9万",
+        lat: 30.59, lng: 104.00,
+        avatar: "https://p2.music.126.net/GLgV_NbKYJ8fLOUr39Cicg==/109951168477255172.jpg?param=130y130"
+      },
+      {
+        name: "建坤YOUNG",
+        fans: "43.8万",
+        lat: 30.75, lng: 104.08,
+        avatar: "https://p2.music.126.net/VPx1l33WDisBeejsJSYlGg==/109951172355839879.jpg?param=130y130"
+      },
+      {
+        name: "KenRobb",
+        fans: "22.5万",
+        lat: 30.69, lng: 104.15,
+        avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130"
+      },
+      {
+        name: "CashTrippy",
+        fans: "38.6万",
+        lat: 26.87, lng: 100.23,
+        avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130"
+      },
+      {
+        name: "华云龙KLE",
+        fans: "18.2万",
+        lat: 34.78, lng: 117.29,
+        avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130"
+      },
+      {
+        name: "GALI",
+        fans: "120.8万",
+        lat: 31.23, lng: 121.49,
+        avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130"
+      },
+      {
+        name: "盛宇D-SHINE",
+        fans: "81.5万",
+        lat:28.17 , lng: 113.02,
+        avatar: "https://p2.music.126.net/SUz_YVh0pA9wWmM1CXgdqg==/109951170040821218.jpg?param=130y130"
+      },
+      {
+        name: "泰格西",
+        fans: "33.9万",
+        lat:28.20 , lng: 112.97,
+        avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130"
+      },
+      {
+        name: "Capper",
+        fans: "194.9万",
+        lat:34.29 , lng: 108.85,
+        avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130"
+      },
+      {
+        name: "NINEONE#乃万",
+        fans: "247.5万",
+        lat:34.29 , lng: 109.01,
+        avatar: "https://p2.music.126.net/IOKcH64pITl0kow2gZ0RSQ==/109951171845583865.jpg?param=130y130"
+      },
+      {
+        name: "蛋堡",
+        fans: "104.2万",
+        lat:23.00 , lng: 120.21,
+        avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130"
+      },
+      {
+        name: "派克特",
+        fans: "37.2万",
+        lat:34.22 , lng: 108.95,
+        avatar: "https://p2.music.126.net/SxsbX2OTJ4k5-7LJAdgbjg==/109951168995763263.jpg?param=130y130"
+      },
+      {
+        name: "Echo",
+        fans: "9.1万",
+        lat:36.60 , lng: 109.49,
+        avatar: "https://p2.music.126.net/50XHCnog_Bs8FgLDKhP5AQ==/109951172845782919.jpg?param=130y130"
+      },
+      {
+        name: "辉子",
+        fans: "24.9万",
+        lat:39.97 , lng: 116.41,
+        avatar: "https://p1.music.126.net/AZWbY97aMsFvP1Z2uqxt-w==/109951171482252319.jpg?param=130y130"
+      },
+      {
+        name: "V.O.B",
+        fans: "8.9万",
+        lat:39.10 , lng: 117.23,
+        avatar: "https://p1.music.126.net/55oxw3F_yj5U1QP2UVfziA==/109951163094545924.jpg?param=130y130"
+      },
+      {
+        name: "MC HotDog热狗",
+        fans: "64.5万",
+        lat:25.04 , lng: 121.49,
+        avatar: "https://p2.music.126.net/5ViEXoj1xti2RzahxIMzZQ==/109951169161434274.jpg?param=130y130"
+      },
+      {
+        name: "瘦子E.SO",
+        fans: "43.1万",
+        lat:25.05 , lng: 121.57,
+        avatar: "https://p1.music.126.net/H0MlYW2rj5B7hlZBFwGalA==/109951166783173717.jpg?param=130y130"
+      },
+      {
+        name: "万妮达Vinida Weng",
+        fans: "146.6万",
+        lat:26.07 , lng: 119.32,
+        avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130"
+      },
+      {
+        name: "李大奔BENZO",
+        fans: "42.7万",
+        lat:30.34 , lng: 112.23,
+        avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130"
+      },
+      {
+        name: "功夫胖KUNGFU-PEN",
+        fans: "57.3万",
+        lat:28.26 , lng: 113.04,
+        avatar: "https://p1.music.126.net/ANXf31eNT7NTmY4_OWesxQ==/109951172802605277.jpg?param=130y130"
+      },
+      {
+        name: "姜云升",
+        fans: "371.9万",
+        lat:25.03 , lng: 102.71,
+        avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130"
+      },
+      {
+        name: "翁杰Winjay",
+        fans: "18.2万",
+        lat:25.44 , lng: 119.02,
+        avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130"
+      },
+      {
+        name: "kkluv",
+        fans: "96.5万",
+        lat:41.73 , lng: 86.17,
+        avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130"
+      },
+      {
+        name: "那奇沃夫",
+        fans: "95万",
+        lat:43.79 , lng: 87.61,
+        avatar: "https://p2.music.126.net/jRRnJKg9cNoavwSZNgZe6w==/109951172840846010.jpg?param=130y130"
+      },
+      {
+        name: "艾热AIR",
+        fans: "125.5万",
+        lat:39.46 , lng: 76.01,
+        avatar: "https://p2.music.126.net/tvy9BeZWZhqKfYKLHsSf-w==/109951172651091852.jpg?param=130y130"
+      },
+      {
+        name: "SHarK",
+        fans: "38万",
+        lat:43.86 , lng: 87.57,
+        avatar: "https://p2.music.126.net/_SbAJ1mLT0b92eRtxP1s5Q==/109951168822352373.jpg?param=130y130"
+      },
+      {
+        name: "艾福杰尼",
+        fans: "73万",
+        lat:41.82 , lng: 86.12,
+        avatar: "https://p1.music.126.net/sRT4-AH1RpaeGxBI8G_8_g==/109951169446600145.jpg?param=130y130"
+      },
+      {
+        name: "黄旭",
+        fans: "41.2万",
+        lat:41.17 , lng: 80.26,
+        avatar: "https://p1.music.126.net/kFaBU5KM9ISr1wEK2ZknPg==/109951170960599381.jpg?param=130y130"
+      },
+      {
+        name: "KIV",
+        fans: "16.6万",
+        lat:22.27 , lng: 113.55,
+        avatar: "https://p2.music.126.net/L2IegKgopP9WLDpepkHQqA==/109951170020234818.jpg?param=130y130"
+      },
+      {
+        name: "SASIOVERLXRD",
+        fans: "71.8万",
+        lat:27.88 , lng: 102.26,
+        avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130"
+      },
+      {
+        name: "RICHNOMADIC",
+        fans: "37.9万",
+        lat:34.98 , lng: 102.91,
+        avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130"
+      },
+      {
+        name: "法老",
+        fans: "507.3万",
+        lat:30.51 , lng: 120.68,
+        avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130"
+      },
+      {
+        name: "罗言",
+        fans: "131.5万",
+        lat:30.95 , lng: 118.77,
+        avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130"
+      },
+      {
+        name: "ljz329",
+        fans: "134.6万",
+        lat:36.05 , lng: 103.85,
+        avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130"
+      },
+      {
+        name: "Top Barry",
+        fans: "73万",
+        lat:22.22 , lng: 113.54,
+        avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130"
+      },
+      {
+        name: "Rapeter",
+        fans: "94.3万",
+        lat:34.60 , lng: 119.18,
+        avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130"
+      },
+      {
+        name: "黄之仪Kyra Zilver",
+        fans: "21.4万",
+        lat:28.22 , lng: 112.90,
+        avatar: "https://p1.music.126.net/Kt4hURY-UJnI0n_tImpp4g==/109951172156904216.jpg?param=130y130"
+      },
+      {
+        name: "TizzyT",
+        fans: "146.6万",
+        lat:23.66 , lng: 116.64,
+        avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130"
+      },
+      {
+        name: "KEY.刘聪",
+        fans: "175.7万",
+        lat:26.89 , lng: 112.57,
+        avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130"
+      },
+ {
+        name: "西奥Sio",
+        fans: "27.3万",
+        lat:28.27 , lng: 112.95,
+        avatar: "https://p2.music.126.net/vtAUZdKjRkWWwDgSzSLoLg==/109951172184985568.jpg?param=130y130"
+      },
+ {
+        name: "Yee",
+        fans: "35.9万",
+        lat:28.12 , lng: 112.97,
+        avatar: "https://p2.music.126.net/M9S2kc_qzOV5wrUS147l3A==/109951170351901193.jpg?param=130y130"
+      },
+
+ {
+        name: "张方钊",
+        fans: "70.4万",
+        lat:35.23 , lng: 113.24,
+        avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130"
+      },
+{
+        name: "FAC-D12",
+        fans: "15.8万",
+        lat:40.00 , lng: 116.31,
+        avatar: "https://p1.music.126.net/asMnnEfpHtAsPfpO6iyGgQ==/109951167535654794.jpg?param=130y130"
+      },
+{
+        name: "九维",
+        fans: "9.6万",
+        lat:39.86 , lng: 116.37,
+        avatar: "https://p1.music.126.net/z_Szseyygn-4sB39tdZBYg==/109951168865533356.jpg?param=130y130"
+      },
+
+{
+        name: "马赫mood",
+        fans: "18.4万",
+        lat:43.87 , lng: 87.65,
+        avatar: "https://p2.music.126.net/MCbhLo3_BbuPyJV157tELg==/109951170501527607.jpg?param=130y130"
+      },
+{
+        name: "宝石Gem",
+        fans: "101.8万",
+        lat:43.88 , lng: 125.33,
+        avatar: "https://p1.music.126.net/cuxYBa8_n97yinJI22Sd4A==/109951172840033492.jpg?param=130y130"
+      },
+{
+        name: "杨和苏KeyNG",
+        fans: "188.6万",
+        lat:30.53 , lng: 104.06,
+        avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130"
+      },
+{
+        name: "李毅杰PISSY",
+        fans: "22.8万",
+        lat:30.56 , lng: 104.00,
+        avatar: "https://p2.music.126.net/xj10cS2UwvfWTc5Wx6LXLg==/109951169649092185.jpg?param=130y130"
+      },
+{
+        name: "VaVa娃娃",
+        fans: "47.4万",
+        lat:30.01 , lng: 103.05,
+        avatar: "https://p2.music.126.net/YJZxNpdv_jMYRbqdvj2X7Q==/109951170132794446.jpg?param=130y130"
+      },
+{
+        name: "KKECHO",
+        fans: "68.4万",
+        lat:29.56 , lng: 103.76,
+        avatar: "https://p2.music.126.net/LaYKY3KFwO0JM6dRjVvjXw==/109951172012057555.jpg?param=130y130"
+      },
+{
+        name: "YOUNG13DBABY",
+        fans: "15.8万",
+        lat:34.00 , lng: 102.07,
+        avatar: "https://p2.music.126.net/jq8Q4ANwLZDiFfQWUjG_EQ==/109951169764760151.jpg?param=130y130"
+      },
+{
+        name: "Vinz-T",
+        fans: "29.3万",
+        lat:21.87 , lng: 111.97,
+        avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130"
+      },
+
+ {
+        name: "Udigg",
+        fans: "6.5万",
+        lat:29.31 , lng: 120.07,
+        avatar: "https://p2.music.126.net/YFFmyh60Eg7_C9YDklPh7Q==/109951172813365206.jpg?param=130y130"
+      },
+{
+        name: "Ice Paper",
+        fans: "142.3万",
+        lat:33.59 , lng: 119.07,
+        avatar: "https://p1.music.126.net/fzWDTckJqRqApWSYxUzKzA==/109951171972222899.jpg?param=130y130"
+      },
+{
+        name: "ICE杨常青",
+        fans: "67万",
+        lat:26.58 , lng: 101.73,
+        avatar: "https://p2.music.126.net/7V-tVve07mAeHhoN6HGhVw==/109951171484108629.jpg?param=130y130"
+      },
+{
+        name: "Dove鸽子",
+        fans: "11.6万",
+        lat:22.32 , lng: 114.17,
+        avatar: "https://p2.music.126.net/fsiwSMlx0qQSGRotCvoPsg==/109951169953838295.jpg?param=130y130"
+      },
+{
+        name: "三火flame",
+        fans: "20.6万",
+        lat:39.85 , lng: 116.13,
+        avatar: "https://p1.music.126.net/8s7WIo21RcRsSKH6i-IfGw==/109951165896616063.jpg?param=130y130"
+      },
+ {
+        name: "LSGCsikorot",
+        fans: "13.5万",
+        lat:30.66 , lng: 104.12,
+        avatar: "https://p2.music.126.net/gubm-zDHSIj4aZJwdqiNcQ==/109951171443067525.jpg?param=130y130"
+      },
+ {
+        name: "陈一豪Clear",
+        fans: "21.6万",
+        lat:28.21 , lng: 113.07,
+        avatar: "https://p2.music.126.net/DIqQV4HFB25mMvyA0pZsXA==/109951171387610320.jpg?param=130y130"
+      },
+
+      {
+        name: "揽佬SKAI ISYOURGOD",
+        fans: "39万",
+        lat: 23.11, lng: 114.42,
+        avatar: "https://p2.music.126.net/4OCeH50gC3F91BJeixEocg==/109951168913424214.jpg?param=130y130"
+      },
+      {
+        name: "africakid",
+        fans: "8.1万",
+        lat: 31.47, lng: 104.75,
+        avatar: "https://p1.music.126.net/2blGmwgBreqnt0u5eNNqMQ==/109951172190174474.jpg?param=130y130"
+      },
+      {
+        name: "刀脚",
+        fans: "28.2万",
+        lat: 26.24, lng: 105.84,
+        avatar: "http://p1.music.126.net/nvOeEMcz0uY0yb_385-GTg==/109951171366674260.jpg?param=120y120"
+      },
+      {
+        name: "THOME",
+        fans: "82.4万",
+        lat: 30.42, lng: 104.53,
+        avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130"
+      },
+      {
+        name: "mac ova seas",
+        fans: "68.4万",
+        lat: 31.78, lng: 104.74,
+        avatar:"https://i.scdn.co/image/ab67616d00001e0260f66e711535025cc0228e9c"
+      },
+      {
+        name: "APMOZART",
+        fans: "18.5万",
+        lat: 30.97, lng: 104.28,
+        avatar:"https://p1.music.126.net/q4z50h4GDtKezzuaRje8Gw==/109951172709254200.jpg?param=130y130"
+      },
+      {
+        name: "艾志恒Asen",
+        fans: "135.8万",
+        lat: 29.67, lng: 109.14,
+        avatar: "https://yt3.googleusercontent.com/S9r1G0O8PF-uf4eUZkOj6zabG58MC-skSvDITlcCQRRIW_MWx7Z0GfXWNbCT8uXKKuQbHHnnU3A=s160-c-k-c0x00ffffff-no-rj"
+      }
+    ];
+
+    // 4. 初始化点聚合图层（核心优化：仅严重重叠时聚合，允许小部分重叠）
+    const markers = L.markerClusterGroup({
+      // 自定义聚合簇样式（红色圆形，显示数量）
+      iconCreateFunction: function(cluster) {
+        const count = cluster.getChildCount();
+        return L.divIcon({
+          html: `<div style="background:#ff4444; color:white; border-radius:50%; width:40px; height:40px; line-height:40px; text-align:center; font-weight:bold; font-size:14px;">${count}</div>`,
+          className: 'custom-cluster',
+          iconSize: L.point(40, 40)
+        });
+      },
+      spiderfyOnMaxZoom: true,  // 最大缩放时展开所有重叠点
+      showCoverageOnHover: false, // 悬停不显示覆盖区域
+      // ✅ 核心优化：把聚合半径从50调小到25，仅严重重叠（>50%）时才聚合
+      maxClusterRadius: 10
+    });
+
+    // 5. 批量添加歌手标记到聚合图层
+    singers.forEach(singer => {
+      const icon = L.icon({
+        iconUrl: singer.avatar,
+        iconSize: [50, 50],
+        iconAnchor: [25, 25],
+        popupAnchor: [0, -35]
+      });
+
+      const marker = L.marker([singer.lat, singer.lng], { icon: icon });
+      
+      // 弹窗内容（和你原有样式一致）
+      const popupContent = `
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="${singer.avatar}" 
+               style="width:70px; height:70px; border-radius:50%; object-fit:cover;" 
+               alt="${singer.name}">
+          <div>
+            <div style="font-weight:bold; font-size:18px; margin-bottom:4px;">${singer.name}</div>
+            <div style="color:#555;">粉丝数：${singer.fans}</div>
+          </div>
+        </div>
+      `;
+      marker.bindPopup(popupContent);
+      
+      // 加入聚合图层（而非直接加map）
+      markers.addLayer(marker);
+    });
+
+    // 6. 把聚合图层添加到地图
+    map.addLayer(markers);
+  </script>
+</body>
+</html>
