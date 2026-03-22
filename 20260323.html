@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>中国说唱地图 - 搜索联想定位版</title>
+  <style>
+#notice-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 9999; /* 最高层级 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* 公告内容框 */
+    #notice-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 500px;
+      width: 80%;
+    }
+    /* 公告标题 */
+    #notice-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    /* 公告内容 */
+    #notice-content {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    /* 确定按钮 */
+    #notice-confirm {
+      padding: 10px 30px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+    #notice-confirm:hover {
+      background: #ff2222;
+    }
+    /* 修复1：强制body和html占满屏幕，避免地图容器高度塌陷 */
+    html, body { 
+      margin:0; 
+      padding:0; 
+      height:100vh; 
+      overflow: hidden; /* 防止滚动条干扰 */
+    }
+    /* 修复2：地图容器强制100%高度，加!important确保优先级 */
+    #map { 
+      width:100%; 
+      height:100% !important; 
+      position: relative; 
+      z-index: 1;
+    }
+    .leaflet-popup-content { width:280px !important; padding:10px; }
+    /* 聚合簇样式 */
+    .custom-cluster {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* 头像样式（小圆角） */
+    .singer-avatar-icon {
+      background: transparent !important;
+      border: none !important;
+    }
+    .singer-avatar {
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center;
+      overflow: hidden;
+      display: block;
+    }
+    /* 搜索框+联想列表样式 */
+    #search-container {
+      position: absolute;
+      top: 20px;
+      left: 50px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      flex-direction: column; /* 改为纵向排列，容纳下拉列表 */
+    }
+    #search-input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    #singer-search {
+      width: 280px;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #search-btn {
+      padding: 0 20px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #search-btn:hover {
+      background: #ff2222;
+    }
+    /* ✅ 新增：联想下拉列表样式 */
+    #search-suggestions {
+      width: 280px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: none; /* 默认隐藏 */
+      margin-top: -1px; /* 贴合搜索框 */
+    }
+    .suggestion-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .suggestion-item:hover {
+      background: #f5f5f5; /* hover高亮 */
+    }
+    /* 提示框样式 */
+    #search-tip {
+      position: absolute;
+      top: calc(70px + 200px); /* 避开联想列表 */
+      left: 50px;
+      z-index: 1000;
+      padding: 8px 15px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border-radius: 4px;
+      display: none;
+    }
+    /* ✅ 核心新增：作者信息栏样式 */
+    #author-info {
+      position: absolute;
+      top: 20px;       /* 固定在页面底部 */
+      right: 50px;          /* 水平居中 */
+            z-index: 1000;      /* 层级高于地图 */
+      background: rgba(255, 255, 255, 0.95); /* 半透明白底 */
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 柔和阴影 */
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;    /* 适配小屏幕自动换行 */
+      max-width: 80%;     /* 限制最大宽度 */
+      justify-content: center; /* 内容居中 */
+    }
+    #author-info .info-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #author-info .info-label {
+      font-weight: bold;
+      color: #ff4444; /* 搭配搜索按钮的红色系 */
+    }
+    #author-info a {
+      color: #1677ff;
+      text-decoration: none;
+    }
+    #author-info a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <!-- Leaflet核心 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- 点聚合插件 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+<div id="notice-overlay">
+    <div id="notice-box">
+      <div id="notice-title">欢迎使用中国说唱地图</div>
+      <div id="notice-content">
+        本地图收录了网易云音乐粉丝数大于5万的全国说唱歌手的地理信息，可通过搜索框输入歌手名快速定位并访问网易云主页。<br>
+              </div>
+      <button id="notice-confirm">确认</button>
+    </div>
+  </div>
+  <!-- ✅ 重构搜索容器：新增联想列表 -->
+  <div id="search-container">
+    <div id="search-input-wrap">
+      <input type="text" id="singer-search" placeholder="输入歌手名字搜索（如：GAI周延、马思唯）">
+      <button id="search-btn">搜索定位</button>
+    </div>
+    <!-- 联想下拉列表 -->
+    <div id="search-suggestions"></div>
+  </div>
+  <div id="search-tip"></div>
+
+  <!-- ✅ 核心新增：作者信息栏 -->
+  <div id="author-info">
+    <div class="info-item">
+      <span class="info-label">作者：</span>
+      <span>tehranpain</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">联系方式：</span>
+      <a href="https://www.douyin.com/user/MS4wLjABAAAAx4SFe50OmPZVVjiUKvGIB-Fy-hcCFRRnIfFykRZ7PB8odlA9MuUHqmsTzjzgpS7l?from_tab_name=main">@unopain</a>
+    </div>
+         <div class="info-item">
+      <span class="info-label">更新时间：2026.3.23</span>
+         </div>
+  </div>
+
+  <div id="map"></div>
+  <script>
+    // 修复3：等待DOM完全加载后再初始化地图（避免容器未加载导致空白）
+    document.addEventListener('DOMContentLoaded', function() {
+const noticeOverlay = document.getElementById('notice-overlay');
+      const noticeConfirm = document.getElementById('notice-confirm');
+      
+      // 点击确定隐藏悬浮窗
+      noticeConfirm.addEventListener('click', function() {
+        noticeOverlay.style.display = 'none';
+      });
+      // 1. 地图初始化
+      const map = L.map('map', {
+        maxZoom: 12,  // 核心：最大允许缩放的级别（数值越大，能放大越近）
+        minZoom: 3    // 可选：最小允许缩放的级别（数值越小，能缩小越远）
+      }).setView([35, 105], 5);
+
+      // 2. 高德地图瓦片（修复：增加crossOrigin，避免部分浏览器跨域问题）
+      L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+        subdomains: ['1','2','3','4'],
+        attribution: '© 高德地图',
+        maxZoom: 18,
+        crossOrigin: true // 新增：解决跨域导致瓦片加载失败
+      }).addTo(map);
+
+      // 3. 歌手数据（原有数据不变，省略重复内容）
+      const singers = [
+        // 原有歌手数据（保持不变）
+        {
+          name: "GAI周延",
+          fans: "238万",
+          lat: 29.55, lng: 106.54,
+          avatar: "https://i1.sndcdn.com/artworks-Qlz2GO8QFjaup59u-RWWzmQ-t500x500.jpg",
+          neteaseId: "1211046"
+        },
+        {
+  name: "马思唯",
+  fans: "411.5万",
+  lat: 30.80, lng: 103.89,
+  avatar: "https://packer.streetvoice.cn/wp-content/uploads/2025/10/%E9%A9%AC%E6%80%9D%E5%94%AF_%E8%97%9D%E4%BA%BA%E7%85%A7%E7%89%87.jpg",
+  neteaseId: "1132392"
+},
+{
+  name: "Vansdaddy",
+  fans: "25.7万",
+  lat: 31.10, lng: 105.10,
+  avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130",
+  neteaseId: "35009085"
+},
+{
+  name: "王以太",
+  fans: "179.5万",
+  lat: 30.66, lng: 104.08,
+  avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130",
+  neteaseId: "12236125"
+},
+{
+  name: "连麻Swimming",
+  fans: "86.5万",
+  lat: 30.64, lng: 104.05,
+  avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130",
+  neteaseId: "12064019"
+},
+{
+  name: "JinJiBeWater-隼",
+  fans: "60.3万",
+  lat: 30.60, lng: 104.07,
+  avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180",
+  neteaseId: "13451886"
+},
+{
+  name: "王齐铭WatchMe",
+  fans: "54.5万",
+  lat: 29.03, lng: 106.65,
+  avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130",
+  neteaseId: "12201169"
+},
+{
+  name: "布瑞吉Bridge",
+  fans: "53.3万",
+  lat: 29.53, lng: 106.45,
+  avatar: "https://p2.music.126.net/gXb33bFHyPOdEt0FhtJLjw==/109951170759192266.jpg?param=130y130",
+  neteaseId: "12493701"
+},
+{
+  name: "OneOne",
+  fans: "13.9万",
+  lat: 29.60, lng: 106.55,
+  avatar: "https://p2.music.126.net/8-TosHmJCJOGrL4plEu6XA==/109951169496788289.jpg?param=130y130",
+  neteaseId: "37052069"
+},
+{
+  name: "雾都L4WUDU",
+  fans: "17.5万",
+  lat: 29.51, lng: 106.51,
+  avatar: "https://p1.music.126.net/aHW4oJkgxKkHQ4-7CR0vcg==/109951166009026727.jpg?param=130y130",
+  neteaseId: "12488150"
+},
+{
+  name: "李佳隆",
+  fans: "74.4万",
+  lat: 30.82, lng: 106.10,
+  avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcXnIjjAL2aUuJncM_LDwYt91CxW99SLH61FGM9wmVw_DZEuvUAjJYDIejddzN260kkQisC15UV_qB9X4Pm6BrXkrHFdQVRRQVJBLahYpIpg&s=10",
+  neteaseId: "12079219"
+},
+{
+  name: "AR刘夫阳",
+  fans: "37.2万",
+  lat: 22.99, lng: 113.29,
+  avatar: "https://p1.music.126.net/bgGGRnbZ1pj0AD640qRgog==/109951165525342459.jpg?param=130y130",
+  neteaseId: "12002184"
+},
+{
+  name: "沧桑Cang333",
+  fans: "27.2万",
+  lat: 23.50, lng: 116.62,
+  avatar: "https://p2.music.126.net/BrccP5C5jef1lJ-kNqqbqg==/109951172533132128.jpg?param=130y130",
+  neteaseId: "37058226"
+},
+{
+  name: "极品贵公子",
+  fans: "9.9万",
+  lat: 25.97, lng: 119.38,
+  avatar: "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130",
+  neteaseId: "32719707"
+},
+{
+  name: "Ash-1",
+  fans: "5.2万",
+  lat: 30.66, lng: 104.19,
+  avatar: "https://p2.music.126.net/JdzKZLUiIe9bGzYaKRtxtQ==/109951169996481374.jpg?param=130y130",
+  neteaseId: "12328044"
+},
+{
+  name: "Bsh-1",
+  fans: "5.6万",
+  lat: 30.55, lng: 104.13,
+  avatar: "https://p1.music.126.net/OnLDQOouImfmsbE7sacJ2A==/109951172487517224.jpg?param=130y130",
+  neteaseId: "59801596"
+},
+{
+  name: "康熙",
+  fans: "27.7万",
+  lat: 37.81, lng: 112.58,
+  avatar: "https://p1.music.126.net/dqN2jBLTvuKPAvPLDQyl4A==/109951172649188330.jpg?param=130y130",
+  neteaseId: "12875936"
+},
+{
+  name: "FOX胡天渝",
+  fans: "129.7万",
+  lat: 43.94, lng: 81.27,
+  avatar: "https://p1.music.126.net/u3EX7EVjel9Ec0QC2sIhvg==/109951172561820413.jpg?param=130y130",
+  neteaseId: "1199064"
+},
+{
+  name: "Athree",
+  fans: "33.5万",
+  lat: 44.85, lng: 82.05,
+  avatar: "https://p2.music.126.net/4_QmFLuuquf4bHK5JC7XRA==/109951172702859432.jpg?param=130y130",
+  neteaseId: "1087200"
+},
+{
+  name: "新秀",
+  fans: "33.5万",
+  lat: 25.60, lng: 100.22,
+  avatar: "https://p2.music.126.net/NOjxF7SX_S-gBfyOgtcCBQ==/109951169761411398.jpg?param=130y130",
+  neteaseId: "12357157"
+},
+{
+  name: "杨布拉德",
+  fans: "21.6万",
+  lat: 39.90, lng: 116.50,
+  avatar: "https://p2.music.126.net/N6jCtmQxKndvgbU82Y2BxA==/109951172650128967.jpg?param=130y130",
+  neteaseId: "12923031"
+},
+{
+  name: "Jony J",
+  fans: "368.5万",
+  lat: 26.05, lng: 119.24,
+  avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130",
+  neteaseId: "784257"
+},
+{
+  name: "满舒克",
+  fans: "141.8万",
+  lat: 25.50, lng: 103.80,
+  avatar: "https://p2.music.126.net/ZY6pRcKLqzMNbGTrbWb_6Q==/109951167525919164.jpg?param=130y130",
+  neteaseId: "188141"
+},
+{
+  name: "柴行敏",
+  fans: "9.8万",
+  lat: 34.74, lng: 113.73,
+  avatar: "https://p2.music.126.net/G-daWh5q4xIN5ZR9uz4SYg==/109951170951468699.jpg?param=130y130",
+  neteaseId: "55701379"
+},
+{
+  name: "KnowKnow",
+  fans: "114.9万",
+  lat: 32.05, lng: 118.78,
+  avatar: "https://p2.music.126.net/EI-opdeBAR11phjG14fwbg==/109951172883193186.jpg?param=130y130",
+  neteaseId: "27868624"
+},
+{
+  name: "Ty.",
+  fans: "74.8万",
+  lat: 30.68, lng: 104.06,
+  avatar: "https://p2.music.126.net/bQkoAJSN2mkUmDZDejF_Tg==/109951167060520225.jpg?param=130y130",
+  neteaseId: "1086078"
+},
+{
+  name: "龍胆紫/PurpleSoul",
+  fans: "52.5万",
+  lat: 39.90, lng: 116.26,
+  avatar: "https://p2.music.126.net/yPtHFPYrG3OBnFUI9qgSJA==/109951167535658905.jpg?param=130y130",
+  neteaseId: "777622"
+},
+{
+  name: "delphia!",
+  fans: "5.1万",
+  lat: 22.55, lng: 114.05,
+  avatar: "https://p1.music.126.net/lUZvby1uIMdP5AwpK3_lPQ==/109951172621130052.jpg?param=130y130",
+  neteaseId: "13296078"
+},
+
+{
+  name: "等一下就回家",
+  fans: "45.3万",
+  lat: 30.68, lng: 104.11,
+  avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130",
+  neteaseId: "13027753"
+},
+{
+  name: "刘悦spam-生番",
+  fans: "14.5万",
+  lat: 39.96, lng: 116.26,
+  avatar: "https://p1.music.126.net/dDYxkxN9isY8p7kme2kJHw==/109951165928249224.jpg?param=130y130",
+  neteaseId: "12283512"
+},
+{
+  name: "Saber梁维嘉",
+  fans: "9.9万",
+  lat: 39.94, lng: 116.35,
+  avatar: "https://p2.music.126.net/76OFF1vh7dTDEwO_hAWu8g==/109951163302893776.jpg?param=130y130",
+  neteaseId: "12140048"
+},
+{
+  name: "秃子2z",
+  fans: "6.1万",
+  lat: 40.01, lng: 116.47,
+  avatar: "https://p1.music.126.net/-MSd8AnbpaTV2YGcG9bdHg==/109951170326192120.jpg?param=130y130",
+  neteaseId: "12351071"
+},
+{
+  name: "夏之禹",
+  fans: "25.5万",
+  lat: 32.38, lng: 105.64,
+  avatar: "https://p2.music.126.net/FlUzcyr0r08BkU7RXib7EA==/109951168604876072.jpg?param=130y130",
+  neteaseId: "12206205"
+},
+{
+  name: "Billionhappy",
+  fans: "6.2万",
+  lat: 32.64, lng: 117.01,
+  avatar: "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130",
+  neteaseId: "32501012"
+},
+
+{
+  name: "PSY.P",
+  fans: "55.9万",
+  lat: 30.70, lng: 104.04,
+  avatar: "https://p1.music.126.net/US4CTFKDGExVsHqY0vWzHg==/109951172723960014.jpg?param=130y130",
+  neteaseId: "29303235"
+},
+{
+  name: "Tlatre特雷西",
+  fans: "14.9万",
+  lat: 30.680, lng: 121.02,
+  avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130",
+  neteaseId: "34326822"
+},
+{
+  name: "BOBBYNOPEACE",
+  fans: "41.3万",
+  lat: 30.59, lng: 104.16,
+  avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130",
+  neteaseId: "48277407"
+},
+{
+  name: "谢帝",
+  fans: "91.4万",
+  lat: 30.72, lng: 104.06,
+  avatar: "https://p2.music.126.net/ETplhG5gXynEQoLQkRhHXg==/109951171813624638.jpg?param=130y130",
+  neteaseId: "847107"
+},
+{
+  name: "邓典果DDG",
+  fans: "38.9万",
+  lat: 30.59, lng: 104.00,
+  avatar: "https://p2.music.126.net/GLgV_NbKYJ8fLOUr39Cicg==/109951168477255172.jpg?param=130y130",
+  neteaseId: "12965215"
+},
+{
+  name: "建坤YOUNG",
+  fans: "43.8万",
+  lat: 30.75, lng: 104.08,
+  avatar: "https://p2.music.126.net/VPx1l33WDisBeejsJSYlGg==/109951172355839879.jpg?param=130y130",
+  neteaseId: "12037117"
+},
+{
+  name: "KenRobb",
+  fans: "22.5万",
+  lat: 30.69, lng: 104.15,
+  avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130",
+  neteaseId: "12529780"
+},
+{
+  name: "CashTrippy",
+  fans: "38.6万",
+  lat: 26.87, lng: 100.23,
+  avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130",
+  neteaseId: "33937972"
+},
+ {
+  name: "华云龙KLE",
+  fans: "18.2万",
+  lat: 34.78, lng: 117.29,
+  avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130",
+  neteaseId: "33435403"
+},
+{
+  name: "GALI",
+  fans: "120.8万",
+  lat: 31.23, lng: 121.49,
+  avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130",
+  neteaseId: "12127362"
+},
+{
+  name: "盛宇D-SHINE",
+  fans: "81.5万",
+  lat:28.17 , lng: 113.02,
+  avatar: "https://p2.music.126.net/SUz_YVh0pA9wWmM1CXgdqg==/109951170040821218.jpg?param=130y130",
+  neteaseId: "12605500"
+},
+{
+  name: "泰格西",
+  fans: "33.9万",
+  lat:28.20 , lng: 112.97,
+  avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130",
+  neteaseId: "52410166"
+},
+{
+  name: "Capper",
+  fans: "194.9万",
+  lat:34.29 , lng: 108.85,
+  avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130",
+  neteaseId: "12193174"
+},
+{
+  name: "加木",
+  fans: "130.4万",
+  lat:31.23 , lng: 121.58,
+  avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130",
+  neteaseId: "49320722"
+},
+{
+  name: "MISTERK",
+  fans: "24.6万",
+  lat:39.86 , lng: 116.48,
+  avatar: "https://p1.music.126.net/UnxqtJlc2dfN4ozg9F3ywg==/109951172030852354.jpg?param=130y130",
+  neteaseId: "12256230"
+},
+{
+  name: "河北吴孟达",
+  fans: "9.5万",
+  lat:38.04 , lng: 114.52,
+  avatar: "https://p2.music.126.net/8PK5wiTX1_fq3FpinOxY9A==/109951172912077612.jpg?param=130y130",
+  neteaseId: "12874853"
+},
+{
+  name: "陆政廷Lil Jet",
+  fans: "50.4万",
+  lat:22.54 , lng: 113.92,
+  avatar: "https://p2.music.126.net/tNdm9jZBtTHU-e0GMfwMhA==/109951169878856049.jpg?param=130y130",
+  neteaseId: "12079066"
+},
+{
+  name: "Akemen杀",
+  fans: "5.2万",
+  lat:26.41 , lng: 106.26,
+  avatar: "https://p1.music.126.net/4PcUwu3shtN-8GEXho2JxA==/109951172160176237.jpg?param=130y130",
+  neteaseId: "46549449"
+},
+{
+  name: "Uzzy",
+  fans: "8.1万",
+  lat:30.65 , lng: 107.76,
+  avatar: "https://p1.music.126.net/S8wLPRtqkCKHKxCaFiuuHQ==/109951172563300735.jpg?param=130y130",
+  neteaseId: "46921476"
+},
+{
+  name: "Buzzy",
+  fans: "28.8万",
+  lat:36.10 , lng: 120.38,
+  avatar: "https://p1.music.126.net/9qyHwucenC3kPA8o6nDDaA==/109951172516510534.jpg?param=130y130",
+  neteaseId: "12094558"
+},
+{
+  name: "JarStick",
+  fans: "16.6万",
+  lat:30.66 , lng: 103.99,
+  avatar: "https://p1.music.126.net/7cnJuPIYV1IWb9Jy0745Sw==/109951172356221390.jpg?param=130y130",
+  neteaseId: "12092433"
+},
+{
+  name: "小精灵",
+  fans: "52.9万",
+  lat:30.75 , lng: 120.73,
+  avatar: "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130",
+  neteaseId: "12287129"
+},
+{
+  name: "AnsrJ",
+  fans: "23.9万",
+  lat:30.58 , lng: 103.92,
+  avatar: "https://p1.music.126.net/OhJ2CMXKkWrMkBzPeBbQJA==/109951170478869875.jpg?param=130y130",
+  neteaseId: "12288442"
+},
+{
+  name: "卡力老虎",
+  fans: "6.3万",
+  lat:34.14 , lng: 108.92,
+  avatar: "https://p2.music.126.net/RIqghpRI_CDMZ6KVF0xRyg==/109951170610656025.jpg?param=130y130",
+  neteaseId: "12205952"
+},
+{
+  name: "CREAM D",
+  fans: "10.9万",
+  lat:34.35 , lng: 108.94,
+  avatar: "https://p2.music.126.net/FqRK5XNtIGzmi9fRpYjbFQ==/109951172185260359.jpg?param=130y130",
+  neteaseId: "12193309"
+},
+{
+  name: "TOYOKI",
+  fans: "18.2万",
+  lat:27.93 , lng: 102.21,
+  avatar: "https://p2.music.126.net/uCUO4NWfyVJPVDE5gL9iUw==/109951172417530406.jpg?param=130y130",
+  neteaseId: "12730273"
+},
+{
+  name: "黄格雷",
+  fans: "6.1万",
+  lat:30.94 , lng: 118.70,
+  avatar: "https://p2.music.126.net/C5oqYjjh9xV1IbgUtDcjEg==/109951172320368295.jpg?param=130y130",
+  neteaseId: "14116746"
+},
+{
+  name: "Lil Asian",
+  fans: "13万",
+  lat:29.52 , lng: 106.60,
+  avatar: "https://p2.music.126.net/X7u05eURHRUPDJ9Osf2TRQ==/109951172325962977.jpg?param=130y130",
+  neteaseId: "49406467"
+},
+{
+  name: "吉他张",
+  fans: "6.1万",
+  lat:37.45 , lng: 116.35,
+  avatar: "https://p2.music.126.net/ZjYV7eDNdai9QHQ96vq0aA==/109951172729872445.jpg?param=130y130",
+  neteaseId: "30443363"
+},
+{
+  name: "李文",
+  fans: "5.2万",
+  lat:31.40 , lng: 104.79,
+  avatar: "https://p2.music.126.net/7fycpDNdEe7Pjyvdm0NTYg==/109951168843714017.jpg?param=130y130",
+  neteaseId: "34279756"
+},
+{
+  name: "KITO",
+  fans: "13.5万",
+  lat:31.47 , lng: 104.75,
+  avatar: "https://p1.music.126.net/flBgn1xDJw81mSqQt4fmdQ==/109951172831654858.jpg?param=130y130",
+  neteaseId: "32931336"
+},
+{
+  name: "Wings",
+  fans: "13.4万",
+  lat:32.27 , lng: 100.98,
+  avatar: "https://p1.music.126.net/TktecPBK4WNO5fGE2OnPSA==/109951170076389893.jpg?param=130y130",
+  neteaseId: "27872031"
+},
+{
+  name: "NINEONE#乃万",
+  fans: "247.5万",
+  lat:34.29 , lng: 109.01,
+  avatar: "https://p2.music.126.net/IOKcH64pITl0kow2gZ0RSQ==/109951171845583865.jpg?param=130y130",
+  neteaseId: "12276375"
+},
+{
+  name: "蛋堡",
+  fans: "104.2万",
+  lat:23.00 , lng: 120.21,
+  avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130",
+  neteaseId: "2514"
+},
+{
+  name: "派克特",
+  fans: "37.2万",
+  lat:34.22 , lng: 108.95,
+  avatar: "https://p2.music.126.net/SxsbX2OTJ4k5-7LJAdgbjg==/109951168995763263.jpg?param=130y130",
+  neteaseId: "12119618"
+},
+{
+  name: "Echo",
+  fans: "9.1万",
+  lat:36.60 , lng: 109.49,
+  avatar: "https://p2.music.126.net/50XHCnog_Bs8FgLDKhP5AQ==/109951172845782919.jpg?param=130y130",
+  neteaseId: "15200313"
+},
+{
+  name: "辉子",
+  fans: "24.9万",
+  lat:39.97 , lng: 116.41,
+  avatar: "https://p1.music.126.net/AZWbY97aMsFvP1Z2uqxt-w==/109951171482252319.jpg?param=130y130",
+  neteaseId: "12371082"
+},
+{
+  name: "V.O.B",
+  fans: "8.9万",
+  lat:39.10 , lng: 117.23,
+  avatar: "https://p1.music.126.net/55oxw3F_yj5U1QP2UVfziA==/109951163094545924.jpg?param=130y130",
+  neteaseId: "13005039"
+},
+{
+  name: "MC HotDog热狗",
+  fans: "64.5万",
+  lat:25.04 , lng: 121.49,
+  avatar: "https://p2.music.126.net/5ViEXoj1xti2RzahxIMzZQ==/109951169161434274.jpg?param=130y130",
+  neteaseId: "4479"
+},
+{
+  name: "瘦子E.SO",
+  fans: "43.1万",
+  lat:25.05 , lng: 121.57,
+  avatar: "https://p1.music.126.net/H0MlYW2rj5B7hlZBFwGalA==/109951166783173717.jpg?param=130y130",
+  neteaseId: "33012152"
+},
+{
+  name: "万妮达Vinida Weng",
+  fans: "146.6万",
+  lat:26.07 , lng: 119.32,
+  avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130",
+  neteaseId: "12001060"
+},
+{
+  name: "李大奔BENZO",
+  fans: "42.7万",
+  lat:30.34 , lng: 112.23,
+  avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130",
+  neteaseId: "12277473"
+},
+{
+  name: "功夫胖KUNGFU-PEN",
+  fans: "57.3万",
+  lat:28.26 , lng: 113.04,
+  avatar: "https://p1.music.126.net/ANXf31eNT7NTmY4_OWesxQ==/109951172802605277.jpg?param=130y130",
+  neteaseId: "12453329"
+},
+{
+  name: "姜云升",
+  fans: "371.9万",
+  lat:25.03 , lng: 102.71,
+  avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130",
+  neteaseId: "1198123"
+},
+{
+  name: "翁杰Winjay",
+  fans: "18.2万",
+  lat:25.44 , lng: 119.02,
+  avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130",
+  neteaseId: "35884195"
+},
+{
+  name: "kkluv",
+  fans: "96.5万",
+  lat:41.73 , lng: 86.17,
+  avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130",
+  neteaseId: "28642672"
+},
+{
+  name: "那奇沃夫",
+  fans: "95万",
+  lat:43.79 , lng: 87.61,
+  avatar: "https://p2.music.126.net/jRRnJKg9cNoavwSZNgZe6w==/109951172840846010.jpg?param=130y130",
+  neteaseId: "12570417"
+},
+{
+  name: "艾热AIR",
+  fans: "125.5万",
+  lat:39.46 , lng: 76.01,
+  avatar: "https://p2.music.126.net/tvy9BeZWZhqKfYKLHsSf-w==/109951172651091852.jpg?param=130y130",
+  neteaseId: "1203045"
+},
+{
+  name: "SHarK",
+  fans: "38万",
+  lat:43.86 , lng: 87.57,
+  avatar: "https://p2.music.126.net/_SbAJ1mLT0b92eRtxP1s5Q==/109951168822352373.jpg?param=130y130",
+  neteaseId: "12853605"
+},
+{
+  name: "艾福杰尼",
+  fans: "73万",
+  lat:41.82 , lng: 86.12,
+  avatar: "https://p1.music.126.net/sRT4-AH1RpaeGxBI8G_8_g==/109951169446600145.jpg?param=130y130",
+  neteaseId: "12127564"
+},
+{
+  name: "黄旭",
+  fans: "41.2万",
+  lat:41.17 , lng: 80.26,
+  avatar: "https://p1.music.126.net/kFaBU5KM9ISr1wEK2ZknPg==/109951170960599381.jpg?param=130y130",
+  neteaseId: "12065096"
+},
+{
+  name: "KIV",
+  fans: "16.6万",
+  lat:22.27 , lng: 113.55,
+  avatar: "https://p2.music.126.net/L2IegKgopP9WLDpepkHQqA==/109951170020234818.jpg?param=130y130",
+  neteaseId: "12529648"
+},
+{
+  name: "SASIOVERLXRD",
+  fans: "71.8万",
+  lat:27.88 , lng: 102.26,
+  avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130",
+  neteaseId: "14117457"
+},
+{
+  name: "RICHNOMADIC",
+  fans: "37.9万",
+  lat:34.98 , lng: 102.91,
+  avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130",
+  neteaseId: "33165901"
+},
+{
+  name: "法老",
+  fans: "507.3万",
+  lat:30.51 , lng: 120.68,
+  avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130",
+  neteaseId: "865007"
+},
+{
+  name: "罗言",
+  fans: "131.5万",
+  lat:30.95 , lng: 118.77,
+  avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130",
+  neteaseId: "33863232"
+},
+{
+  name: "ljz329",
+  fans: "134.6万",
+  lat:36.05 , lng: 103.85,
+  avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130",
+  neteaseId: "51957057"
+},
+{
+  name: "Top Barry",
+  fans: "73万",
+  lat:22.22 , lng: 113.54,
+  avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130",
+  neteaseId: "49141872"
+},
+{
+  name: "Rapeter",
+  fans: "94.3万",
+  lat:34.60 , lng: 119.18,
+  avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130",
+  neteaseId: "12563131"
+},
+{
+  name: "黄之仪Kyra Zilver",
+  fans: "21.4万",
+  lat:28.22 , lng: 112.90,
+  avatar: "https://p1.music.126.net/Kt4hURY-UJnI0n_tImpp4g==/109951172156904216.jpg?param=130y130",
+  neteaseId: "14018235"
+},
+{
+  name: "TizzyT",
+  fans: "146.6万",
+  lat:23.66 , lng: 116.64,
+  avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130",
+  neteaseId: "1204010"
+},
+{
+  name: "KEY.L刘聪",
+  fans: "175.7万",
+  lat:26.89 , lng: 112.57,
+  avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130",
+  neteaseId: "12788674"
+},
+{
+  name: "西奥Sio",
+  fans: "27.3万",
+  lat:28.27 , lng: 112.95,
+  avatar: "https://p2.music.126.net/vtAUZdKjRkWWwDgSzSLoLg==/109951172184985568.jpg?param=130y130",
+  neteaseId: "1124093"
+},
+{
+  name: "Yee",
+  fans: "35.9万",
+  lat:28.12 , lng: 112.97,
+  avatar: "https://p2.music.126.net/M9S2kc_qzOV5wrUS147l3A==/109951170351901193.jpg?param=130y130",
+  neteaseId: "1050364"
+},
+{
+  name: "张方钊",
+  fans: "70.4万",
+  lat:35.23 , lng: 113.24,
+  avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130",
+  neteaseId: "15194340"
+},
+{
+  name: "FAC-D12",
+  fans: "15.8万",
+  lat:40.00 , lng: 116.31,
+  avatar: "https://p1.music.126.net/asMnnEfpHtAsPfpO6iyGgQ==/109951167535654794.jpg?param=130y130",
+  neteaseId: "29939584"
+},
+{
+  name: "九维",
+  fans: "9.6万",
+  lat:39.86 , lng: 116.37,
+  avatar: "https://p1.music.126.net/z_Szseyygn-4sB39tdZBYg==/109951168865533356.jpg?param=130y130",
+  neteaseId: "13449058"
+},
+{
+  name: "马赫mood",
+  fans: "18.4万",
+  lat:43.92 , lng: 87.64,
+  avatar: "https://p2.music.126.net/MCbhLo3_BbuPyJV157tELg==/109951170501527607.jpg?param=130y130",
+  neteaseId: "13699781"
+},
+{
+  name: "那吾克热-NW",
+  fans: "48.9万",
+  lat:43.85 , lng: 87.47,
+  avatar: "https://p2.music.126.net/-ryEwzRd91j2r4klXxLEkg==/109951163755423571.jpg?param=130y130",
+  neteaseId: "12514278"
+},
+{
+  name: "Cee",
+  fans: "9.4万",
+  lat:31.29 , lng: 121.51,
+  avatar: "https://p1.music.126.net/v34s-BAFAA3WU9F9YblAJw==/109951165846853790.jpg?param=130y130",
+  neteaseId: "31055"
+},
+{
+  name: "宝石Gem",
+  fans: "101.8万",
+  lat:43.88 , lng: 125.33,
+  avatar: "https://p1.music.126.net/cuxYBa8_n97yinJI22Sd4A==/109951172840033492.jpg?param=130y130",
+  neteaseId: "12084497"
+},
+{
+  name: "杨和苏KeyNG",
+  fans: "188.6万",
+  lat:30.53 , lng: 104.06,
+  avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130",
+  neteaseId: "13899303"
+},
+{
+  name: "李毅杰PISSY",
+  fans: "22.8万",
+  lat:30.56 , lng: 104.00,
+  avatar: "https://p2.music.126.net/xj10cS2UwvfWTc5Wx6LXLg==/109951169649092185.jpg?param=130y130",
+  neteaseId: "12851112"
+},
+{
+  name: "VaVa娃娃",
+  fans: "47.4万",
+  lat:30.01 , lng: 103.05,
+  avatar: "https://p2.music.126.net/YJZxNpdv_jMYRbqdvj2X7Q==/109951170132794446.jpg?param=130y130",
+  neteaseId: "12851112"
+},
+{
+  name: "KKECHO",
+  fans: "68.4万",
+  lat:29.56 , lng: 103.76,
+  avatar: "https://p2.music.126.net/LaYKY3KFwO0JM6dRjVvjXw==/109951172012057555.jpg?param=130y130",
+  neteaseId: "50275485"
+},
+{
+  name: "YOUNG13DBABY",
+  fans: "15.8万",
+  lat:34.00 , lng: 102.07,
+  avatar: "https://p2.music.126.net/jq8Q4ANwLZDiFfQWUjG_EQ==/109951169764760151.jpg?param=130y130",
+  neteaseId: "12195296"
+},
+{
+  name: "Vinz-T",
+  fans: "29.3万",
+  lat:21.87 , lng: 111.97,
+  avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130",
+  neteaseId: "12371041"
+},
+{
+  name: "Udigg",
+  fans: "6.5万",
+  lat:29.31 , lng: 120.07,
+  avatar: "https://p2.music.126.net/YFFmyh60Eg7_C9YDklPh7Q==/109951172813365206.jpg?param=130y130",
+  neteaseId: "12371041"
+},
+{
+  name: "Ice Paper",
+  fans: "142.3万",
+  lat:33.59 , lng: 119.07,
+  avatar: "https://p1.music.126.net/fzWDTckJqRqApWSYxUzKzA==/109951171972222899.jpg?param=130y130",
+  neteaseId: "12121264"
+},
+{
+  name: "ICE杨长青",
+  fans: "67万",
+  lat:26.58 , lng: 101.73,
+  avatar: "https://p2.music.126.net/7V-tVve07mAeHhoN6HGhVw==/109951171484108629.jpg?param=130y130",
+  neteaseId: "13145283"
+},
+{
+  name: "Dove鸽子",
+  fans: "11.6万",
+  lat:22.32 , lng: 114.17,
+  avatar: "https://p2.music.126.net/fsiwSMlx0qQSGRotCvoPsg==/109951169953838295.jpg?param=130y130",
+  neteaseId: "36458527"
+},
+{
+  name: "Nxmad诺曼德",
+  fans: "12万",
+  lat:31.14 , lng: 121.37,
+  avatar: "https://p1.music.126.net/yEWHkJ6YlF-YoUJrqsyfhw==/109951170702569040.jpg?param=130y130",
+  neteaseId: "12484112"
+},
+{
+  name: "三火flame",
+  fans: "20.6万",
+  lat:39.85 , lng: 116.13,
+  avatar: "https://p1.music.126.net/8s7WIo21RcRsSKH6i-IfGw==/109951165896616063.jpg?param=130y130",
+  neteaseId: "36458527"
+},
+{
+  name: "Wiz-H张子豪",
+  fans: "89.7万",
+  lat:41.80 , lng: 123.38,
+  avatar: "https://p1.music.126.net/6NW4JkNt9b73P2nZkkg9kA==/109951172528960503.jpg?param=130y130",
+  neteaseId: "13112601"
+},
+{
+  name: "贰万",
+  fans: "15.9万",
+  lat:31.92 , lng: 118.83,
+  avatar: "https://p2.music.126.net/_KQCrXsw10VXClSU4xJMBw==/109951165909439596.jpg?param=130y130",
+  neteaseId: "47607639"
+},
+{
+  name: "高天佐",
+  fans: "31.2万",
+  lat:32.01 , lng: 118.70,
+  avatar: "https://p1.music.126.net/y-3qwEWtftd17tbfZiAUWA==/109951170513898827.jpg?param=130y130",
+  neteaseId: "12236269"
+},
+{
+  name: "Mc光光",
+  fans: "36.1万",
+  lat:32.11 , lng: 118.75,
+  avatar: "https://p1.music.126.net/Ea8tEJTJlzBGllUF1nlEtw==/109951162834005503.jpg?param=130y130",
+  neteaseId: "187903"
+},
+{
+  name: "威尔Will.T",
+  fans: "10.3万",
+  lat:30.46 , lng: 106.64,
+  avatar: "https://p1.music.126.net/ZdUveKZYx-PxuG3tj2OmjA==/109951169600104722.jpg?param=130y130",
+  neteaseId: "12126217"
+},
+{
+  name: "亚细亚旷世奇才",
+  fans: "30.7万",
+  lat:43.96 , lng: 125.32,
+  avatar: "https://p2.music.126.net/EAEY23oC3P1KmDHS_ECLbQ==/109951170940380855.jpg?param=130y130",
+  neteaseId: "51497522"
+},
+{
+  name: "LEGGO",
+  fans: "7.6万",
+  lat:30.26 , lng: 120.30,
+  avatar: "https://p2.music.126.net/LX_A8Kvvwy1_GICjbG4DXA==/109951172150251056.jpg?param=130y130",
+  neteaseId: "12293217"
+},
+
+{
+  name: "侃迪Kandi",
+  fans: "12.2万",
+  lat:31.84 , lng: 117.29,
+  avatar: "https://p2.music.126.net/yShaTSqYDvOqyWwF2c7cVQ==/109951171877291682.jpg?param=130y130",
+  neteaseId: "29265708"
+},
+{
+  name: "R!R!Riot",
+  fans: "5.5万",
+  lat:23.12 , lng: 113.28,
+  avatar: "https://p2.music.126.net/uiTqDBpy8hd2QEz_FcAlmw==/109951168832195379.jpg?param=130y130",
+  neteaseId: "56724807"
+},
+{
+  name: "Melo",
+  fans: "29.5万",
+  lat:30.71 , lng: 104.13,
+  avatar: "https://p1.music.126.net/9TUllG_Qh7ydEkftNLu_iQ==/109951172799508261.jpg?param=130y130",
+  neteaseId: "29304235"
+},
+{
+  name: "李尔新",
+  fans: "16.6万",
+  lat:30.65 , lng: 103.94,
+  avatar: "https://p1.music.126.net/ZAsJPxAv4axhbWVkj4UEZA==/109951171722169442.jpg?param=130y130",
+  neteaseId: "12039173"
+},
+
+{
+  name: "大D(DLyn)",
+  fans: "12.3万",
+  lat:22.98 , lng: 114.72,
+  avatar: "https://p2.music.126.net/_TYZTsB3MTgrsQMW04QQCQ==/109951169533774856.jpg?param=130y130",
+  neteaseId: "12114249"
+},
+{
+  name: "早安",
+  fans: "51万",
+  lat:32.12 , lng: 118.82,
+  avatar: "https://p1.music.126.net/1FjjEMiQ3z2rlnA6-zHLbQ==/109951169230628256.jpg?param=130y130",
+  neteaseId: "47192128"
+},
+{
+  name: "Mengzi",
+  fans: "14.8万",
+  lat:30.72 , lng: 103.99,
+  avatar: "https://p1.music.126.net/aaqvlDgKID6Nh1VdeDD5-Q==/109951164054171642.jpg?param=130y130",
+  neteaseId: "31917276"
+},
+{
+  name: "LSGCsikorot",
+  fans: "13.5万",
+  lat:30.66 , lng: 104.12,
+  avatar: "https://p2.music.126.net/gubm-zDHSIj4aZJwdqiNcQ==/109951171443067525.jpg?param=130y130",
+  neteaseId: "33097968"
+},
+{
+  name: "陈一豪Clear",
+  fans: "21.6万",
+  lat:28.21 , lng: 113.07,
+  avatar: "https://p2.music.126.net/DIqQV4HFB25mMvyA0pZsXA==/109951171387610320.jpg?param=130y130",
+  neteaseId: "32893629"
+},
+{
+  name: "弹壳Danko",
+  fans: "57.7万",
+  lat:23.37 , lng: 116.72,
+  avatar: "https://p2.music.126.net/kGMEpzoDPSNcYwlNY1cTgg==/109951165107163086.jpg?param=130y130",
+  neteaseId: "35784564"
+},
+{
+  name: "揽佬SKAI ISYOURGOD",
+  fans: "39万",
+  lat: 23.11, lng: 114.42,
+  avatar: "https://p2.music.126.net/4OCeH50gC3F91BJeixEocg==/109951168913424214.jpg?param=130y130",
+  neteaseId: "31055231"
+},
+{
+  name: "africakid",
+  fans: "8.1万",
+  lat: 31.74, lng: 104.72,
+  avatar: "https://p1.music.126.net/2blGmwgBreqnt0u5eNNqMQ==/109951172190174474.jpg?param=130y130",
+  neteaseId: "37409740"
+},
+{
+  name: "刀脚",
+  fans: "28.2万",
+  lat: 26.24, lng: 105.84,
+  avatar: "http://p1.music.126.net/nvOeEMcz0uY0yb_385-GTg==/109951171366674260.jpg?param=120y120",
+  neteaseId: "54247662"
+},
+{
+  name: "THOME",
+  fans: "82.4万",
+  lat: 30.42, lng: 104.53,
+  avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130",
+  neteaseId: "12110173"
+},
+{
+  name: "mac ova seas",
+  fans: "68.4万",
+  lat: 31.78, lng: 104.74,
+  avatar:"https://i.scdn.co/image/ab67616d00001e0260f66e711535025cc0228e9c",
+  neteaseId: "30704161"
+},
+{
+  name: "APMOZART",
+  fans: "18.5万",
+  lat: 30.97, lng: 104.28,
+  avatar:"https://p1.music.126.net/q4z50h4GDtKezzuaRje8Gw==/109951172709254200.jpg?param=130y130",
+  neteaseId: "48045511"
+},
+
+        {
+          name: "艾志恒Asen",
+          fans: "135.8万",
+          lat: 29.67, lng: 109.14,
+          avatar: "https://yt3.googleusercontent.com/S9r1G0O8PF-uf4eUZkOj6zabG58MC-skSvDITlcCQRRIW_MWx7Z0GfXWNbCT8uXKKuQbHHnnU3A=s160-c-k-c0x00ffffff-no-rj",
+          neteaseId: "12198387"
+        }
+      ];
+
+      // 4. 点聚合图层（原有逻辑不变）
+      const markers = L.markerClusterGroup({
+        iconCreateFunction: function(cluster) {
+          const count = cluster.getChildCount();
+          return L.divIcon({
+            html: `<div style="background:#ff4444; color:white; border-radius:50%; width:40px; height:40px; line-height:40px; text-align:center; font-weight:bold; font-size:14px;">${count}</div>`,
+            className: 'custom-cluster',
+            iconSize: L.point(40, 40)
+          });
+        },
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        maxClusterRadius: 10
+      });
+
+      // 5. 批量添加标记 + 存储映射（原有逻辑不变）
+      const singerMarkerMap = {}; 
+      const singerNameList = []; // 存储所有歌手名（用于联想）
+      singers.forEach(singer => {
+        const icon = L.divIcon({
+          className: 'singer-avatar-icon',
+          html: `<img src="${singer.avatar}" class="singer-avatar" style="width:50px; height:50px;">`,
+          iconSize: [50, 50],
+          iconAnchor: [25, 25],
+          popupAnchor: [0, -35]
+        });
+
+        const marker = L.marker([singer.lat, singer.lng], { icon: icon });
+        const popupContent = `
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="${singer.avatar}" 
+                 class="singer-avatar" 
+                 style="width:70px; height:70px;" 
+                 alt="${singer.name}">
+            <div>
+              <div style="font-weight:bold; font-size:18px; margin-bottom:4px; color:#1677ff; cursor:pointer;" 
+                   onclick="window.open('https://music.163.com/#/artist?id=${singer.neteaseId}', '_blank')">
+                ${singer.name}
+              </div>
+              <div style="color:#555;">粉丝数：${singer.fans}</div>
+            </div>
+          </div>
+        `;
+        marker.bindPopup(popupContent);
+        markers.addLayer(marker);
+
+        // 存储映射和名字列表
+        const lowerName = singer.name.toLowerCase();
+        singerMarkerMap[lowerName] = marker;
+        singerNameList.push({
+          raw: singer.name, // 原始名字（用于显示）
+          lower: lowerName  // 小写名字（用于匹配）
+        });
+      });
+
+      map.addLayer(markers);
+
+      // 6. 搜索+联想核心逻辑（原有逻辑不变）
+      const searchInput = document.getElementById('singer-search');
+      const searchBtn = document.getElementById('search-btn');
+      const searchTip = document.getElementById('search-tip');
+      const suggestionsBox = document.getElementById('search-suggestions');
+
+      // 显示提示函数
+      function showTip(text, isError = false) {
+        searchTip.textContent = text;
+        searchTip.style.display = 'block';
+        searchTip.style.background = isError ? 'rgba(255,68,68,0.8)' : 'rgba(0,0,0,0.7)';
+        setTimeout(() => {
+          searchTip.style.display = 'none';
+        }, 3000);
+      }
+
+      // ✅ 核心1：生成联想列表
+      function renderSuggestions(keyword) {
+        if (!keyword) {
+          suggestionsBox.style.display = 'none';
+          return;
+        }
+        // 模糊匹配歌手名
+        const matched = singerNameList.filter(item => 
+          item.lower.includes(keyword.toLowerCase())
+        );
+        if (matched.length === 0) {
+          suggestionsBox.style.display = 'none';
+          return;
+        }
+        // 渲染联想项
+        suggestionsBox.innerHTML = matched.map(item => 
+          `<div class="suggestion-item" data-name="${item.lower}">${item.raw}</div>`
+        ).join('');
+        suggestionsBox.style.display = 'block';
+        
+        // 给每个联想项绑定点击事件
+        document.querySelectorAll('.suggestion-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const singerLowerName = item.dataset.name;
+            // 填充搜索框 + 定位
+            searchInput.value = singerNameList.find(i => i.lower === singerLowerName).raw;
+            suggestionsBox.style.display = 'none';
+            locateSinger(singerLowerName);
+          });
+        });
+      }
+
+      // ✅ 核心2：定位歌手（抽离成独立函数）
+      function locateSinger(singerLowerName) {
+        const targetMarker = singerMarkerMap[singerLowerName];
+        if (targetMarker) {
+          map.flyTo(targetMarker.getLatLng(), 12, { duration: 1.5 });
+          targetMarker.openPopup();
+          showTip(`已定位到：${singerNameList.find(i => i.lower === singerLowerName).raw}`);
+        } else {
+          showTip(`未找到该歌手`, true);
+        }
+      }
+
+      // ✅ 核心3：搜索定位（复用定位函数）
+      function searchAndLocate() {
+        const keyword = searchInput.value.trim().toLowerCase();
+        if (!keyword) {
+          showTip('请输入歌手名字！', true);
+          return;
+        }
+        // 模糊匹配第一个结果
+        const matched = singerNameList.find(item => item.lower.includes(keyword));
+        if (matched) {
+          locateSinger(matched.lower);
+        } else {
+          showTip(`未找到歌手「${searchInput.value}」`, true);
+        }
+      }
+
+      // 绑定事件
+      // 1. 输入实时触发联想
+      searchInput.addEventListener('input', (e) => {
+        renderSuggestions(e.target.value.trim());
+      });
+      // 2. 点击搜索按钮
+      searchBtn.addEventListener('click', searchAndLocate);
+      // 3. 回车搜索
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          suggestionsBox.style.display = 'none';
+          searchAndLocate();
+        }
+      });
+      // 4. 点击页面空白处隐藏联想列表
+      document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+          suggestionsBox.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
