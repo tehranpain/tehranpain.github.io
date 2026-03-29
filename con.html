@@ -367,8 +367,7 @@
   </div>
 
   <div id="map"></div>
-
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
       // 公告弹窗逻辑
       const noticeOverlay = document.getElementById('notice-overlay');
@@ -413,10 +412,10 @@
         crossOrigin: true
       }).addTo(map);
 
-      // 3. 歌手数据（★★★ 请在此粘贴你的歌手数据 ★★★）
+      // 3. 歌手数据
       const singers = [
-        // ------------ 粘贴歌手数据开始 ------------
-{
+        // 你的歌手数据保持不变...
+       {
           name: "GAI周延",
           fans: "238万",
           lat: 29.55, lng: 106.54,
@@ -1549,10 +1548,11 @@
           avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130",
           neteaseId: "12198387"
         }
+
       ];
-      // 4. 厂牌数据（★★★ 请在此粘贴你的厂牌数据 ★★★）
+
+      // 4. 厂牌数据
       const labels = [
-        // ------------ 粘贴厂牌数据开始 ------------
         {
     name: "成都集团",
     fans: "厂牌", // 厂牌无粉丝数，用标识替代
@@ -1765,9 +1765,10 @@ members: ["Vansdaddy", "Kito", "Monovisa", "李文","叶轩池"]
     type: "label",
 members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","SIMBA辛巴","刘柄鑫","GIF7ED","Dirty Twinz","井剑歌"]
   }
+
       ];
 
-      // 5. 合并歌手+厂牌数据（给歌手补充type字段）
+      // 5. 合并歌手+厂牌数据
       const allData = [
         ...singers.map(item => ({...item, type: "singer"})), 
         ...labels
@@ -1789,29 +1790,25 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
       });
       map.addLayer(markerClusterGroup);
 
-      // 7. 搜索联想所需的映射
-      let singerMarkerMap = {}; 
-      let singerNameList = [];
+      // 7. 搜索联想所需的映射（同时支持歌手和厂牌）
+      let searchMarkerMap = {};
+      let searchNameList = [];
 
       // 8. 封装渲染标记的函数（支持筛选）
       function renderMarkers(filterType = "all") {
-        // 清空原有标记和映射
         markerClusterGroup.clearLayers();
-        singerMarkerMap = {};
-        singerNameList.length = 0;
+        searchMarkerMap = {};
+        searchNameList = [];
 
-        // 筛选数据
         const filteredData = allData.filter(item => {
           if (filterType === "all") return true;
           return item.type === filterType;
         });
 
-        // 遍历创建标记
         filteredData.forEach(item => {
-          // 统一图标样式
           const icon = L.divIcon({
             className: 'singer-avatar-icon',
-            html: `<img src="${item.avatar}" class="singer-avatar" style="width:50px; height:50px;">`,
+            html: `<img src="${item.avatar}" class="singer-avatar" style="width:50px; height:50px; border-radius:8px;">`,
             iconSize: [50, 50],
             iconAnchor: [25, 25],
             popupAnchor: [0, -35]
@@ -1819,55 +1816,43 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
 
           const marker = L.marker([item.lat, item.lng], { icon: icon });
           
-          // 区分歌手/厂牌弹窗
           let popupContent = "";
           if (item.type === "label") {
-            // 厂牌弹窗
             popupContent = `
-  <div style="text-align:center; padding:10px; min-width:200px;">
-    <img src="${item.avatar}" style="width:70px; height:70px; border-radius:8px; margin-bottom:8px;" alt="${item.name}">
-    <div style="font-weight:bold; font-size:18px; color:#ff4444;">${item.name}</div>
-    <div style="color:#555; margin:4px 0 8px;">类型：说唱厂牌/组合</div>
-    <!-- ✅ 自动渲染成员列表 -->
-    <div style="border-top:1px solid #eee; padding-top:8px; text-align:left;">
-      <div style="font-weight:bold; color:#333; margin-bottom:5px;"> 成员：</div>
-      <div style="color:#666; line-height:1.5;">
-        ${item.members.join('  ')}
-      </div>
-    </div>
+<div style="text-align:center; padding:10px; min-width:200px;">
+  <img src="${item.avatar}" style="width:70px; height:70px; border-radius:8px; margin-bottom:8px;">
+  <div style="font-weight:bold; font-size:18px; color:#ff4444;">${item.name}</div>
+  <div style="color:#555; margin:4px 0 8px;">类型：说唱厂牌/组合</div>
+  <div style="border-top:1px solid #eee; padding-top:8px; text-align:left;">
+    <div style="font-weight:bold; color:#333; margin-bottom:5px;">成员：</div>
+    <div style="color:#666; line-height:1.5;">${item.members ? item.members.join('  ') : '暂无成员信息'}</div>
   </div>
-`;
+</div>`;
           } else {
-            // 歌手弹窗
             popupContent = `
-              <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${item.avatar}" 
-                     class="singer-avatar" 
-                     style="width:70px; height:70px;" 
-                     alt="${item.name}">
-                <div>
-                  <div style="font-weight:bold; font-size:18px; margin-bottom:4px; color:#1677ff; cursor:pointer;" 
-                       onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
-                    ${item.name}
-                  </div>
-                  <div style="color:#555;">粉丝数：${item.fans}</div>
-                </div>
-              </div>
-            `;
+<div style="display:flex; align-items:center; gap:12px;">
+  <img src="${item.avatar}" style="width:70px; height:70px; border-radius:8px;">
+  <div>
+    <div style="font-weight:bold; font-size:18px; margin-bottom:4px; color:#1677ff; cursor:pointer;" 
+         onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
+      ${item.name}
+    </div>
+    <div style="color:#555;">粉丝数：${item.fans}</div>
+  </div>
+</div>`;
           }
 
           marker.bindPopup(popupContent);
           markerClusterGroup.addLayer(marker);
 
-          // 仅歌手加入搜索映射
-          if (item.type === "singer") {
-            const lowerName = item.name.toLowerCase();
-            singerMarkerMap[lowerName] = marker;
-            singerNameList.push({
-              raw: item.name,
-              lower: lowerName
-            });
-          }
+          // 所有项目都加入搜索（歌手和厂牌）
+          const lowerName = item.name.toLowerCase();
+          searchMarkerMap[lowerName] = marker;
+          searchNameList.push({
+            raw: item.name,
+            lower: lowerName,
+            type: item.type
+          });
         });
       }
 
@@ -1883,13 +1868,13 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
         });
       });
 
-      // 11. 搜索联想+定位逻辑
+      // 11. 搜索相关DOM元素
+      const searchContainer = document.getElementById('search-container');
       const searchInput = document.getElementById('singer-search');
       const searchSuggestions = document.getElementById('search-suggestions');
       const searchTip = document.getElementById('search-tip');
       const searchBtn = document.getElementById('search-btn');
 
-      // 显示提示框
       function showTip(text, isError = false) {
         searchTip.textContent = text;
         searchTip.style.display = 'block';
@@ -1900,96 +1885,81 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
         }, 2000);
       }
 
-      // 生成联想列表
       function generateSuggestions(inputVal) {
         if (!inputVal) {
           searchSuggestions.style.display = 'none';
           return;
         }
         const lowerVal = inputVal.toLowerCase();
-        const matched = singerNameList.filter(item => item.lower.includes(lowerVal));
+        const matched = searchNameList.filter(item => item.lower.includes(lowerVal));
         
         if (matched.length === 0) {
           searchSuggestions.style.display = 'none';
-          showTip('未找到该歌手', true);
           return;
         }
 
-        // 渲染联想列表
         searchSuggestions.innerHTML = '';
-        matched.forEach(item => {
+        matched.slice(0, 10).forEach(item => {
           const div = document.createElement('div');
           div.className = 'suggestion-item';
-          div.textContent = item.raw;
+          const typeIcon = item.type === 'label' ? '' : '';
+          div.textContent = typeIcon + item.raw;
           div.addEventListener('click', () => {
             searchInput.value = item.raw;
             searchSuggestions.style.display = 'none';
-            locateSinger(item.raw);
+            locateItem(item.raw);
           });
           searchSuggestions.appendChild(div);
         });
         searchSuggestions.style.display = 'block';
       }
 
-      // 定位歌手
-      function locateSinger(name) {
+      function locateItem(name) {
         const lowerName = name.toLowerCase();
-        const marker = singerMarkerMap[lowerName];
+        const marker = searchMarkerMap[lowerName];
         if (marker) {
           map.setView(marker.getLatLng(), 10);
           marker.openPopup();
           showTip(`已定位到：${name}`);
         } else {
-          showTip('未找到该歌手', true);
+          showTip('未找到该项目', true);
         }
       }
 
-      // 搜索输入事件
       searchInput.addEventListener('input', function() {
         generateSuggestions(this.value.trim());
       });
 
-      // 点击搜索按钮
       searchBtn.addEventListener('click', function() {
         const val = searchInput.value.trim();
         if (!val) {
-          showTip('请输入歌手名', true);
+          showTip('请输入名称', true);
           return;
         }
-        locateSinger(val);
+        locateItem(val);
         searchSuggestions.style.display = 'none';
       });
 
-      // 回车搜索
-      // 替换后的回车事件（回车=定位+显示弹窗）
-document.getElementById('singer-search').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault(); // 阻止默认回车行为
-    const keyword = this.value.trim();
-    if (!keyword) return; // 空值不处理
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const keyword = this.value.trim();
+          if (!keyword) return;
+          
+          const matched = searchNameList.filter(item => item.lower.includes(keyword.toLowerCase()));
+          if (matched.length === 0) {
+            showTip('没找到这个歌手或厂牌', true);
+            return;
+          }
+          
+          const targetItem = matched[0];
+          locateItem(targetItem.raw);
+          searchSuggestions.style.display = 'none';
+        }
+      });
 
-    // 1. 匹配要找的歌手
-    const targetSinger = singers.find(item => item.name.includes(keyword));
-    if (!targetSinger) {
-      alert('没找到这个歌手');
-      return;
-    }
-
-    // 2. 定位到歌手位置（和你原有定位逻辑一致）
-    map.setView([targetSinger.lat, targetSinger.lng], 10);
-
-    // 3. 核心新增：自动触发弹窗显示（解决二次回车问题）
-    markers.forEach(marker => {
-      if (marker.options.singerData?.name === targetSinger.name) {
-        marker.fire('click'); // 模拟点击Marker，直接弹信息
-      }
-    });
-  }
-});
-
-      // 点击页面空白处关闭联想列表
       document.addEventListener('click', function(e) {
-        if (!searchContainer.contains(e.target)) {
+        if (searchContainer && !searchContainer.contains(e.target)) {
           searchSuggestions.style.display = 'none';
         }
       });
