@@ -93,33 +93,47 @@
       overflow: hidden;
       display: block;
     }
-    #search-container {
+       #search-container {
       position: absolute;
       top: 20px;
-      left: 50px;
+      left: 20px;
       z-index: 1000;
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-direction: column;
+      background: rgba(0,0,0,0.4);
+      padding: 12px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: all 0.2s;
+      width: 320px;
     }
     #search-input-wrap {
       display: flex;
-      gap: 8px;
+      gap: 10px;
+      align-items: center;
     }
     #singer-search {
-      width: 280px;
-      padding: 10px 15px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 40px;
       font-size: 14px;
       outline: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      height: 40px;
-      box-sizing: border-box;
+      background: white;
+      transition: all 0.2s;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    #singer-search:focus {
+      border-color: #ff4444;
+      box-shadow: 0 0 0 3px rgba(255,68,68,0.2);
     }
     #search-btn {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #ff4444;
       color: white;
@@ -128,45 +142,86 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       transition: all 0.2s ease;
       padding: 0;
-      font-size: 0;
     }
     #search-btn:hover {
       background: #ff2222;
       transform: scale(1.05);
     }
     #search-suggestions {
-      width: 280px;
-      max-height: 200px;
+      width: 100%;
+      max-height: 220px;
       overflow-y: auto;
       background: white;
-      border: 1px solid #ddd;
-      border-top: none;
-      border-radius: 0 0 6px 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       display: none;
-      margin-top: -1px;
+      margin-top: 4px;
     }
     .suggestion-item {
-      padding: 10px 15px;
+      padding: 12px 18px;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.15s;
+    }
+    .suggestion-item:last-child {
+      border-bottom: none;
     }
     .suggestion-item:hover {
-      background: #f5f5f5;
+      background: #fff0f0;
+      color: #ff4444;
     }
     #search-tip {
-      position: absolute;
-      top: calc(70px + 200px);
-      left: 50px;
-      z-index: 1000;
-      padding: 8px 15px;
-      background: rgba(0,0,0,0.7);
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      padding: 10px 24px;
+      background: rgba(0,0,0,0.8);
       color: white;
-      border-radius: 4px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      white-space: nowrap;
       display: none;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    @keyframes elegantPulse {
+      0% {
+        transform: scale(0.5);
+        opacity: 0.9;
+        box-shadow: 0 0 0 0 rgba(255,68,68,0.7);
+      }
+      70% {
+        transform: scale(1.8);
+        opacity: 0.5;
+        box-shadow: 0 0 0 20px rgba(255,68,68,0);
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+        box-shadow: 0 0 0 0 rgba(255,68,68,0);
+      }
+    }
+    
+    .pulse-marker {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 68, 68, 0.85);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: elegantPulse 0.9s ease-out forwards;
+      transform-origin: center;
+      border: 2px solid rgba(255,255,200,0.9);
     }
     #author-info {
       position: absolute;
@@ -274,31 +329,35 @@
     }
     /* 新增：筛选按钮样式 */
     #filter-btns {
-      display: flex;
+           display: flex;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 6px;
     }
     .filter-btn {
-      padding: 6px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: white;
-      color: #333;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 40px;
+      background: #f0f0f0;
+      color: #555;
       cursor: pointer;
       font-size: 12px;
-      transition: all 0.2s ease;
+      font-weight: 600;
+      transition: all 0.2s;
     }
     .filter-btn.active {
       background: #ff4444;
       color: white;
-      border-color: #ff4444;
+      box-shadow: 0 2px 6px rgba(255,68,68,0.3);
     }
-    .filter-btn:hover {
-      background: #f5f5f5;
+    .filter-btn:hover:not(.active) {
+      background: #e0e0e0;
     }
-    .filter-btn.active:hover {
-      background: #ff2222;
+    
+    @media (max-width: 640px) {
+      #search-container { width: 260px; left: 12px; top: 12px; padding: 10px 12px; }
+      #author-info { font-size: 10px; bottom: 12px; right: 12px; gap: 8px; padding: 5px 12px; }
     }
+
   </style>
   <!-- Leaflet核心 -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -313,7 +372,7 @@
     <div id="notice-box">
       <div id="notice-title">欢迎使用中国说唱地图</div>
       <div id="notice-content">
-        本地图收录了网易云粉丝数大于5万的国内说唱歌手及知名说唱厂牌/组合的地理信息，可通过搜索快速定位并访问网易云主页。<br>
+        本地图收录了国内说唱歌手及知名说唱厂牌/组合的地理信息，可通过搜索快速定位并访问网易云主页。<br>
       </div>
       <button id="notice-confirm">确认</button>
     </div>
@@ -353,7 +412,7 @@
       <a href="https://www.douyin.com/user/MS4wLjABAAAAx4SFe50OmPZVVjiUKvGIB-Fy-hcCFRRnIfFykRZ7PB8odlA9MuUHqmsTzjzgpS7l?from_tab_name=main">@unopain</a>
     </div>
     <div class="info-item">
-      <span class="info-label">更新时间：2026.3.30</span>
+      <span class="info-label">更新时间：2026.4.6</span>
     </div>
   </div>
 
@@ -1767,203 +1826,243 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
   }
 
       ];
+const singersWithType = singers.map(singer => ({
+  ...singer,
+  type: "singer"
+}));
 
-      // 5. 合并歌手+厂牌数据
-      const allData = [
-        ...singers.map(item => ({...item, type: "singer"})), 
-        ...labels
-      ];
-
-      // 6. 初始化聚合簇
-      const markerClusterGroup = L.markerClusterGroup({
-        iconCreateFunction: function(cluster) {
-          const count = cluster.getChildCount();
-          return L.divIcon({
-            html: `<div style="background:#ff4444; color:white; border-radius:50%; width:40px; height:40px; line-height:40px; text-align:center; font-weight:bold; font-size:14px;">${count}</div>`,
-            className: 'custom-cluster',
-            iconSize: L.point(40, 40)
-          });
-        },
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        maxClusterRadius: 8
-      });
-      map.addLayer(markerClusterGroup);
-
-      // 7. 搜索联想所需的映射（同时支持歌手和厂牌）
-      let searchMarkerMap = {};
-      let searchNameList = [];
-
-      // 8. 封装渲染标记的函数（支持筛选）
-      function renderMarkers(filterType = "all") {
-        markerClusterGroup.clearLayers();
-        searchMarkerMap = {};
-        searchNameList = [];
-
-        const filteredData = allData.filter(item => {
-          if (filterType === "all") return true;
-          return item.type === filterType;
+const allData = [...singersWithType, ...labels];    
+    // ---------- 聚合图层 ----------
+    let markerClusterGroup = L.markerClusterGroup({
+      iconCreateFunction: function(cluster) {
+        const count = cluster.getChildCount();
+        return L.divIcon({
+          html: `<div style="background:#ff4444; color:white; border-radius:50%; width:42px; height:42px; line-height:42px; text-align:center; font-weight:bold; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.2);">${count}</div>`,
+          className: 'custom-cluster',
+          iconSize: L.point(42, 42)
         });
+      },
+      maxClusterRadius: 8,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false
+    });
+    map.addLayer(markerClusterGroup);
+    
+    let searchMarkerMap = new Map(); // key: 小写名称, value: marker对象
+    let searchNameList = []; // { raw, lower, type }
+    
+    // 优雅脉冲动画函数 (添加临时DOM脉冲)
+    function addPulseEffect(latLng) {
+      // 将地理坐标转成屏幕像素位置
+      const point = map.latLngToContainerPoint(latLng);
+      const container = map.getContainer();
+      const pulseDiv = document.createElement('div');
+      pulseDiv.className = 'pulse-marker';
+      pulseDiv.style.left = point.x - 16 + 'px';
+      pulseDiv.style.top = point.y - 16 + 'px';
+      pulseDiv.style.position = 'absolute';
+      container.style.position = 'relative';
+      container.appendChild(pulseDiv);
+      setTimeout(() => { if(pulseDiv && pulseDiv.remove) pulseDiv.remove(); }, 900);
+    }
+    
+    // 核心定位优化函数：平滑飞入 + 脉冲 + 延迟弹窗（避免生硬）
+    function smartLocateAndPopup(marker, name) {
+      if (!marker) return false;
+      const targetLatLng = marker.getLatLng();
+      // 步骤1: 地图平滑飞入（带动画过渡感）使用 flyTo 而非 setView，自带缓动曲线，体验提升巨大
+      map.flyTo(targetLatLng, Math.max(map.getZoom(), 10), {
+        duration: 0.9,          // 飞行动画时长0.9秒
+        easeLinearity: 0.4,
+        animate: true
+      });
+      
+     
 
-        filteredData.forEach(item => {
-          const icon = L.divIcon({
-            className: 'singer-avatar-icon',
-            html: `<img src="${item.avatar}" class="singer-avatar" style="width:50px; height:50px; border-radius:8px;">`,
-            iconSize: [50, 50],
-            iconAnchor: [25, 25],
-            popupAnchor: [0, -35]
-          });
-
-          const marker = L.marker([item.lat, item.lng], { icon: icon });
-          
-          let popupContent = "";
-          if (item.type === "label") {
-            popupContent = `
-<div style="text-align:center; padding:10px; min-width:200px;">
-  <img src="${item.avatar}" style="width:70px; height:70px; border-radius:8px; margin-bottom:8px;">
-  <div style="font-weight:bold; font-size:18px; color:#ff4444;">${item.name}</div>
-  <div style="color:#555; margin:4px 0 8px;">类型：说唱厂牌/组合</div>
-  <div style="border-top:1px solid #eee; padding-top:8px; text-align:left;">
-    <div style="font-weight:bold; color:#333; margin-bottom:5px;">成员：</div>
-    <div style="color:#666; line-height:1.5;">${item.members ? item.members.join('  ') : '暂无成员信息'}</div>
-  </div>
-</div>`;
-          } else {
-            popupContent = `
-<div style="display:flex; align-items:center; gap:12px;">
-  <img src="${item.avatar}" style="width:70px; height:70px; border-radius:8px;">
-  <div>
-    <div style="font-weight:bold; font-size:18px; margin-bottom:4px; color:#1677ff; cursor:pointer;" 
-         onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
-      ${item.name}
-    </div>
-    <div style="color:#555;">粉丝数：${item.fans}</div>
-  </div>
-</div>`;
+      
+      // 步骤3: 等待飞行完成后再打开Popup，避免popup随地图飞走而显得生硬。监听 'moveend' 事件或延迟开启
+      const onMoveEnd = () => {
+        marker.openPopup();
+        map.off('moveend', onMoveEnd);
+        // 额外显示优雅提示
+        showTip(`已定位 ${name}`, false, 1800);
+      };
+      // 如果当前正在飞行，等moveend触发；如果已经到达（未触发fly），则直接弹窗
+      if (map.getCenter().distanceTo(targetLatLng) < 1000 && Math.abs(map.getZoom() - 10) < 2) {
+        // 距离很近，直接打开弹窗并脉冲
+        marker.openPopup();
+        addPulseEffect(targetLatLng);
+        showTip(`${name} 就在这里`, false, 1500);
+      } else {
+        map.once('moveend', onMoveEnd);
+        // 安全后备：如果2.5秒后moveend没触发，强行打开
+        setTimeout(() => {
+          if (marker.isPopupOpen() === false) {
+            marker.openPopup();
+            map.off('moveend', onMoveEnd);
           }
-
-          marker.bindPopup(popupContent);
-          markerClusterGroup.addLayer(marker);
-
-          // 所有项目都加入搜索（歌手和厂牌）
-          const lowerName = item.name.toLowerCase();
-          searchMarkerMap[lowerName] = marker;
-          searchNameList.push({
-            raw: item.name,
-            lower: lowerName,
-            type: item.type
-          });
-        });
+        }, 1200);
       }
-
-      // 9. 初始化渲染全部数据
-      renderMarkers("all");
-
-      // 10. 绑定筛选按钮事件
-      document.querySelectorAll(".filter-btn").forEach(btn => {
-        btn.addEventListener("click", function() {
-          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-          this.classList.add("active");
-          renderMarkers(this.dataset.type);
+      return true;
+    }
+    
+    // 渲染标记 (支持筛选)
+    function renderMarkers(filterType = "all") {
+      markerClusterGroup.clearLayers();
+      searchMarkerMap.clear();
+      searchNameList = [];
+      
+      const filtered = allData.filter(item => filterType === "all" || item.type === filterType);
+      
+      filtered.forEach(item => {
+        const icon = L.divIcon({
+          className: 'singer-avatar-icon',
+          html: `<img src="${item.avatar}" class="singer-avatar" style="width:52px; height:52px; border-radius:14px; border:1px solid #fff; box-shadow:0 4px 8px rgba(0,0,0,0.2);">`,
+          iconSize: [50, 50],
+          iconAnchor: [25, 25],
+          popupAnchor: [0, -35]
         });
-      });
-
-      // 11. 搜索相关DOM元素
-      const searchContainer = document.getElementById('search-container');
-      const searchInput = document.getElementById('singer-search');
-      const searchSuggestions = document.getElementById('search-suggestions');
-      const searchTip = document.getElementById('search-tip');
-      const searchBtn = document.getElementById('search-btn');
-
-      function showTip(text, isError = false) {
-        searchTip.textContent = text;
-        searchTip.style.display = 'block';
-        searchTip.style.background = isError ? 'rgba(255,68,68,0.8)' : 'rgba(0,0,0,0.7)';
-        clearTimeout(showTip.timer);
-        showTip.timer = setTimeout(() => {
-          searchTip.style.display = 'none';
-        }, 2000);
-      }
-
-      function generateSuggestions(inputVal) {
-        if (!inputVal) {
-          searchSuggestions.style.display = 'none';
-          return;
-        }
-        const lowerVal = inputVal.toLowerCase();
-        const matched = searchNameList.filter(item => item.lower.includes(lowerVal));
         
-        if (matched.length === 0) {
-          searchSuggestions.style.display = 'none';
-          return;
-        }
-
-        searchSuggestions.innerHTML = '';
-        matched.slice(0, 10).forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'suggestion-item';
-          const typeIcon = item.type === 'label' ? '' : '';
-          div.textContent = typeIcon + item.raw;
-          div.addEventListener('click', () => {
-            searchInput.value = item.raw;
-            searchSuggestions.style.display = 'none';
-            locateItem(item.raw);
-          });
-          searchSuggestions.appendChild(div);
-        });
-        searchSuggestions.style.display = 'block';
-      }
-
-      function locateItem(name) {
-        const lowerName = name.toLowerCase();
-        const marker = searchMarkerMap[lowerName];
-        if (marker) {
-          map.setView(marker.getLatLng(), 10);
-          marker.openPopup();
-          showTip(`已定位到：${name}`);
+        const marker = L.marker([item.lat, item.lng], { icon });
+        let popupHtml = "";
+        if (item.type === "label") {
+          popupHtml = `
+            <div style="text-align:center; min-width:230px; font-family:'Segoe UI'">
+              <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; margin-bottom:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+              <div style="font-weight:800; font-size:18px; color:#ff4444; margin-bottom:4px;">${item.name}</div>
+              <div style="background:#f5f5f5; border-radius:40px; padding:4px 10px; display:inline-block; margin-bottom:12px;">说唱厂牌/组合</div>
+              <div style="border-top:1px solid #eee; padding-top:10px; text-align:left;">
+                <div style="font-weight:bold; margin-bottom:6px;">成员阵容</div>
+                <div style="color:#444; line-height:1.4; font-size:13px;">${item.members ? item.members.join(' · ') : '暂无详细信息'}</div>
+              </div>
+            </div>`;
         } else {
-          showTip('未找到该项目', true);
+          popupHtml = `
+            <div style="display:flex; align-items:center; gap:18px; padding:4px;">
+              <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+              <div>
+                <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:6px;" 
+                     onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
+                  ${item.name}                 </div>
+                <div style="color:#666; background:#f8f8f8; padding:4px 10px; border-radius:20px; display:inline-block;">粉丝 ${item.fans}</div>
+              </div>
+            </div>`;
         }
-      }
-
-      searchInput.addEventListener('input', function() {
-        generateSuggestions(this.value.trim());
+        marker.bindPopup(popupHtml);
+        markerClusterGroup.addLayer(marker);
+        
+        const lowerKey = item.name.toLowerCase();
+        searchMarkerMap.set(lowerKey, { marker, rawName: item.name, type: item.type, latlng: marker.getLatLng() });
+        searchNameList.push({ raw: item.name, lower: lowerKey, type: item.type });
       });
-
-      searchBtn.addEventListener('click', function() {
-        const val = searchInput.value.trim();
-        if (!val) {
-          showTip('请输入名称', true);
-          return;
-        }
-        locateItem(val);
-        searchSuggestions.style.display = 'none';
-      });
-
-      searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const keyword = this.value.trim();
-          if (!keyword) return;
-          
-          const matched = searchNameList.filter(item => item.lower.includes(keyword.toLowerCase()));
-          if (matched.length === 0) {
-            showTip('没找到这个歌手或厂牌', true);
-            return;
-          }
-          
-          const targetItem = matched[0];
-          locateItem(targetItem.raw);
-          searchSuggestions.style.display = 'none';
-        }
-      });
-
-      document.addEventListener('click', function(e) {
-        if (searchContainer && !searchContainer.contains(e.target)) {
-          searchSuggestions.style.display = 'none';
-        }
+    }
+    
+    renderMarkers("all");
+    
+    // 筛选按钮逻辑
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", function() {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        renderMarkers(this.dataset.type);
       });
     });
-  </script>
+    
+    // ----- 搜索 UI 交互 -----
+    const searchInput = document.getElementById('singer-search');
+    const suggestionsDiv = document.getElementById('search-suggestions');
+    const searchTipDiv = document.getElementById('search-tip');
+    const searchBtn = document.getElementById('search-btn');
+    
+    let tipTimeout = null;
+    function showTip(msg, isError = false, duration = 2000) {
+      if (tipTimeout) clearTimeout(tipTimeout);
+      searchTipDiv.textContent = msg;
+      searchTipDiv.style.display = 'block';
+      searchTipDiv.style.background = isError ? 'rgba(220,53,69,0.9)' : 'rgba(0,0,0,0.75)';
+      searchTipDiv.style.backdropFilter = 'blur(6px)';
+      tipTimeout = setTimeout(() => {
+        searchTipDiv.style.display = 'none';
+      }, duration);
+    }
+    
+    function updateSuggestions(val) {
+      if (!val.trim()) {
+        suggestionsDiv.style.display = 'none';
+        return;
+      }
+      const lowerVal = val.toLowerCase();
+      const matches = searchNameList.filter(item => item.lower.includes(lowerVal)).slice(0, 8);
+      if (matches.length === 0) {
+        suggestionsDiv.style.display = 'none';
+        return;
+      }
+      suggestionsDiv.innerHTML = '';
+      matches.forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        const prefixIcon = m.type === 'label' ? '' : '';
+        div.textContent = prefixIcon + m.raw;
+        div.addEventListener('click', () => {
+          searchInput.value = m.raw;
+          suggestionsDiv.style.display = 'none';
+          locateAndAnimate(m.raw);
+        });
+        suggestionsDiv.appendChild(div);
+      });
+      suggestionsDiv.style.display = 'block';
+    }
+    
+    function locateAndAnimate(name) {
+      const lowerName = name.toLowerCase();
+      const markerObj = searchMarkerMap.get(lowerName);
+      if (markerObj && markerObj.marker) {
+        smartLocateAndPopup(markerObj.marker, markerObj.rawName);
+      } else {
+        showTip(`没找到 "${name}"，试试其他关键词`, true);
+      }
+    }
+    
+    // 搜索执行
+    function executeSearch() {
+      const keyword = searchInput.value.trim();
+      if (!keyword) {
+        showTip('🔍 输入歌手或厂牌名称吧', false, 1200);
+        return;
+      }
+      const lowerKw = keyword.toLowerCase();
+      const exactMatch = searchNameList.find(item => item.lower === lowerKw);
+      if (exactMatch) {
+        locateAndAnimate(exactMatch.raw);
+        suggestionsDiv.style.display = 'none';
+        return;
+      }
+      const fuzzyMatches = searchNameList.filter(item => item.lower.includes(lowerKw));
+      if (fuzzyMatches.length > 0) {
+        locateAndAnimate(fuzzyMatches[0].raw);
+        suggestionsDiv.style.display = 'none';
+      } else {
+        showTip(`暂未收录 "${keyword}"`, true);
+      }
+    }
+    
+    searchInput.addEventListener('input', (e) => updateSuggestions(e.target.value));
+    searchBtn.addEventListener('click', executeSearch);
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        executeSearch();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('search-container').contains(e.target)) {
+        suggestionsDiv.style.display = 'none';
+      }
+    });
+    
+    // 增加额外脉冲辅助（可选，但不影响核心）
+    console.log("🎧 中国说唱地图已启动，搜索体验全面优化 - 平滑飞入+脉冲动画+延迟弹窗");
+  })();
+</script>
 </body>
 </html>
