@@ -92,9 +92,20 @@
       object-position: center;
       overflow: hidden;
       display: block;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+.singer-avatar:hover {
+  transform: scale(1.15); /* 放大 1.15 倍，和聚合点保持一致 */
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4); /* 同聚合点的阴影风格 */
+}
+
+/* 确保弹窗内的头像容器不限制尺寸，让放大效果生效 */
+.leaflet-popup-content .singer-avatar-icon {
+  display: inline-block;
+  overflow: visible !important;
+}
     .custom-cluster div {
-  background: rgba(255, 68, 68, 0.5) !important; /* 0.5 是基础透明度，你可以随便改 */
+  background: rgba(255, 68, 68, 0.7) !important; /* 0.5 是基础透明度，你可以随便改 */
   transition: all 0.3s ease !important; /* 添加 0.3秒 的平滑过渡效果 */
 }
 
