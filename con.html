@@ -93,6 +93,17 @@
       overflow: hidden;
       display: block;
     }
+    .custom-cluster div {
+  background: rgba(255, 68, 68, 0.5) !important; /* 0.5 是基础透明度，你可以随便改 */
+  transition: all 0.3s ease !important; /* 添加 0.3秒 的平滑过渡效果 */
+}
+
+/* 2. 设置鼠标悬停时的状态（完全不透明 + 轻微放大） */
+.custom-cluster:hover div {
+  background: rgba(255, 68, 68, 1) !important; /* 1 表示完全不透明（颜色最深） */
+  transform: scale(1.15); /* 悬停时放大到 1.15 倍，交互手感更好 */
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4) !important; /* 悬停时让阴影也变明显一点 */
+}
        #search-container {
       position: absolute;
       top: 20px;
@@ -1016,7 +1027,7 @@
   neteaseId: "30285305"
 },
 {
-  name: "angpang",
+  name: "ANGPANG",
   fans: "1.3万",
   lat: 33.64, lng: 116.97,
   avatar: "https://p2.music.126.net/v2LDHWs0WBJNl5SU6-qsyw==/109951168900449476.jpg?param=130y130",
