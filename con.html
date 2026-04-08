@@ -455,21 +455,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
         }, 300);
       });
 
-      // 打赏弹窗逻辑
-      const rewardBtn = document.getElementById('reward-btn');
-      const rewardPanel = document.getElementById('reward-panel');
-      const closeReward = document.getElementById('close-reward');
-      rewardBtn.addEventListener('click', function() {
-        rewardPanel.classList.toggle('show');
-      });
-      closeReward.addEventListener('click', function() {
-        rewardPanel.classList.remove('show');
-      });
-      document.addEventListener('click', function(e) {
-        if (!rewardPanel.contains(e.target) && e.target !== rewardBtn) {
-          rewardPanel.classList.remove('show');
-        }
-      });
+      
 
       // 1. 地图初始化
       const map = L.map('map', {
