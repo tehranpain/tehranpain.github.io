@@ -82,24 +82,59 @@
       align-items: center;
       justify-content: center;
     }
-    .singer-avatar-icon {
-      background: transparent !important;
-      border: none !important;
-    }
-    .singer-avatar {
-      border-radius: 8px;
-      object-fit: cover;
-      object-position: center;
-      overflow: hidden;
-      display: block;
+
+
+/* 水滴容器 */
+.singer-marker-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+/* 圆形头像部分 */
+.singer-avatar-main {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* 圆形 */
+  border: 3px solid #FFFFFF; /* 红色边框 */
+  box-sizing: border-box;
+  overflow: hidden;
+  background: white;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.singer-avatar-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+/* 悬停放大效果 */
+.singer-marker-container:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+    
+
+
+
+
+
+
+
+
+
 transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 .singer-avatar:hover {
-  transform: scale(1.15); /* 放大 1.15 倍，和聚合点保持一致 */
+  transform: scale(1.15); 
   box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4); /* 同聚合点的阴影风格 */
 }
 
-/* 确保弹窗内的头像容器不限制尺寸，让放大效果生效 */
 .leaflet-popup-content .singer-avatar-icon {
   display: inline-block;
   overflow: visible !important;
@@ -233,6 +268,17 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
     }
     
+
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+
+
+
+
+
     .pulse-marker {
       position: absolute;
       width: 32px;
@@ -279,77 +325,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     #author-info a:hover {
       text-decoration: underline;
     }
-    #reward-btn {
-      position: fixed;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      z-index: 1001;
-      background: rgba(255, 68, 68, 0.7);
-      color: white;
-      border: none;
-      border-radius: 8px 0 0 8px;
-      padding: 12px 8px;
-      cursor: pointer;
-      font-size: 14px;
-      writing-mode: vertical-rl;
-      white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      transition: background 0.2s ease;
-    }
-    #reward-btn:hover {
-      background: rgba(255, 34, 34, 0.95);
-    }
-    #reward-panel {
-      position: fixed;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      z-index: 1000;
-      background: white;
-      border-radius: 12px 0 0 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      padding: 10px;
-      width: 220px;
-      transform: translateY(-50%) translateX(100%);
-      transition: transform 0.3s ease;
-    }
-    #reward-panel.show {
-      transform: translateY(-50%) translateX(0);
-    }
-    #reward-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    #reward-qrcode {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 1px solid #eee;
-    }
-    #reward-desc {
-      font-size: 14px;
-      color: #666;
-      text-align: center;
-      margin-top: 10px;
-    }
-    #close-reward {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      color: #999;
-      cursor: pointer;
-    }
-    #close-reward:hover {
-      color: #ff4444;
-    }
-    /* 新增：筛选按钮样式 */
+       /* 新增：筛选按钮样式 */
     #filter-btns {
            display: flex;
       gap: 8px;
@@ -479,7 +455,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
           fans: "238万",
           lat: 29.55, lng: 106.54,
           avatar: "https://p1.music.126.net/iR9WU0iTKx6BiMycNJjIQg==/109951167592056590.jpg?param=130y130",
-          neteaseId: "1211046"
+          neteaseId: "1211046",
+          desc:"「中国有嘻哈」冠军"
         },
         {
   name: "马思唯",
@@ -514,7 +491,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "60.3万",
   lat: 30.60, lng: 104.07,
   avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180",
-  neteaseId: "13451886"
+  neteaseId: "13451886",
+desc:"「新说唱2024」冠军"
+
 },
         {
   name: "Moseee",
@@ -528,7 +507,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "54.5万",
   lat: 29.03, lng: 106.65,
   avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130",
-  neteaseId: "12201169"
+  neteaseId: "12201169",
+desc:"「中国新说唱2020」亚军"
+
 },
 {
   name: "布瑞吉Bridge",
@@ -556,7 +537,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "74.4万",
   lat: 30.82, lng: 106.10,
   avatar: "https://p2.music.126.net/5ZNAae-eS01zCR4F1Xr5DA==/109951172561473437.jpg?param=130y130",
-  neteaseId: "12079219"
+  neteaseId: "12079219",
+desc:"「中国新说唱2020」冠军"
+
 },
 {
   name: "AR刘夫阳",
@@ -620,7 +603,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "33.5万",
   lat: 44.85, lng: 82.05,
   avatar: "https://p2.music.126.net/4_QmFLuuquf4bHK5JC7XRA==/109951172702859432.jpg?param=130y130",
-  neteaseId: "1087200"
+  neteaseId: "1087200",
+desc:"「新说唱2024」季军"
 },
 {
   name: "TangoZ",
@@ -641,7 +625,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "5.3万",
   lat: 39.82, lng: 116.41,
   avatar: "https://p2.music.126.net/FwboPcpgt3bUgFt4NpEL-A==/109951170036233244.jpg?param=130y130",
-  neteaseId: "12554787"
+  neteaseId: "12554787",
+desc:"「说唱新世代」冠军"
+
 },
 {
   name: "斯威特MCSWEET",
@@ -805,12 +791,41 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   neteaseId: "12663194"
 },
 {
+  name: "MULA SAKEE",
+  fans: "45.3万",
+  lat: 30.56, lng: 104.23,
+  avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130",
+  neteaseId: "14925064"
+},
+
+{
   name: "Subs张毅成",
   fans: "18.8万",
   lat: 31.81, lng: 119.97,
   avatar: "https://p1.music.126.net/l0CCpYZXpYiOwBa9jTUBlA==/109951169473968766.jpg?param=130y130",
-  neteaseId: "13027202"
+  neteaseId: "13027202",
+desc:"「说唱新世代」亚军"
+
 },
+{
+  name: "沙一汀EL",
+  fans: "221.2万",
+  lat: 39.60, lng: 109.79,
+  avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130",
+  neteaseId: "31561897",
+desc:"「说唱新世代」季军"
+
+},
+{
+  name: "JD",
+  fans: "11.9万",
+  lat: 31.56, lng: 120.33,
+  avatar: "https://p1.music.126.net/QAu1omQuvdEt5tLnWFJz8A==/109951168708024807.jpg?param=130y130",
+  neteaseId: "13113369",
+desc:"「说唱听我的第一季」冠军"
+
+},
+
 {
   name: "Ayo97",
   fans: "24.5万",
@@ -840,7 +855,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "33.5万",
   lat: 25.60, lng: 100.22,
   avatar: "https://p2.music.126.net/NOjxF7SX_S-gBfyOgtcCBQ==/109951169761411398.jpg?param=130y130",
-  neteaseId: "12357157"
+  neteaseId: "12357157",
+desc:"「新说唱2024」亚军"
+
 },
         {
   name: "BroFA",
@@ -920,7 +937,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "45.3万",
   lat: 30.68, lng: 104.11,
   avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130",
-  neteaseId: "13027753"
+  neteaseId: "13027753",
+  desc:"「少年说唱企划」亚军"
 },
 {
   name: "刘悦spam-生番",
@@ -929,6 +947,23 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p1.music.126.net/dDYxkxN9isY8p7kme2kJHw==/109951165928249224.jpg?param=130y130",
   neteaseId: "12283512"
 },
+{
+  name: "lil MILK",
+  fans: "19.3万",
+  lat: 39.83, lng: 116.26,
+  avatar: "https://p1.music.126.net/7JwJPmk0TMI2dBHhL7RkVQ==/109951166311873088.jpg?param=130y130",
+  neteaseId: "33762221",
+desc:"「少年说唱企划」季军"
+
+},
+{
+  name: "施鑫文月",
+  fans: "10万",
+  lat: 30.64, lng: 104.21,
+  avatar: "https://p1.music.126.net/JpAoXIJzSoysCSx292ajFQ==/109951168382936506.jpg?param=130y130",
+  neteaseId: "12565467"
+},
+
 {
   name: "Saber梁维嘉",
   fans: "9.9万",
@@ -985,6 +1020,14 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130",
   neteaseId: "48277407"
 },
+{
+  name: "宋岳庭",
+  fans: "43.5万",
+  lat: 25.00, lng: 121.49,
+  avatar: "https://p1.music.126.net/kP7P7RA9NDcAYddZbDr9ng==/153931627905278.jpg?param=130y130",
+  neteaseId: "4936"
+},
+
 {
   name: "直火帮Feezy",
   fans: "10.4万",
@@ -1070,7 +1113,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "38.9万",
   lat: 30.59, lng: 104.00,
   avatar: "https://p2.music.126.net/GLgV_NbKYJ8fLOUr39Cicg==/109951168477255172.jpg?param=130y130",
-  neteaseId: "12965215"
+  neteaseId: "12965215",
+desc:"「新说唱2025」亚军"
 },
 {
   name: "建坤YOUNG",
@@ -1105,14 +1149,18 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "120.8万",
   lat: 31.23, lng: 121.49,
   avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130",
-  neteaseId: "12127362"
+  neteaseId: "12127362",
+desc:"「中国新说唱2020」季军"
+
 },
 {
   name: "盛宇D-SHINE",
   fans: "81.5万",
   lat:28.17 , lng: 113.02,
   avatar: "https://p2.music.126.net/SUz_YVh0pA9wWmM1CXgdqg==/109951170040821218.jpg?param=130y130",
-  neteaseId: "12605500"
+  neteaseId: "12605500",
+desc:"「中国新说唱2019」季军"
+
 },
 {
   name: "泰格西",
@@ -1126,7 +1174,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "194.9万",
   lat:34.29 , lng: 108.85,
   avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130",
-  neteaseId: "12193174"
+  neteaseId: "12193174",
+desc:"「少年说唱企划」冠军"
+
 },
 {
   name: "加木",
@@ -1135,6 +1185,28 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130",
   neteaseId: "49320722"
 },
+{
+  name: "Swang多雷",
+  fans: "21万",
+  lat:43.85 , lng: 81.48,
+  avatar: "https://p2.music.126.net/6cDjo0jA1ykZec05i5Vmpg==/109951171006459004.jpg?param=130y130",
+  neteaseId: "12276665"
+},
+{
+  name: "Louis 1520",
+  fans: "3.9万",
+  lat:34.35 , lng: 107.23,
+  avatar: "https://p2.music.126.net/AOkDDDgeNDgTYCDn2QSdOA==/109951171964875398.jpg?param=130y130",
+  neteaseId: "27866110"
+},
+{
+  name: "红手指",
+  fans: "8.3万",
+  lat:26.58 , lng: 106.72,
+  avatar: "https://p1.music.126.net/in7q2VLKLUX7tmgQLDa6IA==/109951168677635056.jpg?param=130y130",
+  neteaseId: "57187017"
+},
+
 {
   name: "MISTERK",
   fans: "24.6万",
@@ -1148,6 +1220,15 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   lat:38.04 , lng: 114.52,
   avatar: "https://p2.music.126.net/8PK5wiTX1_fq3FpinOxY9A==/109951172912077612.jpg?param=130y130",
   neteaseId: "12874853"
+},
+{
+  name: "Kc",
+  fans: "52.2万",
+  lat:23.05 , lng: 113.41,
+  avatar: "https://p1.music.126.net/qTZ4pVGRaExUPzCzyajAVA==/109951165837860957.jpg?param=130y130",
+  neteaseId: "12193780",
+ desc:"「说唱听我的第一季」亚军"
+
 },
 {
   name: "陆政廷Lil Jet",
@@ -1184,6 +1265,14 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p1.music.126.net/7cnJuPIYV1IWb9Jy0745Sw==/109951172356221390.jpg?param=130y130",
   neteaseId: "12092433"
 },
+{
+  name: "FAMAS法玛斯",
+  fans: "2.2万",
+  lat:28.69 , lng: 115.89,
+  avatar: "https://p1.music.126.net/f2ZAhBuXFvg1eQXyl4fGrQ==/109951172304723573.jpg?param=130y130",
+  neteaseId: "33910499"
+},
+
 {
   name: "小精灵",
   fans: "52.9万",
@@ -1343,7 +1432,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "42.7万",
   lat:30.34 , lng: 112.23,
   avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130",
-  neteaseId: "12277473"
+  neteaseId: "12277473",
+desc:"「中国新说唱2020」季军"
+
 },
 {
   name: "功夫胖KUNGFU-PEN",
@@ -1385,28 +1476,33 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "125.5万",
   lat:39.46 , lng: 76.01,
   avatar: "https://p2.music.126.net/tvy9BeZWZhqKfYKLHsSf-w==/109951172651091852.jpg?param=130y130",
-  neteaseId: "1203045"
+  neteaseId: "1203045",
+desc:"「中国新说唱2018」冠军"
 },
 {
   name: "SHarK",
   fans: "38万",
   lat:43.86 , lng: 87.57,
   avatar: "https://p2.music.126.net/_SbAJ1mLT0b92eRtxP1s5Q==/109951168822352373.jpg?param=130y130",
-  neteaseId: "12853605"
+  neteaseId: "12853605",
+desc:"「新说唱2025」冠军"
 },
 {
   name: "艾福杰尼",
   fans: "73万",
   lat:41.82 , lng: 86.12,
   avatar: "https://p1.music.126.net/sRT4-AH1RpaeGxBI8G_8_g==/109951169446600145.jpg?param=130y130",
-  neteaseId: "12127564"
+  neteaseId: "12127564",
+desc:"「中国有嘻哈」季军"
 },
 {
   name: "黄旭",
   fans: "41.2万",
   lat:41.17 , lng: 80.26,
   avatar: "https://p1.music.126.net/kFaBU5KM9ISr1wEK2ZknPg==/109951170960599381.jpg?param=130y130",
-  neteaseId: "12065096"
+  neteaseId: "12065096",
+desc:"「中国新说唱2018」亚军"
+
 },
 {
   name: "KIV",
@@ -1455,7 +1551,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "73万",
   lat:22.14 , lng: 113.53,
   avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130",
-  neteaseId: "49141872"
+  neteaseId: "49141872",
+desc:"「新说唱2025」季军"
 },
 {
   name: "Rapeter",
@@ -1532,7 +1629,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "48.9万",
   lat:43.85 , lng: 87.47,
   avatar: "https://p2.music.126.net/-ryEwzRd91j2r4klXxLEkg==/109951163755423571.jpg?param=130y130",
-  neteaseId: "12514278"
+  neteaseId: "12514278",
+desc:"「中国新说唱2018」亚军"
+
 },
 {
   name: "Cee",
@@ -1553,7 +1652,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "188.6万",
   lat:30.53 , lng: 104.06,
   avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130",
-  neteaseId: "13899303"
+  neteaseId: "13899303",
+desc:"「中国新说唱2019」冠军"
+
 },
 {
   name: "李毅杰PISSY",
@@ -1609,7 +1710,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "67万",
   lat:26.58 , lng: 101.73,
   avatar: "https://p2.music.126.net/7V-tVve07mAeHhoN6HGhVw==/109951171484108629.jpg?param=130y130",
-  neteaseId: "13145283"
+  neteaseId: "13145283",
+desc:"「中国新说唱2018」季军"
+
 },
 {
   name: "Dove鸽子",
@@ -1651,7 +1754,9 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "31.2万",
   lat:32.01 , lng: 118.70,
   avatar: "https://p1.music.126.net/y-3qwEWtftd17tbfZiAUWA==/109951170513898827.jpg?param=130y130",
-  neteaseId: "12236269"
+  neteaseId: "12236269",
+  desc:"「说唱听我的第一季」亚军"
+
 },
 {
   name: "Mc光光",
@@ -1710,6 +1815,45 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p1.music.126.net/ZAsJPxAv4axhbWVkj4UEZA==/109951171722169442.jpg?param=130y130",
   neteaseId: "12039173"
 },
+{
+  name: "CHOCKEY有三",
+  fans: "4.3万",
+  lat:23.26 , lng: 116.68,
+  avatar: "https://p2.music.126.net/wic01Qk53uv6TYywU1NsUg==/109951172953743936.jpg?param=130y130",
+  neteaseId: "36109845"
+},
+{
+  name: "Crazy C",
+  fans: "3.5万",
+  lat:27.57 , lng: 120.54,
+  avatar: "https://p1.music.126.net/v5ENjSqHil_iWtIst9zbxw==/109951167709697382.jpg?param=130y130",
+  neteaseId: "53463620"
+},
+{
+  name: "yilun!",
+  fans: "6.1万",
+  lat:30.18 , lng: 120.27,
+  avatar: "https://p1.music.126.net/7wKy0qTOm3c6_gy-fg_lnQ==/109951171292782495.jpg?param=130y130",
+  neteaseId: "34288614"
+},
+
+{
+  name: "HEAT J",
+  fans: "3.2万",
+  lat:23.30 , lng: 116.15,
+  avatar: "https://p2.music.126.net/kFYbThm7KkndMi620ZGRzg==/109951169888127963.jpg?param=130y130",
+  neteaseId: "12085631"
+},
+
+{
+  name: "AJ赖煜哲",
+  fans: "6.9万",
+  lat:25.03 , lng: 121.39,
+  avatar: "https://p2.music.126.net/B_4lRyt-ffhkLngQZ6gebw==/109951169764739902.jpg?param=130y130",
+  neteaseId: "31287479",
+desc:"「说唱听我的第二季」季军"
+
+},
 
 {
   name: "大D(DLyn)",
@@ -1723,12 +1867,14 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   fans: "51万",
   lat:32.12 , lng: 118.82,
   avatar: "https://p1.music.126.net/1FjjEMiQ3z2rlnA6-zHLbQ==/109951169230628256.jpg?param=130y130",
-  neteaseId: "47192128"
+  neteaseId: "47192128",
+desc:"「说唱听我的第二季」冠军"
+
 },
 {
   name: "Ranzer",
   fans: "5.1万",
-  lat:28.03 , lng: 112.99,
+  lat:28.15 , lng: 112.89,
   avatar: "https://p2.music.126.net/1L5_SZ-OnYpsPdrqkn20xw==/109951165007101004.jpg?param=130y130",
   neteaseId: "12319437"
 },
@@ -1750,7 +1896,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 {
   name: "陈一豪Clear",
   fans: "21.6万",
-  lat:28.21 , lng: 113.07,
+  lat:28.21 , lng: 113.11,
   avatar: "https://p2.music.126.net/DIqQV4HFB25mMvyA0pZsXA==/109951171387610320.jpg?param=130y130",
   neteaseId: "32893629"
 },
@@ -2037,6 +2183,35 @@ members: ["SASIOVERLXRD", "RICHNOMADIC", "连麻Swimming", "JinJiBeWater-隼"]
     type: "label",
 members: ["Vansdaddy", "Kito", "Monovisa", "李文","叶轩池"]
   },
+{
+    name: "WASTED CLUB",
+    fans: "厂牌",
+    lat: 34.71, lng: 113.63, // 重庆坐标
+    avatar: "https://p2.music.126.net/XE29r0E-P1_wY5TRQcc5NA==/109951168731827120.jpg?param=130y130",
+    neteaseId: "",
+    type: "label",
+members: ["张方钊", "河北吴孟达", "Louis 1520", "卡力鲨鱼","卡力老虎","卡力蛇"]
+  },
+
+{
+    name: "顽童MJ116",
+    fans: "厂牌",
+    lat: 25.02, lng: 121.54, // 重庆坐标
+    avatar: "https://p2.music.126.net/qsiisFdPgdIUwioeNEju9g==/109951170726257577.jpg?param=130y130",
+    neteaseId: "",
+    type: "label",
+members: ["瘦子E.SO", "小春Kenzy", "大渊MUTA"]
+  },
+{
+    name: "SFNT",
+    fans: "厂牌",
+    lat: 23.07, lng: 113.22, // 重庆坐标
+    avatar: "https://p2.music.126.net/XPBiITW7goMb18F1PmGPyg==/109951168500522995.jpg?param=130y130",
+    neteaseId: "",
+    type: "label",
+members: ["TizzyT", "Crazy C", "CHOCKEY有三","HEAT J"]
+  },
+
   {
     name: "NOUS",
     fans: "厂牌",
@@ -2064,7 +2239,7 @@ const allData = [...singersWithType, ...labels];
           iconSize: L.point(42, 42)
         });
       },
-      maxClusterRadius: 8,
+      maxClusterRadius: 7,
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false
     });
@@ -2137,13 +2312,21 @@ const allData = [...singersWithType, ...labels];
       const filtered = allData.filter(item => filterType === "all" || item.type === filterType);
       
       filtered.forEach(item => {
-        const icon = L.divIcon({
-          className: 'singer-avatar-icon',
-          html: `<img src="${item.avatar}" class="singer-avatar" style="width:52px; height:52px; border-radius:14px; border:1px solid #fff; box-shadow:0 4px 8px rgba(0,0,0,0.2);">`,
-          iconSize: [50, 50],
-          iconAnchor: [25, 25],
-          popupAnchor: [0, -35]
-        });
+// 找到 renderMarkers 函数里的这段并替换
+const icon = L.divIcon({
+  className: 'singer-custom-marker', // 插件需要的类名
+  html: `
+    <div class="singer-marker-container">
+      <div class="singer-avatar-main">
+        <img src="${item.avatar}">
+      </div>
+      <div class="singer-marker-tip"></div>
+    </div>
+  `,
+  iconSize: [50, 50],      // 宽度50，高度包含圆(50)和尖角
+  iconAnchor: [25, 25],    // 重点：[横向一半, 纵向底部] 这样尖角才对准坐标
+  popupAnchor: [0, -65]    // 弹出窗口在图标上方显示
+});
         
         const marker = L.marker([item.lat, item.lng], { icon });
         let popupHtml = "";
@@ -2158,18 +2341,26 @@ const allData = [...singersWithType, ...labels];
                 <div style="color:#444; line-height:1.4; font-size:13px;">${item.members ? item.members.join(' · ') : '暂无详细信息'}</div>
               </div>
             </div>`;
-        } else {
-          popupHtml = `
-            <div style="display:flex; align-items:center; gap:18px; padding:4px;">
-              <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
-              <div>
-                <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:6px;" 
-                     onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
-                  ${item.name}                 </div>
-                <div style="color:#666; background:#f8f8f8; padding:4px 10px; border-radius:20px; display:inline-block;">粉丝 ${item.fans}</div>
-              </div>
-            </div>`;
-        }
+} else {
+  // 先判断是否有描述信息，如果有，生成对应的 HTML 字符串
+  const descHtml = item.desc 
+  ? `<div style="background:#473D00; color:#FFD900; border:1px solid #ffccc7; font-size:11px; padding:2px 8px; border-radius:4px; display:inline-block; margin-top:6px; font-weight:bold;">${item.desc}</div>` 
+  : '';
+
+  popupHtml = `
+    <div style="display:flex; align-items:center; gap:18px; padding:4px;">
+      <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+      <div>
+        <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:2px;" 
+             onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
+          ${item.name}
+        </div>
+        <div style="color:#666; background:#f8f8f8; padding:2px 10px; border-radius:20px; display:inline-block; font-size:12px;">
+          粉丝 ${item.fans}
+        </div>
+        ${descHtml} </div>
+    </div>`;
+}
         marker.bindPopup(popupHtml);
         markerClusterGroup.addLayer(marker);
         
