@@ -96,7 +96,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%; /* 圆形 */
-  border: 3px solid #FFFFFF; /* 红色边框 */
+  border: 3px solid #FFFFFF; 
   box-sizing: border-box;
   overflow: hidden;
   background: white;
@@ -326,22 +326,50 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: underline;
     }
        /* 新增：筛选按钮样式 */
-    #filter-btns {
-           display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .filter-btn {
-      padding: 6px 14px;
+/* 容器：限制高度并隐藏溢出 */
+#filter-btns {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  gap: 8px;
+  margin-top: 8px;
+  max-height: 32px; /* 初始高度仅够显示一行按钮 (根据你按钮高度调整) */
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 展开状态 */
+#filter-btns.expanded {
+  max-height: 300px; /* 只要比内容高就行 */
+}
+
+/* 切换按钮样式 */
+#filter-toggle {
+  text-align: center;
+  font-size: 12px;
+  color: #ff4444;
+  cursor: pointer;
+  margin-top: 8px;
+  padding-top: 4px;
+  border-top: 1px dashed #eee;
+  transition: color 0.2s;
+}
+
+#filter-toggle:hover {
+  color: #ff4444;
+}
+
+/* 确保按钮在折叠时不会被切成一半 */
+.filter-btn {
+  padding: 6px 14px;
       border: none;
       border-radius: 40px;
       background: #f0f0f0;
       color: #555;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       transition: all 0.2s;
-    }
+}
     .filter-btn.active {
       background: #ff4444;
       color: white;
@@ -388,11 +416,20 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       </button>
     </div>
     <!-- 筛选按钮 -->
-    <div id="filter-btns">
-      <button class="filter-btn active" data-type="all">全部</button>
-      <button class="filter-btn" data-type="singer">仅歌手</button>
-      <button class="filter-btn" data-type="label">仅厂牌/组合</button>
-    </div>
+    <div id="filter-btns-container">
+  <div id="filter-btns">
+    <button class="filter-btn active" data-type="all">全部</button>
+    <button class="filter-btn" data-type="singer">仅歌手</button>
+    <button class="filter-btn" data-type="label">仅厂牌/组合</button>
+    <button class="filter-btn" data-type="new_rap25">「新说唱2025」全国13强</button>
+<button class="filter-btn" data-type="ronghe25">「融合嘻哈盛典2025」获奖歌手</button>
+<button class="filter-btn" data-type="wangyi25">「网易云2025中文说唱音乐奖」获奖歌手</button>
+   <button class="filter-btn" data-type="new_rap24">「新说唱2024」全国12强</button>
+
+
+  </div>
+  <div id="filter-toggle">展开更多▾</div>
+</div>
     <!-- 联想下拉列表 -->
     <div id="search-suggestions"></div>
   </div>
@@ -410,7 +447,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       <a href="https://www.douyin.com/user/MS4wLjABAAAAx4SFe50OmPZVVjiUKvGIB-Fy-hcCFRRnIfFykRZ7PB8odlA9MuUHqmsTzjzgpS7l?from_tab_name=main">@unopain</a>
     </div>
     <div class="info-item">
-      <span class="info-label">更新时间：2026.4.6</span>
+      <span class="info-label">更新时间：2026.4.16</span>
     </div>
   </div>
 
@@ -833,6 +870,13 @@ desc:"「说唱听我的第一季」冠军"
   avatar: "https://p2.music.126.net/tloAotE7NBVSvW6yg9Y1Kw==/109951164019356153.jpg?param=130y130",
   neteaseId: "12287118"
 },
+{
+  name: "小青龙",
+  fans: "19.9万",
+  lat: 27.49, lng: 103.77,
+  avatar: "https://p2.music.126.net/XC4DE8jwBdxyfXnHuiNzjQ==/109951165774669611.jpg?param=130y130",
+  neteaseId: "12199576"
+},
 
 {
   name: "卦者灵风",
@@ -948,6 +992,14 @@ desc:"「新说唱2024」亚军"
   neteaseId: "12283512"
 },
 {
+  name: "asak藏羚羊",
+  fans: "3.5万",
+  lat: 35.31, lng: 113.92,
+  avatar: "https://p2.music.126.net/vcAc4qjtwvU7kufjrJHl-A==/109951170673787071.jpg?param=130y130",
+  neteaseId: "37126261"
+},
+
+{
   name: "lil MILK",
   fans: "19.3万",
   lat: 39.83, lng: 116.26,
@@ -1021,6 +1073,29 @@ desc:"「少年说唱企划」季军"
   neteaseId: "48277407"
 },
 {
+  name: "MC脏脏",
+  fans: "1.2万",
+  lat: 24.86, lng: 102.82,
+  avatar: "https://p2.music.126.net/7NAlTdcvzLZamRdKXUtmLw==/109951170550684183.jpg?param=130y130",
+  neteaseId: "54318093"
+},
+{
+  name: "God Øne",
+  fans: "1.5万",
+  lat: 22.68, lng: 120.51,
+  avatar: "https://p1.music.126.net/sGX2h24ZFGCHWgSgqAOMpQ==/109951169909932760.jpg?param=130y130",
+  neteaseId: "55228369"
+},
+
+{
+  name: "AA",
+  fans: "5.0万",
+  lat: 30.50, lng: 114.13,
+  avatar: "https://p1.music.126.net/6a_RkWcoHBJLQajxTd1Juw==/109951171877337331.jpg?param=130y130",
+  neteaseId: "36519554"
+},
+
+{
   name: "宋岳庭",
   fans: "43.5万",
   lat: 25.00, lng: 121.49,
@@ -1065,6 +1140,34 @@ desc:"「少年说唱企划」季军"
   neteaseId: "30285305"
 },
 {
+  name: "二流",
+  fans: "0.8万",
+  lat: 30.77, lng: 103.94,
+  avatar: "https://p2.music.126.net/spdBm4Bsv3144mup8zrqiA==/109951172898228353.jpg?param=130y130",
+  neteaseId: "46314082"
+},
+{
+  name: "ProN4c",
+  fans: "1.8万",
+  lat: 30.68, lng: 104.21,
+  avatar: "https://p2.music.126.net/Hc3fYdvoYhuTIO1_LgDXZQ==/109951172007588964.jpg?param=130y130",
+  neteaseId: "13520444"
+},
+{
+  name: "3Bangz",
+  fans: "12.4万",
+  lat: 23.24, lng: 113.25,
+  avatar: "https://p1.music.126.net/G6VfG-ZOVqGAH-WfRqW_3g==/109951164434614429.jpg?param=130y130",
+  neteaseId: "977173"
+},
+{
+  name: "李欣颖",
+  fans: "1.0万",
+  lat: 30.76, lng: 104.20,
+  avatar: "https://p1.music.126.net/rRqllF_E_oy95rFyR-rGXg==/109951171520712759.jpg?param=130y130",
+  neteaseId: "28863649"
+},
+{
   name: "ANGPANG",
   fans: "1.3万",
   lat: 33.64, lng: 116.97,
@@ -1078,6 +1181,14 @@ desc:"「少年说唱企划」季军"
   avatar: "https://p2.music.126.net/6CztYWPnruiLGtQGwPb-OA==/109951169865386487.jpg?param=130y130",
   neteaseId: "14807229"
 },
+{
+  name: "C2C",
+  fans: "1.2万",
+  lat: 34.22, lng: 109.05,
+  avatar: "https://p2.music.126.net/zItP-jkZK7mlsb_CY3DV7Q==/109951163045525486.jpg?param=130y130",
+  neteaseId: "12765265"
+},
+
 {
   name: "阿拉梅",
   fans: "5.7万",
@@ -1144,6 +1255,14 @@ desc:"「新说唱2025」亚军"
   avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130",
   neteaseId: "33435403"
 },
+ {
+  name: "BlackTheDevil",
+  fans: "4.2万",
+  lat: 32.16, lng: 118.73,
+  avatar: "https://p1.music.126.net/2fBrRCjXBSrhPPeLVPV1tA==/109951171895299197.jpg?param=130y130",
+  neteaseId: "32977298"
+},
+
 {
   name: "GALI",
   fans: "120.8万",
@@ -1217,9 +1336,16 @@ desc:"「少年说唱企划」冠军"
 {
   name: "河北吴孟达",
   fans: "9.5万",
-  lat:38.04 , lng: 114.52,
+  lat:37.98 , lng: 114.52,
   avatar: "https://p2.music.126.net/8PK5wiTX1_fq3FpinOxY9A==/109951172912077612.jpg?param=130y130",
   neteaseId: "12874853"
+},
+{
+  name: "Yosko",
+  fans: "1.8万",
+  lat:38.11 , lng: 114.51,
+  avatar: "https://p2.music.126.net/UwGkagnlITeDSIHp2-Rm5g==/109951169506709305.jpg?param=130y130",
+  neteaseId: "12472471"
 },
 {
   name: "Kc",
@@ -1251,6 +1377,14 @@ desc:"「少年说唱企划」冠军"
   avatar: "https://p1.music.126.net/S8wLPRtqkCKHKxCaFiuuHQ==/109951172563300735.jpg?param=130y130",
   neteaseId: "46921476"
 },
+{
+  name: "DOMMIU",
+  fans: "6.1万",
+  lat:44.03 , lng: 125.02,
+  avatar: "https://p2.music.126.net/buSxWmoYlm_D2aaTtdZjUA==/109951173020958394.jpg?param=130y130",
+  neteaseId: "62183661"
+},
+
 {
   name: "Buzzy",
   fans: "28.8万",
@@ -1315,6 +1449,14 @@ desc:"「少年说唱企划」冠军"
   avatar: "https://p2.music.126.net/C5oqYjjh9xV1IbgUtDcjEg==/109951172320368295.jpg?param=130y130",
   neteaseId: "14116746"
 },
+{
+  name: "BrAnTB白景屹",
+  fans: "41.4万",
+  lat:34.21 , lng: 108.82,
+  avatar: "https://p1.music.126.net/Sr317x_cuFvlnyxajtjQ8Q==/109951169464498126.jpg?param=130y130",
+  neteaseId: "12523451"
+},
+
 {
   name: "Lil Asian",
   fans: "13万",
@@ -1924,7 +2066,7 @@ desc:"「说唱听我的第二季」冠军"
 {
   name: "阿达娃",
   fans: "20万",
-  lat: 30.50, lng: 104.07,
+  lat: 30.79, lng: 104.07,
   avatar: "https://p2.music.126.net/QiKQ2vy1NM5JPJJ6ZPY7zg==/109951170151716789.jpg?param=130y130",
   neteaseId: "32959015"
 },
@@ -2099,6 +2241,15 @@ members: ["LEGGO", "黄之仪Kyra Zilver", "4D"]
     type: "label",
 members: ["Player J", "步步高先生", "阿牛"]
   },
+{
+    name: "滇声气",
+    fans: "说唱组合",
+    lat: 24.99, lng: 102.79, // 重庆坐标
+    avatar: "https://p1.music.126.net/5dEUmKOrBn-yKEnKuwrCnA==/109951168762553034.jpg?param=130y130",
+    neteaseId: "",
+    type: "label",
+members: ["D-roc", "大晖", "MC脏脏","卓卓","7'angelo陶英杰"]
+  },
 
 {
   name: "龍胆紫/PurpleSoul",
@@ -2229,6 +2380,21 @@ const singersWithType = singers.map(singer => ({
 }));
 
 const allData = [...singersWithType, ...labels];    
+
+
+// 定义特殊分类名单
+const specialCategories = {
+  "new_rap25": ["SHarK", "邓典果DDG", "Top Barry", "Rapeter","泰格西","Vinz-T","翁杰Winjay","KITO","DOMMIU","马赫mood","Yosko","BlackTheDevil","阿达娃"], 
+"new_rap24": ["JinJiBeWater-隼", "新秀", "Athree", "辉子","AA","贰万","Nxmad诺曼德","God Øne","JarStick","罗言","MC脏脏","C2C"],
+"ronghe25": ["艾志恒Asen", "万妮达Vinida Weng", "GAI周延", "C-BLOCK","华云龙KLE","陈一豪Clear","SHarK","Rapeter","亚细亚旷世奇才","ljz329","揽佬SKAI ISYOURGOD","泰格西","Top Barry","邓典果DDG","Ranzer","盛宇D-SHINE","功夫胖KUNGFU-PEN","王以太","黄之仪Kyra Zilver","BrAnTB白景屹","asak藏羚羊"],
+
+"wangyi25": ["艾志恒Asen", "夏之禹", "华云龙KLE", "GAI周延","谢帝","陈一豪Clear","王齐铭WatchMe","张方钊","C-BLOCK","施鑫文月","马赫mood","Vansdaddy","王以太","马思唯","二流","李佳隆","陈娴静","africakid","李欣颖","ProN4c","杨和苏KeyNG","JinJiBeWater-隼","ljz329","Rapeter"],
+
+  };
+
+
+
+
     // ---------- 聚合图层 ----------
     let markerClusterGroup = L.markerClusterGroup({
       iconCreateFunction: function(cluster) {
@@ -2304,12 +2470,23 @@ const allData = [...singersWithType, ...labels];
     }
     
     // 渲染标记 (支持筛选)
-    function renderMarkers(filterType = "all") {
-      markerClusterGroup.clearLayers();
-      searchMarkerMap.clear();
-      searchNameList = [];
-      
-      const filtered = allData.filter(item => filterType === "all" || item.type === filterType);
+function renderMarkers(filterType = "all") {
+  markerClusterGroup.clearLayers();
+  searchMarkerMap.clear();
+  searchNameList = [];
+
+  // 核心逻辑修改
+  const filtered = allData.filter(item => {
+    if (filterType === "all") return true;
+    if (filterType === "singer" || filterType === "label") {
+      return item.type === filterType;
+    }
+    // 如果 filterType 存在于我们的特殊名单中
+    if (specialCategories[filterType]) {
+      return specialCategories[filterType].includes(item.name);
+    }
+    return false;
+  });
       
       filtered.forEach(item => {
 // 找到 renderMarkers 函数里的这段并替换
@@ -2364,14 +2541,39 @@ const icon = L.divIcon({
         marker.bindPopup(popupHtml);
         markerClusterGroup.addLayer(marker);
         
-        const lowerKey = item.name.toLowerCase();
-        searchMarkerMap.set(lowerKey, { marker, rawName: item.name, type: item.type, latlng: marker.getLatLng() });
-        searchNameList.push({ raw: item.name, lower: lowerKey, type: item.type });
-      });
-    }
+       const lowerKey = item.name.toLowerCase();
+    searchMarkerMap.set(lowerKey, { marker, rawName: item.name, type: item.type, latlng: marker.getLatLng() });
+    searchNameList.push({ raw: item.name, lower: lowerKey, type: item.type });
+  });
+}
     
     renderMarkers("all");
     
+
+
+
+const filterBtns = document.getElementById('filter-btns');
+const filterToggle = document.getElementById('filter-toggle');
+
+filterToggle.addEventListener('click', function() {
+  const isExpanded = filterBtns.classList.toggle('expanded');
+  
+  // 更新文字和箭头
+  if (isExpanded) {
+    this.innerHTML = '收起▴';
+  } else {
+    this.innerHTML = '展开更多 ▾';
+  }
+});
+
+
+
+
+
+
+
+
+
     // 筛选按钮逻辑
     document.querySelectorAll(".filter-btn").forEach(btn => {
       btn.addEventListener("click", function() {
