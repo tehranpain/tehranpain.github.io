@@ -116,8 +116,7 @@
   transform: scale(1.1);
   transition: transform 0.2s;
 }
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+
 .singer-avatar:hover {
   transform: scale(1.15); 
   box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4); /* 同聚合点的阴影风格 */
@@ -128,7 +127,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: visible !important;
 }
     .custom-cluster div {
-  background: rgba(255, 68, 68, 0.7) !important; /* 0.5 是基础透明度，你可以随便改 */
+  background: rgba(255, 68, 68, 0.75) !important; 
   transition: all 0.3s ease !important; /* 添加 0.3秒 的平滑过渡效果 */
 }
 
@@ -138,32 +137,57 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform: scale(1.15); /* 悬停时放大到 1.15 倍，交互手感更好 */
   box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4) !important; /* 悬停时让阴影也变明显一点 */
 }
-       #search-container {
+#top-bar {
       position: absolute;
       top: 20px;
       left: 20px;
       z-index: 1000;
       display: flex;
-      gap: 10px;
+      gap: 15px;
+      align-items: flex-start;
+      pointer-events: none; /* 让间隙区域的点击能穿透到地图 */
+    }
+    #top-bar > * {
+      pointer-events: auto; /* 恢复子元素的交互 */
+    }
+
+    /* 2. 搜索框容器（移除绝对定位，让其跟随 top-bar 排列） */
+    #search-container {
+      position: relative;
+left: 20px;top: -12px;
+      display: flex;
       flex-direction: column;
-      background: rgba(0,0,0,0.4);
+      gap: 10px;
       padding: 12px 16px;
       border-radius: 20px;
-      backdrop-filter: blur(8px);
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       transition: all 0.2s;
-      width: 320px;
+      width: auto;
     }
-    #search-input-wrap {
+
+    /* 3. 筛选按钮组（含索引圆形按钮） */
+    #filter-group {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
+      margin-top: 0;
     }
+#search-input-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* 删掉 position: relative，移到下面的 inner */
+}
+#search-input-inner {
+  position: relative; /* 清除键的定位参照物 */
+  flex: 1;            /* 撑满剩余空间，让 input 正常伸缩 */
+  display: flex;
+  align-items: center;
+}
+
     #singer-search {
       flex: 1;
-      padding: 12px 16px;
-      border: 1px solid #e0e0e0;
+      padding: 12px 40px 12px 16px; /* 右侧留出清除按钮的空间 */
+      border: 1.5px solid #ff7a7a;
       border-radius: 40px;
       font-size: 14px;
       outline: none;
@@ -195,8 +219,32 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       background: #ff2222;
       transform: scale(1.05);
     }
+    /* ===== 搜索框一键清除按钮（绝对定位在 input 内右侧） ===== */
+    #search-clear-btn {
+      position: absolute;
+      right: 10px;  
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ccc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: none;          /* 默认隐藏 */
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      padding: 0;
+      transition: background 0.2s;
+      z-index: 2;
+    }
+    #search-clear-btn:hover { background: #ff4444; }
+
     #search-suggestions {
-      width: 100%;
+      width: 50%;
       max-height: 220px;
       overflow-y: auto;
       background: white;
@@ -220,6 +268,21 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       background: #fff0f0;
       color: #ff4444;
     }
+
+    .suggestion-item.city-type { color: #000000; }
+    .suggestion-item.city-type:hover { color: #ff4444; }
+   .city-tag {
+    font-size: 9px;
+    padding: 1px 4px;
+    margin-left: 6px;
+margin-top: 1px;
+    background-color: #FFE5E5; /* 角标背景色 */
+    color: #ff4444;              /* 角标文字颜色 */
+    border-radius: 4px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
     #search-tip {
       position: fixed;
       bottom: 30px;
@@ -262,11 +325,6 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: none !important;
 }
 
-
-
-
-
-
     .pulse-marker {
       position: absolute;
       width: 32px;
@@ -281,18 +339,18 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     #author-info {
       position: absolute;
-      top: 20px;
-      right: 50px;
+      bottom: 10px;
+      right: 20px;
       z-index: 1000;
       background: rgba(255, 255, 255, 0.8);
-      padding: 10px 20px;
+      padding: 6px 12px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      font-size: 14px;
+      font-size: 12px;
       color: #333;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
       max-width: 80%;
       justify-content: center;
@@ -313,58 +371,120 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     #author-info a:hover {
       text-decoration: underline;
     }
-       /* 新增：筛选按钮样式 */
-/* 容器：限制高度并隐藏溢出 */
-#filter-btns {
-  display: flex;
-  flex-wrap: wrap; /* 允许换行 */
-  gap: 8px;
-  margin-top: 8px;
-  max-height: 32px; /* 初始高度仅够显示一行按钮 (根据你按钮高度调整) */
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 展开状态 */
-#filter-btns.expanded {
-  max-height: 300px; /* 只要比内容高就行 */
-}
-
-/* 切换按钮样式 */
-#filter-toggle {
-  text-align: center;
-  font-size: 12px;
-  color: #ff4444;
-  cursor: pointer;
-  margin-top: 8px;
-  padding-top: 4px;
-  border-top: 1px dashed #eee;
-  transition: color 0.2s;
-}
-
-#filter-toggle:hover {
+ #filter-toggle:hover {
   color: #ff4444;
 }
-
-/* 确保按钮在折叠时不会被切成一半 */
 .filter-btn {
-  padding: 6px 14px;
+      padding: 7px 12px;
       border: none;
       border-radius: 40px;
-      background: #f0f0f0;
+      background: #ffffff; 
       color: #555;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 600;
       transition: all 0.2s;
-}
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+      white-space: nowrap;
+    }
     .filter-btn.active {
       background: #ff4444;
       color: white;
-      box-shadow: 0 2px 6px rgba(255,68,68,0.3);
+      box-shadow: 0 2px 8px rgba(255,68,68,0.3);
     }
     .filter-btn:hover:not(.active) {
-      background: #e0e0e0;
+      background: #f0f0f0;
+      transform: translateY(-1px);
+    }
+
+    
+/* ===== 更多选项：圆形图标按钮 + 就地展开列表 ===== */
+
+/* 整个容器：紧贴 Leaflet 缩放控件下方 */
+#more-options-wrapper {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  z-index: 1000;
+}
+
+/* #more-options-btn 样式已合并到 #action-group 规则中 */
+
+/* 展开的选项列表（固定定位，JS 动态计算坐标，向下展开） */
+#more-options-dropdown {
+  position: fixed;
+  z-index: 1400;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+#more-options-dropdown.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* 列表内每个选项 */
+.dropdown-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 16px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 0;
+  background: transparent;
+  color: #444;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: none !important;
+  white-space: nowrap;
+}
+.dropdown-item:first-child { border-radius: 14px 14px 0 0; }
+.dropdown-item:last-child  { border-bottom: none; border-radius: 0 0 14px 14px; }
+.dropdown-item:hover:not(.active) {
+  background: #f5f5f5;
+}
+.dropdown-item.active {
+  background: #fff0f0 !important;
+  color: #ff4444 !important;
+}
+
+
+/* 在现有 CSS 中添加 */
+.leaflet-layer {
+  filter: grayscale(10%) brightness(93%);
+}
+.leaflet-container {
+  background: #d0d0d0;
+}
+
+
+
+
+    @media (max-width: 850px) {
+      #top-bar {
+        flex-direction: column;
+        top: 12px;
+        left: 12px;
+        gap: 10px;
+      }
+      #filter-group {
+        margin-top: 0;
+        flex-wrap: wrap;
+      }
+      #search-container { width: 260px; padding: 10px 12px; }
+      #author-info { font-size: 10px; bottom: 12px; right: 12px; gap: 8px; padding: 5px 12px; }
     }
     
     @media (max-width: 640px) {
@@ -372,11 +492,408 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
       #author-info { font-size: 10px; bottom: 12px; right: 12px; gap: 8px; padding: 5px 12px; }
     }
 
+
+/* 关系网触发按钮（弹窗内） */
+    .network-btn {
+      margin-top: 10px;
+      padding: 6px 14px;
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #eee;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    .network-btn:hover {
+      background: #ff4444;
+      color: white;
+      border-color: #ff4444;
+      box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
+    }
+
+    /* 退出关系网的底部悬浮按钮 */
+    #exit-network-btn {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      padding: 12px 32px;
+      background: rgba(255, 115, 115, 0.85);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      display: none; /* 默认隐藏 */
+    }
+    #exit-network-btn:hover {
+      background: #ff4444;
+      transform: translateX(-50%) scale(1.05);
+    }
+
+
+
+
+/* ===== action-group：筛选 + 排行榜按钮行 ===== */
+#action-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 0;
+}
+
+/* 筛选按钮 & 排行榜按钮共用样式（与 filter-btn 同风格但保持原始大小） */
+#more-options-btn,
+#rank-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 40px;
+  background: #ffffff;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#more-options-btn:hover:not(.active),
+#rank-btn:hover:not(.open) {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+#more-options-btn.active {
+  background: #ff4444;
+  color:white;
+  box-shadow: 0 2px 8px rgba(255,68,68,0.3);
+}
+#rank-btn.open {
+  background: #ff4444;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255,68,68,0.3);
+}
+
+/* 排行榜面板（固定定位，JS 动态计算坐标，向下展开） */
+#rank-panel {
+  position: fixed;
+  z-index: 1400;
+  width: 300px;
+  max-height: 63vh;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#rank-panel.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+
+/* 顶部切换横栏 */
+#rank-tab-bar {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  margin: 12px 12px 0;
+  padding: 3px;
+  position: relative;
+  flex-shrink: 0;
+}
+/* 滑动红色背景块 */
+#rank-tab-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 6px);
+  width: calc(50% - 3px);
+  background: #ff4444;
+  border-radius: 9px;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+.rank-tab {
+  flex: 1;
+  text-align: center;
+  padding: 7px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 9px;
+  position: relative;
+  z-index: 1;
+  color: #888;
+  transition: color 0.25s;
+  user-select: none;
+  white-space: nowrap;
+}
+.rank-tab.active { color: white; }
+
+/* 副标题 */
+#rank-panel-subtitle {
+  font-size: 10px;
+  color: #aaa;
+  text-align: center;
+  padding: 5px 12px 0;
+  flex-shrink: 0;
+}
+
+/* 可滚动内容区 */
+#rank-panel-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 12px 12px;
+  min-height: 0;
+}
+#rank-panel-body::-webkit-scrollbar { width: 4px; }
+#rank-panel-body::-webkit-scrollbar-thumb {
+  background: #f0c0c0;
+  border-radius: 4px;
+}
+
+/* 排行榜头像 */
+.rank-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1.5px solid #f0f0f0;
+}
+
+
+/* 每行条目 */
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 4px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.rank-row:last-child { border-bottom: none; }
+.rank-row:hover { background: #fff5f5; }
+
+.rank-no {
+  width: 20px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ccc;
+  flex-shrink: 0;
+}
+.rank-no.gold   { color: #f5a623; }
+.rank-no.silver { color: #9b9b9b; }
+.rank-no.bronze { color: #c47a3a; }
+
+.rank-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rank-row:hover .rank-name { color: #ff4444; }
+
+.rank-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ff4444;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+
+
+
+
+
+/* ===== 索引按钮（圆形图标，无文字，tooltip） & 面板 ===== */
+#index-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  position: relative;
+}
+#index-btn:hover:not(.active) {
+  background: #f0f0f0;
+  transform: scale(1.08);
+}
+#index-btn.active {
+  background: #ff4444;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255,68,68,0.3);
+}
+
+/* 索引面板：固定定位，JS 动态计算坐标 */
+#index-panel {
+  position: fixed;
+  z-index: 1500;
+  width: 320px;
+  max-height: 60vh;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.16);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#index-panel.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+
+/* 索引列表滚动区 */
+#index-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 10px 10px;
+  min-height: 0;
+}
+#index-list::-webkit-scrollbar { width: 4px; }
+#index-list::-webkit-scrollbar-thumb { background: #f0c0c0; border-radius: 4px; }
+
+/* 索引大分区标题（歌手 / 厂牌） */
+.index-section-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff4444;
+  padding: 10px 8px 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid #ffe0e0;
+  margin-bottom: 2px;
+}
+/* 字母分组标题 */
+.index-letter-header {
+  font-size: 10px;
+  font-weight: 700;
+  color: #bbb;
+  padding: 6px 8px 2px;
+  letter-spacing: 1px;
+}
+
+/* 每行歌手条目 */
+.index-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.index-row:hover { background: #fff5f5; }
+.index-row:hover .index-name { color: #ff4444; }
+
+.index-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #f0f0f0;
+}
+.index-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 索引面板 tab 切换栏（与排行榜 tab 同风格） */
+#index-tab-bar {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  margin: 12px 12px 8px;
+  padding: 3px;
+  position: relative;
+  flex-shrink: 0;
+}
+#index-tab-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 6px);
+  width: calc(50% - 3px);
+  background: #ff4444;
+  border-radius: 9px;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+.index-tab {
+  flex: 1;
+  text-align: center;
+  padding: 7px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 9px;
+  position: relative;
+  z-index: 1;
+  color: #888;
+  transition: color 0.25s;
+  user-select: none;
+  white-space: nowrap;
+}
+.index-tab.active { color: white; }
+
+.leaflet-zoom-animated {
+  will-change: transform;
+}
+
+
   </style>
-  <!-- Leaflet核心 -->
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- 点聚合插件 -->
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
@@ -392,55 +909,175 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     </div>
   </div>
 
+  <div id="top-bar">
     <div id="search-container">
-    <div id="search-input-wrap">
-      <input type="text" id="singer-search" placeholder="输入歌手/厂牌/组合名字搜索">
-      <button id="search-btn" class="search-icon-btn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M21 21L16.65 16.65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-    <!-- 筛选按钮 -->
-    <div id="filter-btns-container">
-  <div id="filter-btns">
-    <button class="filter-btn active" data-type="all">全部</button>
-    <button class="filter-btn" data-type="singer">仅歌手</button>
-    <button class="filter-btn" data-type="label">仅厂牌/组合</button>
-    <button class="filter-btn" data-type="new_rap25">「新说唱2025」全国13强</button>
-<button class="filter-btn" data-type="ronghe25">「融合嘻哈盛典2025」获奖歌手</button>
-<button class="filter-btn" data-type="wangyi25">「网易云2025中文说唱音乐奖」获奖歌手</button>
-   <button class="filter-btn" data-type="new_rap24">「新说唱2024」全国12强</button>
+      <div id="search-input-wrap">
+<!-- 三个基础筛选按钮（缩小版）-->
+        
 
-
-  </div>
-  <div id="filter-toggle">展开更多▾</div>
+ <div id="search-input-inner">
+  <input type="text" id="singer-search" placeholder="搜索歌手/厂牌/组合">
+  <button id="search-clear-btn" title="清除">✕</button>
 </div>
-    <!-- 联想下拉列表 -->
-    <div id="search-suggestions"></div>
-  </div>
+        <button id="search-btn" class="search-icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 21L16.65 16.65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <!-- 索引按钮：纯圆形图标，无文字 -->
+        <button id="index-btn" title="索引">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="3" cy="6" r="0.5" fill="currentColor"/>
+            <circle cx="3" cy="12" r="0.5" fill="currentColor"/>
+            <circle cx="3" cy="18" r="0.5" fill="currentColor"/>
+          </svg>
+        </button>
+<button class="filter-btn active" data-type="all">全部</button>
+        <button class="filter-btn" data-type="singer">仅歌手</button>
+        <button class="filter-btn" data-type="label">仅厂牌/组合</button>
+      </div>
+      <div id="search-suggestions"></div>
+      <!-- 筛选 + 排行榜按钮行（搜索框下方第二行） -->
+      <div id="action-group">
+        <button id="more-options-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="3" y1="6"  x2="21" y2="6"/>
+            <line x1="6" y1="12" x2="18" y2="12"/>
+            <line x1="9" y1="18" x2="15" y2="18"/>
+          </svg>
+          筛选
+        </button>
+        <button id="rank-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6"  y1="20" x2="6"  y2="14"/>
+          </svg>
+          排行榜
+        </button>
+      </div>
+    </div><!-- /#search-container -->
 
-  <div id="search-tip"></div>
+  </div><!-- /#top-bar -->
 
   <!-- 作者信息栏 -->
   <div id="author-info">
     <div class="info-item">
-      <span class="info-label">作者：</span>
-      <span>tehranpain</span>
-    </div>
-    <div class="info-item">
-      <span class="info-label">联系方式：</span>
+      <span class="info-label">联系作者：</span>
       <a href="https://www.douyin.com/user/MS4wLjABAAAAx4SFe50OmPZVVjiUKvGIB-Fy-hcCFRRnIfFykRZ7PB8odlA9MuUHqmsTzjzgpS7l?from_tab_name=main">@unopain</a>
     </div>
     <div class="info-item">
-      <span class="info-label">更新时间：2026.4.19</span>
+      <span class="info-label">更新时间：2026.4.29</span>
     </div>
   </div>
+<button id="exit-network-btn">退出关系网</button>
+
+
+<!-- 更多选项容器（仅保留 wrapper 壳，dropdown 用固定定位） -->
+<div id="more-options-wrapper"></div>
+
+<!-- 筛选下拉列表（固定定位，JS 控制位置） -->
+<div id="more-options-dropdown">
+  <button class="filter-btn dropdown-item" data-type="new_rap25">「新说唱2025」全国13强</button>
+  <button class="filter-btn dropdown-item" data-type="ronghe25">「融合嘻哈盛典2025」获奖歌手</button>
+  <button class="filter-btn dropdown-item" data-type="wangyi25">「网易云2025中文说唱音乐奖」获奖歌手</button>
+  <button class="filter-btn dropdown-item" data-type="new_rap24">「新说唱2024」全国12强</button>
+</div>
+
+<!-- 排行榜面板（固定定位，JS 控制位置） -->
+<div id="rank-panel">
+  <div id="rank-tab-bar">
+    <div id="rank-tab-slider"></div>
+    <div class="rank-tab active" data-tab="fan">乐迷团排行榜</div>
+    <div class="rank-tab"        data-tab="fans">粉丝数量排行榜</div>
+  </div>
+  <div id="rank-panel-subtitle">点击歌手名可定位到地图</div>
+  <div id="rank-panel-body"></div>
+</div>
+
+<div id="index-panel">
+  <!-- 新增 tab 切换栏，结构与排行榜完全一致 -->
+  <div id="index-tab-bar">
+    <div id="index-tab-slider"></div>
+    <div class="index-tab active" data-tab="singer">歌手</div>
+    <div class="index-tab"       data-tab="label">厂牌 / 组合</div>
+  </div>
+  <div id="index-list"></div>
+</div>
+
 
 
   <div id="map"></div>
 <script>
+  // === Leaflet.SmoothWheelZoom 插件（MIT License, mutsuyuki） ===
+  L.Map.mergeOptions({ smoothWheelZoom: true, smoothSensitivity: 1 });
+  L.Map.SmoothWheelZoom = L.Handler.extend({
+    addHooks: function () {
+      L.DomEvent.on(this._map._container, 'wheel', this._onWheelScroll, this);
+    },
+    removeHooks: function () {
+      L.DomEvent.off(this._map._container, 'wheel', this._onWheelScroll, this);
+    },
+    _onWheelScroll: function (e) {
+      if (!this._isWheeling) this._onWheelStart(e);
+      this._onWheeling(e);
+    },
+    _onWheelStart: function (e) {
+      var map = this._map;
+      this._isWheeling = true;
+      this._wheelMousePosition = map.mouseEventToContainerPoint(e);
+      this._centerPoint = map.getSize()._divideBy(2);
+      this._startLatLng = map.containerPointToLatLng(this._centerPoint);
+      this._wheelMouseLatLng = map.containerPointToLatLng(this._wheelMousePosition);
+      this._startZoom = map.getZoom();
+      this._moved = false;
+      this._zooming = true;
+      map._stop();
+      if (map._panAnim) map._panAnim.stop();
+      this._goalZoom = map.getZoom();
+      this._prevCenter = map.getCenter();
+      this._prevZoom = map.getZoom();
+      this._zoomAnimationId = requestAnimationFrame(this._updateWheelZoom.bind(this));
+    },
+    _onWheeling: function (e) {
+      var map = this._map;
+      this._goalZoom = this._goalZoom + L.DomEvent.getWheelDelta(e) * 0.003 * map.options.smoothSensitivity;
+      if (this._goalZoom < map.getMinZoom() || this._goalZoom > map.getMaxZoom()) {
+        this._goalZoom = map._limitZoom(this._goalZoom);
+      }
+      this._wheelMousePosition = map.mouseEventToContainerPoint(e);
+      this._wheelMouseLatLng = map.containerPointToLatLng(this._wheelMousePosition);
+      clearTimeout(this._timeoutId);
+      this._timeoutId = setTimeout(this._onWheelEnd.bind(this), 200);
+      L.DomEvent.preventDefault(e);
+      L.DomEvent.stopPropagation(e);
+    },
+    _onWheelEnd: function () {
+      this._isWheeling = false;
+      cancelAnimationFrame(this._zoomAnimationId);
+      this._map._moveEnd(true);
+    },
+    _updateWheelZoom: function () {
+      var map = this._map;
+      if (!map.getCenter().equals(this._prevCenter) || map.getZoom() != this._prevZoom) return;
+      this._zoom = map.getZoom() + (this._goalZoom - map.getZoom()) * 0.3;
+      this._zoom = Math.floor(this._zoom * 100) / 100;
+      var delta = this._wheelMousePosition.subtract(this._centerPoint);
+      if (delta.x === 0 && delta.y === 0) return;
+      this._center = map.unproject(map.project(this._wheelMouseLatLng, this._zoom).subtract(delta), this._zoom);
+      if (!this._moved) { map._moveStart(true, false); this._moved = true; }
+      map._move(this._center, this._zoom);
+      this._prevCenter = map.getCenter();
+      this._prevZoom = map.getZoom();
+      this._zoomAnimationId = requestAnimationFrame(this._updateWheelZoom.bind(this));
+    }
+  });
+  L.Map.addInitHook('addHandler', 'smoothWheelZoom', L.Map.SmoothWheelZoom);
+
     document.addEventListener('DOMContentLoaded', function() {
       // 公告弹窗逻辑
       const noticeOverlay = document.getElementById('notice-overlay');
@@ -457,13 +1094,21 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       
 
-      // 1. 地图初始化
-      const map = L.map('map', {
-        maxZoom: 12,
-        minZoom: 3
-      }).setView([35, 105], 5);
+ const map = L.map('map', {
+  maxZoom: 12,
+  minZoom: 3,
+  scrollWheelZoom: false,   // 关闭原生滚轮缩放
+  smoothWheelZoom: true,    // 启用平滑缩放
+  smoothSensitivity: 2,     // 缩放速度，可按手感调整（推荐 0.8~1.5）
+  zoomSnap: 0,              // 允许任意小数 zoom，配合平滑缩放必须设为 0
+markerZoomAnimation: false
+}).setView([35, 105], 5);
 
-      // 2. 高德地图瓦片
+
+const networkLayer = L.layerGroup().addTo(map);
+
+
+      //高德地图瓦片
       L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
         subdomains: ['1','2','3','4'],
         attribution: '© 高德地图',
@@ -480,21 +1125,33 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
           lat: 29.55, lng: 106.54,
           avatar: "https://p1.music.126.net/iR9WU0iTKx6BiMycNJjIQg==/109951167592056590.jpg?param=130y130",
           neteaseId: "1211046",
-          desc:"「中国有嘻哈」冠军"
+          desc:"「中国有嘻哈」冠军",
+collaborators: [
+    { name: "布瑞吉Bridge"},{ name: "雾都L4WUDU"},{ name: "Toryondacloud"},{ name: "盛宇D-SHINE"},{ name: "艾热AIR"},{ name: "Ranzer"},{ name: "功夫胖KUNGFU-PEN"},{ name: "Vava娃娃"},{ name: "FOX胡天渝"},{ name: "威尔Will.T"},{ name: "昊昊HOHO"},{ name: "史宗伦Xyber"},{ name: "早安"},{ name: "谢帝"},{ name: "KEY.L刘聪"}
+  ]
+
         },
         {
   name: "马思唯",
   fans: "411.5万",
   lat: 30.80, lng: 103.89,
   avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130",
-  neteaseId: "1132392"
+  neteaseId: "1132392",
+collaborators: [
+    { name: "邓典果DDG"},{ name: "Ty."},{ name: "FENDIGHEE RICH"},{ name: "YOUNG13DBABY"},{ name: "TSP安琪"},{ name: "KnowKnow"},{ name: "PSY.P"},{ name: "Melo"},{ name: "谢帝"},{ name: "李尔新"},{ name: "AnsrJ"},{ name: "Mengzi"},{ name: "王以太"},{ name: "Sleepy Cat"},{ name: "P.O.E"},{ name: "罗言"},{ name: "地磁卡"},{ name: "Bohan 冷博涵"},{ name: "NINEONE#乃万"},{ name: "阿达娃"},{ name: "THOME"},{ name: "GALI"},{ name: "MC HotDog热狗"},{ name: "ljz329"},{ name: "CashTrippy"},{ name: "YTH Chopie"},{ name: "TizzyT"},{ name: "斑比Bambii"}
+  ]
+
 },
 {
   name: "Vansdaddy",
   fans: "25.7万",
   lat: 31.10, lng: 105.10,
   avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130",
-  neteaseId: "35009085"
+  neteaseId: "35009085",
+collaborators: [
+    { name: "KITO"},{ name: "mac ova seas"},{ name: "王以太"},{ name: "OuttaWave"},{ name: "Lil Asian"},{ name: "李文"},{ name: "黄之仪Kyra Zilver"},{ name: "THOME"},{ name: "张方钊"},{ name: "卡力老虎"},{ name: "DOMMIU"},{ name: "BOBBYNOPEACE"},{ name: "Tlatre特雷西"},{ name: "Monovisa"},{ name: "Uzzy"},{ name: "揽佬SKAI ISYOURGOD"},{ name: "叶轩池"},{ name: "Lil Asian"},{ name: "李大奔BENZO"}
+  ]
+
 },
 {
   name: "王以太",
@@ -502,6 +1159,49 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   lat: 30.66, lng: 104.08,
   avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130",
   neteaseId: "12236125"
+
+},
+{
+  name: "叶轩池",
+  fans: "1.0万",
+  lat: 31.50, lng: 104.68,
+  avatar: "https://p2.music.126.net/0BMmghspKrO-7gFs1K3j4g==/109951172547278288.jpg?param=130y130",
+  neteaseId: "34639852"
+},
+{
+  name: "ayin印",
+  fans: "1.0万",
+  lat: 43.89, lng: 125.44,
+  avatar: "https://p1.music.126.net/nnNnkLp-IEQ0pRjJx_7kOA==/109951172687483235.jpg?param=130y130",
+  neteaseId: "12924606"
+},
+{
+  name: "地磁卡",
+  fans: "3.2万",
+  lat: 24.92, lng: 102.75,
+  avatar: "https://p1.music.126.net/JWK4JL3y_PRmn8ctpeTD9g==/109951171994023443.jpg?param=130y130",
+  neteaseId: "28072811"
+},
+
+{
+  name: "P.O.E",
+  fans: "5.4万",
+  lat: 31.85, lng: 117.16,
+  avatar: "https://p2.music.126.net/H6GoOzigSmpv5ayOiD35IQ==/109951165124470261.jpg?param=130y130",
+  neteaseId: "12633236"
+},
+{
+  name: "TINY7",
+  fans: "30.8万",
+  lat: 28.29, lng: 112.87,
+  avatar: "https://p1.music.126.net/4PcNXxTQ_oZqnGGjpLSXWw==/109951170475139062.jpg?param=130y130",
+  neteaseId: "33204812"
+},{
+  name: "gs.l",
+  fans: "6.9万",
+  lat: 28.14, lng: 113.11,
+  avatar: "https://p1.music.126.net/izQxChURqypAqF-0-dGiuA==/109951171402665133.jpg?param=130y130",
+  neteaseId: "27869677"
 },
 {
   name: "连麻Swimming",
@@ -510,6 +1210,14 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130",
   neteaseId: "12064019"
 },
+{
+  name: "云别",
+  fans: "2.0万",
+  lat: 28.21, lng: 113.04,
+  avatar: "https://p2.music.126.net/YT1n12JiIzi7SflXpOggwg==/109951167200251502.jpg?param=130y130",
+  neteaseId: "1205071"
+},
+
 {
   name: "JinJiBeWater-隼",
   fans: "60.3万",
@@ -565,6 +1273,15 @@ desc:"「中国新说唱2020」亚军"
 desc:"「中国新说唱2020」冠军"
 
 },
+{
+  name: "史宗伦Xyber",
+  fans: "1.2万",
+  lat: 40.01, lng: 116.34,
+  avatar: "https://p1.music.126.net/zEzaq6Cu_OoP4N0JlgzFLQ==/109951169775146147.jpg?param=130y130",
+  neteaseId: "34464647"
+
+},
+
 {
   name: "AR刘夫阳",
   fans: "37.2万",
@@ -682,7 +1399,7 @@ desc:"「说唱新世代」冠军"
   neteaseId: "12564922"
 },
         {
-  name: "贾真",
+  name: "贾真Jahgen",
   fans: "3.8万",
   lat: 31.37, lng: 120.97,
   avatar: "https://p2.music.126.net/QbS6iX-S-dY9ntZZ1QMcLg==/109951172640172164.jpg?param=130y130",
@@ -860,9 +1577,16 @@ desc:"「说唱新世代」冠军"
 {
   name: "赛文凯",
   fans: "2.6万",
-  lat: 31.88, lng: 117.23,
+  lat: 31.35, lng: 118.43,
   avatar: "https://p2.music.126.net/I9_irr69nKCvjYfuR3UxRw==/109951172104612287.jpg?param=130y130",
   neteaseId: "34794119"
+},
+{
+  name: "Starling8",
+  fans: "13.5万",
+  lat: 28.45, lng: 117.95,
+  avatar: "https://p1.music.126.net/9vSS6aKv4tkdoCj5pEHG1A==/109951171490232518.jpg?param=130y130",
+  neteaseId: "36772893"
 },
 
 {
@@ -872,6 +1596,20 @@ desc:"「说唱新世代」冠军"
   avatar: "https://p1.music.126.net/RDzQJCleFtv8cLqgn4X4Hg==/109951170981432792.jpg?param=130y130",
   neteaseId: "97659298"
 },
+{
+  name: "李棒棒Muti",
+  fans: "16.4万",
+  lat: 39.23, lng: 117.15,
+  avatar: "https://p2.music.126.net/h7IS0jczNFHGTJIKMq3gVg==/109951162975661893.jpg?param=130y130",
+  neteaseId: "12027194"
+},
+{
+  name: "王波",
+  fans: "1.9万",
+  lat: 39.79, lng: 116.55,
+  avatar: "https://p2.music.126.net/QyAEuSzTV9AtIKo8ZDutxQ==/109951167893536897.jpg?param=130y130",
+  neteaseId: "5610"
+},
 
 {
   name: "凶狠凯蒂",
@@ -879,6 +1617,13 @@ desc:"「说唱新世代」冠军"
   lat: 31.99, lng: 120.28,
   avatar: "https://p2.music.126.net/ZLAPfRFsulBEgqJvK9btBA==/109951168506785477.jpg?param=130y130",
   neteaseId: "51638660"
+},
+{
+  name: "德吉老爷",
+  fans: "10.4万",
+  lat: 33.00, lng: 97.01,
+  avatar: "https://p1.music.126.net/aNE2WkXgbG_V5WtZKuwbxw==/109951168959525376.jpg?param=130y130",
+  neteaseId: "30129493"
 },
 
 {
@@ -1111,6 +1856,13 @@ desc:"「新说唱2024」亚军"
   neteaseId: "32992079"
 },
 {
+  name: "XMASwu(吴骜)",
+  fans: "76.3万",
+  lat:31.01 , lng: 118.74,
+  avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130",
+  neteaseId: "31309410"
+},
+{
   name: "Sleepy Cat",
   fans: "4.9万",
   lat:30.80 , lng: 104.00,
@@ -1188,7 +1940,9 @@ desc:"「新说唱2024」亚军"
   fans: "114.9万",
   lat: 32.05, lng: 118.78,
   avatar: "https://p2.music.126.net/EI-opdeBAR11phjG14fwbg==/109951172883193186.jpg?param=130y130",
-  neteaseId: "27868624"
+  neteaseId: "27868624",
+collaborators: [
+    { name: "PSY.P"},{ name: "Melo"},{ name: "Ty."},{ name: "李尔新"},{ name: "Mengzi"},{ name: "王以太"},{ name: "Sleepy Cat"},{ name: "邓典果DDG"},{ name: "AnsrJ"},{ name: "MC HotDog热狗"},{ name: "THOME"},{ name: "BranTB白景屹"},{ name: "GAI周延"},{ name: "那奇沃夫"},{ name: "TSP安琪"},{ name: "艾志恒Asen"},{ name: "APMOZART"},{ name: "早安"},{ name: "AR刘夫阳"},{ name: "艾热AIR"},{ name: "yilun!"},{ name: "国蛋"},{ name: "弹壳Danko"},{ name: "MULA SAKEE"},{ name: "Capper"}  ]
 },
 {
   name: "国蛋",
@@ -1248,6 +2002,13 @@ desc:"「新说唱2024」亚军"
   lat: 23.40, lng: 116.59,
   avatar: "https://p2.music.126.net/FC6Au2YWWcdOtkLPEqKPHg==/109951172514631713.jpg?param=130y130",
   neteaseId: "12258204"
+},
+{
+  name: "昊昊HOHO",
+  fans: "1.9万",
+  lat: 29.45, lng: 106.47,
+  avatar: "https://p1.music.126.net/Ywz7TkauPBFsJ-A5pUW8LQ==/109951165389873188.jpg?param=130y130",
+  neteaseId: "12184254"
 },
 {
   name: "希介",
@@ -1343,8 +2104,11 @@ desc:"「少年说唱企划」季军"
   fans: "41.3万",
   lat: 30.59, lng: 104.16,
   avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130",
-  neteaseId: "48277407"
+  neteaseId: "48277407",
+collaborators: [
+    { name: "LSGCsikorot"},{ name: "JinJiBeWater-隼"},{ name: "Rapeter"},{ name: "Uzzy"},{ name: "Dove鸽子"},{ name: "Lil Asian"},{ name: "迪诺哥"},{ name: "SABER徐天知"},{ name: "极品贵公子"},{ name: "CashTrippy"},{ name: "加木"},{ name: "八口8uck"},{ name: "康熙"},{ name: "杨和苏KeyNG"},{ name: "PearBae小梨"},{ name: "APMOZART"},{ name: "斑比Bambii"},{ name: "KenRobb"},{ name: "吕富贵"},{ name: "KKECHO"},{ name: "刀脚"},{ name: "Mengzi"},{ name: "黄云龙"},{ name: "88LIEN"},{ name: "KITO"},{ name: "Vansdaddy"},{ name: "贾真Jahgen"},{ name: "李欣颖"}  ]
 },
+
 {
   name: "MC脏脏",
   fans: "1.2万",
@@ -1389,14 +2153,17 @@ desc:"「少年说唱企划」季军"
   fans: "91.4万",
   lat: 30.72, lng: 104.06,
   avatar: "https://p2.music.126.net/ETplhG5gXynEQoLQkRhHXg==/109951171813624638.jpg?param=130y130",
-  neteaseId: "847107"
+  neteaseId: "847107",
+collaborators: [
+    { name: "GAI周延"},{ name: "ljz329"},{ name: "建坤YOUNG"},{ name: "王以太"},{ name: "KnowKnow"},{ name: "Melo"},{ name: "李尔新"},{ name: "Mengzi"},{ name: "Sleepy Cat"},{ name: "PSY.P"},{ name: "Rich4ever"},{ name: "诺米么Lodmemo"},{ name: "AnsrJ"},{ name: "AR刘夫阳"},{ name: "华云龙KLE"},{ name: "OneOne"},{ name: "艾志恒Asen"},{ name: "SASIOVERLXRD"},{ name: "雾都L4WUDU"},{ name: "连麻Swimming"},{ name: "APMOZART"},{ name: "邓典果DDG"},{ name: "Ty."},{ name: "刀脚"},{ name: "王齐铭WatchMe"},{ name: "弗洛·文尔"},{ name: "迪诺哥"},{ name: "Player J"},{ name: "步步高先生"},{ name: "阿牛"},{ name: "Akemen杀"},{ name: "斑比Bambii"}  ]
 },
 {
   name: "Jesse Margiela",
   fans: "5.2万",
   lat: 29.86, lng: 121.59,
   avatar: "https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130",
-  neteaseId: "46356020"
+  neteaseId: "46356020",
+aliases: ["杰西马吉拉"]
 },
 {
   name: "SABER徐天知",
@@ -1535,6 +2302,48 @@ desc:"「新说唱2025」亚军"
   avatar: "https://p1.music.126.net/2fBrRCjXBSrhPPeLVPV1tA==/109951171895299197.jpg?param=130y130",
   neteaseId: "32977298"
 },
+{
+  name: "SeanT肖恩恩",
+  fans: "8.7万",
+  lat: 39.99, lng: 116.23,
+  avatar: "https://p2.music.126.net/DTyGsuHmAt6Fv9qLHwjkRw==/109951167147955622.jpg?param=130y130",
+  neteaseId: "12071015"
+},
+{
+  name: "徐真真",
+  fans: "16.7万",
+  lat: 23.05, lng: 113.33,
+  avatar: "https://p1.music.126.net/nxBYkCbe5FKouFFrCkynNA==/109951172726895102.jpg?param=130y130",
+  neteaseId: "12094099"
+},
+{
+  name: "Monovisa",
+  fans: "0.9万",
+  lat: 30.62, lng: 103.96,
+  avatar: "https://p2.music.126.net/L2p4AWJwMpDuSCqhhq5ThA==/109951169291733089.jpg?param=130y130",
+  neteaseId: "32436403"
+},
+{
+  name: "黄建威",
+  fans: "1.4万",
+  lat: 23.01, lng: 114.41,
+  avatar: "https://p1.music.126.net/Hb8WcnnZAS3stgRppfXRkA==/109951170130265514.jpg?param=130y130",
+  neteaseId: "12329255"
+},
+{
+  name: "离合",
+  fans: "1.9万",
+  lat: 22.67, lng: 114.11,
+  avatar: "https://p2.music.126.net/nlvjRerJJlji7P1dDYgYkw==/109951169922880587.jpg?param=130y130",
+  neteaseId: "34319290"
+},
+{
+  name: "俞天时",
+  fans: "18.8万",
+  lat: 41.81, lng: 123.52,
+  avatar: "https://p2.music.126.net/AOCbeNA530hugHdd4ik9cQ==/109951170757905205.jpg?param=130y130",
+  neteaseId: "12124013"
+},
 
 {
   name: "GALI",
@@ -1542,7 +2351,10 @@ desc:"「新说唱2025」亚军"
   lat: 31.23, lng: 121.49,
   avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130",
   neteaseId: "12127362",
-desc:"「中国新说唱2020」季军"
+desc:"「中国新说唱2020」季军",
+collaborators: [
+    { name: "Sean T肖恩恩"},{ name: "mac ova seas"},{ name: "李大奔BENZO"},{ name: "KenRobb"},{ name: "李佳隆"},{ name: "ICE杨长青"},{ name: "俞天时"},{ name: "BroFA"},{ name: "黄之仪Kyra Zilver"},{ name: "王以太"},{ name: "VaVa娃娃"},{ name: "V.O.B"},{ name: "KnowKnow"},{ name: "BrAnTB白景屹"},{ name: "刘炫廷"},{ name: "Capper"},{ name: "Rapeter"},{ name: "MC HotDog热狗"},{ name: "CHOCKEY有三"},{ name: "满舒克"},{ name: "谟西Mercy"},{ name: "LEGGO"},{ name: "三火flame"},{ name: "TizzyT"},{ name: "Tlatre特雷西"},{ name: "Nxmad诺曼德"},{ name: "离合"},{ name: "黄建威"},{ name: "Cee"},{ name: "艾志恒Asen"},{ name: "万妮达Vinida Weng"},{ name: "派克特"}
+  ]
 
 },
 {
@@ -1641,7 +2453,8 @@ desc:"「少年说唱企划」冠军"
   fans: "5.2万",
   lat:26.41 , lng: 106.26,
   avatar: "https://p1.music.126.net/4PcUwu3shtN-8GEXho2JxA==/109951172160176237.jpg?param=130y130",
-  neteaseId: "46549449"
+  neteaseId: "46549449",
+aliases: ["阿卡门"]
 },
 {
   name: "Uzzy",
@@ -1971,11 +2784,21 @@ desc:"「中国新说唱2018」亚军"
   neteaseId: "12529648"
 },
 {
+  name: "肯迪仔",
+  fans: "3.7万",
+  lat:24.97 , lng: 102.67,
+  avatar: "https://p1.music.126.net/uUoqZ82-GKcgPqJpqhiIrQ==/109951169247070191.jpg?param=130y130",
+  neteaseId: "32743623"
+},
+
+{
   name: "SASIOVERLXRD",
   fans: "71.8万",
   lat:27.88 , lng: 102.31,
   avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130",
-  neteaseId: "14117457"
+  neteaseId: "14117457",
+collaborators: [
+    { name: "连麻Swimming"},{ name: "JinJiBeWater-隼"},{ name: "RICHNOMADIC"},{ name: "CashTrippy"},{ name: "雾都L4WUDU"},{ name: "ayin印"},{ name: "刀脚"},{ name: "迪诺哥"},{ name: "Akemen杀"},{ name: "斑比Bambii"},{ name: "mac ova seas"},{ name: "kkluv"},{ name: "那奇沃夫"},{ name: "艾志恒Asen"},{ name: "APMOZART"},{ name: "张方钊"},{ name: "河北吴孟达"},{ name: "贾真Jahgen"},{ name: "BOBBYNOPEACE"},{ name: "Louis 1520"},{ name: "ICE杨长青"},{ name: "Rich4ever"},{ name: "KITO"},{ name: "LSGCsikorot"},{ name: "瘦恒SoulHan"},{ name: "MISTERK"},{ name: "MULA SAKEE"}  ]
 },
 {
   name: "RICHNOMADIC",
@@ -1985,40 +2808,98 @@ desc:"「中国新说唱2018」亚军"
   neteaseId: "33165901"
 },
 {
+  name: "龙崎",
+  fans: "10.2万",
+  lat:24.94 , lng: 102.84,
+  avatar: "https://p2.music.126.net/wMusoXUuwLNJ0ISSVrEH-w==/109951167724346762.jpg?param=130y130",
+  neteaseId: "1185047"
+},
+{
+  name: "徐骁宇DEAN K",
+  fans: "3.2万",
+  lat:46.64 , lng: 126.98,
+  avatar: "https://p2.music.126.net/WO7POFB9QSeBYxJCi9u-Cg==/109951171451553390.jpg?param=130y130",
+  neteaseId: "31366729"
+},
+{
+  name: "小安迪LilAndyKillThemAll",
+  fans: "8.9万",
+  lat:31.92 , lng: 117.29,
+  avatar: "https://p2.music.126.net/gX3nk_WkgpGYYM-60V6y8A==/109951170622630121.jpg?param=130y130",
+  neteaseId: "12099063"
+},
+{
   name: "法老",
   fans: "507.3万",
   lat:30.51 , lng: 120.68,
   avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130",
-  neteaseId: "865007"
+  neteaseId: "865007",
+collaborators: [
+    { name: "阿达娃"},{ name: "KKECHO"},{ name: "小精灵"},{ name: "王以太"},{ name: "MC HotDog热狗"},{ name: "肯迪仔"},{ name: "邓典果DDG"},{ name: "万妮达Vinida Weng"},{ name: "龙崎"},{ name: "陆政廷Lil Jet"},{ name: "杨和苏KeyNG"},{ name: "KnowKnow"},{ name: "徐骁宇DEAN K"},{ name: "JarStick"},{ name: "李毅杰PISSY"},{ name: "Buzzy"},{ name: "DANNY K"},{ name: "EINK"},{ name: "FEEEleven"},{ name: "Spylent"},{ name: "Mc光光"},{ name: "艾热AIR"},{ name: "NINEONE#乃万"},{ name: "派克特"},{ name: "姜云升"},{ name: "小安迪"},{ name: "侃迪Kandi"},{ name: "Wiz-H张子豪"},{ name: "高天佐"},{ name: "Saber梁维嘉"},{ name: "鬼卞"},{ name: "巴顿"},{ name: "AA"},{ name: "Ice Paper"}
+  ]
+
 },
 {
   name: "罗言",
   fans: "131.5万",
   lat:30.95 , lng: 118.77,
   avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130",
-  neteaseId: "33863232"
+  neteaseId: "33863232",
+collaborators: [
+    { name: "Uzzy"},{ name: "吕富贵"},{ name: "LSGCsikorot"},{ name: "KnowKnow"},{ name: "SASIOVERLXRD"},{ name: "THOME"},{ name: "斑比Bambii"},{ name: "Melo"},{ name: "GALI"},{ name: "kkluv"},{ name: "PSY.P"},{ name: "Ty."},{ name: "Capper"},{ name: "TizzyT"},{ name: "BOBBYNOPEACE"},{ name: "JinJiBeWater-隼"},{ name: "AThree"},{ name: "KIV"}
+  ]
+
 },
 {
   name: "ljz329",
   fans: "134.6万",
   lat:36.05 , lng: 103.85,
   avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130",
-  neteaseId: "51957057"
+  neteaseId: "51957057",
+aliases: ["贝贝"]
 },
+{
+  name: "无脸男葫芦",
+  fans: "7.6万",
+  lat:31.17 , lng: 121.46,
+  avatar: "https://p1.music.126.net/5Pcm7CikUeevd-oeQluC9g==/109951169788623409.jpg?param=130y130",
+  neteaseId: "47920714"
+},
+
+{
+  name: "Mosedontbesilly",
+  fans: "3.3万",
+  lat:39.94 , lng: 116.45,
+  avatar: "https://p1.music.126.net/sI3HR-ka6uEU87oT_03UTw==/109951172956320471.jpg?param=130y130",
+  neteaseId: "35233973"
+},
+
 {
   name: "Top Barry",
   fans: "73万",
   lat:22.14 , lng: 113.53,
   avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130",
   neteaseId: "49141872",
-desc:"「新说唱2025」季军"
+desc:"「新说唱2025」季军",
+collaborators: [
+    { name: "Melo"},{ name: "Rapeter"},{ name: "黄旭"},{ name: "李大奔BENZO"},{ name: "APMOZART"},{ name: "刀脚"},{ name: "李佳隆"},{ name: "Yosko"},{ name: "Dove鸽子"},{ name: "沧桑Cang333"},{ name: "三火flame"},{ name: "Akemen杀"},{ name: "李尔新"},{ name: "PSY.P"},{ name: "谟西Mercy"},{ name: "UPNEVERDOWN"},{ name: "功夫胖KUNGFU-PEN"},{ name: "艾洛樱Aluvin"},{ name: "Mosedontbesilly"},{ name: "Tlatre特雷西"},{ name: "无脸男葫芦"}  ]
 },
 {
   name: "Rapeter",
   fans: "94.3万",
   lat:34.60 , lng: 119.18,
   avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130",
-  neteaseId: "12563131"
+  neteaseId: "12563131",
+collaborators: [
+    { name: "SHarK"},{ name: "侃迪kandi"},{ name: "小酷Coola"},{ name: "KITO"},{ name: "杨和苏KeyNG"},{ name: "加木"},{ name: "AA"},{ name: "Mc光光"},{ name: "BOBBYNOPEACE"},{ name: "Athree"},{ name: "V.O.B"}  ]
+},
+
+{
+  name: "小酷Coola",
+  fans: "16.1万",
+  lat:31.24, lng: 121.25,
+  avatar: "https://p1.music.126.net/V9-YRdlI23N05AOg3iwL7g==/109951167834430513.jpg?param=130y130",
+  neteaseId: "12781308"
 },
 {
   name: "黄之仪Kyra Zilver",
@@ -2060,7 +2941,8 @@ desc:"「新说唱2025」季军"
   fans: "70.4万",
   lat:35.23 , lng: 113.24,
   avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130",
-  neteaseId: "15194340"
+  neteaseId: "15194340",
+aliases: ["河南说唱之神"]
 },
 {
   name: "FAC-D12",
@@ -2245,7 +3127,26 @@ desc:"「中国新说唱2018」季军"
   avatar: "https://p2.music.126.net/LX_A8Kvvwy1_GICjbG4DXA==/109951172150251056.jpg?param=130y130",
   neteaseId: "12293217"
 },
-
+{
+  name: "Player J",
+  fans: "0.8万",
+  lat:23.10 , lng: 113.36,
+  avatar: "https://p2.music.126.net/6XygMcwRUQrf_0-uKvduCg==/109951173011924323.jpg?param=130y130",
+  neteaseId: "57561642"
+},
+{
+  name: "步步高先生",
+  fans: "1.1万",
+  lat:23.10 , lng: 113.30,
+  avatar: "https://p1.music.126.net/Ykp3wxYxHV2ZmSJby_5_qg==/109951172938105420.jpg?param=130y130",
+  neteaseId: "54954390"
+},{
+  name: "阿牛",
+  fans: "0.5万",
+  lat:23.16 , lng: 113.24,
+  avatar: "https://p1.music.126.net/vrUY3hL-qxt_xeVzvj0YdQ==/109951171961809450.jpg?param=130y130",
+  neteaseId: "49771435"
+},
 {
   name: "侃迪Kandi",
   fans: "12.2万",
@@ -2256,7 +3157,7 @@ desc:"「中国新说唱2018」季军"
 {
   name: "R!R!Riot",
   fans: "5.5万",
-  lat:23.12 , lng: 113.28,
+  lat:25.00, lng: 121.59,
   avatar: "https://p2.music.126.net/uiTqDBpy8hd2QEz_FcAlmw==/109951168832195379.jpg?param=130y130",
   neteaseId: "56724807"
 },
@@ -2296,6 +3197,13 @@ desc:"「中国新说唱2018」季军"
   neteaseId: "34288614"
 },
 
+{
+  name: "王嗣尧TURBO",
+  fans: "2.0万",
+  lat:29.63 , lng: 106.54,
+  avatar: "https://p1.music.126.net/KSBCC4hnFq0am6Y8x0WXgg==/109951169564693521.jpg?param=130y130",
+  neteaseId: "12499279"
+},
 {
   name: "HEAT J",
   fans: "3.2万",
@@ -2381,6 +3289,14 @@ desc:"「说唱听我的第二季」冠军"
   neteaseId: "37409740"
 },
 {
+  name: "DAI",
+  fans: "0.6万",
+  lat: 30.79, lng: 104.17,
+  avatar: "https://p1.music.126.net/7CeVfhvR7LRh56wPwQRvnA==/109951168571555137.jpg?param=130y130",
+  neteaseId: "33984254"
+},
+
+{
   name: "阿达娃",
   fans: "20万",
   lat: 30.79, lng: 104.07,
@@ -2406,8 +3322,12 @@ desc:"「说唱听我的第二季」冠军"
   name: "mac ova seas",
   fans: "68.4万",
   lat: 31.78, lng: 104.74,
-  avatar:"https://i.scdn.co/image/ab67616d00001e0260f66e711535025cc0228e9c",
-  neteaseId: "30704161"
+  avatar:"https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130",
+  neteaseId: "30704161",
+collaborators: [
+    { name: "KenRobb"},{ name: "KIV"},{ name: "罗言"},{ name: "THOME"},{ name: "MULA SAKEE"},{ name: "TOYOKI"},{ name: "CashTrippy"},{ name: "Capper"},{ name: "UDIGG"},{ name: "李大奔BENZO"},{ name: "李佳隆"},{ name: "加木"},{ name: "王齐铭WatchMe"},{ name: "Ty."},{ name: "YOUNG13DBABY"},{ name: "BrAnTB白景屹"},{ name: "Toryondacloud"},{ name: "连麻Swimming"},{ name: "斑比Bambii"},{ name: "SASIOVERLXRD"},{ name: "那奇沃夫"},{ name: "kkluv"},{ name: "刀脚"},{ name: "V.O.B"},{ name: "雾都L4WUDU"},{ name: "李尔新"},{ name: "PSY.P"}
+  ]
+
 },
 {
   name: "APMOZART",
@@ -2422,10 +3342,57 @@ desc:"「说唱听我的第二季」冠军"
           fans: "135.8万",
           lat: 29.67, lng: 109.14,
           avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130",
-          neteaseId: "12198387"
+          neteaseId: "12198387",
+collaborators: [
+    { name: "马思唯"},{ name: "王以太"},{ name: "罗言"},{ name: "李佳隆"},{ name: "王嗣尧TURBO"},{ name: "mac ova seas"},{ name: "王以太"},{ name: "TOYOKI"},{ name: "MULA SAKEE"},{ name: "Maikon Flocka Flame"},{ name: "GALI"},{ name: "连麻Swimming"},{ name: "谢帝"},{ name: "建坤YOUNG"},{ name: "DAI"},{ name: "THOME"},{ name: "Vansdaddy"},{ name: "KIV"}
+  ]
         }
 
       ];
+
+
+// 自动补全双向合作关系
+(function autoCompleteConnections() {
+  singers.forEach(singer => {
+    if (singer.collaborators) {
+      singer.collaborators.forEach(collab => {
+        // 找到对方的歌手对象
+        const partner = singers.find(s => s.name === collab.name);
+        if (partner) {
+          // 如果对方没有 collaborators 字段，先初始化它
+          if (!partner.collaborators) {
+            partner.collaborators = [];
+          }
+          // 检查对方的名单里是否已经有了自己
+          const alreadyLinked = partner.collaborators.some(c => c.name === singer.name);
+          // 如果没有，就自动补上去
+          if (!alreadyLinked) {
+            partner.collaborators.push({ name: singer.name });
+          }
+        }
+      });
+    }
+  });
+})();
+
+
+
+const cities = [
+        { name: "成都", lat: 30.65, lng: 104.06 }, { name: "重庆", lat: 29.53, lng: 106.50 },
+        { name: "北京", lat: 39.90, lng: 116.40 }, { name: "上海", lat: 31.23, lng: 121.47 },
+        { name: "广州", lat: 23.12, lng: 113.26 }, { name: "长沙", lat: 28.22, lng: 112.93 },
+        { name: "西安", lat: 34.34, lng: 108.93 }, { name: "南京", lat: 32.06, lng: 118.79 },
+        { name: "新疆", lat: 43.82, lng: 87.61 }, { name: "乌鲁木齐", lat: 43.82, lng: 87.61 },
+        { name: "深圳", lat: 22.54, lng: 114.05 }, { name: "杭州", lat: 30.27, lng: 120.15 },
+        { name: "台北", lat: 25.03, lng: 121.56 }, { name: "武汉", lat: 30.59, lng: 114.30 },
+        { name: "哈尔滨", lat: 45.80, lng: 126.53 }, { name: "福州", lat: 26.07, lng: 119.30 },
+        { name: "郑州", lat: 34.74, lng: 113.62 }, { name: "昆明", lat: 25.04, lng: 102.71 }
+      ];
+
+
+
+
+
 
       // 4. 厂牌数据
       const labels = [
@@ -2762,13 +3729,22 @@ const specialCategories = {
       },
       maxClusterRadius: 7,
       spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false
+      showCoverageOnHover: false,
+animate: false,              // 关闭聚合图标自身的展开/收起动画，避免与平滑缩放冲突
+  animateAddingMarkers: false  // 关闭添加 marker 时的动画
     });
     map.addLayer(markerClusterGroup);
     
     let searchMarkerMap = new Map(); // key: 小写名称, value: marker对象
     let searchNameList = []; // { raw, lower, type }
     
+
+cities.forEach(city => {
+        searchNameList.push({ raw: city.name, lower: city.name.toLowerCase(), type: 'city', lat: city.lat, lng: city.lng });
+      });
+
+
+
     // 优雅脉冲动画函数 (添加临时DOM脉冲)
     function addPulseEffect(latLng) {
       // 将地理坐标转成屏幕像素位置
@@ -2824,14 +3800,28 @@ const specialCategories = {
       return true;
     }
     
-    // 渲染标记 (支持筛选)
+
+
+
 function renderMarkers(filterType = "all") {
   markerClusterGroup.clearLayers();
   searchMarkerMap.clear();
+  
+  // 1. 重置搜索列表，并立即把城市数据重新加进去
   searchNameList = [];
+  cities.forEach(city => {
+    searchNameList.push({ 
+      raw: city.name, 
+      lower: city.name.toLowerCase(), 
+      type: 'city', 
+      lat: city.lat, 
+      lng: city.lng 
+    });
+  });
 
-  // 核心逻辑修改
+  // 2. 剩下的歌手/厂牌筛选逻辑保持不变...
   const filtered = allData.filter(item => {
+    
     if (filterType === "all") return true;
     if (filterType === "singer" || filterType === "label") {
       return item.type === filterType;
@@ -2873,24 +3863,34 @@ const icon = L.divIcon({
                 <div style="color:#444; line-height:1.4; font-size:13px;">${item.members ? item.members.join(' · ') : '暂无详细信息'}</div>
               </div>
             </div>`;
-} else {
-  // 先判断是否有描述信息，如果有，生成对应的 HTML 字符串
+  } else {
+  // 先判断是否有描述信息
   const descHtml = item.desc 
   ? `<div style="background:#473D00; color:#FFD900; border:1px solid #ffccc7; font-size:11px; padding:2px 8px; border-radius:4px; display:inline-block; margin-top:6px; font-weight:bold;">${item.desc}</div>` 
   : '';
 
+  // 判断是否有合作者数据，如果有，生成触发关系网的按钮
+  const collabBtnHtml = item.collaborators && item.collaborators.length > 0
+  ? `<button class="network-btn" onclick="window.showNetwork('${item.name}')">查看合作关系网</button>`
+  : '';
+
   popupHtml = `
-    <div style="display:flex; align-items:center; gap:18px; padding:4px;">
-      <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
-      <div>
-        <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:2px;" 
-             onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
-          ${item.name}</div>
-        <div style="color:#666; background:#f8f8f8; padding:2px 10px; border-radius:20px; display:inline-block; font-size:12px;">
-          粉丝 ${item.fans}
+    <div style="display:flex; flex-direction: column; padding:4px;">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <img src="${item.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+        <div>
+          <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:2px;" 
+               onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}', '_blank')">
+            ${item.name}</div>
+          <div style="color:#666; background:#f8f8f8; padding:2px 10px; border-radius:20px; display:inline-block; font-size:12px;">
+            粉丝 ${item.fans}
+          </div>
+          ${descHtml} 
         </div>
-        ${descHtml} </div>
+      </div>
+      ${collabBtnHtml}
     </div>`;
+
 }
         marker.bindPopup(popupHtml);
         markerClusterGroup.addLayer(marker);
@@ -2898,33 +3898,321 @@ const icon = L.divIcon({
        const lowerKey = item.name.toLowerCase();
     searchMarkerMap.set(lowerKey, { marker, rawName: item.name, type: item.type, latlng: marker.getLatLng() });
     searchNameList.push({ raw: item.name, lower: lowerKey, type: item.type });
+// 约第 3824 行
+if (item.aliases && item.aliases.length > 0) {
+  item.aliases.forEach(alias => {
+    searchNameList.push({
+      raw: item.name,       // 点击后定位的仍是真实姓名
+      lower: alias.toLowerCase(),
+      type: item.type,
+      alias: alias          // 保留别名，用于备选项展示
+    });
   });
 }
-    
-    renderMarkers("all");
+  });
+}
 
-const filterBtns = document.getElementById('filter-btns');
-const filterToggle = document.getElementById('filter-toggle');
 
-filterToggle.addEventListener('click', function() {
-  const isExpanded = filterBtns.classList.toggle('expanded');
-  
-  // 更新文字和箭头
-  if (isExpanded) {
-    this.innerHTML = '收起▴';
+
+// ===== 双榜切换排行榜 =====
+(function initRankPanel() {
+
+  // ★ 乐迷团月活跃度数据（活跃粉丝数，数字类型，按从多到少排列）
+  const fanClubData = [
+   { name: "SASIOVERLXRD",             val: 621, avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
+{ name: "艾志恒Asen",             val: 498, avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
+{ name: "马思唯",             val: 278, avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
+{ name: "极品贵公子",             val: 274, avatar: "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130" },
+{ name: "张方钊",             val: 273, avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
+{ name: "法老",             val: 216, avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
+{ name: "Top Barry",             val: 187, avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
+{ name: "Capper",             val: 186, avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
+{ name: "沙一汀EL",             val: 177, avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
+{ name: "Rapeter",             val: 135, avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
+{ name: "蛋堡",             val: 133, avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
+{ name: "加木",             val: 130, avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
+{ name: "MULA SAKEE",             val: 122, avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130" },
+{ name: "连麻Swimming",             val: 120, avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
+{ name: "mac ova seas",             val: 99, avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
+{ name: "姜云升",             val: 93, avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
+{ name: "KenRobb",             val: 86, avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130" },
+{ name: "TizzyT",             val: 86, avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
+{ name: "JinJiBeWater-隼",             val: 77, avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
+{ name: "BOBBYNOPEACE",             val: 75, avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130" },
+{ name: "GALI",             val: 72, avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
+{ name: "Vansdaddy",             val: 70, avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130" },
+{ name: "THOME",             val: 64, avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
+{ name: "罗言",             val: 63, avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
+{ name: "DD Ma Shawty",             val: 63, avatar: "https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130" },
+{ name: "ljz329",             val: 55, avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
+{ name: "MISTERK",             val: 54, avatar: "https://p1.music.126.net/UnxqtJlc2dfN4ozg9F3ywg==/109951172030852354.jpg?param=130y130" },
+{ name: "KEY.L刘聪",             val: 52, avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
+{ name: "李大奔BENZO",             val: 48, avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130" },
+{ name: "王齐铭WatchMe",             val: 45, avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130" },
+{ name: "卦者灵风",             val: 43, avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
+{ name: "杨和苏KeyNG",             val: 42, avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
+{ name: "王以太",             val: 41, avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
+{ name: "翁杰Winjay",             val: 41, avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130" },
+{ name: "小精灵",             val: 40, avatar: "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130" },
+{ name: "CashTrippy",             val: 37, avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130" },
+{ name: "Spylent",             val: 36, avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
+{ name: "Billionhappy",             val: 34, avatar: "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130" },
+{ name: "Tlatre特雷西",             val: 34, avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130" },
+{ name: "Lil Asian",             val: 33, avatar: "https://p2.music.126.net/X7u05eURHRUPDJ9Osf2TRQ==/109951172325962977.jpg?param=130y130" },
+{ name: "RICHNOMADIC",             val: 32, avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130" },
+{ name: "XMASwu(吴骜)",             val: 32, avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
+{ name: "泰格西",             val: 32, avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130" },
+{ name: "Jony J",             val: 31, avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
+{ name: "刀酱",             val: 30, avatar: "https://p1.music.126.net/2dBXEgMVR2RHOxGux3w0Xw==/109951169452459547.jpg?param=130y130" },
+{ name: "等一下就回家",             val: 30, avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130" },
+{ name: "华云龙KLE",             val: 29, avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130" },
+{ name: "Jesse Margiela",             val: 27, avatar: "https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130" },
+{ name: "kkluv",             val: 27, avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130" },
+{ name: "Vinz-T",             val: 27, avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130" },
+
+  ];
+
+  // ★ 粉丝数量数据（字符串，按从多到少排列）
+  const fansCountData = [
+{ name: "法老",  val: "507.3万", avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
+  { name: "马思唯",  val: "411.5万", avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
+  { name: "姜云升",  val: "371.9万", avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
+  { name: "Jony J",  val: "368.5万", avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
+  { name: "NINEONE#乃万",  val: "247.5万", avatar: "https://p2.music.126.net/IOKcH64pITl0kow2gZ0RSQ==/109951171845583865.jpg?param=130y130" },
+  { name: "GAI周延",  val: "238万", avatar: "https://p1.music.126.net/iR9WU0iTKx6BiMycNJjIQg==/109951167592056590.jpg?param=130y130" },
+  { name: "沙一汀EL",  val: "221.2万", avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
+  { name: "Capper",  val: "194.9万", avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
+  { name: "杨和苏KeyNG",  val: "188.6万", avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
+  { name: "王以太",  val: "179.5万", avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
+  { name: "KEY.L刘聪",  val: "175.7万", avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
+  { name: "万妮达Vinida Weng",  val: "146.6万", avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130" },
+  { name: "TizzyT",  val: "146.6万", avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
+  { name: "Ice Paper",  val: "142.3万", avatar: "https://p1.music.126.net/fzWDTckJqRqApWSYxUzKzA==/109951171972222899.jpg?param=130y130" },
+  { name: "满舒克",  val: "141.8万", avatar: "https://p2.music.126.net/ZY6pRcKLqzMNbGTrbWb_6Q==/109951167525919164.jpg?param=130y130" },
+  { name: "艾志恒Asen",  val: "135.8万", avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
+  { name: "ljz329",  val: "134.6万", avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
+  { name: "罗言",  val: "131.5万", avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
+  { name: "加木",  val: "130.4万", avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
+  { name: "FOX胡天渝",  val: "129.7万", avatar: "https://p1.music.126.net/u3EX7EVjel9Ec0QC2sIhvg==/109951172561820413.jpg?param=130y130" },
+  { name: "艾热AIR",  val: "125.5万", avatar: "https://p2.music.126.net/tvy9BeZWZhqKfYKLHsSf-w==/109951172651091852.jpg?param=130y130" },
+  { name: "GALI",  val: "120.8万", avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
+  { name: "Spylent",  val: "115.7万", avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
+  { name: "KnowKnow",  val: "114.9万", avatar: "https://p2.music.126.net/EI-opdeBAR11phjG14fwbg==/109951172883193186.jpg?param=130y130" },
+  { name: "卦者灵风",  val: "104.9万", avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
+  { name: "蛋堡",  val: "104.2万", avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
+  { name: "宝石Gem",  val: "101.8万", avatar: "https://p1.music.126.net/cuxYBa8_n97yinJI22Sd4A==/109951172840033492.jpg?param=130y130" },
+  { name: "海洋Bo",  val: "99.7万", avatar: "https://p2.music.126.net/YXC1dKYtoYeNODtOVtI0Vw==/109951169955219117.jpg?param=130y130" },
+  { name: "kkluv",  val: "96.5万", avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130" },
+  { name: "那奇沃夫",  val: "95万", avatar: "https://p2.music.126.net/jRRnJKg9cNoavwSZNgZe6w==/109951172840846010.jpg?param=130y130" },
+  { name: "Rapeter",  val: "94.3万", avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
+  { name: "谢帝",  val: "91.4万", avatar: "https://p2.music.126.net/ETplhG5gXynEQoLQkRhHXg==/109951171813624638.jpg?param=130y130" },
+  { name: "Wiz-H张子豪",  val: "89.7万", avatar: "https://p1.music.126.net/6NW4JkNt9b73P2nZkkg9kA==/109951172528960503.jpg?param=130y130" },
+  { name: "连麻Swimming",  val: "86.5万", avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
+  { name: "THOME",  val: "82.4万", avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
+  { name: "盛宇D-SHINE",  val: "81.5万", avatar: "https://p2.music.126.net/SUz_YVh0pA9wWmM1CXgdqg==/109951170040821218.jpg?param=130y130" },
+  { name: "XMASwu(吴骜)",  val: "81.5万", avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
+  { name: "Lambert凌杰",  val: "76.2万", avatar: "https://p1.music.126.net/jKNKPRUkxpWiXmm40wxMTQ==/109951171295629808.jpg?param=130y130" },
+  { name: "Ty.",  val: "74.8万", avatar: "https://p2.music.126.net/bQkoAJSN2mkUmDZDejF_Tg==/109951167060520225.jpg?param=130y130" },
+  { name: "李佳隆",  val: "74.4万", avatar: "https://p2.music.126.net/5ZNAae-eS01zCR4F1Xr5DA==/109951172561473437.jpg?param=130y130" },
+  { name: "艾福杰尼",  val: "73万", avatar: "https://p1.music.126.net/sRT4-AH1RpaeGxBI8G_8_g==/109951169446600145.jpg?param=130y130" },
+  { name: "Top Barry",  val: "73万", avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
+  { name: "SASIOVERLXRD",  val: "71.8万", avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
+  { name: "张方钊",  val: "70.4万", avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
+  { name: "KKECHO",  val: "68.4万", avatar: "https://p2.music.126.net/LaYKY3KFwO0JM6dRjVvjXw==/109951172012057555.jpg?param=130y130" },
+  { name: "mac ova seas",  val: "68.4万", avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
+  { name: "ICE杨长青",  val: "67万", avatar: "https://p2.music.126.net/7V-tVve07mAeHhoN6HGhVw==/109951171484108629.jpg?param=130y130" },
+  { name: "MC HotDog热狗",  val: "64.5万", avatar: "https://p2.music.126.net/5ViEXoj1xti2RzahxIMzZQ==/109951169161434274.jpg?param=130y130" },
+  { name: "JinJiBeWater-隼",  val: "60.3万", avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
+  { name: "刀酱",  val: "59.5万", avatar: "https://p1.music.126.net/2dBXEgMVR2RHOxGux3w0Xw==/109951169452459547.jpg?param=130y130" },
+
+    // ... 补充你的真实数据
+  ];
+
+  // 渲染榜单
+  function renderList(data) {
+    const body = document.getElementById('rank-panel-body');
+    body.innerHTML = '';
+    data.forEach((d, i) => {
+      const rank = i + 1;
+      const noClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : '';
+      const row = document.createElement('div');
+      row.className = 'rank-row';
+      // 如果数据里直接有 avatar 字段，用 d.avatar；
+// 如果想从 singersData 里查找，改成：
+// const singer = singersData.find(s => s.name === d.name);
+// const avatarUrl = singer ? singer.avatar : '';
+const avatarUrl = d.avatar || '';
+
+row.innerHTML = `
+  <span class="rank-no ${noClass}">${rank}</span>
+  ${avatarUrl ? `<img class="rank-avatar" src="${avatarUrl}" alt="${d.name}">` : ''}
+  <span class="rank-name">${d.name}</span>
+  <span class="rank-val">${typeof d.val === 'number' ? d.val.toLocaleString() : d.val}</span>
+`;
+
+      row.addEventListener('click', () => {
+        // 点击排行榜歌手定位前，先重置筛选状态为"全部"
+        const currentActive = document.querySelector('.filter-btn[data-type].active');
+        const isSpecialFilter = currentActive && !['all', 'singer', 'label'].includes(currentActive.dataset.type);
+        const isNonAllFilter = currentActive && currentActive.dataset.type !== 'all';
+        if (isNonAllFilter) {
+          // 移除所有筛选按钮的 active
+          document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
+          // 激活"全部"按钮
+          const allBtn = document.querySelector('.filter-btn[data-type="all"]');
+          if (allBtn) allBtn.classList.add('active');
+          // 如果是特殊分类筛选，还需要清除圆钒按钮的亮色状态
+          const moreBtn = document.getElementById('more-options-btn');
+          if (moreBtn) moreBtn.classList.remove('active');
+          // 重新渲染全部标记
+          renderMarkers('all');
+        }
+        locateAndAnimate(d.name);
+      });
+      body.appendChild(row);
+    });
+  }
+
+  // 初始显示乐迷团榜
+  renderList(fanClubData);
+
+  // 切换标签逻辑
+  let currentTab = 'fan';
+  const tabs   = document.querySelectorAll('.rank-tab');
+  const slider = document.getElementById('rank-tab-slider');
+
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener('click', function() {
+      if (this.dataset.tab === currentTab) return;
+      currentTab = this.dataset.tab;
+
+      // 更新 active 样式
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      // 滑块位移：第 0 个 tab 不偏移，第 1 个偏移 100%
+      slider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
+
+      // 渲染对应数据
+      renderList(currentTab === 'fan' ? fanClubData : fansCountData);
+    });
+  });
+
+  // 排行榜按钮展开/收起
+  const rankBtn   = document.getElementById('rank-btn');
+  const rankPanel = document.getElementById('rank-panel');
+
+  function positionRankPanel() {
+  const rect = rankBtn.getBoundingClientRect();
+  const moreRect = moreOptionsBtn.getBoundingClientRect(); // 取筛选按钮的位置
+  rankPanel.style.top  = (rect.bottom + 6) + 'px';
+  rankPanel.style.left = moreRect.left + 'px';             // 左边框与筛选下拉平齐
+}
+
+  rankBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = rankPanel.classList.contains('show');
+    if (!isOpen) {
+document.getElementById('more-options-dropdown').classList.remove('show');
+      positionRankPanel();
+    }
+    rankPanel.classList.toggle('show', !isOpen);
+    rankBtn.classList.toggle('open', !isOpen);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!rankBtn.contains(e.target) && !rankPanel.contains(e.target)) {
+      rankPanel.classList.remove('show');
+      rankBtn.classList.remove('open');
+    }
+  });
+})();
+
+renderMarkers("all");
+
+
+
+
+
+// ===== 筛选按钮 + 下方展开列表交互 =====
+    const moreOptionsBtn      = document.getElementById('more-options-btn');
+    const moreOptionsDropdown = document.getElementById('more-options-dropdown');
+
+    function openDropdown() {
+      const rect = moreOptionsBtn.getBoundingClientRect();
+      moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
+      moreOptionsDropdown.style.left = rect.left + 'px';
+      moreOptionsDropdown.classList.add('show');
+    }
+    function closeDropdown() {
+      moreOptionsDropdown.classList.remove('show');
+    }
+
+moreOptionsBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (moreOptionsDropdown.classList.contains('show')) {
+    closeDropdown();
   } else {
-    this.innerHTML = '展开更多 ▾';
+    // 新增：打开筛选前先关闭排行榜
+    document.getElementById('rank-panel').classList.remove('show');
+    document.getElementById('rank-btn').classList.remove('open');
+    openDropdown();
   }
 });
 
-    // 筛选按钮逻辑
-    document.querySelectorAll(".filter-btn").forEach(btn => {
+
+    // 点击搜索框时自动收起列表
+    document.getElementById('singer-search').addEventListener('focus', function() {
+      closeDropdown();
+    });
+
+    // 点击页面其他地方收起列表
+    document.addEventListener('click', function(e) {
+      if (!moreOptionsBtn.contains(e.target) && !moreOptionsDropdown.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+
+    // 所有带 data-type 的筛选按钮（含展开列表内的）
+    document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
       btn.addEventListener("click", function() {
-        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-        this.classList.add("active");
+        if (typeof networkLayer !== 'undefined') {
+          networkLayer.clearLayers();
+        }
+        const exitBtn = document.getElementById('exit-network-btn');
+        if (exitBtn) exitBtn.style.display = 'none';
+
+       // 判断当前按钮是否已经是激活状态
+const isAlreadyActive = this.classList.contains('active');
+
+// 先清除所有按钮的激活状态
+document.querySelectorAll(".filter-btn[data-type]").forEach(b => b.classList.remove("active"));
+
+if (isAlreadyActive) {
+  // 再次点击已激活项 → 取消筛选，回退到"全部"
+  const allBtn = document.querySelector('.filter-btn[data-type="all"]');
+  if (allBtn) allBtn.classList.add('active');
+  moreOptionsBtn.classList.remove('active');
+  renderMarkers('all');
+  return; // 直接结束，不执行后面的逻辑
+}
+
+// 正常激活点击的按钮
+this.classList.add("active");
+
+
+        // 如果点击的是展开列表里的选项，筛选按钮也亮红
+        if (this.classList.contains('dropdown-item')) {
+          moreOptionsBtn.classList.add('active');
+          // 不自动收起，保持展开状态
+        } else {
+          moreOptionsBtn.classList.remove('active');
+        }
+
         renderMarkers(this.dataset.type);
       });
     });
+
     
     // ----- 搜索 UI 交互 -----
     const searchInput = document.getElementById('singer-search');
@@ -2943,7 +4231,19 @@ filterToggle.addEventListener('click', function() {
         searchTipDiv.style.display = 'none';
       }, duration);
     }
-    
+    // 工具函数：HTML 转义，防止 XSS
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    // 工具函数：将文本中匹配的关键词片段用红色高亮包裹
+    function highlightKeyword(text, keyword) {
+      if (!keyword) return escapeHtml(text);
+      const escapedText = escapeHtml(text);
+      const escapedKw = escapeHtml(keyword);
+      const reg = new RegExp(escapedKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      return escapedText.replace(reg, match => `<mark style="background:transparent;color:#ff4444;font-weight:700;">${match}</mark>`);
+    }
+
     function updateSuggestions(val) {
       if (!val.trim()) {
         suggestionsDiv.style.display = 'none';
@@ -2959,19 +4259,57 @@ filterToggle.addEventListener('click', function() {
       matches.forEach(m => {
         const div = document.createElement('div');
         div.className = 'suggestion-item';
-        const prefixIcon = m.type === 'label' ? '' : '';
-        div.textContent = prefixIcon + m.raw;
+
+        if (m.type === 'city') {
+          // 城市类型：名称标红 + 城市角标
+          div.classList.add('city-type');
+          div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">城市</span>`;
+        } else if (m.alias) {
+          // 别名命中：展示"真实姓名 • 别名标红"
+          div.innerHTML = `${escapeHtml(m.raw)} <span style="color:#aaa;font-size:12px;font-weight:400">• ${highlightKeyword(m.alias, val)}</span>`;
+        } else {
+          // 普通歌手/厂牌：名称标红
+          div.innerHTML = highlightKeyword(m.raw, val);
+        }
+
         div.addEventListener('click', () => {
           searchInput.value = m.raw;
           suggestionsDiv.style.display = 'none';
-          locateAndAnimate(m.raw);
+          if (m.type === 'city') {
+              locateCity(m);
+            } else {
+              locateAndAnimate(m.raw);
+            }
         });
         suggestionsDiv.appendChild(div);
       });
       suggestionsDiv.style.display = 'block';
     }
     
+function locateCity(cityObj) {
+        // 飞行到该城市并增加轻微的缩放展示
+        map.flyTo([cityObj.lat, cityObj.lng], 10, { duration: 1.2, easeLinearity: 0.3 });
+        showTip(`已前往城市：${cityObj.raw}`, false, 2000);
+        addPulseEffect([cityObj.lat, cityObj.lng]);
+      }
+
+
+
     function locateAndAnimate(name) {
+      // 【修复】：检查是否处于关系网模式，如果是则先静默退出该模式（不改变视角），重置普通大地图数据
+      const exitBtn = document.getElementById('exit-network-btn');
+      if (exitBtn.style.display === 'block') {
+        exitBtn.style.display = 'none';
+        networkLayer.clearLayers();
+        
+        // 恢复“全部”按钮的高亮
+        const allBtn = document.querySelector('.filter-btn[data-type="all"]');
+        if (allBtn) allBtn.classList.add('active');
+        
+        // 重新将所有普通头像渲染回大地图上
+        renderMarkers('all');
+      }
+
       const lowerName = name.toLowerCase();
       const markerObj = searchMarkerMap.get(lowerName);
       if (markerObj && markerObj.marker) {
@@ -2982,29 +4320,44 @@ filterToggle.addEventListener('click', function() {
     }
     
     // 搜索执行
-    function executeSearch() {
-      const keyword = searchInput.value.trim();
-      if (!keyword) {
-        showTip('输入歌手或厂牌名称吧', false, 1200);
-        return;
-      }
-      const lowerKw = keyword.toLowerCase();
-      const exactMatch = searchNameList.find(item => item.lower === lowerKw);
+   function executeSearch() {
+        const keyword = searchInput.value.trim();
+        if (!keyword) { showTip('输入歌手、厂牌或城市名称吧', false, 1200); return; }
+        const lowerKw = keyword.toLowerCase();
+        const exactMatch = searchNameList.find(item => item.lower === lowerKw);
       if (exactMatch) {
-        locateAndAnimate(exactMatch.raw);
-        suggestionsDiv.style.display = 'none';
-        return;
-      }
+          suggestionsDiv.style.display = 'none';
+          if (exactMatch.type === 'city') locateCity(exactMatch);
+          else locateAndAnimate(exactMatch.raw);
+          return;
+        }
       const fuzzyMatches = searchNameList.filter(item => item.lower.includes(lowerKw));
-      if (fuzzyMatches.length > 0) {
-        locateAndAnimate(fuzzyMatches[0].raw);
-        suggestionsDiv.style.display = 'none';
-      } else {
-        showTip(`暂未收录 "${keyword}"`, true);
+        if (fuzzyMatches.length > 0) {
+          suggestionsDiv.style.display = 'none';
+          if (fuzzyMatches[0].type === 'city') locateCity(fuzzyMatches[0]);
+          else locateAndAnimate(fuzzyMatches[0].raw);
+        } else {
+          showTip(`暂未收录 "${keyword}"`, true);
+        }
       }
-    }
 
-    searchInput.addEventListener('input', (e) => updateSuggestions(e.target.value));
+    // ===== 搜索框清除按钮逻辑 =====
+    const clearBtn = document.getElementById('search-clear-btn');
+    function updateClearBtn() {
+      clearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+    }
+    clearBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      searchInput.value = '';
+      updateClearBtn();
+      suggestionsDiv.style.display = 'none';
+      searchInput.focus();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      updateSuggestions(e.target.value);
+      updateClearBtn();
+    });
     searchBtn.addEventListener('click', executeSearch);
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
@@ -3017,7 +4370,297 @@ filterToggle.addEventListener('click', function() {
         suggestionsDiv.style.display = 'none';
       }
     });
-  })();
+
+    // ===== 索引面板逻辑 =====
+    const indexBtn   = document.getElementById('index-btn');
+    const indexPanel = document.getElementById('index-panel');
+    const indexList  = document.getElementById('index-list');
+const indexTabSlider = document.getElementById('index-tab-slider');
+let   currentIndexTab = 'singer'; // 默认显示歌手
+    function buildIndexList(filter) {
+      indexList.innerHTML = '';
+      const lowerFilter = (filter || '').toLowerCase();
+
+      // 获取拼音/汉字首字符（用于分组标题）
+function getInitial(name) {
+  const ch = name.charAt(0);
+  if (/[A-Za-z]/.test(ch)) return ch.toUpperCase();
+  if (/[0-9]/.test(ch)) return '#';
+
+  // 汉字拼音首字母：利用 Intl.Collator 的中文排序区间判断
+  const pinyinBoundary = [
+  ['A', '\u554a'], // 啊
+  ['B', '\u5427'], // 吧  (芭 bā)
+  ['C', '\u6c60'], // 池  (擦 cā → 用 池 chí 作为 C 区右边界更稳)
+  ['D', '\u5491'], // 哑→ 搭 dā
+  ['E', '\u59e8'], // 娨 → 鹅 é
+  ['F', '\u53d1'], // 发
+  ['G', '\u5676'], // 噶 gā
+  ['H', '\u548c'], // 和
+  ['J', '\u51fb'], // 击
+  ['K', '\u5494'], // 喔→ 咔 kā — 单独保留，与 C 区分开靠排序位置
+  ['L', '\u5783'], // 垃
+  ['M', '\u5988'], // 妈
+  ['N', '\u62ff'], // 拿
+  ['O', '\u54e6'], // 哦
+  ['P', '\u5991'], // 妑 pā
+  ['Q', '\u4e03'], // 七 qī
+  ['R', '\u5465'], // 吥→ 然 rán
+  ['S', '\u4e09'], // 三
+  ['T', '\u4ed6'], // 他
+  ['W', '\u5c4b'], // 屋
+  ['X', '\u897f'], // 西
+  ['Y', '\u4e1a'], // 业
+  ['Z', '\u5b50']  // 子
+];
+
+  // 用 localeCompare 在中文排序下找到所属区间
+  const col = new Intl.Collator('zh-Hans-CN-u-co-pinyin');
+  let result = '#';
+  for (let i = pinyinBoundary.length - 1; i >= 0; i--) {
+    if (col.compare(ch, pinyinBoundary[i][1]) >= 0) {
+      result = pinyinBoundary[i][0];
+      break;
+    }
+  }
+  return result;
+}
+
+
+      function renderGroup(items, groupTitle) {
+        if (items.length === 0) return;
+
+        // 按首字母分组
+        const groups = {};
+        items.forEach(item => {
+          const init = getInitial(item.name);
+          if (!groups[init]) groups[init] = [];
+          groups[init].push(item);
+        });
+
+
+
+        // 按首字母排序输出
+// 找到约第 4126–4135 行，替换为：
+const sortedKeys = Object.keys(groups).sort((a, b) => {
+  if (a === '#') return 1;   // # 排最后
+  if (b === '#') return -1;
+  return a.localeCompare(b); // 其余按字母顺序
+});
+
+
+        sortedKeys.forEach(key => {
+          // 字母标题行
+          const letterHeader = document.createElement('div');
+          letterHeader.className = 'index-letter-header';
+          letterHeader.textContent = key;
+          indexList.appendChild(letterHeader);
+
+          // 该字母下的条目
+          groups[key].sort((a, b) => a.name.localeCompare(b.name, 'zh')).forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'index-row';
+            row.innerHTML = `
+              <img class="index-avatar" src="${item.avatar}" alt="${item.name}" loading="lazy">
+              <span class="index-name">${item.name}</span>
+            `;
+            row.addEventListener('click', () => {
+              closeIndexPanel();
+              locateAndAnimate(item.name);
+            });
+            indexList.appendChild(row);
+          });
+        });
+      }
+
+      const singers = allData.filter(d => d.type === 'singer');
+      const labels  = allData.filter(d => d.type === 'label');
+
+      const filteredSingers = lowerFilter
+        ? singers.filter(d => d.name.toLowerCase().includes(lowerFilter))
+        : singers;
+      const filteredLabels = lowerFilter
+        ? labels.filter(d => d.name.toLowerCase().includes(lowerFilter))
+        : labels;
+
+      if (currentIndexTab === 'singer') {
+  renderGroup(filteredSingers);
+} else {
+  renderGroup(filteredLabels);
+}
+
+    }
+
+    function openIndexPanel() {
+      const rect = indexBtn.getBoundingClientRect();
+      // 面板宽320px，若右侧放不下则左对齐到按钮右边缘
+      const panelW = 320;
+      let left = rect.left;
+      if (left + panelW > window.innerWidth - 10) {
+        left = Math.max(10, window.innerWidth - panelW - 10);
+      }
+      indexPanel.style.top  = (rect.bottom + 6) + 'px';
+      indexPanel.style.left = left + 'px';
+// 在 buildIndexList(''); 这行前面插入：
+currentIndexTab = 'singer';
+indexTabSlider.style.transform = 'translateX(0)';
+document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
+document.querySelector('.index-tab[data-tab="singer"]').classList.add('active');
+      buildIndexList('');
+      indexPanel.classList.add('show');
+      indexBtn.classList.add('active');
+    }
+    function closeIndexPanel() {
+      indexPanel.classList.remove('show');
+      indexBtn.classList.remove('active');
+    }
+
+    indexBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      indexPanel.classList.contains('show') ? closeIndexPanel() : openIndexPanel();
+    });
+// 索引 tab 切换
+document.querySelectorAll('.index-tab').forEach((tab, idx) => {
+  tab.addEventListener('click', function() {
+    if (this.dataset.tab === currentIndexTab) return;
+    currentIndexTab = this.dataset.tab;
+    document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    indexTabSlider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
+    buildIndexList('');
+  });
+});
+
+
+    document.addEventListener('click', function(e) {
+      if (!indexBtn.contains(e.target) && !indexPanel.contains(e.target)) {
+        closeIndexPanel();
+      }
+    });
+
+
+// ===== 关系网模式核心逻辑 =====
+    
+    // 生成单个头像Marker的复用工具函数
+    function createAvatarIcon(item) {
+      return L.divIcon({
+        className: 'singer-custom-marker',
+        html: `
+          <div class="singer-marker-container">
+            <div class="singer-avatar-main">
+              <img src="${item.avatar}">
+            </div>
+          </div>
+        `,
+        iconSize: [50, 50],
+        iconAnchor: [25, 25]
+      });
+    }
+
+   // 触发显示关系网
+    window.showNetwork = function(centerName) {
+      // 1. 关闭现有弹窗，隐藏退出按钮，清空已有图层
+      map.closePopup();
+      markerClusterGroup.clearLayers(); 
+      networkLayer.clearLayers();
+
+      // 【修复】：清除所有筛选按钮的激活状态（红底）
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+
+      // 2. 找到中心主角的数据
+      let centerSinger = allData.find(s => s.name === centerName);
+      if (!centerSinger || !centerSinger.collaborators) return;
+
+      let centerLatLng = [centerSinger.lat, centerSinger.lng];
+      let bounds = L.latLngBounds([centerLatLng]); 
+
+      // 3. 把主角渲染到新图层上
+      let centerMarker = L.marker(centerLatLng, { icon: createAvatarIcon(centerSinger), zIndexOffset: 1000 }).addTo(networkLayer);
+      
+      // 4. 遍历并渲染合作者与连线
+      centerSinger.collaborators.forEach(collab => {
+        let targetSinger = allData.find(s => s.name === collab.name);
+        if (targetSinger) {
+          let targetLatLng = [targetSinger.lat, targetSinger.lng];
+          
+          let collabMarker = L.marker(targetLatLng, { 
+              icon: createAvatarIcon(targetSinger) 
+          }).addTo(networkLayer);
+
+          const descHtml = targetSinger.desc 
+              ? `<div style="background:#473D00; color:#FFD900; border:1px solid #ffccc7; font-size:11px; padding:2px 8px; border-radius:4px; display:inline-block; margin-top:6px; font-weight:bold;">${targetSinger.desc}</div>` 
+              : '';
+
+          const collabBtnHtml = targetSinger.collaborators && targetSinger.collaborators.length > 0
+              ? `<button class="network-btn" onclick="window.showNetwork('${targetSinger.name}')">查看合作关系网</button>`
+              : '';
+
+          const popupContent = `
+              <div style="display:flex; flex-direction: column; padding:4px;">
+                <div style="display:flex; align-items:center; gap:18px;">
+                  <img src="${targetSinger.avatar}" style="width:70px; height:70px; border-radius:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+                  <div>
+                    <div style="font-weight:bold; font-size:17px; color:#1677ff; cursor:pointer; margin-bottom:2px;" 
+                         onclick="window.open('https://music.163.com/#/artist?id=${targetSinger.neteaseId}', '_blank')">
+                      ${targetSinger.name}</div>
+                    <div style="color:#666; background:#f8f8f8; padding:2px 10px; border-radius:20px; display:inline-block; font-size:12px;">
+                      粉丝 ${targetSinger.fans}
+                    </div>
+                    ${descHtml} 
+                  </div>
+                </div>
+                ${collabBtnHtml}
+              </div>`;
+
+          collabMarker.bindPopup(popupContent, {
+            offset: [0, -20],
+            autoPan: true
+          });
+
+          // 绘制优美的半透明红线
+          let line = L.polyline([centerLatLng, targetLatLng], {
+            color: '#ff4444',
+            weight: 2,
+            opacity: 1, 
+            lineCap: 'round',
+            lineJoin: 'round'
+          }).addTo(networkLayer);
+
+          bounds.extend(targetLatLng);
+        }
+      });
+
+// 切换关系网时完全不漂移，保持当前视角不动
+// （如需定位到中心人物，可将下面这行取消注释）
+// map.setView(centerLatLng, map.getZoom(), { animate: false });
+
+
+      // 6. 显示底部的退出按钮
+      document.getElementById('exit-network-btn').style.display = 'block';
+    };
+
+// 退出关系网的交互
+    document.getElementById('exit-network-btn').addEventListener('click', function() {
+      // 1. 隐藏退出按钮
+      this.style.display = 'none';
+      
+      // 2. 清空关系网专用的线和点
+      networkLayer.clearLayers();
+      
+      // 3. 恢复原始的聚合图层
+      let activeBtn = document.querySelector('.filter-btn.active');
+      // 【修复】：如果没有任何按钮处于 active 状态（因为进入关系网时被清除了），默认恢复“全部”按钮的高亮
+      if (!activeBtn) {
+        activeBtn = document.querySelector('.filter-btn[data-type="all"]');
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+      const activeType = activeBtn ? activeBtn.dataset.type : 'all';
+      
+      // 重新渲染所有标记
+      renderMarkers(activeType);
+      
+          });
+  })(); // 对应开头的立即执行函数
 </script>
 </body>
 </html>
