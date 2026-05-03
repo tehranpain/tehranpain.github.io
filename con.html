@@ -1607,6 +1607,17 @@ margin-top: 1px;
     padding: 10px 14px;
     font-size: 13px;
   }
+
+  /* ---------- 地图头像图标：手机端缩小 ---------- */
+  .singer-avatar-main {
+    width: 38px;
+    height: 38px;
+    border-width: 2px;
+  }
+  .singer-marker-container {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 /* 超小屏（如 iPhone SE 320px）幼化处理 */
@@ -1782,10 +1793,10 @@ margin-top: 1px;
         <div class="city-marker" style="left:77.5%;top:58.5%;">
           <div class="city-dot-sm" style="animation-delay:2.4s;"></div>
         </div>
-        <!-- 顶部标题栏 -->
-        <div class="card-title-bar">
-          <div class="card-title-dot"></div>
-          <span class="card-title-text">中国说唱地图 · 实时数据</span>
+        <!-- 台北 121.56°E 25.04°N -->
+        <div class="city-marker" style="left:78.0%;top:64.8%;">
+          <div class="city-dot" style="animation-delay:2.7s;"></div>
+          <span class="city-label">台北</span>
         </div>
         <!-- 底部数据栏 -->
         <div class="card-info-bar">
@@ -1807,7 +1818,7 @@ margin-top: 1px;
       <!-- 右侧：文字 + 按钮区 -->
       <div class="cover-text-area">
         <div class="cover-title">
-          中国<br><span class="cover-title-accent">说唱地图</span>
+          中文<br><span class="cover-title-accent">说唱地图</span>
         </div>
         <div class="cover-subtitle">
           收录国内说唱歌手及知名厂牌/组合的地理信息，探索中国说唱的版图与脉络。
