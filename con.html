@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>中国说唱地图</title>
   <style>
     /* ===== 封面页样式 ===== */
@@ -1460,6 +1461,162 @@ margin-top: 1px;
   line-height: 1.6;
 }
 
+/* ===== 手机端响应式适配（新增） ===== */
+@media (max-width: 480px) {
+
+  /* ---------- 封面页 ---------- */
+  .cover-content {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+    align-items: center;
+    padding: 0 16px;
+  }
+  .cover-preview-card {
+    width: 100%;
+    max-width: 340px;
+    height: 200px;
+  }
+  .cover-text-area {
+    padding-left: 0;
+  }
+  .cover-title {
+    font-size: 34px;
+    letter-spacing: -0.5px;
+  }
+  .cover-subtitle {
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .cover-btn-group {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .cover-btn-primary,
+  .cover-btn-secondary {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  /* ---------- 地图页：顶部搜索栏 ---------- */
+  #top-bar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+  #search-container {
+    width: calc(100vw - 20px);
+    left: 0;
+    top: 0;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  #search-input-wrap {
+    flex-wrap: nowrap;
+  }
+  #singer-search {
+    font-size: 13px;
+    padding: 10px 36px 10px 14px;
+  }
+  #search-btn {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+  #index-btn {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+
+  /* 筛选按鈕行：允许换行，小字体 */
+  #search-input-wrap {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .filter-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  /* action-group 按鈕行 */
+  #action-group {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  #more-options-btn,
+  #rank-btn,
+  #network-list-btn {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+
+  /* ---------- 下拉面板全屏展开 ---------- */
+  #more-options-dropdown,
+  #rank-panel,
+  #index-panel,
+  #network-list-panel {
+    width: calc(100vw - 20px) !important;
+    left: 10px !important;
+    right: 10px !important;
+    max-height: 55vh;
+    border-radius: 16px;
+  }
+
+  /* ---------- 歌手卡片 ---------- */
+  .singer-card {
+    min-width: 0;
+    max-width: calc(100vw - 40px);
+  }
+
+  /* ---------- 作者信息栏 ---------- */
+  #author-info {
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
+    max-width: none;
+    font-size: 10px;
+    padding: 5px 10px;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  /* ---------- 退出关系网按鈕 ---------- */
+  #exit-network-btn {
+    bottom: 60px;
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  /* ---------- 关系网列表：3列布局 ---------- */
+  #network-list-body {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ---------- 搜索建议列表 ---------- */
+  #search-suggestions {
+    max-height: 180px;
+  }
+  .suggestion-item {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+/* 超小屏（如 iPhone SE 320px）幼化处理 */
+@media (max-width: 360px) {
+  .cover-title { font-size: 28px; }
+  #search-container { padding: 8px 10px; }
+  .filter-btn { font-size: 10px; padding: 5px 8px; }
+  #more-options-btn, #rank-btn, #network-list-btn { font-size: 11px; padding: 6px 10px; }
+}
+
   </style>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -1905,6 +2062,7 @@ margin-top: 1px;
 
       
 
+ const isMobile = window.innerWidth <= 480;
  const map = L.map('map', {
   maxZoom: 12,
   minZoom: 3,
@@ -1913,7 +2071,7 @@ margin-top: 1px;
   smoothSensitivity: 2,     // 缩放速度，可按手感调整（推荐 0.8~1.5）
   zoomSnap: 0,              // 允许任意小数 zoom，配合平滑缩放必须设为 0
 markerZoomAnimation: false
-}).setView([35, 105], 5);
+}).setView([35, 105], isMobile ? 3.5 : 5);
 window._map = map; // 暗露地图实例，供卡片内关闭按钮使用
 
 
@@ -5000,8 +5158,17 @@ row.innerHTML = `
   function positionNetworkListPanel() {
     const rect = networkListBtn.getBoundingClientRect();
     const moreRect = document.getElementById('more-options-btn').getBoundingClientRect();
-    networkListPanel.style.top = (rect.bottom + 6) + 'px';
-    networkListPanel.style.left = moreRect.left + 'px';
+    if (window.innerWidth <= 480) {
+      networkListPanel.style.top = (rect.bottom + 6) + 'px';
+      networkListPanel.style.left = '10px';
+      networkListPanel.style.right = '10px';
+      networkListPanel.style.width = 'calc(100vw - 20px)';
+    } else {
+      networkListPanel.style.top = (rect.bottom + 6) + 'px';
+      networkListPanel.style.left = moreRect.left + 'px';
+      networkListPanel.style.right = '';
+      networkListPanel.style.width = '';
+    }
   }
 
   function renderNetworkList() {
@@ -5075,9 +5242,19 @@ row.innerHTML = `
 
   function positionRankPanel() {
   const rect = rankBtn.getBoundingClientRect();
-  const moreRect = moreOptionsBtn.getBoundingClientRect(); // 取筛选按钮的位置
-  rankPanel.style.top  = (rect.bottom + 6) + 'px';
-  rankPanel.style.left = (moreRect.left - 20) + 'px';            // 左边框与筛选下拉平齐
+  const moreRect = moreOptionsBtn.getBoundingClientRect();
+  if (window.innerWidth <= 480) {
+    // 手机端：居中展示，距顶部为按钮下方
+    rankPanel.style.top  = (rect.bottom + 6) + 'px';
+    rankPanel.style.left = '10px';
+    rankPanel.style.right = '10px';
+    rankPanel.style.width = 'calc(100vw - 20px)';
+  } else {
+    rankPanel.style.top  = (rect.bottom + 6) + 'px';
+    rankPanel.style.left = (moreRect.left - 20) + 'px';
+    rankPanel.style.right = '';
+    rankPanel.style.width = '';
+  }
 }
 
   rankBtn.addEventListener('click', function(e) {
@@ -5116,8 +5293,17 @@ renderMarkers("all");
 
     function openDropdown() {
       const rect = moreOptionsBtn.getBoundingClientRect();
-      moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
-      moreOptionsDropdown.style.left = (rect.left - 20) + 'px';
+      if (window.innerWidth <= 480) {
+        moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
+        moreOptionsDropdown.style.left = '10px';
+        moreOptionsDropdown.style.right = '10px';
+        moreOptionsDropdown.style.width = 'calc(100vw - 20px)';
+      } else {
+        moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
+        moreOptionsDropdown.style.left = (rect.left - 20) + 'px';
+        moreOptionsDropdown.style.right = '';
+        moreOptionsDropdown.style.width = '';
+      }
       moreOptionsDropdown.classList.add('show');
     }
     function closeDropdown() {
@@ -5622,14 +5808,23 @@ document.getElementById('rank-panel').classList.remove('show');
   document.getElementById('rank-btn').classList.remove('open');
   document.getElementById('more-options-dropdown').classList.remove('show');
       const rect = indexBtn.getBoundingClientRect();
-      // 面板宽320px，若右侧放不下则左对齐到按钮右边缘
-      const panelW = 320;
-      let left = rect.left;
-      if (left + panelW > window.innerWidth - 10) {
-        left = Math.max(10, window.innerWidth - panelW - 10);
+      if (window.innerWidth <= 480) {
+        indexPanel.style.top  = (rect.bottom + 6) + 'px';
+        indexPanel.style.left = '10px';
+        indexPanel.style.right = '10px';
+        indexPanel.style.width = 'calc(100vw - 20px)';
+      } else {
+        // 面板宽320px，若右侧放不下则左对齐到按钮右边缘
+        const panelW = 320;
+        let left = rect.left;
+        if (left + panelW > window.innerWidth - 10) {
+          left = Math.max(10, window.innerWidth - panelW - 10);
+        }
+        indexPanel.style.top  = (rect.bottom + 6) + 'px';
+        indexPanel.style.left = left + 'px';
+        indexPanel.style.right = '';
+        indexPanel.style.width = '';
       }
-      indexPanel.style.top  = (rect.bottom + 6) + 'px';
-      indexPanel.style.left = left + 'px';
 // 在 buildIndexList(''); 这行前面插入：
 currentIndexTab = 'singer';
 indexTabSlider.style.transform = 'translateX(0)';
