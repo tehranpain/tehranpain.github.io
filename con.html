@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0a0a0a;
+      background: #111;
       opacity: 1;
       transition: opacity 0.6s ease;
       overflow: hidden;
@@ -23,29 +23,27 @@
       opacity: 0;
       pointer-events: none;
     }
-    /* 背景渐变光晕 */
+    /* 封面红黑底纹 */
     .cover-glow {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
       opacity: 0;
       transition: opacity 0.85s ease;
       pointer-events: none;
     }
     .cover-glow-1 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(255,68,68,0.32) 0%, transparent 70%);
-      top: -150px; left: -120px;
+      width: 140vw; height: 140vh;
+      left: -20vw; top: -20vh;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at 50% 48%, black 0%, transparent 72%);
     }
     .cover-glow-2 {
-      width: 450px; height: 450px;
-      background: radial-gradient(circle, rgba(255,140,0,0.22) 0%, transparent 70%);
-      bottom: -100px; right: 8%;
+      display: none;
     }
     .cover-glow-3 {
-      width: 350px; height: 350px;
-      background: radial-gradient(circle, rgba(160,0,255,0.14) 0%, transparent 70%);
-      top: 25%; right: -80px;
+      display: none;
     }
     #cover-page.glows-visible .cover-glow {
       opacity: 1;
@@ -68,8 +66,8 @@
       height: 340px;
       border-radius: 22px;
       overflow: hidden;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07);
+      background: #171717;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.62), 0 0 0 1px rgba(255,255,255,0.08);
       position: relative;
       opacity: 0;
       transform: translateX(-40px) scale(0.95);
@@ -84,10 +82,19 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 35% 55%, rgba(255,68,68,0.28) 0%, transparent 40%),
-        radial-gradient(circle at 70% 30%, rgba(255,140,0,0.18) 0%, transparent 35%),
-        radial-gradient(circle at 60% 70%, rgba(255,68,68,0.12) 0%, transparent 30%),
-        linear-gradient(135deg, #111827 0%, #1f2937 100%);
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.045) 1px, transparent 1px),
+        #181818;
+      background-size: 34px 34px;
+    }
+    .card-map-bg::after {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 42px solid rgba(230,0,18,0.14);
+      box-shadow: inset 0 0 0 2px rgba(230,0,18,0.22);
+      transform: rotate(-12deg);
     }
     /* 城市标记点容器 */
     .city-marker {
@@ -103,7 +110,7 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #ff4444;
+      background: #e60012;
       box-shadow: 0 0 6px rgba(255,68,68,0.9), 0 0 12px rgba(255,68,68,0.4);
       position: relative;
       flex-shrink: 0;
@@ -138,7 +145,7 @@
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: #ff4444;
+      background: #e60012;
       box-shadow: 0 0 4px rgba(255,68,68,0.85), 0 0 8px rgba(255,68,68,0.3);
       position: relative;
       flex-shrink: 0;
@@ -178,7 +185,7 @@
     .card-title-dot {
       width: 10px; height: 10px;
       border-radius: 50%;
-      background: #ff4444;
+      background: #e60012;
       box-shadow: 0 0 6px rgba(255,68,68,0.9);
     }
     .card-title-text {
@@ -236,10 +243,7 @@
       letter-spacing: -1.5px;
     }
     .cover-title-accent {
-      background: linear-gradient(90deg, #ff4444 0%, #ff8c00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #e60012;
     }
     .cover-subtitle {
       font-size: 16px;
@@ -342,6 +346,207 @@
       .cover-preview-card { width: 280px; height: 190px; }
       .cover-title { font-size: 30px; }
       .cover-btn-primary, .cover-btn-secondary { padding: 12px 22px; font-size: 14px; }
+    }
+    /* ===== 封面页：红黑唱片视觉方案 ===== */
+    #cover-page {
+      background:
+        radial-gradient(circle at 50% 52%, rgba(230,0,18,0.2) 0%, transparent 33%),
+        radial-gradient(circle at 24% 46%, rgba(255,255,255,0.06) 0%, transparent 25%),
+        linear-gradient(180deg, #181818 0%, #080808 100%);
+    }
+    #cover-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.032) 1px, transparent 1px),
+        repeating-linear-gradient(135deg, transparent 0 18px, rgba(230,0,18,0.04) 18px 19px);
+      background-size: 42px 42px, 42px 42px, auto;
+      mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+      pointer-events: none;
+    }
+    #cover-page::after {
+      content: 'CHINESE RAP ATLAS';
+      position: absolute;
+      left: 50%;
+      bottom: 34px;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.055);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .cover-glow-1 {
+      background: radial-gradient(circle at 50% 45%, rgba(230,0,18,0.18) 0%, transparent 52%);
+      mix-blend-mode: screen;
+      mask-image: none;
+    }
+    .cover-content {
+      gap: 92px;
+      max-width: 1180px;
+    }
+    .cover-preview-card {
+      width: 500px;
+      height: 360px;
+      border-radius: 26px;
+      background: #0f0f0f;
+      box-shadow: 0 36px 90px rgba(0,0,0,0.68), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .cover-preview-card::before {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      left: -118px;
+      top: -88px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.08) 0 6%, transparent 6.5% 23%, rgba(4,4,4,0.95) 23.5% 25.5%, transparent 26%),
+        repeating-radial-gradient(circle, rgba(255,255,255,0.07) 0 1px, transparent 1px 8px),
+        radial-gradient(circle, rgba(230,0,18,0.48) 0%, rgba(230,0,18,0.16) 40%, rgba(0,0,0,0.12) 64%);
+      opacity: 0.78;
+      animation: coverVinylSpin 24s linear infinite;
+      pointer-events: none;
+    }
+    .cover-preview-card::after {
+      content: 'RAP GEOLOGY / CITY SOUND';
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      color: rgba(255,255,255,0.52);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      z-index: 2;
+    }
+    @keyframes coverVinylSpin {
+      to { transform: rotate(360deg); }
+    }
+    .card-map-bg {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        radial-gradient(circle at 70% 40%, rgba(230,0,18,0.18), transparent 35%),
+        linear-gradient(145deg, #191919 0%, #0b0b0b 100%);
+      background-size: 34px 34px, 34px 34px, auto, auto;
+    }
+    .card-map-bg::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 76px 0;
+      height: 1px;
+      border-radius: 0;
+      border: none;
+      box-shadow: 0 0 36px rgba(230,0,18,0.5);
+      background: linear-gradient(90deg, transparent, rgba(230,0,18,0.7), transparent);
+      transform: none;
+    }
+    .city-dot {
+      width: 9px;
+      height: 9px;
+      background: #e60012;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.88), 0 0 16px rgba(230,0,18,0.75);
+    }
+    .city-dot::before {
+      width: 9px;
+      height: 9px;
+      border: 1px solid rgba(230,0,18,0.58);
+    }
+    .city-dot::after {
+      width: 9px;
+      height: 9px;
+      border: 1.5px solid rgba(230,0,18,0.35);
+    }
+    .city-dot-sm {
+      width: 5px;
+      height: 5px;
+      background: #e60012;
+      box-shadow: 0 0 4px rgba(230,0,18,0.85), 0 0 8px rgba(230,0,18,0.3);
+    }
+    .city-dot-sm::before {
+      border-color: rgba(230,0,18,0.55);
+    }
+    .city-label {
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.88);
+    }
+    .card-title-dot {
+      background: #e60012;
+      box-shadow: 0 0 6px rgba(230,0,18,0.9);
+    }
+    .card-info-bar {
+      padding: 16px 20px;
+      background: rgba(8,8,8,0.84);
+      gap: 28px;
+    }
+    .card-stat-num {
+      font-size: 18px;
+      color: #e60012;
+    }
+    .cover-text-area {
+      padding-left: 18px;
+    }
+    .cover-title {
+      font-size: 60px;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-shadow: 0 18px 45px rgba(0,0,0,0.45);
+    }
+    .cover-title-accent {
+      color: #e60012;
+      text-shadow: 0 0 30px rgba(230,0,18,0.35);
+    }
+    .cover-subtitle {
+      max-width: 440px;
+      color: rgba(255,255,255,0.62);
+    }
+    .cover-btn-primary,
+    .cover-btn-secondary {
+      border-radius: 999px;
+      min-height: 52px;
+    }
+    .cover-btn-primary {
+      background: #e60012;
+      color: #fff;
+      box-shadow: 0 12px 34px rgba(230,0,18,0.35);
+    }
+    .cover-btn-primary:hover {
+      background: #d80011;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 42px rgba(230,0,18,0.46);
+    }
+    .cover-btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .cover-btn-secondary:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.36);
+    }
+    @media (max-width: 860px) {
+      .cover-preview-card {
+        width: min(360px, calc(100vw - 36px));
+        height: 240px;
+      }
+      .cover-title {
+        font-size: 42px;
+      }
+    }
+    @media (max-width: 480px) {
+      .cover-title {
+        font-size: 34px;
+      }
+      .cover-preview-card {
+        width: min(330px, calc(100vw - 32px));
+        height: 215px;
+      }
     }
     html, body { 
       margin:0; 
@@ -476,7 +681,7 @@ left: 20px;top: -12px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     #singer-search:focus {
-      border-color: #ff4444;
+      border-color: #e60012;
       box-shadow: 0 0 0 3px rgba(255,68,68,0.2);
     }
     #search-btn {
@@ -484,7 +689,7 @@ left: 20px;top: -12px;
       height: 44px;
       flex-shrink: 0;
       border-radius: 50%;
-      background: #ff4444;
+      background: #e60012;
       color: white;
       border: none;
       cursor: pointer;
@@ -521,7 +726,7 @@ left: 20px;top: -12px;
       transition: background 0.2s;
       z-index: 2;
     }
-    #search-clear-btn:hover { background: #ff4444; }
+    #search-clear-btn:hover { background: #e60012; }
 
 #search-suggestions {
       width: 100%;
@@ -546,18 +751,18 @@ left: 20px;top: -12px;
     }
     .suggestion-item:hover {
       background: #fff0f0;
-      color: #ff4444;
+      color: #e60012;
     }
 
     .suggestion-item.city-type { color: #000000; }
-    .suggestion-item.city-type:hover { color: #ff4444; }
+    .suggestion-item.city-type:hover { color: #e60012; }
    .city-tag {
     font-size: 9px;
     padding: 1px 4px;
     margin-left: 6px;
 margin-top: 1px;
     background-color: #FFE5E5; /* 角标背景色 */
-    color: #ff4444;              /* 角标文字颜色 */
+    color: #e60012;              /* 角标文字颜色 */
     border-radius: 4px;
     vertical-align: middle;
     font-weight: normal;
@@ -642,7 +847,7 @@ margin-top: 1px;
     }
     #author-info .info-label {
       font-weight: bold;
-      color: #ff4444;
+      color: #e60012;
     }
     #author-info a {
       color: #1677ff;
@@ -651,8 +856,21 @@ margin-top: 1px;
     #author-info a:hover {
       text-decoration: underline;
     }
+
+    #mobile-layer-switch {
+      display: none;
+    }
+
+    #mobile-sheet-handle,
+    #mobile-search-cancel,
+    #mobile-history-section,
+    #mobile-index-row,
+    #mobile-detail-sheet {
+      display: none;
+    }
+
  #filter-toggle:hover {
-  color: #ff4444;
+  color: #e60012;
 }
 .filter-btn {
       padding: 7px 12px;
@@ -668,7 +886,7 @@ margin-top: 1px;
       white-space: nowrap;
     }
     .filter-btn.active {
-      background: #ff4444;
+      background: #e60012;
       color: white;
       box-shadow: 0 2px 8px rgba(255,68,68,0.3);
     }
@@ -676,6 +894,63 @@ margin-top: 1px;
       background: #f0f0f0;
       transform: translateY(-1px);
     }
+
+#mode-filter-tabs {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(246,246,246,0.96);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14), inset 0 0 0 1px rgba(0,0,0,0.045);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.mode-filter-slider {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: calc(100% - 8px);
+  width: var(--mode-slider-width, 44px);
+  border-radius: 999px;
+  background: #e60012;
+  box-shadow: 0 2px 8px rgba(255,68,68,0.28);
+  transform: translateX(var(--mode-slider-left, 4px));
+  transition: transform 0.24s ease, width 0.24s ease, opacity 0.18s ease;
+  pointer-events: none;
+}
+#mode-filter-tabs.no-active .mode-filter-slider {
+  opacity: 0;
+}
+#mode-filter-tabs .filter-btn {
+  position: relative;
+  z-index: 1;
+  padding: 7px 12px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 999px;
+  color: #555;
+  transform: none;
+  border-left: 1px solid rgba(0,0,0,0.08);
+}
+#mode-filter-tabs .filter-btn:first-of-type {
+  border-left: none;
+}
+#mode-filter-tabs .filter-btn.active {
+  background: transparent;
+  box-shadow: none;
+  color: white;
+  border-left-color: transparent;
+}
+#mode-filter-tabs .filter-btn.active + .filter-btn {
+  border-left-color: transparent;
+}
+#mode-filter-tabs .filter-btn:hover:not(.active) {
+  background: transparent;
+  color: #e60012;
+  transform: none;
+}
 
     
 /* ===== 更多选项：圆形图标按钮 + 就地展开列表 ===== */
@@ -753,7 +1028,7 @@ margin-top: 1px;
 }
 .dropdown-item.active {
   background: #fff0f0 !important;
-  color: #ff4444 !important;
+  color: #e60012 !important;
 }
 
 
@@ -804,9 +1079,9 @@ margin-top: 1px;
       width: 100%;
     }
     .network-btn:hover {
-      background: #ff4444;
+      background: #e60012;
       color: white;
-      border-color: #ff4444;
+      border-color: #e60012;
       box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
     }
 
@@ -831,7 +1106,7 @@ margin-top: 1px;
       display: none; /* 默认隐藏 */
     }
     #exit-network-btn:hover {
-      background: #ff4444;
+      background: #e60012;
       transform: translateX(-50%) scale(1.05);
     }
 
@@ -870,12 +1145,12 @@ margin-top: 1px;
   transform: translateY(-1px);
 }
 #more-options-btn.active {
-  background: #ff4444;
+  background: #e60012;
   color:white;
   box-shadow: 0 2px 8px rgba(255,68,68,0.3);
 }
 #rank-btn.open {
-  background: #ff4444;
+  background: #e60012;
   color: white;
   box-shadow: 0 2px 8px rgba(255,68,68,0.3);
 }
@@ -925,7 +1200,7 @@ margin-top: 1px;
   transform: translateY(-1px);
 }
 #network-list-btn.open {
-  background: #ff4444;
+  background: #e60012;
   color: white;
   box-shadow: 0 2px 8px rgba(255,68,68,0.3);
 }
@@ -1019,7 +1294,7 @@ margin-top: 1px;
   left: 3px;
   height: calc(100% - 6px);
   width: calc(50% - 3px);
-  background: #ff4444;
+  background: #e60012;
   border-radius: 9px;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;
@@ -1109,12 +1384,12 @@ margin-top: 1px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.rank-row:hover .rank-name { color: #ff4444; }
+.rank-row:hover .rank-name { color: #e60012; }
 
 .rank-val {
   font-size: 12px;
   font-weight: 600;
-  color: #ff4444;
+  color: #e60012;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -1128,7 +1403,7 @@ margin-top: 1px;
   border: none;
   border-radius: 50%;
   background: transparent;
-  color: #ff4444;
+  color: #e60012;
   cursor: pointer;
   transition: all 0.18s;
   display: flex;
@@ -1165,7 +1440,7 @@ margin-top: 1px;
   transform: scale(1.08);
 }
 #index-btn.active {
-  background: #ff4444;
+  background: #e60012;
   color: white;
   box-shadow: 0 2px 8px rgba(255,68,68,0.3);
 }
@@ -1209,7 +1484,7 @@ margin-top: 1px;
 .index-section-header {
   font-size: 11px;
   font-weight: 700;
-  color: #ff4444;
+  color: #e60012;
   padding: 10px 8px 4px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -1236,7 +1511,7 @@ margin-top: 1px;
   transition: background 0.15s;
 }
 .index-row:hover { background: #fff5f5; }
-.index-row:hover .index-name { color: #ff4444; }
+.index-row:hover .index-name { color: #e60012; }
 
 .index-avatar {
   width: 32px;
@@ -1272,7 +1547,7 @@ margin-top: 1px;
   left: 3px;
   height: calc(100% - 6px);
   width: calc(50% - 3px);
-  background: #ff4444;
+  background: #e60012;
   border-radius: 9px;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;
@@ -1353,11 +1628,12 @@ margin-top: 1px;
   border-radius: 14px;
   overflow: hidden;
   min-width: 260px;
-  max-width: 440px;
+  max-width: min(520px, calc(100vw - 40px));
 }
 /* 厂牌/组合卡片稍宽 */
 .singer-card.label-card {
-  max-width: 340px;
+  min-width: min(var(--label-card-width, 340px), calc(100vw - 40px));
+  max-width: min(520px, calc(100vw - 40px));
   flex-direction: column;
   align-items: stretch;
 }
@@ -1404,16 +1680,16 @@ margin-top: 1px;
 .singer-card-actions {
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 6px;
   padding: 10px 12px 10px 6px;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 .singer-card-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: auto;
+  height: 32px;
+  border-radius: 999px;
   border: none;
   background: #f0f0f0;
   color: #555;
@@ -1423,22 +1699,31 @@ margin-top: 1px;
   justify-content: center;
   transition: all 0.2s ease;
   flex-shrink: 0;
-  padding: 0;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
 }
 .singer-card-btn:hover {
   background: #e0e0e0;
-  transform: scale(1.08);
+  transform: translateY(-1px);
 }
 .singer-card-btn.network-icon-btn {
-  color: #ff;
+  color: #e60012;
+  background: #fff0f0;
 }
 .singer-card-btn.network-icon-btn:hover {
-  background: rgba(255,68,68,0.12);
-  color: #ff4444;
+  background: rgba(230,0,18,0.14);
+  color: #d70010;
+}
+.singer-card-btn.netease-btn {
+  color: #e60012;
+  background: #fff0f0;
 }
 .singer-card-btn.netease-btn:hover {
-  background: rgba(22,119,255,0.12);
-  color: #1677ff;
+  background: rgba(230,0,18,0.14);
+  color: #d70010;
 }
 
 /* 厂牌成员区（厂牌卡片用，垂直布局下方） */
@@ -1459,6 +1744,93 @@ margin-top: 1px;
   color: #444;
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* ===== 歌手 / 厂牌资料卡：红白黑方案 ===== */
+.leaflet-popup-content-wrapper {
+  border-radius: 20px !important;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.06) !important;
+  background: transparent !important;
+}
+.singer-card {
+  min-width: 320px;
+  max-width: min(560px, calc(100vw - 40px));
+  border-radius: 20px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(17,17,17,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+}
+.singer-card.label-card {
+  min-width: min(var(--label-card-width, 360px), calc(100vw - 40px));
+  max-width: min(580px, calc(100vw - 40px));
+}
+.singer-card-body {
+  padding: 14px 16px;
+}
+.singer-card-name {
+  color: #111111;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.singer-card.label-card .singer-card-name {
+  color: #e60012;
+}
+.singer-card-fans {
+  background: #f2f2f3;
+  color: #6a6a70;
+  font-weight: 650;
+}
+.singer-card-desc {
+  background: rgba(230,0,18,0.08);
+  color: #e60012;
+  border: 1px solid rgba(230,0,18,0.12);
+}
+.singer-card-actions {
+  padding: 12px 14px 12px 4px;
+  gap: 8px;
+}
+.singer-card-btn {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid rgba(17,17,17,0.08);
+  background: #f6f6f7;
+  color: #333;
+}
+.singer-card-btn.network-icon-btn {
+  background: #f7f7f8;
+  color: #202024;
+}
+.singer-card-btn.netease-btn {
+  background: #e60012;
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 18px rgba(230,0,18,0.22);
+}
+.singer-card-btn:hover {
+  transform: translateY(-1px);
+}
+.singer-card-btn.network-icon-btn:hover {
+  background: #eeeeef;
+  color: #111;
+}
+.singer-card-btn.netease-btn:hover {
+  background: #d80011;
+  color: #fff;
+}
+.singer-card-close-btn {
+  background: #f3f3f4;
+  color: #888;
+}
+.singer-card-close-btn:hover {
+  background: #ececef;
+  color: #444;
+}
+.singer-card-members {
+  border-top: 1px solid rgba(17,17,17,0.08);
+}
+.singer-card-members-list {
+  font-size: 13px;
+  color: #4d4d52;
 }
 
 /* ===== 手机端响应式适配（新增） ===== */
@@ -1499,74 +1871,219 @@ margin-top: 1px;
     font-size: 14px;
   }
 
-  /* ---------- 地图页：顶部搜索栏 ---------- */
+  /* ---------- 地图页：手机端浮动控制 ---------- */
   #top-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    gap: 8px;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 1200;
+    display: block;
+    pointer-events: none;
   }
   #search-container {
-    width: calc(100vw - 20px);
-    left: 0;
-    top: 0;
-    padding: 10px 12px;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    top: auto;
+    width: auto;
+    padding: 8px;
     box-sizing: border-box;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: none;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    pointer-events: auto;
   }
   #search-input-wrap {
     flex-wrap: nowrap;
+    gap: 8px;
   }
   #singer-search {
     font-size: 13px;
-    padding: 10px 36px 10px 14px;
+    padding: 11px 36px 11px 14px;
   }
   #search-btn {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
   }
   #index-btn {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
   }
 
-  /* 筛选按鈕行：允许换行，小字体 */
-  #search-input-wrap {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
   .filter-btn {
     font-size: 11px;
     padding: 6px 10px;
   }
 
-  /* action-group 按鈕行 */
+  #search-input-wrap > .filter-btn[data-type="landmark"],
+  #search-input-wrap > .filter-btn[data-type="food"] {
+    display: none;
+  }
+
+  #mode-filter-tabs {
+    position: absolute;
+    left: 8px;
+    bottom: calc(100% + 8px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 104px;
+    padding: 5px;
+    overflow: visible;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16), inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  #mode-filter-tabs::after {
+    content: "⌄";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  #mode-filter-tabs.mobile-open::after {
+    content: "⌃";
+  }
+  #mode-filter-tabs .mode-filter-slider {
+    display: none;
+  }
+  #mode-filter-tabs .filter-btn {
+    border-left: none;
+    padding: 8px 26px 8px 12px;
+    text-align: left;
+    background: transparent;
+    box-shadow: none;
+    color: #555;
+  }
+  #mode-filter-tabs .filter-btn.active {
+    background: #e60012;
+    color: white;
+    box-shadow: none;
+  }
+  #mode-filter-tabs:not(.mobile-open) .filter-btn:not(.active) {
+    display: none;
+  }
+
+  /* action-group：手机端侧边工具栏 */
   #action-group {
-    flex-wrap: wrap;
-    gap: 6px;
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    z-index: 1300;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%);
+    pointer-events: auto;
   }
   #more-options-btn,
   #rank-btn,
   #network-list-btn {
-    font-size: 12px;
-    padding: 7px 12px;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    gap: 0;
+    font-size: 0;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  }
+  #more-options-btn svg,
+  #rank-btn svg,
+  #network-list-btn svg {
+    width: 19px;
+    height: 19px;
   }
 
   /* ---------- 下拉面板全屏展开 ---------- */
   #more-options-dropdown,
   #rank-panel,
-  #index-panel,
   #network-list-panel {
-    width: calc(100vw - 20px) !important;
-    left: 10px !important;
-    right: 10px !important;
-    max-height: 55vh;
+    top: 76px !important;
+    left: 12px !important;
+    right: auto !important;
+    width: calc(100vw - 84px) !important;
+    max-height: calc(100dvh - 168px);
     border-radius: 16px;
+  }
+  #index-panel {
+    width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(74px + env(safe-area-inset-bottom));
+    top: auto !important;
+    max-height: 46vh;
+    border-radius: 16px;
+  }
+
+  #mobile-layer-switch {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top));
+    left: 12px;
+    z-index: 1350;
+    display: block;
+  }
+  #mobile-layer-btn {
+    height: 40px;
+    min-width: 116px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.96);
+    color: #111;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  #mobile-layer-btn .mobile-layer-caret {
+    color: #777;
+    font-size: 11px;
+  }
+  #mobile-layer-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 142px;
+    padding: 6px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  #mobile-layer-switch.open #mobile-layer-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .mobile-layer-option {
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #555;
+    padding: 9px 10px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 750;
+  }
+  .mobile-layer-option.active {
+    background: #e60012;
+    color: white;
   }
 
   /* ---------- 歌手卡片 ---------- */
@@ -1575,21 +2092,9 @@ margin-top: 1px;
     max-width: calc(100vw - 40px);
   }
 
-  /* ---------- 作者信息栏 ---------- */
-  #author-info {
-    bottom: 8px;
-    right: 8px;
-    left: 8px;
-    max-width: none;
-    font-size: 10px;
-    padding: 5px 10px;
-    gap: 8px;
-    justify-content: center;
-  }
-
   /* ---------- 退出关系网按鈕 ---------- */
   #exit-network-btn {
-    bottom: 60px;
+    bottom: calc(82px + env(safe-area-inset-bottom));
     padding: 10px 24px;
     font-size: 14px;
   }
@@ -1601,7 +2106,12 @@ margin-top: 1px;
 
   /* ---------- 搜索建议列表 ---------- */
   #search-suggestions {
-    max-height: 180px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% + 8px);
+    max-height: 34vh;
+    margin-top: 0;
   }
   .suggestion-item {
     padding: 10px 14px;
@@ -1625,10 +2135,834 @@ margin-top: 1px;
   .cover-title { font-size: 28px; }
   #search-container { padding: 8px 10px; }
   .filter-btn { font-size: 10px; padding: 5px 8px; }
-  #more-options-btn, #rank-btn, #network-list-btn { font-size: 11px; padding: 6px 10px; }
+  #more-options-btn, #rank-btn, #network-list-btn { width: 42px; height: 42px; padding: 0; }
+  #mobile-layer-btn { min-width: 106px; font-size: 12px; }
 }
 
-  </style>
+/* ===== 手机端地图式底部抽屉 ===== */
+@media (max-width: 480px) {
+  #top-bar {
+    z-index: 1550;
+  }
+  #search-container {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(82px + env(safe-area-inset-bottom));
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+    border-radius: 24px 24px 0 0;
+    background: rgba(28,29,30,0.96);
+    color: #fff;
+    box-shadow: 0 -12px 34px rgba(0,0,0,0.22);
+    overflow: hidden;
+    transition: height 0.28s ease, top 0.28s ease, padding 0.28s ease;
+  }
+  #search-container.mobile-expanded {
+    height: min(58vh, 500px);
+    padding-top: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  #search-container.mobile-expanded::-webkit-scrollbar {
+    display: none;
+  }
+  #search-container.mobile-searching {
+    top: calc(96px + env(safe-area-inset-top));
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+  #mobile-sheet-handle {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 48px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.26);
+    transform: translateX(-50%);
+  }
+  #search-input-wrap {
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  #search-input-inner {
+    min-width: 0;
+  }
+  #singer-search {
+    height: 46px;
+    padding: 0 40px 0 44px;
+    border: none;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 16px;
+    box-shadow: none;
+  }
+  #singer-search::placeholder {
+    color: rgba(255,255,255,0.52);
+  }
+  #search-input-inner::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255,255,255,0.52);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  #search-input-inner::after {
+    content: "";
+    position: absolute;
+    left: 29px;
+    top: 29px;
+    width: 8px;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.52);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  #search-btn,
+  #index-btn {
+    display: none;
+  }
+  #mobile-search-cancel {
+    display: none;
+    height: 46px;
+    padding: 0 4px 0 8px;
+    border: none;
+    background: transparent;
+    color: #0a84ff;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  #search-container.mobile-searching #mobile-search-cancel {
+    display: block;
+  }
+  #search-clear-btn {
+    background: rgba(255,255,255,0.2);
+  }
+  #mode-filter-tabs {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    order: 3;
+    width: 116px;
+    margin: 12px 0 0;
+    background: rgba(255,255,255,0.1);
+    box-shadow: none;
+  }
+  #mode-filter-tabs .filter-btn {
+    color: rgba(255,255,255,0.74);
+  }
+  #mode-filter-tabs .filter-btn.active {
+    background: #e60012;
+    color: #fff;
+  }
+  #mode-filter-tabs::after {
+    color: rgba(255,255,255,0.62);
+  }
+  #action-group {
+    position: relative;
+    right: auto;
+    top: auto;
+    flex-direction: row;
+    transform: none;
+    gap: 8px;
+    margin: 12px 0 0;
+    order: 2;
+  }
+  #more-options-btn,
+  #rank-btn,
+  #network-list-btn {
+    flex: 1;
+    width: auto;
+    height: 42px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    gap: 5px;
+    box-shadow: none;
+  }
+  #more-options-btn svg,
+  #rank-btn svg,
+  #network-list-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #action-group,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #mode-filter-tabs,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #more-options-dropdown,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #rank-panel,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #network-list-panel,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #index-panel,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #mobile-history-section,
+  #search-container:not(.mobile-expanded):not(.mobile-searching) #mobile-index-row {
+    display: none !important;
+  }
+  #search-container.mobile-searching #action-group,
+  #search-container.mobile-searching #mode-filter-tabs,
+  #search-container.mobile-searching #more-options-dropdown,
+  #search-container.mobile-searching #rank-panel,
+  #search-container.mobile-searching #network-list-panel {
+    display: none !important;
+  }
+  #more-options-dropdown,
+  #rank-panel,
+  #network-list-panel,
+  #index-panel {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-height: none;
+    margin-top: 10px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.96);
+    box-shadow: none;
+    transform: none;
+  }
+  #more-options-dropdown.show,
+  #rank-panel.show,
+  #network-list-panel.show,
+  #index-panel.show {
+    opacity: 1;
+    pointer-events: auto;
+    display: flex;
+  }
+  #rank-panel,
+  #network-list-panel,
+  #index-panel {
+    max-height: 34vh;
+  }
+  #more-options-dropdown {
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+  #mobile-history-section {
+    display: none;
+    margin-top: 22px;
+  }
+  #search-container.mobile-searching #mobile-history-section {
+    display: block;
+  }
+  .mobile-sheet-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.58);
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  #mobile-history-clear {
+    border: none;
+    background: transparent;
+    color: #0a84ff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .mobile-history-empty {
+    color: rgba(255,255,255,0.42);
+    padding: 14px 0;
+    font-size: 14px;
+  }
+  .mobile-history-item {
+    width: 100%;
+    min-height: 48px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  #mobile-index-row {
+    display: none;
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px 4px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: #fff;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 850;
+  }
+  #mobile-index-row::after {
+    content: "›";
+    color: rgba(255,255,255,0.45);
+    font-size: 25px;
+  }
+  #mobile-index-row small {
+    margin-left: auto;
+    margin-right: 12px;
+    color: rgba(255,255,255,0.44);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  #search-container.mobile-searching #mobile-index-row {
+    display: flex;
+  }
+  #search-container.mobile-searching #index-panel.show {
+    display: flex;
+    max-height: 38vh;
+    background: rgba(255,255,255,0.98);
+  }
+  #search-suggestions {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: 10px;
+    max-height: 28vh;
+    background: rgba(255,255,255,0.96);
+  }
+  #mobile-detail-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1600;
+    display: block;
+    padding: 18px 14px calc(16px + env(safe-area-inset-bottom));
+    border-radius: 24px 24px 0 0;
+    background: rgba(255,255,255,0.98);
+    box-shadow: 0 -14px 38px rgba(0,0,0,0.22);
+    transform: translateY(110%);
+    transition: transform 0.28s ease;
+    max-height: 58vh;
+    overflow-y: auto;
+  }
+  #mobile-detail-sheet.show {
+    transform: translateY(0);
+  }
+  .mobile-detail-handle {
+    width: 48px;
+    height: 5px;
+    margin: -8px auto 12px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.18);
+  }
+  #mobile-detail-sheet .singer-card,
+  #mobile-detail-sheet .singer-card.label-card {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #mobile-detail-sheet .singer-card-close-btn {
+    display: none;
+  }
+  #mobile-detail-sheet .singer-card-name {
+    white-space: normal;
+    font-size: 24px;
+  }
+  #mobile-detail-sheet .singer-card-actions {
+    align-self: stretch;
+  }
+}
+
+  
+/* ===== 说唱地标标注样式 ===== */
+
+/* 说唱地标按钮样式 */
+.filter-btn[data-type="landmark"] {
+  background: rgba(255,255,255,0.96);
+  color: #e60012;
+  border: 1px solid rgba(230,0,18,0.16);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+}
+.filter-btn[data-type="landmark"].active {
+  background: #e60012;
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 12px rgba(230,0,18,0.32);
+}
+.filter-btn[data-type="landmark"]:hover:not(.active) {
+  background: #fff5f5;
+  border-color: rgba(230,0,18,0.28);
+  color: #d70010;
+}
+.filter-btn[data-type="food"] {
+  background: rgba(255,255,255,0.96);
+  color: #d97904;
+  border: 1px solid rgba(217,121,4,0.18);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+}
+.filter-btn[data-type="food"].active {
+  background: #d97904;
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 12px rgba(217,121,4,0.32);
+}
+.filter-btn[data-type="food"]:hover:not(.active) {
+  background: #fff8ed;
+  border-color: rgba(217,121,4,0.32);
+  color: #bd6803;
+}
+
+/* ===== 地标PIN图标标记（所有缩放级别统一用此样式） ===== */
+.landmark-pin-marker {
+  background: none !important;
+  border: none !important;
+}
+.landmark-pin-wrapper {
+  display: flex;
+  flex-direction: row;   /* 水平排列：图标在左，名称在右 */
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  /* 移除hover放大动画 */
+}
+/* 苹果地图气泡点 */
+.landmark-pin-icon {
+  width: 14px;
+  height: 14px;
+  background: #e60012;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.96),
+    0 0 0 7px rgba(230,0,18,0.15),
+    0 3px 9px rgba(0,0,0,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.landmark-pin-icon::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.95;
+}
+.landmark-pin-wrapper:hover .landmark-pin-icon {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.98),
+    0 0 0 8px rgba(230,0,18,0.2),
+    0 4px 12px rgba(0,0,0,0.26);
+}
+/* 地标名称标签（PIN右侧） */
+.landmark-pin-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: rgba(255,255,255,0.95);
+  padding: 2px 7px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+  letter-spacing: 0.1px;
+  border: 1px solid rgba(255,68,68,0.12);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 低缩放时只显示城市名（更大字体） */
+.landmark-pin-label.city-only {
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(255,68,68,0.88);
+  color: white;
+  border: none;
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.landmark-pin-label.city-only:hover {
+  background: #ff2222;
+}
+
+/* ===== 苹果音乐播放器风格弹出卡片 ===== */
+.landmark-popup-card {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  z-index: 9999;
+  width: min(calc(107px + var(--lpc-title-width, 193px)), calc(100vw - 40px));
+  min-width: 300px;
+  max-width: calc(100vw - 40px);
+  background: rgba(245, 245, 247, 0.93);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border-radius: 20px;
+  padding: 14px 16px;
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.2),
+    0 4px 14px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.72),
+    0 0 0 0.5px rgba(0,0,0,0.05);
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  white-space: normal;
+}
+.landmark-popup-card.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 播放器主体行：封面 + 歌曲信息 */
+.lpc-player-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+}
+
+/* 左侧：专辑封面（方形圆角，支持图片） */
+.lpc-cover {
+  width: 62px;
+  height: 62px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 20%, rgba(255,255,255,0.45), transparent 35%),
+    linear-gradient(135deg, #f2b35c 0%, #e96b4b 48%, #5a8bb8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.22);
+  position: relative;
+}
+.lpc-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+/* 封面默认图标（无图时显示） */
+.lpc-cover-default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* 中间：歌曲信息（对齐参考图） */
+.lpc-info {
+  flex: 0 0 var(--lpc-title-width, 193px);
+  min-width: 0;
+  width: var(--lpc-title-width, 193px);
+  max-width: calc(100vw - 150px);
+  padding-top: 1px;
+}
+/* 歌名：大字黑色加粗，参考图样式 */
+.lpc-song-title {
+  width: var(--lpc-title-width, 193px);
+  max-width: calc(100vw - 150px);
+  font-size: 18px;
+  font-weight: 800;
+  color: #141414;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  margin-bottom: 5px;
+  letter-spacing: 0;
+}
+/* 艺术家/歌曲名：小字灰色，参考图样式 */
+.lpc-meta {
+  width: var(--lpc-title-width, 193px);
+  max-width: calc(100vw - 150px);
+  font-size: 15px;
+  color: #858585;
+  line-height: 1.18;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.lpc-meta-text {
+  display: inline-block;
+  min-width: 100%;
+  will-change: transform;
+}
+.lpc-meta.is-scrolling .lpc-meta-text {
+  animation: lpcMetaScroll var(--lpc-meta-duration, 7s) ease-in-out infinite;
+}
+@keyframes lpcMetaScroll {
+  0%, 18% { transform: translateX(0); }
+  82%, 100% { transform: translateX(calc(-1 * var(--lpc-meta-shift, 0px))); }
+}
+/* E标（Explicit内容标签） */
+.lpc-explicit-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: #8f8f8f;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 3px;
+  margin-left: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* 文化地标：店铺信息块 */
+.lpc-shop-block {
+  margin-top: 8px;
+  padding-left: 75px;
+  color: #8d8d8d;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.lpc-shop-tag {
+  display: inline-block;
+  color: #f17f2f;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 6px;
+  letter-spacing: 0;
+}
+.lpc-shop-desc {
+  font-size: 12px;
+  color: #8d8d8d;
+  line-height: 1.45;
+  display: inline;
+}
+
+/* 小三角（白色） */
+.landmark-popup-card::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.06));
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .landmark-popup-card {
+    min-width: 260px;
+    max-width: calc(100vw - 28px);
+    padding: 12px 13px;
+    border-radius: 18px;
+  }
+  .lpc-player-row { gap: 11px; }
+  .lpc-cover { width: 54px; height: 54px; border-radius: 10px; }
+  .lpc-cover-img { border-radius: 10px; }
+  .lpc-info,
+  .lpc-song-title { max-width: calc(100vw - 115px); }
+  .lpc-song-title { font-size: 16px; }
+  .lpc-meta { font-size: 13px; }
+  .lpc-shop-block { padding-left: 65px; font-size: 11px; }
+}
+
+/* 地标图层 cluster 样式 */
+.landmark-cluster-icon {
+  background: linear-gradient(135deg, #e60012 0%, #ff6b6b 100%);
+  color: white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  box-shadow: 0 3px 12px rgba(255,68,68,0.4);
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+/* 地标完整卡片标记的额外样式（兼容旧代码） */
+.landmark-custom-marker {
+  background: none !important;
+  border: none !important;
+}
+.landmark-dot-marker {
+  background: none !important;
+  border: none !important;
+}
+.landmark-pulse-dot {
+  width: 12px;
+  height: 12px;
+  background: #e60012;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 8px rgba(255,68,68,0.6);
+}
+.landmark-pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,68,68,0.5);
+}
+.landmark-pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,68,68,0.25);
+  /* animation: landmarkPulse 1.8s ease-out infinite 0.4s; */
+}
+.landmark-dot-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,68,68,0.85);
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  letter-spacing: 0.3px;
+}
+@keyframes landmarkPulse {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* 地标完整卡片标记的额外样式 */
+.landmark-custom-marker {
+  background: none !important;
+  border: none !important;
+}
+
+
+/* ===== 城市快捷列表（在说唱地标按钮下方展开） ===== */
+#landmark-city-dropdown {
+  position: fixed;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+  width: min(360px, calc(100vw - 20px));
+  max-width: calc(100vw - 20px);
+  padding: 12px;
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.16);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+  scrollbar-width: none;
+}
+#landmark-city-dropdown::-webkit-scrollbar {
+  display: none;
+}
+#landmark-city-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.landmark-city-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 2px;
+}
+.landmark-city-panel-title {
+  color: #111;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.landmark-city-panel-count {
+  color: #888;
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.landmark-city-panel-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.city-nav-btn {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 10px;
+  background: #f5f5f6;
+  color: #555;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 750;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+  box-shadow: none;
+}
+.city-nav-btn:hover {
+  background: #fff0f0;
+  color: #e60012;
+}
+.city-nav-btn.active {
+  background: #e60012;
+  color: white;
+  box-shadow: 0 2px 8px rgba(230,0,18,0.24);
+}
+.landmark-free-btn {
+  grid-column: span 2;
+  background: #111;
+  color: #fff;
+}
+.landmark-free-btn:hover {
+  background: #252525;
+  color: #fff;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  #landmark-city-dropdown {
+    width: calc(100vw - 20px);
+    border-radius: 14px;
+  }
+  .landmark-city-panel-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .landmark-free-btn {
+    grid-column: span 2;
+  }
+  .landmark-pin-label {
+    font-size: 10px;
+    max-width: 90px;
+  }
+}
+
+</style>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1821,7 +3155,7 @@ margin-top: 1px;
           中文<br><span class="cover-title-accent">说唱地图</span>
         </div>
         <div class="cover-subtitle">
-          收录国内说唱歌手及知名厂牌/组合的地理信息，探索中国说唱的版图与脉络。
+          把中文说唱摊开成一张可听见的城市唱片，从人、厂牌与歌词地标重新进入这片版图。
         </div>
         <!-- 主按钮组 -->
         <div class="cover-btn-group">
@@ -1834,11 +3168,10 @@ margin-top: 1px;
           </button>
           <button class="cover-btn-secondary" id="cover-view-rank">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"/>
-              <line x1="12" y1="20" x2="12" y2="4"/>
-              <line x1="6"  y1="20" x2="6"  y2="14"/>
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
             </svg>
-            查看榜单
+            探索地标
           </button>
         </div>
         <!-- 联系作者透明链接按钮 -->
@@ -1854,6 +3187,7 @@ margin-top: 1px;
 
   <div id="top-bar">
     <div id="search-container">
+      <div id="mobile-sheet-handle" aria-hidden="true"></div>
       <div id="search-input-wrap">
 <!-- 三个基础筛选按钮（缩小版）-->
         
@@ -1868,6 +3202,7 @@ margin-top: 1px;
             <path d="M21 21L16.65 16.65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
+        <button id="mobile-search-cancel" type="button">取消</button>
         <!-- 索引按钮：纯圆形图标，无文字 -->
         <button id="index-btn" title="索引">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1879,11 +3214,56 @@ margin-top: 1px;
             <circle cx="3" cy="18" r="0.5" fill="currentColor"/>
           </svg>
         </button>
-<button class="filter-btn active" data-type="all">全部</button>
-        <button class="filter-btn" data-type="singer">仅歌手</button>
-        <button class="filter-btn" data-type="label">仅厂牌/组合</button>
+        <div id="mode-filter-tabs">
+          <span class="mode-filter-slider"></span>
+          <button class="filter-btn active" data-type="all">全部</button>
+          <button class="filter-btn" data-type="singer">仅歌手</button>
+          <button class="filter-btn" data-type="label">仅厂牌/组合</button>
+        </div>
+        <button class="filter-btn" data-type="landmark">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>说唱地标
+        </button>
+        <button class="filter-btn" data-type="food">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;">
+            <path d="M7 2v20"/>
+            <path d="M17 2v20"/>
+            <path d="M4 7h6"/>
+            <path d="M14 7h6"/>
+            <path d="M5 12h4"/>
+            <path d="M15 12h4"/>
+          </svg>PSY.P探店
+        </button>
+      </div>
+      <!-- 城市快捷列表（说唱地标按钮下方展开） -->
+      <div id="landmark-city-dropdown">
+        <div class="landmark-city-panel-head">
+        <div class="landmark-city-panel-title" id="landmark-city-panel-title">探索地标</div>
+        <div class="landmark-city-panel-count" id="landmark-city-panel-count">歌词 / 场所</div>
+        </div>
+        <div class="landmark-city-panel-list">
+          <button class="city-nav-btn" data-lat="30.65" data-lng="104.06" data-zoom="13">成都</button>
+          <button class="city-nav-btn" data-lat="30.27" data-lng="120.15" data-zoom="13">杭州</button>
+          <button class="city-nav-btn" data-lat="28.22" data-lng="112.93" data-zoom="13">长沙</button>
+          <button class="city-nav-btn" data-lat="29.53" data-lng="106.50" data-zoom="13">重庆</button>
+          <button class="city-nav-btn" data-lat="31.23" data-lng="121.47" data-zoom="13">上海</button>
+          <button class="city-nav-btn landmark-free-btn" data-action="free">自由探索</button>
+        </div>
       </div>
       <div id="search-suggestions"></div>
+      <div id="mobile-history-section">
+        <div class="mobile-sheet-title">
+          <span>最近搜索</span>
+          <button id="mobile-history-clear" type="button">清除</button>
+        </div>
+        <div id="mobile-history-list"></div>
+      </div>
+      <button id="mobile-index-row" type="button">
+        <span>索引</span>
+        <small>歌手 / 厂牌 / 组合</small>
+      </button>
       <!-- 筛选 + 排行榜按鈕行（搜索框下方第二行） -->
       <div id="action-group">
         <button id="more-options-btn">
@@ -1917,16 +3297,21 @@ margin-top: 1px;
 
   </div><!-- /#top-bar -->
 
-  <!-- 作者信息栏 -->
-  <div id="author-info">
-    <div class="info-item">
-      <span class="info-label">联系作者：</span>
-      <a href="https://www.douyin.com/user/MS4wLjABAAAAx4SFe50OmPZVVjiUKvGIB-Fy-hcCFRRnIfFykRZ7PB8odlA9MuUHqmsTzjzgpS7l?from_tab_name=main">@unopain</a>
-    </div>
-    <div class="info-item">
-      <span class="info-label">更新时间：2026.4.29</span>
+  <div id="mobile-layer-switch">
+    <button id="mobile-layer-btn" type="button" aria-expanded="false" aria-controls="mobile-layer-menu">
+      <span id="mobile-layer-label">信息资料</span>
+      <span class="mobile-layer-caret">⇌</span>
+    </button>
+    <div id="mobile-layer-menu">
+      <button class="mobile-layer-option active" type="button" data-layer="info">信息资料</button>
+      <button class="mobile-layer-option" type="button" data-layer="landmark">说唱地标</button>
+      <button class="mobile-layer-option" type="button" data-layer="food">PSY.P探店</button>
     </div>
   </div>
+<div id="mobile-detail-sheet">
+  <div class="mobile-detail-handle"></div>
+  <div id="mobile-detail-content"></div>
+</div>
 <button id="exit-network-btn">退出关系网</button>
 
 
@@ -1976,7 +3361,11 @@ margin-top: 1px;
 </div>
 
 
+
+<!-- 城市快捷列表（嵌入搜索栏，在说唱地标按钮下方展开） -->
+
   <div id="map"></div>
+<script src="./fans-cache.js"></script>
 <script>
   // === Leaflet.SmoothWheelZoom 插件（MIT License, mutsuyuki） ===
   L.Map.mergeOptions({ smoothWheelZoom: true, smoothSensitivity: 1 });
@@ -2066,9 +3455,12 @@ margin-top: 1px;
       // 进入地图按钮
       document.getElementById('cover-enter-map').addEventListener('click', enterMap);
 
-      // 查看榜单按钮（仅关闭封面，后续可扩展）
+      // 探索地标按钮：进入地图并打开地标面板
       document.getElementById('cover-view-rank').addEventListener('click', function() {
         enterMap();
+        setTimeout(() => {
+          launchLandmarkExplorer();
+        }, 520);
       });
 
       
@@ -2226,7 +3618,10 @@ desc:"「新说唱2024」冠军"
   lat: 29.03, lng: 106.65,
   avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130",
   neteaseId: "12320060",
-desc:"「中国新说唱2020」亚军"
+desc:"「中国新说唱2020」亚军",
+collaborators: [
+    { name: "LSGCsikoriot"},{ name: "朴鲨VPS"},{ name: "刀脚"},{ name: "OneOne"},{ name: "布瑞吉Bridge"},{ name: "盛宇D-SHINE"},{ name: "功夫胖KUNGFU-PEN"},{ name: "REGI陈彦希"},{ name: "Gosh Music"},{ name: "邓典果DDG"},{ name: "雾都L4WUDU"},{ name: "mac ova seas"},{ name: "CashTrippy"},{ name: "建坤YOUNG"},{ name: "Echo"},{ name: "ICE杨长青"},{ name: "艾热AIR"},{ name: "谢帝"},{ name: "Akemen杀"},{ name: "V.O.B"},{ name: "Toryondacloud"},{ name: "威尔Will.T"},{ name: "王嗣尧TURBO"},{ name: "希介"},{ name: "Rich4ever"},{ name: "小青龙"},{ name: "满舒克"},{ name: "VaVa娃娃"},{ name: "GAI周延"}
+  ]
 
 },
 {
@@ -2681,7 +4076,7 @@ desc:"「说唱新世代」冠军"
 {
   name: "MULA SAKEE",
   fans: "45.3万",
-  lat: 30.56, lng: 104.23,
+  lat: 30.53, lng: 105.60,
   avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130",
   neteaseId: "14925064",
 collaborators: [
@@ -3096,7 +4491,7 @@ desc:"「少年说唱企划」季军"
   avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130",
   neteaseId: "48277407",
 collaborators: [
-    { name: "LSGCsikorot"},{ name: "JinJiBeWater-隼"},{ name: "Rapeter"},{ name: "Uzzy"},{ name: "Dove鸽子"},{ name: "Lil Asian"},{ name: "迪诺哥"},{ name: "SABER徐天知"},{ name: "极品贵公子"},{ name: "CashTrippy"},{ name: "加木"},{ name: "八口8uck"},{ name: "康熙"},{ name: "杨和苏KeyNG"},{ name: "PearBae小梨"},{ name: "APMOZART"},{ name: "斑比Bambii"},{ name: "KenRobb"},{ name: "吕富贵"},{ name: "KKECHO"},{ name: "刀脚"},{ name: "Mengzi"},{ name: "黄云龙"},{ name: "88LIEN"},{ name: "KITO"},{ name: "Vansdaddy"},{ name: "贾真Jahgen"},{ name: "李欣颖"}  ]
+    { name: "LSGCsikoriot"},{ name: "JinJiBeWater-隼"},{ name: "Rapeter"},{ name: "Uzzy"},{ name: "Dove鸽子"},{ name: "Lil Asian"},{ name: "迪诺哥"},{ name: "SABER徐天知"},{ name: "极品贵公子"},{ name: "CashTrippy"},{ name: "加木"},{ name: "八口8uck"},{ name: "康熙"},{ name: "杨和苏KeyNG"},{ name: "PearBae小梨"},{ name: "APMOZART"},{ name: "斑比Bambii"},{ name: "KenRobb"},{ name: "吕富贵"},{ name: "KKECHO"},{ name: "刀脚"},{ name: "Mengzi"},{ name: "黄云龙"},{ name: "88LIEN"},{ name: "KITO"},{ name: "Vansdaddy"},{ name: "贾真Jahgen"},{ name: "李欣颖"}  ]
 },
 
 {
@@ -3269,7 +4664,10 @@ desc:"「新说唱2025」亚军"
   fans: "22.5万",
   lat: 30.69, lng: 104.15,
   avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130",
-  neteaseId: "12529780"
+  neteaseId: "12529780",
+  collaborators: [
+    { name: "张方钊"},{ name: "Uzzy"},{ name: "APMOZART"},{ name: "Ash-1"},{ name: "BOBBYNOPEACE"},{ name: "mac ova seas"},{ name: "MULA SAKEE"},{ name: "Lil Asian"},{ name: "GALI"},{ name: "Toryondacloud"},{ name: "LSGCsikoriot"},{ name: "88LIEN"},{ name: "狂兆北"},{ name: "CashTrippy"}
+  ]
 },
 {
   name: "CashTrippy",
@@ -3799,7 +5197,7 @@ desc:"「中国新说唱2018」亚军"
   avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130",
   neteaseId: "14117457",
 collaborators: [
-    { name: "连麻Swimming"},{ name: "JinJiBeWater-隼"},{ name: "RICHNOMADIC"},{ name: "CashTrippy"},{ name: "雾都L4WUDU"},{ name: "ayin印"},{ name: "刀脚"},{ name: "迪诺哥"},{ name: "Akemen杀"},{ name: "斑比Bambii"},{ name: "mac ova seas"},{ name: "kkluv"},{ name: "那奇沃夫"},{ name: "艾志恒Asen"},{ name: "APMOZART"},{ name: "张方钊"},{ name: "河北吴孟达"},{ name: "贾真Jahgen"},{ name: "BOBBYNOPEACE"},{ name: "Louis 1520"},{ name: "ICE杨长青"},{ name: "Rich4ever"},{ name: "KITO"},{ name: "LSGCsikorot"},{ name: "瘦恒SoulHan"},{ name: "MISTERK"},{ name: "MULA SAKEE"}  ]
+    { name: "连麻Swimming"},{ name: "JinJiBeWater-隼"},{ name: "RICHNOMADIC"},{ name: "CashTrippy"},{ name: "雾都L4WUDU"},{ name: "ayin印"},{ name: "刀脚"},{ name: "迪诺哥"},{ name: "Akemen杀"},{ name: "斑比Bambii"},{ name: "mac ova seas"},{ name: "kkluv"},{ name: "那奇沃夫"},{ name: "艾志恒Asen"},{ name: "APMOZART"},{ name: "张方钊"},{ name: "河北吴孟达"},{ name: "贾真Jahgen"},{ name: "BOBBYNOPEACE"},{ name: "Louis 1520"},{ name: "ICE杨长青"},{ name: "Rich4ever"},{ name: "KITO"},{ name: "LSGCsikoriot"},{ name: "瘦恒SoulHan"},{ name: "MISTERK"},{ name: "MULA SAKEE"}  ]
 },
 {
   name: "RICHNOMADIC",
@@ -3847,7 +5245,7 @@ collaborators: [
   avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130",
   neteaseId: "33863232",
 collaborators: [
-    { name: "Uzzy"},{ name: "吕富贵"},{ name: "LSGCsikorot"},{ name: "KnowKnow"},{ name: "SASIOVERLXRD"},{ name: "THOME"},{ name: "斑比Bambii"},{ name: "Melo"},{ name: "GALI"},{ name: "kkluv"},{ name: "PSY.P"},{ name: "Ty."},{ name: "Capper"},{ name: "TizzyT"},{ name: "BOBBYNOPEACE"},{ name: "JinJiBeWater-隼"},{ name: "AThree"},{ name: "KIV"}
+    { name: "Uzzy"},{ name: "吕富贵"},{ name: "LSGCsikoriot"},{ name: "KnowKnow"},{ name: "SASIOVERLXRD"},{ name: "THOME"},{ name: "斑比Bambii"},{ name: "Melo"},{ name: "GALI"},{ name: "kkluv"},{ name: "PSY.P"},{ name: "Ty."},{ name: "Capper"},{ name: "TizzyT"},{ name: "BOBBYNOPEACE"},{ name: "JinJiBeWater-隼"},{ name: "AThree"},{ name: "KIV"}
   ]
 
 },
@@ -3968,7 +5366,7 @@ collaborators: [
   neteaseId: "15194340",
 aliases: ["河南说唱之神"],
 collaborators: [
-    { name: "KenRobb"},{ name: "河北吴孟达"},{ name: "沙一汀EL"},{ name: "大D(DLyn)"},{ name: "Louis 1520"},{ name: "功夫胖KUNGFU-PEN"},{ name: "LSGCsikorot"},{ name: "吕富贵"},{ name: "Vansdaddy"},{ name: "血男孩"},{ name: "陆政廷Lil Jet"},{ name: "Ash-1"},{ name: "陈一豪Clear"},{ name: "Jesse Margiela"},{ name: "卡力老虎"},{ name: "连麻Swimming"},{ name: "FEEEleven"},{ name: "MISTERK"},{ name: "狂兆北"},{ name: "YOUNGLEGO"},{ name: "黄格雷"}
+    { name: "KenRobb"},{ name: "河北吴孟达"},{ name: "沙一汀EL"},{ name: "大D(DLyn)"},{ name: "Louis 1520"},{ name: "功夫胖KUNGFU-PEN"},{ name: "LSGCsikoriot"},{ name: "吕富贵"},{ name: "Vansdaddy"},{ name: "血男孩"},{ name: "陆政廷Lil Jet"},{ name: "Ash-1"},{ name: "陈一豪Clear"},{ name: "Jesse Margiela"},{ name: "卡力老虎"},{ name: "连麻Swimming"},{ name: "FEEEleven"},{ name: "MISTERK"},{ name: "狂兆北"},{ name: "YOUNGLEGO"},{ name: "黄格雷"}
   ]
 
 },
@@ -4282,11 +5680,12 @@ desc:"「说唱听我的第二季」冠军"
   neteaseId: "31917276"
 },
 {
-  name: "LSGCsikorot",
+  name: "LSGCsikoriot",
   fans: "13.5万",
   lat:30.66 , lng: 104.12,
   avatar: "https://p2.music.126.net/gubm-zDHSIj4aZJwdqiNcQ==/109951171443067525.jpg?param=130y130",
-  neteaseId: "33097968"
+  neteaseId: "33097968",
+aliases: ["四口"],
 },
 {
   name: "陈一豪Clear",
@@ -4344,7 +5743,10 @@ desc:"「说唱听我的第二季」冠军"
   fans: "82.4万",
   lat: 30.42, lng: 104.53,
   avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130",
-  neteaseId: "12110173"
+  neteaseId: "12110173",
+  collaborators: [
+    { name: "艾志恒Asen"},{ name: "KIV"},{ name: "mac ova seas"},{ name: "MULA SAKEE"},{ name: "DIGI GHETTO"},{ name: "黄格雷"},{ name: "kkluv"},{ name: "贾真Jahgen"},{ name: "TOYOKI"},{ name: "KnowKnow"},{ name: "马思唯"},{ name: "BombWayne"},{ name: "africakid"},{ name: "罗言"},{ name: "Vansdaddy"},{ name: "Alyway"},{ name: "Ty."},{ name: "OuttaWave"},{ name: "Nxmad诺曼德"},{ name: "PSY.P"},{ name: "UDIGG"},{ name: "希介"},{ name: "BOBBYNOPEACE"},{ name: "离合"},{ name: "CashTrippy"},{ name: "APMOZART"},{ name: "LSGCsikoriot"}
+  ]
 },
 {
   name: "mac ova seas",
@@ -4374,7 +5776,28 @@ collaborators: [
 collaborators: [
     { name: "马思唯"},{ name: "王以太"},{ name: "罗言"},{ name: "李佳隆"},{ name: "王嗣尧TURBO"},{ name: "mac ova seas"},{ name: "王以太"},{ name: "TOYOKI"},{ name: "MULA SAKEE"},{ name: "Maikon Flocka Flame"},{ name: "GALI"},{ name: "连麻Swimming"},{ name: "谢帝"},{ name: "建坤YOUNG"},{ name: "DAI"},{ name: "THOME"},{ name: "Vansdaddy"},{ name: "KIV"}
   ]
-        }
+        },
+{
+  name: "PONYGO小马",
+  fans: "2.4万",
+  lat: 35.40, lng: 116.60,
+  avatar: "https://p1.music.126.net/kku7rOiskUGssoFeQNaB6Q==/109951168136235811.jpg?param=130y130",
+  neteaseId: "28416123"
+},
+{
+  name: "BombWayne",
+  fans: "1.5万",
+  lat: 31.30, lng: 120.63,
+  avatar: "https://p1.music.126.net/4FvkpeApX-ZVZE3jY5XE1w==/109951172358400247.jpg?param=130y130",
+  neteaseId: "31559757"
+},
+{
+  name: "朴鲨VPS",
+  fans: "1.5万",
+  lat: 29.46, lng: 106.59,
+  avatar: "https://p1.music.126.net/N-lHGkGTajpN6JvqxEer9g==/109951169799693786.jpg?param=130y130",
+  neteaseId: "12481977"
+}
 
       ];
 
@@ -4559,7 +5982,7 @@ members: ["马思唯", "KnowKnow", "PSY.P", "Melo"]
     avatar: "https://p1.music.126.net/DBa9Ou51RnMQEKHUGsn4Bw==/109951167529645441.jpg?param=200y200",
     neteaseId: "",
     type: "label",
-members: ["罗言", "LSGCsikorot", "Uzzy", "吕富贵", "BOBBYNOPEACE","黄云龙"]
+members: ["罗言", "LSGCsikoriot", "Uzzy", "吕富贵", "BOBBYNOPEACE","黄云龙"]
   },
 {
     name: "APEX",
@@ -4745,7 +6168,16 @@ const singersWithType = singers.map(singer => ({
   type: "singer"
 }));
 
-const allData = [...singersWithType, ...labels];    
+const allData = [...singersWithType, ...labels];
+
+// 粉丝数优先使用 fans-cache.js 里的定期同步结果；没有缓存时保留上方写死的兜底值。
+if (window.FANS_CACHE) {
+  allData.forEach(item => {
+    if (item.neteaseId && window.FANS_CACHE[item.neteaseId]) {
+      item.fans = window.FANS_CACHE[item.neteaseId];
+    }
+  });
+}
 
 
 // 定义特殊分类名单
@@ -4755,8 +6187,8 @@ const specialCategories = {
 "ronghe25": ["艾志恒Asen", "万妮达Vinida Weng", "GAI周延", "C-BLOCK","华云龙KLE","陈一豪Clear","SHarK","Rapeter","亚细亚旷世奇才","ljz329","揽佬SKAI ISYOURGOD","泰格西","Top Barry","邓典果DDG","Ranzer","盛宇D-SHINE","功夫胖KUNGFU-PEN","王以太","黄之仪Kyra Zilver","BrAnTB白景屹","asak藏羚羊"],
 
 "wangyi25": ["艾志恒Asen", "夏之禹", "华云龙KLE", "GAI周延","谢帝","陈一豪Clear","王齐铭WatchMe","张方钊","C-BLOCK","施鑫文月","马赫mood","Vansdaddy","王以太","马思唯","二流","李佳隆","陈娴静","africakid","李欣颖","ProN4c","杨和苏KeyNG","JinJiBeWater-隼","ljz329","Rapeter"],
-"hanson": ["africakid", "R!R!Riot", "nato", "艾志恒Asen","Alyway","CashTrippy","贾真Jahgen","Arthurnevawakes","THOME","YTH Chopie","马思唯","Akemen杀","FENDIGHEE RICCH","TOYOKI","离合","YOUNG13DBABY","KITO","罗言","KnowKnow","Melo","李佳隆","谢帝","MULA SAKEE","SASIOVERLXRD","Capper","mac ova seas","Chalky Wong"],
-"bb": ["Top Barry", "TINY7", "连麻Swimming", "Vansdaddy","罗言","张方钊","mac ova seas","BOBBYNOPEACE","王以太","加木","JinJiBeWater-隼","CashTrippy","TizzyT","康熙","Rapeter","THOME","LSGCsikorot","Lil Asian","KnowKnow","吕富贵","李文","Melo","卡力老虎","功夫胖KUNGFU-PEN","KIV","华云龙KLE","沧桑Cang333","Nxmad诺曼德","翁杰Winjay","Monovisa","李大奔BENZO","李欣颖","Dove鸽子","GALI","yilun!","黄格雷","李佳隆","Uzzy","八口8uck","小酷Coola","PearBae小梨","杨和苏KeyNG","Yee","KITO","叶轩池","Athree","三火flame","OuttaWave","黄之仪Kyra Zilver","gs.l","揽佬SKAI ISYOURGOD"],
+"hanson": ["africakid", "R!R!Riot", "nato", "艾志恒Asen","Alyway","CashTrippy","贾真Jahgen","Arthurnevawakes","THOME","YTH Chopie","马思唯","Akemen杀","FENDIGHEE RICCH","TOYOKI","离合","YOUNG13DBABY","KITO","罗言","KnowKnow","Melo","李佳隆","谢帝","MULA SAKEE","SASIOVERLXRD","Capper","mac ova seas","Chalky Wong","BombWayne"],
+"bb": ["Top Barry", "TINY7", "连麻Swimming", "Vansdaddy","罗言","张方钊","mac ova seas","BOBBYNOPEACE","王以太","加木","JinJiBeWater-隼","CashTrippy","TizzyT","康熙","Rapeter","THOME","LSGCsikoriot","Lil Asian","KnowKnow","吕富贵","李文","Melo","卡力老虎","功夫胖KUNGFU-PEN","KIV","华云龙KLE","沧桑Cang333","Nxmad诺曼德","翁杰Winjay","Monovisa","李大奔BENZO","李欣颖","Dove鸽子","GALI","yilun!","黄格雷","李佳隆","Uzzy","八口8uck","小酷Coola","PearBae小梨","杨和苏KeyNG","Yee","KITO","叶轩池","Athree","三火flame","OuttaWave","黄之仪Kyra Zilver","gs.l","揽佬SKAI ISYOURGOD"],
 "ybm": ["马思唯", "NINEONE#乃万", "CREAM D", "弹壳Danko","法老","高天佐","KnowKnow","艾志恒Asen","Kc","Mc光光","李大奔BENZO","JD","VaVa娃娃","宝石Gem","俞天时","Top Barry","Rapeter","ljz329","满舒克","MC HotDog热狗","黄旭","PSY.P","Melo","KnowKnow","CashTrippy","GALI","BrAnTB白景屹","UDIGG","万妮达Vinida Weng","3Bangz","Wiz-H张子豪","Mengzi","邓典果DDG","李尔新","KKECHO","Sleepy Cat","Ty.","谢帝","Saber梁维嘉","Jony J","V.O.B","AJ赖煜哲","Capper","那吾克热-NW","功夫胖KUNGFU-PEN","刘炫廷","杨和苏KeyNG"],
 "mai": ["艾志恒Asen", "夏之禹", "华云龙KLE", "GAI周延","谢帝","陈一豪Clear","王齐铭WatchMe","张方钊","C-BLOCK","施鑫文月","马赫mood","Vansdaddy","王以太","马思唯","二流","李佳隆","陈娴静","africakid","李欣颖","ProN4c","杨和苏KeyNG","JinJiBeWater-隼","ljz329","Rapeter"],
 
@@ -4771,7 +6203,7 @@ const specialCategories = {
       iconCreateFunction: function(cluster) {
         const count = cluster.getChildCount();
         return L.divIcon({
-          html: `<div style="background:#ff4444; color:white; border-radius:50%; width:42px; height:42px; line-height:42px; text-align:center; font-weight:bold; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.2);">${count}</div>`,
+          html: `<div style="background:#e60012; color:white; border-radius:50%; width:42px; height:42px; line-height:42px; text-align:center; font-weight:bold; font-size:15px; box-shadow:0 2px 8px rgba(0,0,0,0.2);">${count}</div>`,
           className: 'custom-cluster',
           iconSize: L.point(42, 42)
         });
@@ -4850,6 +6282,14 @@ cities.forEach(city => {
     }
     
 
+function getProfilePopupOffset(cardWidth) {
+  const isMobile = window.matchMedia('(max-width: 480px)').matches;
+  if (!cardWidth) return isMobile ? [154, 46] : [208, 55];
+
+  const x = Math.round(cardWidth / 2 + (isMobile ? 22 : 36));
+  return [x, isMobile ? 46 : 55];
+}
+
 
 
 function renderMarkers(filterType = "all") {
@@ -4865,6 +6305,24 @@ function renderMarkers(filterType = "all") {
       type: 'city', 
       lat: city.lat, 
       lng: city.lng 
+    });
+  });
+  rapLandmarks.forEach(item => {
+    searchNameList.push({
+      raw: item.location + ' - ' + (item.song || ''),
+      lower: (item.location + (item.song || '') + item.artist + (item.lyric || '')).toLowerCase(),
+      type: 'landmark',
+      lat: item.lat,
+      lng: item.lng
+    });
+  });
+  psyPFoodSpots.forEach(item => {
+    searchNameList.push({
+      raw: item.location + ' - PSY.P探店',
+      lower: (item.location + (item.city || '') + (item.song || '') + (item.lyric || '') + 'PSY.P探店').toLowerCase(),
+      type: 'food',
+      lat: item.lat,
+      lng: item.lng
     });
   });
 
@@ -4884,6 +6342,9 @@ function renderMarkers(filterType = "all") {
       
       filtered.forEach(item => {
 // 找到 renderMarkers 函数里的这段并替换
+const labelCardWidth = item.type === "label"
+  ? Math.min(520, Math.max(340, item.name.length * 18 + 150))
+  : null;
 const icon = L.divIcon({
   className: 'singer-custom-marker', // 插件需要的类名
   html: `
@@ -4896,7 +6357,7 @@ const icon = L.divIcon({
   `,
   iconSize: [50, 50],
   iconAnchor: [25, 25],
-  popupAnchor: [180, 55]    // 弹出窗口在头像右下方，不遮挡头像
+  popupAnchor: getProfilePopupOffset(labelCardWidth)    // 资料卡左边界贴近头像右侧，避免压住头像
 });
         
         const marker = L.marker([item.lat, item.lng], { icon });
@@ -4907,16 +6368,13 @@ const icon = L.divIcon({
             ? item.members.join(' · ')
             : '暂无详细信息';
           popupHtml = `
-            <div class="singer-card label-card">
+            <div class="singer-card label-card" style="--label-card-width:${labelCardWidth}px;">
               <div style="display:flex;align-items:center;">
                 <div class="singer-card-body" style="flex:1;">
-                  <div class="singer-card-name" style="color:#ff4444;">${item.name}</div>
+                  <div class="singer-card-name" style="color:#e60012;">${item.name}</div>
                   <span class="singer-card-fans">说唱厂牌/组合</span>
                 </div>
                 <div class="singer-card-actions">
-                  <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}','_blank')" title="网易云主页">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  </button>
                   <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="关闭">✕</button>
                 </div>
               </div>
@@ -4932,7 +6390,7 @@ const icon = L.divIcon({
             : '';
           const networkBtnHtml = item._hasOriginalCollaborators
             ? `<button class="singer-card-btn network-icon-btn" onclick="window.showNetwork('${item.name}')" title="查看关系网">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                关系网
               </button>`
             : '';
           popupHtml = `
@@ -4944,8 +6402,8 @@ const icon = L.divIcon({
               </div>
               <div class="singer-card-actions">
                 ${networkBtnHtml}
-                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}','_blank')" title="网易云主页">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}','_blank')" title="歌手页">
+                  歌手页
                 </button>
                 <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="关闭">✕</button>
               </div>
@@ -5144,6 +6602,25 @@ if (item.aliases && item.aliases.length > 0) {
     // ... 补充你的真实数据
   ];
 
+  function parseFansValue(value) {
+    const text = String(value || '').trim();
+    const num = parseFloat(text);
+    if (!Number.isFinite(num)) return 0;
+    return text.includes('万') ? num * 10000 : num;
+  }
+
+  function getFansCountData() {
+    return fansCountData
+      .map(item => {
+        const singerData = allData.find(s => s.name === item.name);
+        return {
+          ...item,
+          val: singerData && singerData.fans ? singerData.fans : item.val
+        };
+      })
+      .sort((a, b) => parseFansValue(b.val) - parseFansValue(a.val));
+  }
+
   // 渲染榜单
   function renderList(data) {
     const body = document.getElementById('rank-panel-body');
@@ -5197,6 +6674,7 @@ row.innerHTML = `
           document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
           const allBtn = document.querySelector('.filter-btn[data-type="all"]');
           if (allBtn) allBtn.classList.add('active');
+          updateModeFilterSlider();
           const moreBtn = document.getElementById('more-options-btn');
           if (moreBtn) moreBtn.classList.remove('active');
           renderMarkers('all');
@@ -5219,10 +6697,10 @@ row.innerHTML = `
     const rect = networkListBtn.getBoundingClientRect();
     const moreRect = document.getElementById('more-options-btn').getBoundingClientRect();
     if (window.innerWidth <= 480) {
-      networkListPanel.style.top = (rect.bottom + 6) + 'px';
-      networkListPanel.style.left = '10px';
-      networkListPanel.style.right = '10px';
-      networkListPanel.style.width = 'calc(100vw - 20px)';
+      networkListPanel.style.top = '76px';
+      networkListPanel.style.left = '12px';
+      networkListPanel.style.right = 'auto';
+      networkListPanel.style.width = 'calc(100vw - 84px)';
     } else {
       networkListPanel.style.top = (rect.bottom + 6) + 'px';
       networkListPanel.style.left = moreRect.left + 'px';
@@ -5292,7 +6770,7 @@ row.innerHTML = `
       slider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
 
       // 渲染对应数据
-      renderList(currentTab === 'fan' ? fanClubData : fansCountData);
+      renderList(currentTab === 'fan' ? fanClubData : getFansCountData());
     });
   });
 
@@ -5304,11 +6782,10 @@ row.innerHTML = `
   const rect = rankBtn.getBoundingClientRect();
   const moreRect = moreOptionsBtn.getBoundingClientRect();
   if (window.innerWidth <= 480) {
-    // 手机端：居中展示，距顶部为按钮下方
-    rankPanel.style.top  = (rect.bottom + 6) + 'px';
-    rankPanel.style.left = '10px';
-    rankPanel.style.right = '10px';
-    rankPanel.style.width = 'calc(100vw - 20px)';
+    rankPanel.style.top  = '76px';
+    rankPanel.style.left = '12px';
+    rankPanel.style.right = 'auto';
+    rankPanel.style.width = 'calc(100vw - 84px)';
   } else {
     rankPanel.style.top  = (rect.bottom + 6) + 'px';
     rankPanel.style.left = (moreRect.left - 20) + 'px';
@@ -5341,6 +6818,614 @@ document.getElementById('index-panel').classList.remove('show');
   });
 })();
 
+
+// ===== 说唱地标标注功能 =====
+// 数据格式说明：
+// type: "lyric" = 歌词地标, "culture" = 说唱文化地标（店铺/场所等）
+// lyric: 歌词内容（lyric类型）或 描述（culture类型）
+// song: 歌曲名（lyric类型）或 场所类型（culture类型，如"饮品店"）
+// artist: 艺术家名
+// location: 地标名称
+// city: 所属城市（"成都"/"杭州"/"长沙"/"重庆"/"上海"）
+const rapLandmarks = [
+{ lat: 30.61, lng: 104.06, type: "lyric",
+
+  location: "芳草地小区", city: "成都",
+
+  lyric: "走切芳草地耍", song: "芳草地", artist: "DIGI GHETTO", cover: "https://p2.music.126.net/12oIz3lftSwVyxvpKWLpPw==/109951167626578292.jpg" },
+
+{ lat: 30.26, lng: 120.15, type: "lyric",
+
+  location: "西湖", city: "杭州",
+
+  lyric: "西湖的水 我的drip", song: "西湖水", artist: "UDIGG/CashTrippy/mac ova seas 李大奔BENZO", cover: "https://p2.music.126.net/msVHuHdVqPNpc30re9KR9g==/109951167223386502.jpg" },
+
+{ lat: 30.68, lng: 104.10, type: "lyric",
+
+  location: "电子科技大学", city: "成都",
+
+  lyric: "电子科大我是研究生", song: "装逼王", artist: "迪诺哥/SASIOVERLXRD", cover: "https://p2.music.126.net/mPz94aplVAwjNqqSn13rXA==/109951170938602322.jpg" },
+
+{ lat: 30.67, lng: 104.10, type: "lyric",
+
+  location: "第五大道", city: "成都",
+
+  lyric: "my gang 聚在第五大道", song: "Cash Money 2", artist: "SASIOVERLXRD/CashTrippy/RICHNOMADIC/JinJiBeWater_隼", cover: "https://p2.music.126.net/mygs0AbhztpEaNXU3HdCGg==/109951165474171544.jpg" },
+
+{ lat: 30.64, lng: 104.09, type: "lyric",
+
+  location: "九眼桥", city: "成都",
+
+  lyric: "我是九眼桥的龙", song: "九眼桥之龙", artist: "Adam Ocean/Jesse Margiela", cover: "https://p2.music.126.net/d7xyxo0Sm8-60SBJBXLSnQ==/109951172346326577.jpg" },
+
+{ lat: 30.62, lng: 104.07, type: "lyric",
+
+  location: "保利中心", city: "成都",
+
+  lyric: "我早就已经走出了保利中心B座", song: "保利中心", artist: "CashTrippy", cover: "https://p2.music.126.net/bnlU1kCImWOvUkRH-ijDHA==/109951170644659962.jpg" },
+
+{ lat: 30.64, lng: 104.11, type: "lyric",
+
+  location: "水碾河南三街", city: "成都",
+
+  lyric: "搬离了南三街 现在很想念水碾河", song: "水碾河南三街", artist: "LSGCsikoriot", cover: "https://p2.music.126.net/PVlr3XGCYzNllaHbrUfR3Q==/109951168079912651.jpg" },
+
+{ lat: 30.6404, lng: 104.0893, type: "lyric",
+
+  location: "九眼桥", city: "成都",
+
+  lyric: "我在新加坡的街上像在九眼桥", song: "DBD Radio Interlude", artist: "马思唯/艾志恒Asen", cover: "https://p1.music.126.net/XFseMW0n_7aWQdzlJwXfNg==/109951168721928914.jpg" },
+
+{ lat: 30.6107, lng: 104.0617, type: "lyric",
+
+  location: "桐梓林欧城", city: "成都",
+
+  lyric: "我说Asen在欧城像O block的Durk", song: "GOAT Right Now", artist: "马思唯/艾志恒Asen", cover: "https://p1.music.126.net/XFseMW0n_7aWQdzlJwXfNg==/109951168721928914.jpg" },
+
+{ lat: 30.5690, lng: 104.0704, type: "lyric",
+
+  location: "成都SKP", city: "成都",
+
+  lyric: "逛趟SKP花了十儿多万", song: "链子在空中甩", artist: "马思唯/艾志恒Asen", cover: "https://p1.music.126.net/XFseMW0n_7aWQdzlJwXfNg==/109951168721928914.jpg" },
+
+{ lat: 30.3011, lng: 104.4483, type: "lyric",
+
+  location: "天府机场", city: "成都",
+
+  lyric: "Maybach truck接我当我降落天府机场", song: "太成都 (Remix)", artist: "马思唯/Sleepy Cat/Mengzi/Ty./谢帝/邓典果DDG/PSY.P/Melo", cover: "https://p1.music.126.net/iN7OUPkcavI2MBSG8pf2jw==/109951170600632372.jpg" },
+
+{ lat: 31.2168, lng: 121.4692, type: "lyric",
+
+  location: "复兴公园", city: "上海",
+
+  lyric: "复兴公园几爷子耍起在", song: "Pop Music", artist: "马思唯", cover: "https://p1.music.126.net/iN7OUPkcavI2MBSG8pf2jw==/109951170600632372.jpg" },
+
+{ lat: 30.3039, lng: 104.4509, type: "lyric",
+
+  location: "天府机场", city: "成都",
+
+  lyric: "双流和天府机场跑了一趟又一趟", song: "黄色迷彩", artist: "马思唯", cover: "https://p1.music.126.net/iN7OUPkcavI2MBSG8pf2jw==/109951170600632372.jpg" },
+
+{ lat: 30.5033, lng: 104.0702, type: "lyric",
+
+  location: "华阳", city: "成都",
+
+  lyric: "我在华阳去找个妹儿去建设路转", song: "太成都 (Remix)", artist: "马思唯/Sleepy Cat/Mengzi/Ty./谢帝/邓典果DDG/PSY.P/Melo", cover: "https://p1.music.126.net/iN7OUPkcavI2MBSG8pf2jw==/109951170600632372.jpg" },
+
+{ lat: 30.6575, lng: 104.0664, type: "lyric",
+
+  location: "天府广场", city: "成都",
+
+  lyric: "天府广场 耍拢外滩", song: "曼巴Flow", artist: "马思唯", cover: "https://p1.music.126.net/3uKds-MLvxluxZ9K01xWkw==/109951172126526200.jpg" },
+
+{ lat: 30.6563, lng: 104.0509, type: "lyric",
+
+  location: "汇厦少城", city: "成都",
+
+  lyric: "住在西边 汇夏少城", song: "东南西北", artist: "KIV/TOYOKI/THOME/mac ova seas/付思遥/DIGI GHETTO", cover: "https://p1.music.126.net/12oIz3lftSwVyxvpKWLpPw==/109951167626578292.jpg" },
+
+{ lat: 30.6539, lng: 104.0820, type: "lyric",
+
+  location: "太古里", city: "成都",
+
+  lyric: "刚下飞机切太古里爽起", song: "太古里", artist: "THOME/艾志恒Asen/MULA SAKEE/KIV/DIGI GHETTO", cover: "https://p1.music.126.net/12oIz3lftSwVyxvpKWLpPw==/109951167626578292.jpg" },
+
+{ lat: 30.6551, lng: 104.0832, type: "lyric",
+
+  location: "太古里", city: "成都",
+
+  lyric: "在太古里有花不完的钱都在裂变", song: "水泊梁山", artist: "mac ova seas/THOME/MULA SAKEE/艾志恒Asen/TOYOKI/KIV/付思遥", cover: "https://p1.music.126.net/12oIz3lftSwVyxvpKWLpPw==/109951167626578292.jpg" },
+
+{ lat: 30.5049, lng: 104.0717, type: "lyric",
+
+  location: "华阳", city: "成都",
+
+  lyric: "他们问到我去哪儿摇下我车窗老子要跑华阳", song: "谭sir", artist: "连麻Swimming", cover: "https://p1.music.126.net/CqjMpOwqN3iR_fTIWiHe7Q==/109951167759577155.jpg" },
+
+{ lat: 30.6817, lng: 104.1270, type: "lyric",
+
+  location: "二仙桥", city: "成都",
+
+  lyric: "成华大道二仙桥他整了一碗猪脚饭", song: "谭sir", artist: "连麻Swimming", cover: "https://p1.music.126.net/CqjMpOwqN3iR_fTIWiHe7Q==/109951167759577155.jpg" },
+
+{ lat: 30.6825, lng: 104.0830, type: "lyric",
+
+  location: "梁家巷", city: "成都",
+
+  lyric: "走梁家巷火三轮转到了桐梓林", song: "北门", artist: "谢帝/弗洛·文尔/GLORY/建坤YOUNG", cover: "https://p2.music.126.net/aZ2PZfKhELIHTVynAvDFVA==/109951171818265854.jpg" },
+
+{ lat: 30.6294, lng: 104.0560, type: "lyric",
+
+  location: "玉林西路", city: "成都",
+
+  lyric: "我在武侯区 坐标玉林西路", song: "武侯区", artist: "邓典果DDG/马思唯", cover: "https://p2.music.126.net/UtD3jVLjqjkWNg0krkAKxg==/109951167773379640.jpg" },
+
+{ lat: 30.6544, lng: 104.0810, type: "lyric",
+
+  location: "太古里", city: "成都",
+
+  lyric: "给你买礼物在太古里", song: "冷战", artist: "TizzyT/万妮达Vinida Weng", cover: "https://p2.music.126.net/YK-yJzfyYUWPhdm0HLMNrQ==/109951170726033538.jpg" },
+
+{ lat: 29.5534, lng: 106.4683, type: "lyric",
+
+  location: "小龙坎", city: "重庆",
+
+  lyric: "小龙坎是我的hood", song: "雾都夜话 (Live)", artist: "雾都L4WUDU", cover: "https://p1.music.126.net/BCzWh-xhpZzmW9hlVBxNgQ==/109951164194335927.jpg" },
+
+{ lat: 29.5542, lng: 106.4602, type: "lyric",
+
+  location: "沙坪坝", city: "重庆",
+
+  lyric: "沙坪坝最早的市中心", song: "雾都夜话 (Live)", artist: "雾都L4WUDU", cover: "https://p1.music.126.net/BCzWh-xhpZzmW9hlVBxNgQ==/109951164194335927.jpg" },
+
+{ lat: 29.5597, lng: 106.5495, type: "lyric",
+
+  location: "学田湾", city: "重庆",
+
+  lyric: "那个时候儿在学田湾儿", song: "G.O.O.D", artist: "布瑞吉Bridge", cover: "https://p1.music.126.net/Xf7g6Q9FUJ0IowHLduGWvg==/109951169721286296.jpg" }
+];
+
+// PSY.P探店地标，后续按“城市、店名”补充：lat/lng/location/city/cover/lyric/address
+const psyPFoodSpots = [];
+
+// 地标图层（独立于歌手聚合图层）
+let landmarkLayerGroup = L.layerGroup();
+let landmarkVisible = false;
+let activeLandmarkTheme = 'rap';
+// 低缩放阈值：低于此zoom只显示城市名按钮
+const LANDMARK_CITY_ZOOM = 10;
+// 高缩放阈值：高于此zoom显示完整PIN+名称
+const LANDMARK_PIN_ZOOM = 10;
+
+// 当前展开的弹出卡片（用于点击关闭）
+let currentOpenPopupEl = null;
+let currentOpenPinned = false;
+
+// 按城市分组的城市中心坐标
+const landmarkCityCenters = {
+  "成都": { lat: 30.65, lng: 104.06 },
+  "杭州": { lat: 30.27, lng: 120.15 },
+  "长沙": { lat: 28.22, lng: 112.93 },
+  "重庆": { lat: 29.53, lng: 106.50 },
+  "上海": { lat: 31.23, lng: 121.47 }
+};
+
+function getActiveLandmarkItems() {
+  return activeLandmarkTheme === 'food' ? psyPFoodSpots : rapLandmarks;
+}
+
+function getActiveLandmarkCityCenters() {
+  if (activeLandmarkTheme !== 'food') return landmarkCityCenters;
+  return psyPFoodSpots.reduce((centers, item) => {
+    if (!centers[item.city]) centers[item.city] = { lat: item.lat, lng: item.lng };
+    return centers;
+  }, {});
+}
+
+function updateLandmarkPanelMode() {
+  const title = document.getElementById('landmark-city-panel-title');
+  const count = document.getElementById('landmark-city-panel-count');
+  if (!title || !count) return;
+  if (activeLandmarkTheme === 'food') {
+    title.textContent = 'PSY.P探店';
+    count.textContent = '美食 / 店铺';
+  } else {
+    title.textContent = '探索地标';
+    count.textContent = '歌词 / 场所';
+  }
+}
+
+function getLandmarkTitleWidth(title) {
+  const minTextWidth = 193;
+  const maxTextWidth = Math.max(170, window.innerWidth - 150);
+  let measuredWidth = 0;
+
+  if (!getLandmarkTitleWidth.canvas) {
+    getLandmarkTitleWidth.canvas = document.createElement('canvas');
+  }
+
+  const ctx = getLandmarkTitleWidth.canvas.getContext('2d');
+  if (ctx) {
+    ctx.font = "800 18px -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif";
+    measuredWidth = Math.ceil(ctx.measureText(title || '').width) + 2;
+  } else {
+    measuredWidth = Array.from(title || '').reduce((sum, ch) => sum + (/[A-Za-z0-9 ]/.test(ch) ? 9 : 18), 0) + 2;
+  }
+
+  return Math.min(Math.max(measuredWidth, minTextWidth), maxTextWidth);
+}
+
+function updateLandmarkMetaScroll(root) {
+  const metas = root.querySelectorAll('.lpc-meta');
+  metas.forEach(meta => {
+    const text = meta.querySelector('.lpc-meta-text');
+    if (!text) return;
+
+    meta.classList.remove('is-scrolling');
+    meta.style.removeProperty('--lpc-meta-shift');
+    meta.style.removeProperty('--lpc-meta-duration');
+
+    const shift = Math.ceil(text.scrollWidth - meta.clientWidth);
+    if (shift > 4) {
+      meta.style.setProperty('--lpc-meta-shift', `${shift}px`);
+      meta.style.setProperty('--lpc-meta-duration', `${Math.max(6, shift / 22 + 4).toFixed(2)}s`);
+      meta.classList.add('is-scrolling');
+    }
+  });
+}
+
+function positionLandmarkCityDropdown() {
+  const cityDropdown = document.getElementById('landmark-city-dropdown');
+  const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+  if (!cityDropdown || !landmarkBtn) return;
+
+  const rect = landmarkBtn.getBoundingClientRect();
+  const margin = 10;
+  if (window.innerWidth <= 480) {
+    cityDropdown.style.left = '12px';
+    cityDropdown.style.top = '62px';
+    cityDropdown.style.width = 'calc(100vw - 24px)';
+    return;
+  }
+  const desiredLeft = rect.left + rect.width / 2 - cityDropdown.offsetWidth / 2;
+  const maxLeft = window.innerWidth - cityDropdown.offsetWidth - margin;
+  cityDropdown.style.left = `${Math.max(margin, Math.min(desiredLeft, maxLeft))}px`;
+  cityDropdown.style.top = `${rect.bottom + 8}px`;
+}
+
+function openLandmarkCityDropdown() {
+  const cityDropdown = document.getElementById('landmark-city-dropdown');
+  if (!cityDropdown) return;
+  updateLandmarkPanelMode();
+  cityDropdown.classList.add('open');
+  requestAnimationFrame(positionLandmarkCityDropdown);
+}
+
+function closeLandmarkCityDropdown() {
+  const cityDropdown = document.getElementById('landmark-city-dropdown');
+  if (cityDropdown) cityDropdown.classList.remove('open');
+}
+
+// 创建PIN图标标记（带悬浮/点击展开卡片）
+function createLandmarkPin(item) {
+  const isLyric = !item.type || item.type === 'lyric';
+  const titleWidth = getLandmarkTitleWidth(isLyric ? item.lyric : item.location);
+  
+  // 构建弹出卡片内容
+  let popupContent = '';
+  if (isLyric) {
+    // 封面图：优先用 item.cover，其次用网易云歌手头像，最后用渐变色
+    const coverHtml = item.cover
+      ? `<img class="lpc-cover-img" src="${item.cover}" onerror="this.style.display='none';this.parentElement.querySelector('.lpc-cover-default').style.display='flex';" /><div class="lpc-cover-default" style="display:none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>`
+      : `<div class="lpc-cover-default"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>`;
+    popupContent = `
+      <div class="lpc-player-row">
+        <div class="lpc-cover">${coverHtml}</div>
+        <div class="lpc-info">
+          <div class="lpc-song-title">${item.lyric}</div>
+          <div class="lpc-meta"><span class="lpc-meta-text">${item.artist}<span style="margin:0 3px;color:#ccc;">·</span>${item.song}<span class="lpc-explicit-tag">E</span></span></div>
+        </div>
+      </div>
+    `;
+  } else {
+    // 文化地标（店铺等）
+    const cultureCoverHtml = item.cover
+      ? `<img class="lpc-cover-img" src="${item.cover}" onerror="this.style.display='none';" />`
+      : `<div class="lpc-cover-default"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>`;
+    popupContent = `
+      <div class="lpc-player-row">
+        <div class="lpc-cover" style="background:linear-gradient(135deg,#ff8c00 0%,#ffaa44 100%);">${cultureCoverHtml}</div>
+        <div class="lpc-info">
+          <div class="lpc-song-title">${item.location}</div>
+          <div class="lpc-meta"><span class="lpc-meta-text">${item.artist || 'PSY.P探店'}<span style="margin:0 3px;color:#ccc;">·</span>${item.song || '餐饮店'}</span></div>
+        </div>
+      </div>
+      <div class="lpc-shop-block">
+        <div class="lpc-shop-tag">${item.city || ''}</div>
+        <div class="lpc-shop-desc">${item.lyric || item.address || ''}</div>
+      </div>
+    `;
+  }
+
+  const pinColor = isLyric ? '#e60012' : '#d97904';
+  
+  const icon = L.divIcon({
+    className: 'landmark-pin-marker',
+    html: `
+      <div class="landmark-pin-wrapper" data-id="${item.location}">
+        <div class="landmark-pin-icon" style="background:${pinColor};"></div>
+        <div class="landmark-pin-label">${item.location}</div>
+        <div class="landmark-popup-card" id="lpc-${item.location.replace(/[^a-zA-Z0-9一-龥]/g,'_')}" style="--lpc-title-width:${titleWidth}px;">
+          ${popupContent}
+        </div>
+      </div>
+    `,
+    iconSize: [120, 28],
+    iconAnchor: [10, 28],
+    popupAnchor: [50, -32]
+  });
+  
+  const marker = L.marker([item.lat, item.lng], { icon: icon });
+  
+  // 绑定悬浮和点击事件
+  marker.on('add', function() {
+    const el = this.getElement();
+    if (!el) return;
+    const wrapper = el.querySelector('.landmark-pin-wrapper');
+    const popup = el.querySelector('.landmark-popup-card');
+    if (!wrapper || !popup) return;
+    updateLandmarkMetaScroll(popup);
+    
+    let hoverTimeout;
+    let pinned = false;
+    
+    wrapper.addEventListener('mouseenter', function() {
+      clearTimeout(hoverTimeout);
+      // 关闭其他非pinned的弹窗
+      if (currentOpenPopupEl && currentOpenPopupEl !== popup && !currentOpenPinned) {
+        currentOpenPopupEl.classList.remove('show');
+        currentOpenPopupEl = null;
+      }
+      // hover时显示（不设为pinned）
+      if (!currentOpenPinned || currentOpenPopupEl === popup) {
+        popup.classList.add('show');
+        if (!currentOpenPinned) currentOpenPopupEl = popup;
+      }
+    });
+    
+    wrapper.addEventListener('mouseleave', function() {
+      // 修复：如果不是pinned状态，鼠标离开后自动收起
+      if (pinned) return;
+      hoverTimeout = setTimeout(() => {
+        popup.classList.remove('show');
+        if (currentOpenPopupEl === popup) currentOpenPopupEl = null;
+      }, 300);
+    });
+    
+    // 鼠标进入弹出卡片时，阻止收起
+    popup.addEventListener('mouseenter', function() {
+      if (!pinned) clearTimeout(hoverTimeout);
+    });
+    popup.addEventListener('mouseleave', function() {
+      if (!pinned) {
+        hoverTimeout = setTimeout(() => {
+          popup.classList.remove('show');
+          if (currentOpenPopupEl === popup) currentOpenPopupEl = null;
+        }, 300);
+      }
+    });
+    
+    wrapper.addEventListener('click', function(e) {
+      L.DomEvent.stopPropagation(e);
+      clearTimeout(hoverTimeout);
+      if (!pinned) {
+        // 关闭其他pinned弹窗
+        if (currentOpenPopupEl && currentOpenPopupEl !== popup) {
+          currentOpenPopupEl.classList.remove('show');
+          currentOpenPinned = false;
+        }
+        pinned = true;
+        currentOpenPinned = true;
+        currentOpenPopupEl = popup;
+        popup.classList.add('show');
+      } else {
+        // 再次点击取消常住
+        pinned = false;
+        currentOpenPinned = false;
+        popup.classList.remove('show');
+        currentOpenPopupEl = null;
+      }
+    });
+  });
+  
+  return marker;
+}
+
+// 创建低缩放级别的城市名按钮标记
+function createCityNameMarker(cityName, center) {
+  const icon = L.divIcon({
+    className: 'landmark-pin-marker',
+    html: `
+      <div class="landmark-pin-wrapper">
+        <div class="landmark-pin-label city-only" data-city-name="${cityName}">${cityName}</div>
+      </div>
+    `,
+    iconSize: [60, 24],
+    iconAnchor: [30, 12]
+  });
+  const marker = L.marker([center.lat, center.lng], { icon: icon });
+  
+  marker.on('add', function() {
+    const el = this.getElement();
+    if (!el) return;
+    const btn = el.querySelector('.city-only');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      L.DomEvent.stopPropagation(e);
+      map.flyTo([center.lat, center.lng], 13, { duration: 1.0, easeLinearity: 0.3 });
+    });
+  });
+  
+  return marker;
+}
+
+// 根据缩放级别渲染地标
+function renderLandmarksByZoom() {
+  if (!landmarkVisible) return;
+  const zoom = map.getZoom();
+  const activeItems = getActiveLandmarkItems();
+  landmarkLayerGroup.clearLayers();
+  currentOpenPopupEl = null;
+  currentOpenPinned = false;
+  
+  if (zoom < LANDMARK_CITY_ZOOM) {
+    Object.entries(getActiveLandmarkCityCenters()).forEach(([cityName, center]) => {
+      const marker = createCityNameMarker(cityName, center);
+      landmarkLayerGroup.addLayer(marker);
+    });
+  } else {
+    activeItems.forEach(item => {
+      const marker = createLandmarkPin(item);
+      landmarkLayerGroup.addLayer(marker);
+    });
+  }
+}
+
+function showLandmarks(theme = activeLandmarkTheme) {
+  activeLandmarkTheme = theme;
+  landmarkLayerGroup.clearLayers();
+  landmarkVisible = true;
+  // 修改7：地标模式解除最大缩放限制
+  map.setMaxZoom(20);
+  renderLandmarksByZoom();
+  map.addLayer(landmarkLayerGroup);
+  // 监听缩放事件，动态切换显示模式
+  map.on('zoomend', renderLandmarksByZoom);
+  // 展开城市快捷列表
+  openLandmarkCityDropdown();
+}
+
+function hideLandmarks() {
+  map.removeLayer(landmarkLayerGroup);
+  map.off('zoomend', renderLandmarksByZoom);
+  landmarkVisible = false;
+  // 恢复普通模式最大缩放限制
+  map.setMaxZoom(12);
+  // 收起城市快捷列表
+  closeLandmarkCityDropdown();
+}
+
+function launchLandmarkExplorer() {
+  if (typeof networkLayer !== 'undefined') {
+    networkLayer.clearLayers();
+  }
+  const exitBtn = document.getElementById('exit-network-btn');
+  if (exitBtn) exitBtn.style.display = 'none';
+
+  document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
+  activeLandmarkTheme = 'rap';
+  const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+  if (landmarkBtn) landmarkBtn.classList.add('active');
+
+  const moreBtn = document.getElementById('more-options-btn');
+  const morePanel = document.getElementById('more-options-dropdown');
+  if (moreBtn) moreBtn.classList.remove('active');
+  if (morePanel) morePanel.classList.remove('show');
+
+  const rankPanel = document.getElementById('rank-panel');
+  const rankBtn = document.getElementById('rank-btn');
+  const indexPanel = document.getElementById('index-panel');
+  const indexBtn = document.getElementById('index-btn');
+  const networkPanel = document.getElementById('network-list-panel');
+  const networkBtn = document.getElementById('network-list-btn');
+  if (rankPanel) rankPanel.classList.remove('show');
+  if (rankBtn) rankBtn.classList.remove('open');
+  if (indexPanel) indexPanel.classList.remove('show');
+  if (indexBtn) indexBtn.classList.remove('active');
+  if (networkPanel) networkPanel.classList.remove('show');
+  if (networkBtn) networkBtn.classList.remove('open');
+
+  document.querySelectorAll('.city-nav-btn').forEach(btn => btn.classList.remove('active'));
+  markerClusterGroup.clearLayers();
+  if (!landmarkVisible) {
+    showLandmarks('rap');
+  } else {
+    renderLandmarksByZoom();
+    openLandmarkCityDropdown();
+  }
+
+  if (typeof updateModeFilterSlider === 'function') {
+    updateModeFilterSlider();
+  }
+}
+
+function launchFoodExplorer() {
+  launchLandmarkExplorer();
+  activeLandmarkTheme = 'food';
+  document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
+  const foodBtn = document.querySelector('.filter-btn[data-type="food"]');
+  if (foodBtn) foodBtn.classList.add('active');
+  markerClusterGroup.clearLayers();
+  showLandmarks('food');
+  if (typeof updateModeFilterSlider === 'function') {
+    updateModeFilterSlider();
+  }
+}
+
+// 快捷城市按钮逻辑（列表不收起，点击后定位城市）
+document.querySelectorAll('.city-nav-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const activeThemeType = activeLandmarkTheme === 'food' ? 'food' : 'landmark';
+    const themeBtn = document.querySelector(`.filter-btn[data-type="${activeThemeType}"]`);
+    if (themeBtn) {
+      document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
+      themeBtn.classList.add('active');
+      if (typeof updateModeFilterSlider === 'function') {
+        updateModeFilterSlider();
+      }
+    }
+
+    if (this.dataset.action === 'free') {
+      if (!landmarkVisible) {
+        markerClusterGroup.clearLayers();
+        showLandmarks(activeLandmarkTheme);
+      } else {
+        openLandmarkCityDropdown();
+      }
+      document.querySelectorAll('.city-nav-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      map.flyTo([35, 105], isMobile ? 4 : 5, { duration: 0.9, easeLinearity: 0.35 });
+      return;
+    }
+
+    const lat = parseFloat(this.dataset.lat);
+    const lng = parseFloat(this.dataset.lng);
+    const zoom = parseInt(this.dataset.zoom) || 13;
+    map.flyTo([lat, lng], zoom, { duration: 1.0, easeLinearity: 0.3 });
+    // 高亮选中城市，列表保持展开
+    document.querySelectorAll('.city-nav-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    // 确保地标模式已激活
+    if (!landmarkVisible) {
+      markerClusterGroup.clearLayers();
+      showLandmarks(activeLandmarkTheme);
+    }
+  });
+});
+
+window.addEventListener('resize', positionLandmarkCityDropdown);
+
+// 点击地图空白处关闭所有弹窗
+map.on('click', function() {
+  if (currentOpenPopupEl) {
+    currentOpenPopupEl.classList.remove('show');
+    currentOpenPopupEl = null;
+    currentOpenPinned = false;
+  }
+});
+
+
 renderMarkers("all");
 
 
@@ -5350,14 +7435,121 @@ renderMarkers("all");
 // ===== 筛选按钮 + 下方展开列表交互 =====
     const moreOptionsBtn      = document.getElementById('more-options-btn');
     const moreOptionsDropdown = document.getElementById('more-options-dropdown');
+    const modeFilterTabs      = document.getElementById('mode-filter-tabs');
+
+    function updateModeFilterSlider() {
+      if (!modeFilterTabs) return;
+      const activeBtn = modeFilterTabs.querySelector('.filter-btn.active');
+      if (!activeBtn) {
+        modeFilterTabs.classList.add('no-active');
+        return;
+      }
+      modeFilterTabs.classList.remove('no-active');
+      const tabsRect = modeFilterTabs.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      modeFilterTabs.style.setProperty('--mode-slider-left', `${btnRect.left - tabsRect.left}px`);
+      modeFilterTabs.style.setProperty('--mode-slider-width', `${btnRect.width}px`);
+    }
+
+    requestAnimationFrame(updateModeFilterSlider);
+    window.addEventListener('resize', updateModeFilterSlider);
+
+    const mobileLayerSwitch = document.getElementById('mobile-layer-switch');
+    const mobileLayerBtn = document.getElementById('mobile-layer-btn');
+    const mobileLayerLabel = document.getElementById('mobile-layer-label');
+    const mobileLayerOptions = document.querySelectorAll('.mobile-layer-option');
+
+    function isMobileLayout() {
+      return window.innerWidth <= 480;
+    }
+
+    function syncMobileControls() {
+      if (!mobileLayerLabel) return;
+      const activeTypeBtn = document.querySelector('.filter-btn[data-type].active');
+      const activeType = activeTypeBtn ? activeTypeBtn.dataset.type : 'all';
+      const activeLayer = activeType === 'landmark' || activeType === 'food' ? activeType : 'info';
+      const labelMap = {
+        info: '信息资料',
+        landmark: '说唱地标',
+        food: 'PSY.P探店'
+      };
+      mobileLayerLabel.textContent = labelMap[activeLayer];
+      mobileLayerOptions.forEach(option => {
+        option.classList.toggle('active', option.dataset.layer === activeLayer);
+      });
+    }
+
+    function closeMobileLayerMenu() {
+      if (!mobileLayerSwitch) return;
+      mobileLayerSwitch.classList.remove('open');
+      if (mobileLayerBtn) mobileLayerBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    if (mobileLayerBtn) {
+      mobileLayerBtn.addEventListener('click', function(e) {
+        if (!isMobileLayout()) return;
+        e.stopPropagation();
+        const willOpen = !mobileLayerSwitch.classList.contains('open');
+        modeFilterTabs.classList.remove('mobile-open');
+        mobileLayerSwitch.classList.toggle('open', willOpen);
+        mobileLayerBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
+    }
+
+    mobileLayerOptions.forEach(option => {
+      option.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const layer = this.dataset.layer;
+        closeMobileLayerMenu();
+        if (layer === 'info') {
+          const allBtn = modeFilterTabs.querySelector('.filter-btn[data-type="all"]');
+          if (allBtn && !allBtn.classList.contains('active')) {
+            modeFilterTabs.classList.add('mobile-open');
+            allBtn.click();
+            modeFilterTabs.classList.remove('mobile-open');
+          } else {
+            hideLandmarks();
+            closeLandmarkCityDropdown();
+            renderMarkers('all');
+          }
+          syncMobileControls();
+          return;
+        }
+        const targetBtn = document.querySelector(`.filter-btn[data-type="${layer}"]`);
+        if (targetBtn && !targetBtn.classList.contains('active')) {
+          targetBtn.click();
+        }
+        syncMobileControls();
+      });
+    });
+
+    modeFilterTabs.addEventListener('click', function(e) {
+      if (!isMobileLayout()) return;
+      const targetBtn = e.target.closest('.filter-btn[data-type]');
+      if (!targetBtn || !modeFilterTabs.contains(targetBtn)) return;
+
+      if (!modeFilterTabs.classList.contains('mobile-open')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeMobileLayerMenu();
+        modeFilterTabs.classList.add('mobile-open');
+        return;
+      }
+
+      if (targetBtn.classList.contains('active')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+      modeFilterTabs.classList.remove('mobile-open');
+    }, true);
 
     function openDropdown() {
       const rect = moreOptionsBtn.getBoundingClientRect();
       if (window.innerWidth <= 480) {
-        moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
-        moreOptionsDropdown.style.left = '10px';
-        moreOptionsDropdown.style.right = '10px';
-        moreOptionsDropdown.style.width = 'calc(100vw - 20px)';
+        moreOptionsDropdown.style.top  = '76px';
+        moreOptionsDropdown.style.left = '12px';
+        moreOptionsDropdown.style.right = 'auto';
+        moreOptionsDropdown.style.width = 'calc(100vw - 84px)';
       } else {
         moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
         moreOptionsDropdown.style.left = (rect.left - 20) + 'px';
@@ -5416,8 +7608,12 @@ document.querySelectorAll(".filter-btn[data-type]").forEach(b => b.classList.rem
 
 if (isAlreadyActive) {
   // 再次点击已激活项 → 取消筛选，回退到"全部"
+  if (this.dataset.type === 'landmark' || this.dataset.type === 'food') {
+    hideLandmarks();
+  }
   const allBtn = document.querySelector('.filter-btn[data-type="all"]');
   if (allBtn) allBtn.classList.add('active');
+  updateModeFilterSlider();
   moreOptionsBtn.classList.remove('active');
   renderMarkers('all');
   return; // 直接结束，不执行后面的逻辑
@@ -5425,6 +7621,7 @@ if (isAlreadyActive) {
 
 // 正常激活点击的按钮
 this.classList.add("active");
+updateModeFilterSlider();
 
 
         // 如果点击的是展开列表里的选项，筛选按钮也亮红
@@ -5435,9 +7632,41 @@ this.classList.add("active");
           moreOptionsBtn.classList.remove('active');
         }
 
+        // 处理说唱地标模式
+        if (this.dataset.type === 'landmark' || this.dataset.type === 'food') {
+          const requestedTheme = this.dataset.type === 'food' ? 'food' : 'rap';
+          const cityDropdown = document.getElementById('landmark-city-dropdown');
+          const isSameThemeOpen = cityDropdown && cityDropdown.classList.contains('open') && landmarkVisible && activeLandmarkTheme === requestedTheme;
+          if (isSameThemeOpen) {
+            // 同一主题再次点击：收起城市列表，但不改变地图状态
+            closeLandmarkCityDropdown();
+            this.classList.remove('active');
+          } else {
+            // 首次点击：展开城市列表，进入对应地标模式
+            markerClusterGroup.clearLayers();
+            showLandmarks(requestedTheme);
+          }
+          return;
+        } else {
+          hideLandmarks();
+        }
         renderMarkers(this.dataset.type);
       });
     });
+
+    document.addEventListener('click', function(e) {
+      if (isMobileLayout() && !modeFilterTabs.contains(e.target)) {
+        modeFilterTabs.classList.remove('mobile-open');
+      }
+      if (mobileLayerSwitch && !mobileLayerSwitch.contains(e.target)) {
+        closeMobileLayerMenu();
+      }
+      if (e.target.closest('.filter-btn[data-type]')) {
+        requestAnimationFrame(syncMobileControls);
+      }
+    });
+
+    syncMobileControls();
 
     
     // ----- 搜索 UI 交互 -----
@@ -5467,7 +7696,7 @@ this.classList.add("active");
       const escapedText = escapeHtml(text);
       const escapedKw = escapeHtml(keyword);
       const reg = new RegExp(escapedKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-      return escapedText.replace(reg, match => `<mark style="background:transparent;color:#ff4444;font-weight:700;">${match}</mark>`);
+      return escapedText.replace(reg, match => `<mark style="background:transparent;color:#e60012;font-weight:700;">${match}</mark>`);
     }
 
     function updateSuggestions(val) {
@@ -5490,6 +7719,9 @@ this.classList.add("active");
           // 城市类型：名称标红 + 城市角标
           div.classList.add('city-type');
           div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">城市</span>`;
+        } else if (m.type === 'landmark' || m.type === 'food') {
+          const tag = m.type === 'food' ? '探店' : '地标';
+          div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">${tag}</span>`;
         } else if (m.alias) {
           // 别名命中：展示"真实姓名 • 别名标红"
           div.innerHTML = `${escapeHtml(m.raw)} <span style="color:#aaa;font-size:12px;font-weight:400">• ${highlightKeyword(m.alias, val)}</span>`;
@@ -5503,6 +7735,8 @@ this.classList.add("active");
           suggestionsDiv.style.display = 'none';
           if (m.type === 'city') {
               locateCity(m);
+            } else if (m.type === 'landmark' || m.type === 'food') {
+              locateMapPoint(m);
             } else {
               locateAndAnimate(m.raw);
             }
@@ -5518,6 +7752,19 @@ function locateCity(cityObj) {
         showTip(`已前往城市：${cityObj.raw}`, false, 2000);
         addPulseEffect([cityObj.lat, cityObj.lng]);
       }
+
+    function locateMapPoint(pointObj) {
+      const theme = pointObj.type === 'food' ? 'food' : 'rap';
+      activeLandmarkTheme = theme;
+      document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
+      const activeBtn = document.querySelector(`.filter-btn[data-type="${theme === 'food' ? 'food' : 'landmark'}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+      markerClusterGroup.clearLayers();
+      showLandmarks(theme);
+      map.flyTo([pointObj.lat, pointObj.lng], 16, { duration: 1.0, easeLinearity: 0.3 });
+      showTip(`已定位：${pointObj.raw}`, false, 1800);
+      addPulseEffect([pointObj.lat, pointObj.lng]);
+    }
 
 
 
@@ -5554,6 +7801,7 @@ function locateCity(cityObj) {
       if (exactMatch) {
           suggestionsDiv.style.display = 'none';
           if (exactMatch.type === 'city') locateCity(exactMatch);
+          else if (exactMatch.type === 'landmark' || exactMatch.type === 'food') locateMapPoint(exactMatch);
           else locateAndAnimate(exactMatch.raw);
           return;
         }
@@ -5561,6 +7809,7 @@ function locateCity(cityObj) {
         if (fuzzyMatches.length > 0) {
           suggestionsDiv.style.display = 'none';
           if (fuzzyMatches[0].type === 'city') locateCity(fuzzyMatches[0]);
+          else if (fuzzyMatches[0].type === 'landmark' || fuzzyMatches[0].type === 'food') locateMapPoint(fuzzyMatches[0]);
           else locateAndAnimate(fuzzyMatches[0].raw);
         } else {
           showTip(`暂未收录 "${keyword}"`, true);
@@ -5951,6 +8200,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 
       // 【修复】：清除所有筛选按钮的激活状态（红底）
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      updateModeFilterSlider();
 
       // 2. 找到中心主角的数据
       let centerSinger = allData.find(s => s.name === centerName);
@@ -5977,7 +8227,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
               : '';
           const tNetworkBtnHtml = targetSinger._hasOriginalCollaborators
               ? `<button class="singer-card-btn network-icon-btn" onclick="window.showNetwork('${targetSinger.name}')" title="\u67e5\u770b\u5173\u7cfb\u7f51">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  \u5173\u7cfb\u7f51
                 </button>`
               : '';
           const popupContent = `
@@ -5989,21 +8239,21 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
               </div>
               <div class="singer-card-actions">
                 ${tNetworkBtnHtml}
-                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${targetSinger.neteaseId}','_blank')" title="\u7f51\u6613\u4e91\u4e3b\u9875">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${targetSinger.neteaseId}','_blank')" title="\u6b4c\u624b\u9875">
+                  \u6b4c\u624b\u9875
                 </button>
                 <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="\u5173\u95ed">\u2715</button>
               </div>
             </div>`;
 
           collabMarker.bindPopup(popupContent, {
-            offset: [180, 55],
+            offset: getProfilePopupOffset(),
             autoPan: true
           });
 
           // 直接绘制红线（无动画）
           L.polyline([centerLatLng, targetLatLng], {
-            color: '#ff4444',
+            color: '#e60012',
             weight: 2,
             opacity: 0.85,
             lineCap: 'round',
@@ -6017,8 +8267,8 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       // 以中心人物为原点，平滑飞入到全国视野（zoom=5）
       map.flyTo(centerLatLng, 5.5, {
         animate: true,
-        duration: 1.2,
-        easeLinearity: 0.3
+        duration: 0.55,
+        easeLinearity: 0.55
       });
 
 
@@ -6034,12 +8284,15 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       // 2. 清空关系网专用的线和点
       networkLayer.clearLayers();
       
+      // 2.5 隐藏说唱地标
+      if (typeof hideLandmarks === 'function') hideLandmarks();
       // 3. 恢复原始的聚合图层
       let activeBtn = document.querySelector('.filter-btn.active');
       // 【修复】：如果没有任何按钮处于 active 状态（因为进入关系网时被清除了），默认恢复“全部”按钮的高亮
       if (!activeBtn) {
         activeBtn = document.querySelector('.filter-btn[data-type="all"]');
         if (activeBtn) activeBtn.classList.add('active');
+        updateModeFilterSlider();
       }
       const activeType = activeBtn ? activeBtn.dataset.type : 'all';
       
@@ -6047,7 +8300,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       renderMarkers(activeType);
       
           });
-  })(); // 对应开头的立即执行函数
+  }); // 对应开头的 DOMContentLoaded 监听
 </script>
 </body>
 </html>
