@@ -2235,7 +2235,7 @@ margin-top: 1px;
     overflow: visible;
   }
   #search-container.mobile-expanded {
-    height: min(62vh, 530px);
+    height: min(68vh, 590px);
     padding-top: 20px;
     overflow-y: auto;
     scrollbar-width: none;
@@ -2526,10 +2526,10 @@ margin-top: 1px;
   #rank-panel,
   #network-list-panel,
   #index-panel {
-    max-height: 34vh;
+    max-height: 40vh;
   }
   #more-options-dropdown {
-    max-height: 30vh;
+    max-height: 36vh;
     overflow-y: auto;
     padding: 0;
   }
@@ -8140,14 +8140,29 @@ updateModeFilterSlider();
 
     if (searchContainer) {
       let mobileSheetTouchY = null;
+      let mobileSheetGestureEnabled = false;
+      function shouldHandleMobileSheetSwipe(target) {
+        if (!target) return false;
+        return !!target.closest(
+          '#mobile-sheet-handle, #search-container:not(.mobile-searching)'
+        ) && !target.closest(
+          '#more-options-dropdown, #rank-panel, #network-list-panel, #index-panel, #search-suggestions, #mobile-history-section, #search-input-wrap, button, input, textarea, .dropdown-item, .rank-row, .network-list-item, .index-row'
+        );
+      }
       searchContainer.addEventListener('touchstart', function(e) {
         if (!isMobileLayout()) return;
         mobileSheetTouchY = e.touches[0].clientY;
+        mobileSheetGestureEnabled = shouldHandleMobileSheetSwipe(e.target);
       }, { passive: true });
       searchContainer.addEventListener('touchend', function(e) {
         if (!isMobileLayout() || mobileSheetTouchY === null) return;
         const deltaY = e.changedTouches[0].clientY - mobileSheetTouchY;
         mobileSheetTouchY = null;
+        if (!mobileSheetGestureEnabled) {
+          mobileSheetGestureEnabled = false;
+          return;
+        }
+        mobileSheetGestureEnabled = false;
         if (deltaY > 70) {
           searchInput.blur();
           closeMobileSheet();
@@ -8797,4 +8812,3 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 </script>
 </body>
 </html>
-
