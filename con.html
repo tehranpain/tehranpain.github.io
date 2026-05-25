@@ -2141,6 +2141,20 @@ margin-top: 1px;
 
 /* ===== 手机端地图式底部抽屉 ===== */
 @media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  #map {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
   #top-bar {
     z-index: 1550;
   }
@@ -2148,7 +2162,7 @@ margin-top: 1px;
     left: 0;
     right: 0;
     bottom: 0;
-    height: calc(82px + env(safe-area-inset-bottom));
+    height: calc(84px + env(safe-area-inset-bottom));
     padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
     border-radius: 24px 24px 0 0;
     background: rgba(28,29,30,0.96);
@@ -2158,7 +2172,7 @@ margin-top: 1px;
     transition: height 0.28s ease, top 0.28s ease, padding 0.28s ease;
   }
   #search-container.mobile-expanded {
-    height: min(58vh, 500px);
+    height: min(62vh, 530px);
     padding-top: 20px;
     overflow-y: auto;
     scrollbar-width: none;
@@ -2186,6 +2200,8 @@ margin-top: 1px;
   #search-input-wrap {
     gap: 8px;
     flex-wrap: nowrap;
+    align-items: center;
+    order: 1;
   }
   #search-input-inner {
     min-width: 0;
@@ -2252,21 +2268,69 @@ margin-top: 1px;
     position: relative;
     left: auto;
     bottom: auto;
-    order: 3;
-    width: 116px;
-    margin: 12px 0 0;
+    flex: 0 0 108px;
+    width: 108px;
+    height: 46px;
+    margin: 0;
+    padding: 4px;
     background: rgba(255,255,255,0.1);
     box-shadow: none;
-  }
-  #mode-filter-tabs .filter-btn {
-    color: rgba(255,255,255,0.74);
-  }
-  #mode-filter-tabs .filter-btn.active {
-    background: #e60012;
-    color: #fff;
+    overflow: visible;
   }
   #mode-filter-tabs::after {
-    color: rgba(255,255,255,0.62);
+    content: "⇅";
+    right: 10px;
+    color: rgba(255,255,255,0.58);
+  }
+  #mode-filter-tabs .filter-btn {
+    display: none;
+    width: 100%;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 0 8px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.82);
+    font-size: 13px;
+    box-shadow: none;
+    white-space: nowrap;
+  }
+  #mode-filter-tabs .filter-btn.active {
+    display: flex;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    box-shadow: none;
+  }
+  #mode-filter-tabs.no-active .filter-btn[data-type="all"] {
+    display: flex;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+  #mode-filter-tabs.mobile-open .filter-btn {
+    display: flex;
+  }
+  #mode-filter-tabs.mobile-open .filter-btn:not(.active) {
+    position: absolute;
+    left: 0;
+    z-index: 5;
+    border-radius: 999px;
+    background: rgba(42,43,45,0.98);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  }
+  #search-container:not(.mobile-expanded) #mode-filter-tabs.mobile-open .filter-btn[data-type="singer"] {
+    bottom: calc(100% + 7px);
+  }
+  #search-container:not(.mobile-expanded) #mode-filter-tabs.mobile-open .filter-btn[data-type="label"] {
+    bottom: calc(200% + 12px);
+  }
+  #search-container.mobile-expanded #mode-filter-tabs.mobile-open .filter-btn[data-type="singer"],
+  #search-container.mobile-searching #mode-filter-tabs.mobile-open .filter-btn[data-type="singer"] {
+    top: calc(100% + 7px);
+  }
+  #search-container.mobile-expanded #mode-filter-tabs.mobile-open .filter-btn[data-type="label"],
+  #search-container.mobile-searching #mode-filter-tabs.mobile-open .filter-btn[data-type="label"] {
+    top: calc(200% + 12px);
   }
   #action-group {
     position: relative;
@@ -2300,7 +2364,6 @@ margin-top: 1px;
     height: 15px;
   }
   #search-container:not(.mobile-expanded):not(.mobile-searching) #action-group,
-  #search-container:not(.mobile-expanded):not(.mobile-searching) #mode-filter-tabs,
   #search-container:not(.mobile-expanded):not(.mobile-searching) #more-options-dropdown,
   #search-container:not(.mobile-expanded):not(.mobile-searching) #rank-panel,
   #search-container:not(.mobile-expanded):not(.mobile-searching) #network-list-panel,
@@ -2320,13 +2383,17 @@ margin-top: 1px;
   #rank-panel,
   #network-list-panel,
   #index-panel {
+    order: 3;
+    flex: 0 0 auto;
+    display: none;
     position: relative !important;
     inset: auto !important;
     width: 100% !important;
     max-height: none;
     margin-top: 10px;
     border-radius: 18px;
-    background: rgba(255,255,255,0.96);
+    background: rgba(42,43,45,0.98);
+    color: #fff;
     box-shadow: none;
     transform: none;
   }
@@ -2346,6 +2413,56 @@ margin-top: 1px;
   #more-options-dropdown {
     max-height: 30vh;
     overflow-y: auto;
+    padding: 0;
+  }
+  #more-options-dropdown .dropdown-category-label {
+    padding: 12px 16px 6px;
+    color: rgba(255,255,255,0.46);
+    font-size: 12px;
+    font-weight: 800;
+    border: none;
+  }
+  #more-options-dropdown .dropdown-item {
+    width: 100%;
+    min-height: 46px;
+    justify-content: flex-start;
+    border-radius: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: rgba(255,255,255,0.9);
+    box-shadow: none;
+    font-size: 13px;
+    text-align: left;
+  }
+  #more-options-dropdown .dropdown-item.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+  #rank-tab-bar,
+  #index-tab-bar {
+    background: rgba(255,255,255,0.09);
+  }
+  .rank-tab,
+  .index-tab {
+    color: rgba(255,255,255,0.56);
+  }
+  .rank-row {
+    border-bottom-color: rgba(255,255,255,0.08);
+  }
+  .rank-name,
+  .rank-val,
+  #network-list-header,
+  .network-list-name,
+  .index-name {
+    color: rgba(255,255,255,0.9);
+  }
+  #rank-panel-subtitle,
+  .index-letter-header {
+    color: rgba(255,255,255,0.42);
+  }
+  .network-list-avatar,
+  .index-avatar {
+    border-color: rgba(255,255,255,0.18);
   }
   #mobile-history-section {
     display: none;
@@ -6697,10 +6814,8 @@ row.innerHTML = `
     const rect = networkListBtn.getBoundingClientRect();
     const moreRect = document.getElementById('more-options-btn').getBoundingClientRect();
     if (window.innerWidth <= 480) {
-      networkListPanel.style.top = '76px';
-      networkListPanel.style.left = '12px';
-      networkListPanel.style.right = 'auto';
-      networkListPanel.style.width = 'calc(100vw - 84px)';
+      relocateMobilePanels();
+      clearPanelInlinePosition(networkListPanel);
     } else {
       networkListPanel.style.top = (rect.bottom + 6) + 'px';
       networkListPanel.style.left = moreRect.left + 'px';
@@ -6730,6 +6845,7 @@ row.innerHTML = `
 
   networkListBtn.addEventListener('click', function(e) {
     e.stopPropagation();
+    if (window.innerWidth <= 480) openMobileSheet('network');
     const isOpen = networkListPanel.classList.contains('show');
     if (!isOpen) {
       document.getElementById('more-options-dropdown').classList.remove('show');
@@ -6782,10 +6898,8 @@ row.innerHTML = `
   const rect = rankBtn.getBoundingClientRect();
   const moreRect = moreOptionsBtn.getBoundingClientRect();
   if (window.innerWidth <= 480) {
-    rankPanel.style.top  = '76px';
-    rankPanel.style.left = '12px';
-    rankPanel.style.right = 'auto';
-    rankPanel.style.width = 'calc(100vw - 84px)';
+    relocateMobilePanels();
+    clearPanelInlinePosition(rankPanel);
   } else {
     rankPanel.style.top  = (rect.bottom + 6) + 'px';
     rankPanel.style.left = (moreRect.left - 20) + 'px';
@@ -6799,6 +6913,7 @@ document.getElementById('network-list-panel').classList.remove('show');
 document.getElementById('network-list-btn').classList.remove('open');
 
     e.stopPropagation();
+    if (window.innerWidth <= 480) openMobileSheet('rank');
     const isOpen = rankPanel.classList.contains('show');
     if (!isOpen) {
 document.getElementById('more-options-dropdown').classList.remove('show');
@@ -7436,6 +7551,13 @@ renderMarkers("all");
     const moreOptionsBtn      = document.getElementById('more-options-btn');
     const moreOptionsDropdown = document.getElementById('more-options-dropdown');
     const modeFilterTabs      = document.getElementById('mode-filter-tabs');
+    const mobileSheetHandle   = document.getElementById('mobile-sheet-handle');
+    const mobileSearchCancel  = document.getElementById('mobile-search-cancel');
+    const mobileIndexRow      = document.getElementById('mobile-index-row');
+    const mobileHistoryList   = document.getElementById('mobile-history-list');
+    const mobileHistoryClear  = document.getElementById('mobile-history-clear');
+    const searchContainer     = document.getElementById('search-container');
+    const actionGroup         = document.getElementById('action-group');
 
     function updateModeFilterSlider() {
       if (!modeFilterTabs) return;
@@ -7461,6 +7583,97 @@ renderMarkers("all");
 
     function isMobileLayout() {
       return window.innerWidth <= 480;
+    }
+
+    function clearPanelInlinePosition(panel) {
+      if (!panel) return;
+      panel.style.top = '';
+      panel.style.left = '';
+      panel.style.right = '';
+      panel.style.width = '';
+    }
+
+    function relocateMobilePanels() {
+      if (!isMobileLayout() || !searchContainer || !actionGroup) return;
+      const rankPanel = document.getElementById('rank-panel');
+      const networkPanel = document.getElementById('network-list-panel');
+      const indexPanel = document.getElementById('index-panel');
+      [moreOptionsDropdown, rankPanel, networkPanel, indexPanel].forEach(clearPanelInlinePosition);
+      if (moreOptionsDropdown.parentElement !== searchContainer) actionGroup.after(moreOptionsDropdown);
+      if (rankPanel && rankPanel.parentElement !== searchContainer) actionGroup.after(rankPanel);
+      if (networkPanel && networkPanel.parentElement !== searchContainer) actionGroup.after(networkPanel);
+      if (indexPanel && indexPanel.parentElement !== searchContainer) {
+        (mobileIndexRow || actionGroup).after(indexPanel);
+      }
+    }
+
+    window.addEventListener('resize', relocateMobilePanels);
+    relocateMobilePanels();
+
+    const MOBILE_HISTORY_KEY = 'rapMapMobileSearchHistory';
+
+    function getMobileHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(MOBILE_HISTORY_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveMobileHistory(keyword) {
+      if (!keyword || !isMobileLayout()) return;
+      const next = [keyword, ...getMobileHistory().filter(item => item !== keyword)].slice(0, 6);
+      localStorage.setItem(MOBILE_HISTORY_KEY, JSON.stringify(next));
+      renderMobileHistory();
+    }
+
+    function renderMobileHistory() {
+      if (!mobileHistoryList) return;
+      const history = getMobileHistory();
+      if (!history.length) {
+        mobileHistoryList.innerHTML = '<div class="mobile-history-empty">还没有历史搜索</div>';
+        return;
+      }
+      mobileHistoryList.innerHTML = history.map(item => (
+        `<button class="mobile-history-item" type="button" data-keyword="${escapeHtml(item)}">${escapeHtml(item)}</button>`
+      )).join('');
+    }
+
+    function openMobileSheet(panel = 'filter') {
+      if (!isMobileLayout() || !searchContainer) return;
+      relocateMobilePanels();
+      searchContainer.classList.remove('mobile-searching');
+      searchContainer.classList.add('mobile-expanded');
+      closeMobileLayerMenu();
+      if (panel === 'filter') {
+        document.getElementById('rank-panel').classList.remove('show');
+        document.getElementById('rank-btn').classList.remove('open');
+        document.getElementById('network-list-panel').classList.remove('show');
+        document.getElementById('network-list-btn').classList.remove('open');
+        document.getElementById('index-panel').classList.remove('show');
+        document.getElementById('index-btn').classList.remove('active');
+        if (!moreOptionsDropdown.classList.contains('show')) openDropdown();
+      }
+    }
+
+    function closeMobileSheet() {
+      if (!searchContainer) return;
+      searchContainer.classList.remove('mobile-expanded', 'mobile-searching');
+      moreOptionsDropdown.classList.remove('show');
+      document.getElementById('rank-panel').classList.remove('show');
+      document.getElementById('rank-btn').classList.remove('open');
+      document.getElementById('network-list-panel').classList.remove('show');
+      document.getElementById('network-list-btn').classList.remove('open');
+      closeIndexPanel();
+    }
+
+    function openMobileSearch() {
+      if (!isMobileLayout() || !searchContainer) return;
+      relocateMobilePanels();
+      searchContainer.classList.remove('mobile-expanded');
+      searchContainer.classList.add('mobile-searching');
+      moreOptionsDropdown.classList.remove('show');
+      renderMobileHistory();
     }
 
     function syncMobileControls() {
@@ -7546,10 +7759,8 @@ renderMarkers("all");
     function openDropdown() {
       const rect = moreOptionsBtn.getBoundingClientRect();
       if (window.innerWidth <= 480) {
-        moreOptionsDropdown.style.top  = '76px';
-        moreOptionsDropdown.style.left = '12px';
-        moreOptionsDropdown.style.right = 'auto';
-        moreOptionsDropdown.style.width = 'calc(100vw - 84px)';
+        relocateMobilePanels();
+        clearPanelInlinePosition(moreOptionsDropdown);
       } else {
         moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
         moreOptionsDropdown.style.left = (rect.left - 20) + 'px';
@@ -7564,6 +7775,10 @@ renderMarkers("all");
 
 moreOptionsBtn.addEventListener('click', function(e) {
   e.stopPropagation();
+  if (window.innerWidth <= 480 && !searchContainer.classList.contains('mobile-expanded')) {
+    openMobileSheet('filter');
+    return;
+  }
   if (moreOptionsDropdown.classList.contains('show')) {
     closeDropdown();
   } else {
@@ -7674,6 +7889,67 @@ updateModeFilterSlider();
     const suggestionsDiv = document.getElementById('search-suggestions');
     const searchTipDiv = document.getElementById('search-tip');
     const searchBtn = document.getElementById('search-btn');
+
+    if (mobileSheetHandle) {
+      mobileSheetHandle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (!isMobileLayout()) return;
+        searchContainer.classList.contains('mobile-expanded') ? closeMobileSheet() : openMobileSheet('filter');
+      });
+    }
+
+    if (mobileSearchCancel) {
+      mobileSearchCancel.addEventListener('click', function(e) {
+        e.stopPropagation();
+        suggestionsDiv.style.display = 'none';
+        searchInput.blur();
+        closeMobileSheet();
+      });
+    }
+
+    if (mobileIndexRow) {
+      mobileIndexRow.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openIndexPanel();
+      });
+    }
+
+    if (mobileHistoryClear) {
+      mobileHistoryClear.addEventListener('click', function(e) {
+        e.stopPropagation();
+        localStorage.removeItem(MOBILE_HISTORY_KEY);
+        renderMobileHistory();
+      });
+    }
+
+    if (mobileHistoryList) {
+      mobileHistoryList.addEventListener('click', function(e) {
+        const item = e.target.closest('.mobile-history-item');
+        if (!item) return;
+        searchInput.value = item.dataset.keyword || '';
+        updateClearBtn();
+        executeSearch();
+      });
+    }
+
+    if (searchContainer) {
+      let mobileSheetTouchY = null;
+      searchContainer.addEventListener('touchstart', function(e) {
+        if (!isMobileLayout()) return;
+        mobileSheetTouchY = e.touches[0].clientY;
+      }, { passive: true });
+      searchContainer.addEventListener('touchend', function(e) {
+        if (!isMobileLayout() || mobileSheetTouchY === null) return;
+        const deltaY = e.changedTouches[0].clientY - mobileSheetTouchY;
+        mobileSheetTouchY = null;
+        if (deltaY > 70) {
+          searchInput.blur();
+          closeMobileSheet();
+        } else if (deltaY < -50 && !searchContainer.classList.contains('mobile-searching')) {
+          openMobileSheet('filter');
+        }
+      }, { passive: true });
+    }
     
     let tipTimeout = null;
     function showTip(msg, isError = false, duration = 2000) {
@@ -7699,13 +7975,21 @@ updateModeFilterSlider();
       return escapedText.replace(reg, match => `<mark style="background:transparent;color:#e60012;font-weight:700;">${match}</mark>`);
     }
 
+    function isSearchItemAllowed(item) {
+      const activeThemeBtn = document.querySelector('.filter-btn[data-type="landmark"].active, .filter-btn[data-type="food"].active');
+      if (!activeThemeBtn) return item.type !== 'landmark' && item.type !== 'food';
+      if (activeThemeBtn.dataset.type === 'landmark') return item.type !== 'food';
+      if (activeThemeBtn.dataset.type === 'food') return item.type !== 'landmark';
+      return true;
+    }
+
     function updateSuggestions(val) {
       if (!val.trim()) {
         suggestionsDiv.style.display = 'none';
         return;
       }
       const lowerVal = val.toLowerCase();
-      const matches = searchNameList.filter(item => item.lower.includes(lowerVal)).slice(0, 8);
+      const matches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower.includes(lowerVal)).slice(0, 8);
       if (matches.length === 0) {
         suggestionsDiv.style.display = 'none';
         return;
@@ -7732,6 +8016,7 @@ updateModeFilterSlider();
 
         div.addEventListener('click', () => {
           searchInput.value = m.raw;
+          saveMobileHistory(m.raw);
           suggestionsDiv.style.display = 'none';
           if (m.type === 'city') {
               locateCity(m);
@@ -7796,8 +8081,9 @@ function locateCity(cityObj) {
    function executeSearch() {
         const keyword = searchInput.value.trim();
         if (!keyword) { showTip('输入歌手、厂牌或城市名称吧', false, 1200); return; }
-        const lowerKw = keyword.toLowerCase();
-        const exactMatch = searchNameList.find(item => item.lower === lowerKw);
+        saveMobileHistory(keyword);
+      const lowerKw = keyword.toLowerCase();
+        const exactMatch = searchNameList.find(item => isSearchItemAllowed(item) && item.lower === lowerKw);
       if (exactMatch) {
           suggestionsDiv.style.display = 'none';
           if (exactMatch.type === 'city') locateCity(exactMatch);
@@ -7805,7 +8091,7 @@ function locateCity(cityObj) {
           else locateAndAnimate(exactMatch.raw);
           return;
         }
-      const fuzzyMatches = searchNameList.filter(item => item.lower.includes(lowerKw));
+      const fuzzyMatches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower.includes(lowerKw));
         if (fuzzyMatches.length > 0) {
           suggestionsDiv.style.display = 'none';
           if (fuzzyMatches[0].type === 'city') locateCity(fuzzyMatches[0]);
@@ -7833,6 +8119,8 @@ function locateCity(cityObj) {
       updateSuggestions(e.target.value);
       updateClearBtn();
     });
+    searchInput.addEventListener('focus', openMobileSearch);
+    searchInput.addEventListener('click', openMobileSearch);
     searchBtn.addEventListener('click', executeSearch);
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
@@ -8119,10 +8407,8 @@ document.getElementById('rank-panel').classList.remove('show');
   document.getElementById('more-options-dropdown').classList.remove('show');
       const rect = indexBtn.getBoundingClientRect();
       if (window.innerWidth <= 480) {
-        indexPanel.style.top  = (rect.bottom + 6) + 'px';
-        indexPanel.style.left = '10px';
-        indexPanel.style.right = '10px';
-        indexPanel.style.width = 'calc(100vw - 20px)';
+        relocateMobilePanels();
+        clearPanelInlinePosition(indexPanel);
       } else {
         // 面板宽320px，若右侧放不下则左对齐到按钮右边缘
         const panelW = 320;
