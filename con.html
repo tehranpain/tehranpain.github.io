@@ -2100,6 +2100,26 @@ margin-top: 1px;
     opacity: 0;
     transform: translateX(28px);
   }
+  #mobile-landmark-categories {
+    display: inline-flex;
+    gap: 6px;
+    margin-left: 2px;
+  }
+  .mobile-landmark-category-btn {
+    border: none;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 760;
+    white-space: nowrap;
+  }
+  .mobile-landmark-category-btn.active {
+    background: rgba(255,255,255,0.32);
+    color: #fff;
+  }
   .mobile-city-btn {
     border: none;
     min-width: 40px;
@@ -2888,6 +2908,29 @@ margin-top: 1px;
   border-radius: 999px;
   padding: 4px 8px;
 }
+.lpc-kind-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+.lpc-kind-badge.lyric {
+  color: #e60012;
+  background: rgba(230,0,18,0.08);
+}
+.lpc-kind-badge.shop {
+  color: #d97904;
+  background: rgba(217,121,4,0.12);
+}
+.lpc-kind-badge.venue {
+  color: #1766d1;
+  background: rgba(23,102,209,0.11);
+}
 .lpc-entry-list {
   display: flex;
   flex-direction: column;
@@ -3056,6 +3099,9 @@ margin-top: 1px;
   .lpc-song-title { font-size: 16px; }
   .lpc-meta { font-size: 13px; }
   .lpc-shop-block { padding-left: 65px; font-size: 11px; }
+  #landmark-category-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* 地标图层 cluster 样式 */
@@ -3178,6 +3224,31 @@ margin-top: 1px;
   font-size: 11px;
   font-weight: 650;
   white-space: nowrap;
+}
+#landmark-category-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+.landmark-category-btn {
+  border: none;
+  border-radius: 10px;
+  background: #f4f4f6;
+  color: #555;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.landmark-category-btn:hover {
+  background: #fff0f0;
+  color: #e60012;
+}
+.landmark-category-btn.active {
+  background: #e60012;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(230,0,18,0.22);
 }
 .landmark-city-panel-list {
   display: grid;
@@ -3499,22 +3570,18 @@ margin-top: 1px;
             <circle cx="12" cy="10" r="3"/>
           </svg>说唱地标
         </button>
-        <button class="filter-btn" data-type="food">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;">
-            <path d="M7 2v20"/>
-            <path d="M17 2v20"/>
-            <path d="M4 7h6"/>
-            <path d="M14 7h6"/>
-            <path d="M5 12h4"/>
-            <path d="M15 12h4"/>
-          </svg>PSY.P探店
-        </button>
       </div>
       <!-- 城市快捷列表（说唱地标按钮下方展开） -->
       <div id="landmark-city-dropdown">
         <div class="landmark-city-panel-head">
         <div class="landmark-city-panel-title" id="landmark-city-panel-title">探索地标</div>
-        <div class="landmark-city-panel-count" id="landmark-city-panel-count">歌词 / 场所</div>
+        <div class="landmark-city-panel-count" id="landmark-city-panel-count">全部 / 地标 / 店铺 / 场所</div>
+        </div>
+        <div id="landmark-category-tabs">
+          <button class="landmark-category-btn active" type="button" data-landmark-category="all">全部</button>
+          <button class="landmark-category-btn" type="button" data-landmark-category="lyric">地标</button>
+          <button class="landmark-category-btn" type="button" data-landmark-category="shop">店铺</button>
+          <button class="landmark-category-btn" type="button" data-landmark-category="venue">场所</button>
         </div>
         <div class="landmark-city-panel-list">
           <button class="city-nav-btn" data-lat="30.65" data-lng="104.06" data-zoom="13">成都</button>
@@ -3583,12 +3650,17 @@ margin-top: 1px;
         <button class="mobile-city-btn" type="button" data-city="重庆">重庆</button>
         <button class="mobile-city-btn" type="button" data-city="上海">上海</button>
       </div>
+      <div id="mobile-landmark-categories">
+        <button class="mobile-landmark-category-btn active" type="button" data-landmark-category="all">全部</button>
+        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="lyric">地标</button>
+        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="shop">店铺</button>
+        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="venue">场所</button>
+      </div>
       <button id="mobile-city-collapse" type="button" aria-label="收起城市列表">>></button>
     </div>
     <div id="mobile-layer-menu">
       <button class="mobile-layer-option active" type="button" data-layer="info">信息资料</button>
       <button class="mobile-layer-option" type="button" data-layer="landmark">说唱地标</button>
-      <button class="mobile-layer-option" type="button" data-layer="food">PSY.P探店</button>
     </div>
   </div>
 <div id="mobile-detail-sheet">
@@ -6622,20 +6694,12 @@ function renderMarkers(filterType = "all") {
       lng: city.lng 
     });
   });
-  rapLandmarks.forEach(item => {
+  getAllLandmarkItems().forEach(item => {
     searchNameList.push({
-      raw: item.location + ' - ' + (item.song || ''),
-      lower: (item.location + (item.song || '') + item.artist + (item.lyric || '')).toLowerCase(),
+      raw: item.location + ' - ' + (item.song || item.landmarkCategoryLabel || ''),
+      lower: (item.location + (item.city || '') + (item.song || '') + (item.artist || '') + (item.lyric || '') + (item.landmarkCategoryLabel || '')).toLowerCase(),
       type: 'landmark',
-      lat: item.lat,
-      lng: item.lng
-    });
-  });
-  psyPFoodSpots.forEach(item => {
-    searchNameList.push({
-      raw: item.location + ' - PSY.P探店',
-      lower: (item.location + (item.city || '') + (item.song || '') + (item.lyric || '') + 'PSY.P探店').toLowerCase(),
-      type: 'food',
+      landmarkCategory: item.landmarkCategory,
       lat: item.lat,
       lng: item.lng
     });
@@ -7352,13 +7416,24 @@ const rapLandmarks = [
 
 ];
 
-// PSY.P探店地标，后续按“城市、店名”补充：lat/lng/location/city/cover/lyric/address
+// 店铺（如 livehouse / 夜店 / 探店店铺）
 const psyPFoodSpots = [];
+
+// 相关场所（如演艺中心、场馆、街区、文化空间）
+const rapRelatedVenues = [
+
+{ lat: 30.706947, lng: 104.104878,
+
+  location: "CH8绿树演艺中心", city: "成都",
+
+  cover: "", lyric: "livehouse", address: "成都", song: "CH8绿树演艺中心", artist: "livehouse" }
+];
 
 // 地标图层（独立于歌手聚合图层）
 let landmarkLayerGroup = L.layerGroup();
 let landmarkVisible = false;
-let activeLandmarkTheme = 'rap';
+let activeLandmarkTheme = 'landmark';
+let activeLandmarkCategory = 'all';
 // 低缩放阈值：低于此zoom只显示城市名按钮
 const LANDMARK_CITY_ZOOM = 10;
 // 高缩放阈值：高于此zoom显示完整PIN+名称
@@ -7377,8 +7452,40 @@ const landmarkCityCenters = {
   "上海": { lat: 31.23, lng: 121.47 }
 };
 
+const LANDMARK_CATEGORY_META = {
+  all: { label: '全部', badge: '全部点位', shortTag: '地标' },
+  lyric: { label: '歌词地标', badge: '歌词地标', shortTag: '地标' },
+  shop: { label: '店铺', badge: '店铺', shortTag: '店铺' },
+  venue: { label: '相关场所', badge: '相关场所', shortTag: '场所' }
+};
+
+function getAllLandmarkItems() {
+  return [
+    ...rapLandmarks.map(item => ({
+      ...item,
+      pointType: 'landmark',
+      landmarkCategory: 'lyric',
+      landmarkCategoryLabel: LANDMARK_CATEGORY_META.lyric.badge
+    })),
+    ...psyPFoodSpots.map(item => ({
+      ...item,
+      pointType: 'landmark',
+      landmarkCategory: 'shop',
+      landmarkCategoryLabel: LANDMARK_CATEGORY_META.shop.badge
+    })),
+    ...rapRelatedVenues.map(item => ({
+      ...item,
+      pointType: 'landmark',
+      landmarkCategory: 'venue',
+      landmarkCategoryLabel: LANDMARK_CATEGORY_META.venue.badge
+    }))
+  ];
+}
+
 function getActiveLandmarkItems() {
-  return activeLandmarkTheme === 'food' ? psyPFoodSpots : rapLandmarks;
+  const items = getAllLandmarkItems();
+  if (activeLandmarkCategory === 'all') return items;
+  return items.filter(item => item.landmarkCategory === activeLandmarkCategory);
 }
 
 function getGroupedRapLandmarks(items = rapLandmarks) {
@@ -7401,9 +7508,10 @@ function getGroupedRapLandmarks(items = rapLandmarks) {
 }
 
 function getActiveLandmarkCityCenters() {
-  if (activeLandmarkTheme !== 'food') return landmarkCityCenters;
-  return psyPFoodSpots.reduce((centers, item) => {
-    if (!centers[item.city]) centers[item.city] = { lat: item.lat, lng: item.lng };
+  const activeItems = getActiveLandmarkItems();
+  if (!activeItems.length) return activeLandmarkCategory === 'all' ? landmarkCityCenters : {};
+  return activeItems.reduce((centers, item) => {
+    if (item.city && !centers[item.city]) centers[item.city] = { lat: item.lat, lng: item.lng };
     return centers;
   }, {});
 }
@@ -7412,13 +7520,40 @@ function updateLandmarkPanelMode() {
   const title = document.getElementById('landmark-city-panel-title');
   const count = document.getElementById('landmark-city-panel-count');
   if (!title || !count) return;
-  if (activeLandmarkTheme === 'food') {
-    title.textContent = 'PSY.P探店';
-    count.textContent = '美食 / 店铺';
-  } else {
-    title.textContent = '探索地标';
-    count.textContent = '歌词 / 场所';
+  const meta = LANDMARK_CATEGORY_META[activeLandmarkCategory] || LANDMARK_CATEGORY_META.all;
+  const activeItems = getGroupedVisibleLandmarkItems(getActiveLandmarkItems());
+  title.textContent = '说唱地标';
+  count.textContent = `${meta.label} · ${activeItems.length}个点位`;
+}
+
+function syncLandmarkCategoryTabs() {
+  document.querySelectorAll('.landmark-category-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.landmarkCategory === activeLandmarkCategory);
+  });
+}
+
+function setActiveLandmarkCategory(category = 'all', rerender = true) {
+  activeLandmarkCategory = LANDMARK_CATEGORY_META[category] ? category : 'all';
+  syncLandmarkCategoryTabs();
+  updateLandmarkPanelMode();
+  if (typeof syncMobileControls === 'function') {
+    syncMobileControls();
   }
+  if (rerender && landmarkVisible) {
+    renderLandmarksByZoom();
+  }
+}
+
+function getGroupedVisibleLandmarkItems(items = getActiveLandmarkItems()) {
+  const lyricItems = items.filter(item => item.landmarkCategory === 'lyric');
+  const groupedLyrics = getGroupedRapLandmarks(lyricItems).map(item => ({
+    ...item,
+    pointType: 'landmark',
+    landmarkCategory: 'lyric',
+    landmarkCategoryLabel: LANDMARK_CATEGORY_META.lyric.badge
+  }));
+  const otherItems = items.filter(item => item.landmarkCategory !== 'lyric');
+  return [...groupedLyrics, ...otherItems];
 }
 
 function getLandmarkTitleWidth(title) {
@@ -7482,11 +7617,12 @@ function positionLandmarkCityDropdown() {
 function openLandmarkCityDropdown() {
   const cityDropdown = document.getElementById('landmark-city-dropdown');
   if (!cityDropdown) return;
-  if (window.innerWidth <= 480 && activeLandmarkTheme !== 'food') {
+  if (window.innerWidth <= 480) {
     cityDropdown.classList.remove('open');
     return;
   }
   updateLandmarkPanelMode();
+  syncLandmarkCategoryTabs();
   cityDropdown.classList.add('open');
   requestAnimationFrame(positionLandmarkCityDropdown);
 }
@@ -7498,7 +7634,10 @@ function closeLandmarkCityDropdown() {
 
 // 创建PIN图标标记（带悬浮/点击展开卡片）
 function createLandmarkPin(item) {
-  const isLyric = !item.type || item.type === 'lyric';
+  const isLyric = item.landmarkCategory === 'lyric' || !item.landmarkCategory;
+  const isShop = item.landmarkCategory === 'shop';
+  const categoryClass = isLyric ? 'lyric' : (isShop ? 'shop' : 'venue');
+  const categoryBadge = item.landmarkCategoryLabel || LANDMARK_CATEGORY_META[item.landmarkCategory || 'all']?.badge || '地标';
   const lyricEntries = isLyric ? (item.entries && item.entries.length ? item.entries : [item]) : [item];
   const titleWidth = isLyric
     ? Math.max(...lyricEntries.map(entry => getLandmarkTitleWidth(entry.lyric || item.location)))
@@ -7527,7 +7666,10 @@ function createLandmarkPin(item) {
     popupContent = `
       <div class="lpc-group-head">
         <div class="lpc-group-location">${item.location}</div>
-        ${lyricEntries.length > 1 ? `<div class="lpc-group-count">${lyricEntries.length}条歌词</div>` : ''}
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="lpc-kind-badge ${categoryClass}">${categoryBadge}</div>
+          ${lyricEntries.length > 1 ? `<div class="lpc-group-count">${lyricEntries.length}条歌词</div>` : ''}
+        </div>
       </div>
       <div class="lpc-entry-list">
         ${entriesHtml}
@@ -7539,11 +7681,15 @@ function createLandmarkPin(item) {
       ? `<img class="lpc-cover-img" src="${item.cover}" onerror="this.style.display='none';" />`
       : `<div class="lpc-cover-default"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>`;
     popupContent = `
+      <div class="lpc-group-head">
+        <div class="lpc-group-location">${item.location}</div>
+        <div class="lpc-kind-badge ${categoryClass}">${categoryBadge}</div>
+      </div>
       <div class="lpc-player-row">
         <div class="lpc-cover" style="background:linear-gradient(135deg,#ff8c00 0%,#ffaa44 100%);">${cultureCoverHtml}</div>
         <div class="lpc-info">
-          <div class="lpc-song-title">${item.location}</div>
-          <div class="lpc-meta"><span class="lpc-meta-text">${item.artist || 'PSY.P探店'}<span style="margin:0 3px;color:#ccc;">·</span>${item.song || '餐饮店'}</span></div>
+          <div class="lpc-song-title">${item.song || item.location}</div>
+          <div class="lpc-meta"><span class="lpc-meta-text">${item.artist || item.city || categoryBadge}</span></div>
         </div>
       </div>
       <div class="lpc-shop-block">
@@ -7553,7 +7699,7 @@ function createLandmarkPin(item) {
     `;
   }
 
-  const pinColor = isLyric ? '#e60012' : '#d97904';
+  const pinColor = isLyric ? '#e60012' : (isShop ? '#d97904' : '#1766d1');
   
   const icon = L.divIcon({
     className: 'landmark-pin-marker',
@@ -7679,9 +7825,7 @@ function createCityNameMarker(cityName, center) {
 function renderLandmarksByZoom() {
   if (!landmarkVisible) return;
   const zoom = map.getZoom();
-  const activeItems = activeLandmarkTheme === 'food'
-    ? getActiveLandmarkItems()
-    : getGroupedRapLandmarks(getActiveLandmarkItems());
+  const activeItems = getGroupedVisibleLandmarkItems(getActiveLandmarkItems());
   landmarkLayerGroup.clearLayers();
   currentOpenPopupEl = null;
   currentOpenPinned = false;
@@ -7699,8 +7843,8 @@ function renderLandmarksByZoom() {
   }
 }
 
-function showLandmarks(theme = activeLandmarkTheme) {
-  activeLandmarkTheme = theme;
+function showLandmarks() {
+  activeLandmarkTheme = 'landmark';
   landmarkLayerGroup.clearLayers();
   landmarkVisible = true;
   // 修改7：地标模式解除最大缩放限制
@@ -7731,7 +7875,8 @@ function launchLandmarkExplorer() {
   if (exitBtn) exitBtn.style.display = 'none';
 
   document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
-  activeLandmarkTheme = 'rap';
+  activeLandmarkTheme = 'landmark';
+  setActiveLandmarkCategory('all', false);
   const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
   if (landmarkBtn) landmarkBtn.classList.add('active');
 
@@ -7756,7 +7901,7 @@ function launchLandmarkExplorer() {
   document.querySelectorAll('.city-nav-btn').forEach(btn => btn.classList.remove('active'));
   markerClusterGroup.clearLayers();
   if (!landmarkVisible) {
-    showLandmarks('rap');
+    showLandmarks();
   } else {
     renderLandmarksByZoom();
     openLandmarkCityDropdown();
@@ -7769,12 +7914,9 @@ function launchLandmarkExplorer() {
 
 function launchFoodExplorer() {
   launchLandmarkExplorer();
-  activeLandmarkTheme = 'food';
-  document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
-  const foodBtn = document.querySelector('.filter-btn[data-type="food"]');
-  if (foodBtn) foodBtn.classList.add('active');
+  setActiveLandmarkCategory('shop');
   markerClusterGroup.clearLayers();
-  showLandmarks('food');
+  showLandmarks();
   if (typeof updateModeFilterSlider === 'function') {
     updateModeFilterSlider();
   }
@@ -7784,8 +7926,7 @@ function launchFoodExplorer() {
 document.querySelectorAll('.city-nav-btn').forEach(btn => {
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
-    const activeThemeType = activeLandmarkTheme === 'food' ? 'food' : 'landmark';
-    const themeBtn = document.querySelector(`.filter-btn[data-type="${activeThemeType}"]`);
+    const themeBtn = document.querySelector('.filter-btn[data-type="landmark"]');
     if (themeBtn) {
       document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
       themeBtn.classList.add('active');
@@ -7797,7 +7938,7 @@ document.querySelectorAll('.city-nav-btn').forEach(btn => {
     if (this.dataset.action === 'free') {
       if (!landmarkVisible) {
         markerClusterGroup.clearLayers();
-        showLandmarks(activeLandmarkTheme);
+        showLandmarks();
       } else {
         openLandmarkCityDropdown();
       }
@@ -7819,7 +7960,21 @@ document.querySelectorAll('.city-nav-btn').forEach(btn => {
     // 确保地标模式已激活
     if (!landmarkVisible) {
       markerClusterGroup.clearLayers();
-      showLandmarks(activeLandmarkTheme);
+      showLandmarks();
+    }
+  });
+});
+
+document.querySelectorAll('.landmark-category-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    setActiveLandmarkCategory(this.dataset.landmarkCategory || 'all');
+    if (!landmarkVisible) {
+      const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+      document.querySelectorAll(".filter-btn[data-type]").forEach(item => item.classList.remove('active'));
+      if (landmarkBtn) landmarkBtn.classList.add('active');
+      markerClusterGroup.clearLayers();
+      showLandmarks();
     }
   });
 });
@@ -7837,6 +7992,7 @@ map.on('click', function() {
 
 
 renderMarkers("all");
+setActiveLandmarkCategory('all', false);
 
 
 
@@ -7879,6 +8035,7 @@ renderMarkers("all");
     const mobileLandmarkCities = document.getElementById('mobile-landmark-cities');
     const mobileCityCollapse = document.getElementById('mobile-city-collapse');
     const mobileCityButtons = document.querySelectorAll('.mobile-city-btn');
+    const mobileLandmarkCategoryButtons = document.querySelectorAll('.mobile-landmark-category-btn');
 
     function isMobileLayout() {
       return window.innerWidth <= 480;
@@ -7982,15 +8139,17 @@ renderMarkers("all");
       if (!mobileLayerLabel) return;
       const activeTypeBtn = document.querySelector('.filter-btn[data-type].active');
       const activeType = activeTypeBtn ? activeTypeBtn.dataset.type : 'all';
-      const activeLayer = activeType === 'landmark' || activeType === 'food' ? activeType : 'info';
+      const activeLayer = activeType === 'landmark' ? 'landmark' : 'info';
       const labelMap = {
         info: '信息资料',
-        landmark: '说唱地标',
-        food: 'PSY.P探店'
+        landmark: '说唱地标'
       };
       mobileLayerLabel.textContent = labelMap[activeLayer];
       mobileLayerOptions.forEach(option => {
         option.classList.toggle('active', option.dataset.layer === activeLayer);
+      });
+      mobileLandmarkCategoryButtons.forEach(option => {
+        option.classList.toggle('active', option.dataset.landmarkCategory === activeLandmarkCategory);
       });
       if (mobileLayerSwitch) {
         const isRapLandmark = activeLayer === 'landmark';
@@ -8067,6 +8226,18 @@ renderMarkers("all");
         if (sourceBtn) sourceBtn.click();
         mobileCityButtons.forEach(item => item.classList.remove('active'));
         this.classList.add('active');
+      });
+    });
+
+    mobileLandmarkCategoryButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        setActiveLandmarkCategory(this.dataset.landmarkCategory || 'all');
+        syncMobileControls();
+        if (!landmarkVisible) {
+          const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+          if (landmarkBtn && !landmarkBtn.classList.contains('active')) landmarkBtn.click();
+        }
       });
     });
 
@@ -8170,7 +8341,7 @@ document.querySelectorAll(".filter-btn[data-type]").forEach(b => b.classList.rem
 
 if (isAlreadyActive) {
   // 再次点击已激活项 → 取消筛选，回退到"全部"
-  if (this.dataset.type === 'landmark' || this.dataset.type === 'food') {
+  if (this.dataset.type === 'landmark') {
     hideLandmarks();
   }
   const allBtn = document.querySelector('.filter-btn[data-type="all"]');
@@ -8195,10 +8366,9 @@ updateModeFilterSlider();
         }
 
         // 处理说唱地标模式
-        if (this.dataset.type === 'landmark' || this.dataset.type === 'food') {
-          const requestedTheme = this.dataset.type === 'food' ? 'food' : 'rap';
+        if (this.dataset.type === 'landmark') {
           const cityDropdown = document.getElementById('landmark-city-dropdown');
-          const isSameThemeOpen = cityDropdown && cityDropdown.classList.contains('open') && landmarkVisible && activeLandmarkTheme === requestedTheme;
+          const isSameThemeOpen = cityDropdown && cityDropdown.classList.contains('open') && landmarkVisible;
           if (isSameThemeOpen) {
             // 同一主题再次点击：收起城市列表，但不改变地图状态
             closeLandmarkCityDropdown();
@@ -8206,7 +8376,7 @@ updateModeFilterSlider();
           } else {
             // 首次点击：展开城市列表，进入对应地标模式
             markerClusterGroup.clearLayers();
-            showLandmarks(requestedTheme);
+            showLandmarks();
           }
           return;
         } else {
@@ -8350,11 +8520,17 @@ updateModeFilterSlider();
       return escapedText.replace(reg, match => `<mark style="background:transparent;color:#e60012;font-weight:700;">${match}</mark>`);
     }
 
+    function isLandmarkSearchType(type) {
+      return type === 'landmark';
+    }
+
     function isSearchItemAllowed(item) {
-      const activeThemeBtn = document.querySelector('.filter-btn[data-type="landmark"].active, .filter-btn[data-type="food"].active');
-      if (!activeThemeBtn) return item.type !== 'landmark' && item.type !== 'food';
-      if (activeThemeBtn.dataset.type === 'landmark') return item.type !== 'food';
-      if (activeThemeBtn.dataset.type === 'food') return item.type !== 'landmark';
+      const activeThemeBtn = document.querySelector('.filter-btn[data-type="landmark"].active');
+      if (!activeThemeBtn) return !isLandmarkSearchType(item.type);
+      if (activeThemeBtn.dataset.type === 'landmark') {
+        if (!isLandmarkSearchType(item.type)) return false;
+        return activeLandmarkCategory === 'all' || item.landmarkCategory === activeLandmarkCategory;
+      }
       return true;
     }
 
@@ -8378,8 +8554,8 @@ updateModeFilterSlider();
           // 城市类型：名称标红 + 城市角标
           div.classList.add('city-type');
           div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">城市</span>`;
-        } else if (m.type === 'landmark' || m.type === 'food') {
-          const tag = m.type === 'food' ? '探店' : '地标';
+        } else if (isLandmarkSearchType(m.type)) {
+          const tag = LANDMARK_CATEGORY_META[m.landmarkCategory || 'lyric']?.shortTag || '地标';
           div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">${tag}</span>`;
         } else if (m.alias) {
           // 别名命中：展示"真实姓名 • 别名标红"
@@ -8395,7 +8571,7 @@ updateModeFilterSlider();
           suggestionsDiv.style.display = 'none';
           if (m.type === 'city') {
               locateCity(m);
-            } else if (m.type === 'landmark' || m.type === 'food') {
+            } else if (isLandmarkSearchType(m.type)) {
               locateMapPoint(m);
             } else {
               locateAndAnimate(m.raw);
@@ -8414,13 +8590,19 @@ function locateCity(cityObj) {
       }
 
     function locateMapPoint(pointObj) {
-      const theme = pointObj.type === 'food' ? 'food' : 'rap';
-      activeLandmarkTheme = theme;
+      activeLandmarkTheme = 'landmark';
+      setActiveLandmarkCategory(pointObj.landmarkCategory || 'all', false);
       document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
-      const activeBtn = document.querySelector(`.filter-btn[data-type="${theme === 'food' ? 'food' : 'landmark'}"]`);
+      const activeBtn = document.querySelector('.filter-btn[data-type="landmark"]');
       if (activeBtn) activeBtn.classList.add('active');
+      if (typeof updateModeFilterSlider === 'function') {
+        updateModeFilterSlider();
+      }
+      if (typeof syncMobileControls === 'function') {
+        syncMobileControls();
+      }
       markerClusterGroup.clearLayers();
-      showLandmarks(theme);
+      showLandmarks();
       map.flyTo([pointObj.lat, pointObj.lng], 16, { duration: 1.0, easeLinearity: 0.3 });
       showTip(`已定位：${pointObj.raw}`, false, 1800);
       addPulseEffect([pointObj.lat, pointObj.lng]);
@@ -8462,7 +8644,7 @@ function locateCity(cityObj) {
       if (exactMatch) {
           suggestionsDiv.style.display = 'none';
           if (exactMatch.type === 'city') locateCity(exactMatch);
-          else if (exactMatch.type === 'landmark' || exactMatch.type === 'food') locateMapPoint(exactMatch);
+          else if (isLandmarkSearchType(exactMatch.type)) locateMapPoint(exactMatch);
           else locateAndAnimate(exactMatch.raw);
           return;
         }
@@ -8470,7 +8652,7 @@ function locateCity(cityObj) {
         if (fuzzyMatches.length > 0) {
           suggestionsDiv.style.display = 'none';
           if (fuzzyMatches[0].type === 'city') locateCity(fuzzyMatches[0]);
-          else if (fuzzyMatches[0].type === 'landmark' || fuzzyMatches[0].type === 'food') locateMapPoint(fuzzyMatches[0]);
+          else if (isLandmarkSearchType(fuzzyMatches[0].type)) locateMapPoint(fuzzyMatches[0]);
           else locateAndAnimate(fuzzyMatches[0].raw);
         } else {
           showTip(`暂未收录 "${keyword}"`, true);
