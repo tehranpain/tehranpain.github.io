@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>王品卓开发的手势交互项目</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05070a;
+      --panel: rgba(8, 12, 18, 0.74);
+      --panel-strong: rgba(10, 15, 23, 0.88);
+      --line: rgba(255, 255, 255, 0.15);
+      --text: rgba(245, 249, 255, 0.92);
+      --muted: rgba(210, 222, 235, 0.62);
+      --cyan: #7df9ff;
+      --rose: #ff6ba9;
+      --gold: #ffd46a;
+      --green: #83ffbd;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(125, 249, 255, 0.13), transparent 30%),
+        radial-gradient(circle at 78% 74%, rgba(255, 107, 169, 0.12), transparent 34%),
+        linear-gradient(135deg, #05070a 0%, #0c1018 52%, #05070a 100%);
+      color: var(--text);
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    button:hover {
+      border-color: rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    #stage {
+      position: fixed;
+      inset: 0;
+    }
+
+    #webgl {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 28px 28px, 28px 28px;
+      mask-image: radial-gradient(circle at center, black 25%, transparent 86%);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      pointer-events: none;
+    }
+
+    .brand,
+    .hud,
+    .camera {
+      pointer-events: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.36);
+    }
+
+    .brand {
+      min-width: min(340px, calc(100vw - 36px));
+      padding: 14px 16px;
+      border-radius: 8px;
+    }
+
+    .brand h1 {
+      margin: 0 0 7px;
+      font-size: clamp(20px, 2.4vw, 34px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .hud {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .shape-btn {
+      min-width: 54px;
+      height: 38px;
+      padding: 0 11px;
+      font-size: 13px;
+      font-weight: 640;
+    }
+
+    .shape-btn.active,
+    .palette-btn.active {
+      border-color: rgba(125, 249, 255, 0.7);
+      background: rgba(125, 249, 255, 0.16);
+      box-shadow: 0 0 22px rgba(125, 249, 255, 0.16) inset;
+    }
+
+    .palette-btn {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+    }
+
+    .swatch {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+      box-shadow: 0 0 16px currentColor;
+    }
+
+    .bottom {
+      position: fixed;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      pointer-events: none;
+    }
+
+    .camera {
+      width: min(250px, 42vw);
+      aspect-ratio: 4 / 3;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    #video,
+    #hands {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+
+    #video {
+      opacity: 0.58;
+      filter: contrast(1.08) saturate(0.65);
+    }
+
+    #hands {
+      pointer-events: none;
+    }
+
+    .readout {
+      width: min(430px, calc(100vw - 36px));
+      pointer-events: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--panel-strong);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.32);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 28px;
+    }
+
+    #status {
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    #start {
+      min-width: 102px;
+      height: 36px;
+      padding: 0 13px;
+      white-space: nowrap;
+      background: rgba(125, 249, 255, 0.14);
+      border-color: rgba(125, 249, 255, 0.4);
+    }
+
+    .meters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .meter {
+      height: 6px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .meter span {
+      display: block;
+      width: 20%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--rose), var(--gold));
+      transition: width 80ms linear;
+    }
+
+    .label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0;
+    }
+
+    .sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    @media (max-width: 820px) {
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hud {
+        width: fit-content;
+        max-width: calc(100vw - 36px);
+        grid-template-columns: 1fr;
+      }
+
+      .group {
+        flex-wrap: wrap;
+      }
+
+      .bottom {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .camera {
+        width: 138px;
+        align-self: flex-end;
+      }
+
+      .readout {
+        width: 100%;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="stage" aria-label="Gesture controlled particle field">
+    <canvas id="webgl"></canvas>
+  </main>
+  <div class="grain"></div>
+
+  <section class="topbar">
+    <div class="brand">
+      <h1>王品卓开发的手势交互项目</h1>
+      <p>手势驱动的发光粒子云，支持摄像头识别、形态变换、捏合压缩和张开爆散。</p>
+    </div>
+
+    <div class="hud" aria-label="particle controls">
+      <div class="group" aria-label="shape presets">
+        <button class="shape-btn active" data-shape="sphere" title="球体">Sphere</button>
+        <button class="shape-btn" data-shape="helix" title="螺旋">Helix</button>
+        <button class="shape-btn" data-shape="bloom" title="花形">Bloom</button>
+        <button class="shape-btn" data-shape="wave" title="波面">Wave</button>
+      </div>
+      <div class="group" aria-label="color palettes">
+        <button class="palette-btn active" data-palette="aurora" title="极光"><span class="swatch" style="color:#7df9ff;background:#7df9ff"></span></button>
+        <button class="palette-btn" data-palette="ember" title="熔光"><span class="swatch" style="color:#ffd46a;background:#ffd46a"></span></button>
+        <button class="palette-btn" data-palette="violet" title="紫电"><span class="swatch" style="color:#b99cff;background:#b99cff"></span></button>
+      </div>
+      <div class="group" aria-label="camera actions">
+        <button id="reset" class="icon-btn" title="重置视角" aria-label="重置视角">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom">
+    <div class="readout">
+      <div class="status-row">
+        <div id="status">加载手势识别模块中</div>
+        <button id="start">启动摄像头</button>
+      </div>
+      <div class="meters" aria-hidden="true">
+        <div>
+          <div class="label"><span>Pinch</span><span id="pinchText">0.00</span></div>
+          <div class="meter"><span id="pinchMeter"></span></div>
+        </div>
+        <div>
+          <div class="label"><span>Energy</span><span id="energyText">0.00</span></div>
+          <div class="meter"><span id="energyMeter"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="camera">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="hands"></canvas>
+    </div>
+  </section>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.165.0/build/three.module.js";
+    import { FilesetResolver, HandLandmarker } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18";
+
+    const PARTICLE_COUNT = 15000;
+    const FORM_NAMES = ["sphere", "helix", "bloom", "wave"];
+    const palettes = {
+      aurora: {
+        colors: [new THREE.Color("#7df9ff"), new THREE.Color("#ff6ba9"), new THREE.Color("#83ffbd")],
+        fog: new THREE.Color("#061017")
+      },
+      ember: {
+        colors: [new THREE.Color("#ffd46a"), new THREE.Color("#ff7b3d"), new THREE.Color("#fff2bd")],
+        fog: new THREE.Color("#130908")
+      },
+      violet: {
+        colors: [new THREE.Color("#b99cff"), new THREE.Color("#67d6ff"), new THREE.Color("#ff8fd5")],
+        fog: new THREE.Color("#0d0818")
+      }
+    };
+
+    const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const distance2D = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+    const canvas = document.querySelector("#webgl");
+    const video = document.querySelector("#video");
+    const handCanvas = document.querySelector("#hands");
+    const handCtx = handCanvas.getContext("2d");
+    const statusEl = document.querySelector("#status");
+    const startButton = document.querySelector("#start");
+    const resetButton = document.querySelector("#reset");
+    const pinchMeter = document.querySelector("#pinchMeter");
+    const energyMeter = document.querySelector("#energyMeter");
+    const pinchText = document.querySelector("#pinchText");
+    const energyText = document.querySelector("#energyText");
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(palettes.aurora.fog, 0.045);
+
+    const camera = new THREE.PerspectiveCamera(54, 1, 0.1, 100);
+    camera.position.set(0, 0.1, 7);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const colors = new Float32Array(PARTICLE_COUNT * 3);
+    const seeds = new Float32Array(PARTICLE_COUNT);
+    const phase = new Float32Array(PARTICLE_COUNT);
+    const targets = new Map();
+
+    let currentShape = "sphere";
+    let currentPalette = "aurora";
+    let handLandmarker = null;
+    let webcamReady = false;
+    let trackingReady = false;
+    let lastVideoTime = -1;
+    let autoShapeTimer = 0;
+    let lastPinchSwitch = 0;
+    let startTime = performance.now();
+
+    const gesture = {
+      present: 0,
+      targetPresent: 0,
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      pinch: 0.45,
+      targetPinch: 0.45,
+      energy: 0.35,
+      targetEnergy: 0.35,
+      spread: 1,
+      targetSpread: 1
+    };
+
+    function pseudoRandom(index) {
+      const x = Math.sin(index * 12.9898 + 78.233) * 43758.5453;
+      return x - Math.floor(x);
+    }
+
+    function createSpriteTexture() {
+      const size = 96;
+      const sprite = document.createElement("canvas");
+      sprite.width = size;
+      sprite.height = size;
+      const ctx = sprite.getContext("2d");
+      const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      g.addColorStop(0, "rgba(255,255,255,1)");
+      g.addColorStop(0.22, "rgba(255,255,255,0.72)");
+      g.addColorStop(0.5, "rgba(255,255,255,0.18)");
+      g.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, size, size);
+      const texture = new THREE.CanvasTexture(sprite);
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    function buildTargets() {
+      const golden = Math.PI * (3 - Math.sqrt(5));
+
+      for (const name of FORM_NAMES) {
+        targets.set(name, new Float32Array(PARTICLE_COUNT * 3));
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const i3 = i * 3;
+        const u = (i + 0.5) / PARTICLE_COUNT;
+        const r1 = pseudoRandom(i + 11);
+        const r2 = pseudoRandom(i + 37);
+        const r3 = pseudoRandom(i + 71);
+
+        seeds[i] = r1;
+        phase[i] = r2 * Math.PI * 2;
+
+        const y = 1 - 2 * u;
+        const radius = Math.sqrt(Math.max(0, 1 - y * y));
+        const theta = golden * i;
+
+        const sphere = targets.get("sphere");
+        sphere[i3] = Math.cos(theta) * radius * 2.25;
+        sphere[i3 + 1] = y * 2.25;
+        sphere[i3 + 2] = Math.sin(theta) * radius * 2.25;
+
+        const helix = targets.get("helix");
+        const hTheta = u * Math.PI * 18;
+        const hRadius = 0.92 + 0.34 * Math.sin(u * Math.PI * 10);
+        helix[i3] = Math.cos(hTheta) * hRadius * 1.55;
+        helix[i3 + 1] = (u - 0.5) * 4.8;
+        helix[i3 + 2] = Math.sin(hTheta) * hRadius * 1.55 + (r3 - 0.5) * 0.28;
+
+        const bloom = targets.get("bloom");
+        const bTheta = u * Math.PI * 42;
+        const petal = 1.1 + 0.72 * Math.sin(6 * bTheta);
+        const lift = Math.sin(u * Math.PI * 2) * 0.9;
+        bloom[i3] = Math.cos(bTheta) * petal * (0.55 + r1 * 1.35);
+        bloom[i3 + 1] = lift + (r2 - 0.5) * 1.6;
+        bloom[i3 + 2] = Math.sin(bTheta) * petal * (0.55 + r3 * 1.35);
+
+        const wave = targets.get("wave");
+        const grid = Math.sqrt(PARTICLE_COUNT);
+        const gx = (i % grid) / grid - 0.5;
+        const gy = Math.floor(i / grid) / grid - 0.5;
+        wave[i3] = gx * 5.2;
+        wave[i3 + 1] = Math.sin(gx * 10 + r2 * 2) * 0.6 + Math.cos(gy * 8 + r3 * 2) * 0.46;
+        wave[i3 + 2] = gy * 4.2;
+
+        positions[i3] = sphere[i3] + (r1 - 0.5) * 0.85;
+        positions[i3 + 1] = sphere[i3 + 1] + (r2 - 0.5) * 0.85;
+        positions[i3 + 2] = sphere[i3 + 2] + (r3 - 0.5) * 0.85;
+      }
+    }
+
+    buildTargets();
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.062,
+      map: createSpriteTexture(),
+      transparent: true,
+      opacity: 0.82,
+      depthWrite: false,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    group.add(particles);
+
+    function applyPalette(name) {
+      currentPalette = name;
+      const palette = palettes[name];
+      scene.fog.color.copy(palette.fog);
+      document.querySelectorAll(".palette-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.palette === name);
+      });
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const i3 = i * 3;
+        const blend = seeds[i];
+        const base = palette.colors[Math.floor(blend * palette.colors.length) % palette.colors.length];
+        const next = palette.colors[(Math.floor(blend * palette.colors.length) + 1) % palette.colors.length];
+        const color = base.clone().lerp(next, (blend * palette.colors.length) % 1);
+        colors[i3] = color.r;
+        colors[i3 + 1] = color.g;
+        colors[i3 + 2] = color.b;
+      }
+      geometry.attributes.color.needsUpdate = true;
+    }
+
+    function setShape(name) {
+      currentShape = name;
+      autoShapeTimer = 0;
+      document.querySelectorAll(".shape-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.shape === name);
+      });
+    }
+
+    applyPalette("aurora");
+
+    document.querySelectorAll(".shape-btn").forEach((button) => {
+      button.addEventListener("click", () => setShape(button.dataset.shape));
+    });
+
+    document.querySelectorAll(".palette-btn").forEach((button) => {
+      button.addEventListener("click", () => applyPalette(button.dataset.palette));
+    });
+
+    resetButton.addEventListener("click", () => {
+      gesture.targetX = 0;
+      gesture.targetY = 0;
+      gesture.targetPinch = 0.45;
+      gesture.targetEnergy = 0.38;
+      gesture.targetSpread = 1;
+      setShape("sphere");
+    });
+
+    startButton.addEventListener("click", () => startCamera());
+
+    function resize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      const rect = handCanvas.getBoundingClientRect();
+      handCanvas.width = Math.max(1, Math.floor(rect.width * window.devicePixelRatio));
+      handCanvas.height = Math.max(1, Math.floor(rect.height * window.devicePixelRatio));
+      handCtx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    async function createHandLandmarker() {
+      if (handLandmarker) {
+        return handLandmarker;
+      }
+
+      statusEl.textContent = "加载手势识别模块中";
+      const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm");
+      handLandmarker = await HandLandmarker.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+          delegate: "GPU"
+        },
+        runningMode: "VIDEO",
+        numHands: 1
+      });
+      trackingReady = true;
+      return handLandmarker;
+    }
+
+    async function startCamera() {
+      startButton.disabled = true;
+      statusEl.textContent = "等待摄像头授权";
+
+      try {
+        await createHandLandmarker();
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: "user",
+            width: { ideal: 960 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        });
+
+        video.srcObject = stream;
+        await video.play();
+        webcamReady = true;
+        statusEl.textContent = "摄像头已启动";
+        startButton.textContent = "运行中";
+      } catch (error) {
+        webcamReady = false;
+        trackingReady = false;
+        startButton.disabled = false;
+        startButton.textContent = "重新启动";
+        statusEl.textContent = "摄像头不可用，当前为自动巡航";
+        console.warn("Camera or hand tracking unavailable:", error);
+      }
+    }
+
+    async function warmup() {
+      try {
+        await createHandLandmarker();
+        statusEl.textContent = "手势识别已就绪";
+      } catch (error) {
+        statusEl.textContent = "手势模块加载失败，当前为自动巡航";
+        console.warn("HandLandmarker warmup failed:", error);
+      }
+    }
+
+    warmup();
+
+    function updateHandState(now) {
+      if (!webcamReady || !trackingReady || !handLandmarker || video.readyState < 2) {
+        gesture.targetPresent = 0;
+        return;
+      }
+
+      if (video.currentTime === lastVideoTime) {
+        return;
+      }
+      lastVideoTime = video.currentTime;
+
+      const result = handLandmarker.detectForVideo(video, now);
+      const landmarks = result.landmarks && result.landmarks[0];
+      drawHand(landmarks);
+
+      if (!landmarks) {
+        gesture.targetPresent = 0;
+        statusEl.textContent = "寻找手势";
+        return;
+      }
+
+      const wrist = landmarks[0];
+      const thumb = landmarks[4];
+      const indexTip = landmarks[8];
+      const middleTip = landmarks[12];
+      const ringTip = landmarks[16];
+      const pinkyTip = landmarks[20];
+      const indexBase = landmarks[5];
+      const pinkyBase = landmarks[17];
+      const palmWidth = Math.max(0.045, distance2D(indexBase, pinkyBase));
+      const centerX = (landmarks[0].x + landmarks[5].x + landmarks[9].x + landmarks[13].x + landmarks[17].x) / 5;
+      const centerY = (landmarks[0].y + landmarks[5].y + landmarks[9].y + landmarks[13].y + landmarks[17].y) / 5;
+      const pinchRaw = distance2D(thumb, indexTip) / palmWidth;
+      const openRaw = (
+        distance2D(wrist, indexTip) +
+        distance2D(wrist, middleTip) +
+        distance2D(wrist, ringTip) +
+        distance2D(wrist, pinkyTip)
+      ) / (palmWidth * 4);
+
+      const pinch = clamp((pinchRaw - 0.45) / 2.1);
+      const openness = clamp((openRaw - 1.52) / 1.25);
+
+      gesture.targetPresent = 1;
+      gesture.targetX = clamp((0.5 - centerX) * 2.4, -1.2, 1.2);
+      gesture.targetY = clamp((0.5 - centerY) * 2.1, -1.1, 1.1);
+      gesture.targetPinch = pinch;
+      gesture.targetEnergy = clamp(0.18 + openness * 0.95 + pinch * 0.34);
+      gesture.targetSpread = clamp(0.48 + pinch * 1.4 + openness * 0.82, 0.45, 2.05);
+
+      if (pinchRaw < 0.58 && now - lastPinchSwitch > 1300) {
+        const currentIndex = FORM_NAMES.indexOf(currentShape);
+        setShape(FORM_NAMES[(currentIndex + 1) % FORM_NAMES.length]);
+        lastPinchSwitch = now;
+      }
+
+      statusEl.textContent = result.handednesses && result.handednesses[0]
+        ? `${result.handednesses[0][0].categoryName} hand`
+        : "手势已捕捉";
+    }
+
+    const connections = [
+      [0, 1], [1, 2], [2, 3], [3, 4],
+      [0, 5], [5, 6], [6, 7], [7, 8],
+      [5, 9], [9, 10], [10, 11], [11, 12],
+      [9, 13], [13, 14], [14, 15], [15, 16],
+      [13, 17], [17, 18], [18, 19], [19, 20],
+      [0, 17]
+    ];
+
+    function drawHand(landmarks) {
+      const rect = handCanvas.getBoundingClientRect();
+      handCtx.clearRect(0, 0, rect.width, rect.height);
+
+      if (!landmarks) {
+        return;
+      }
+
+      handCtx.lineWidth = 2;
+      handCtx.strokeStyle = "rgba(125, 249, 255, 0.92)";
+      handCtx.shadowColor = "rgba(125, 249, 255, 0.8)";
+      handCtx.shadowBlur = 10;
+
+      for (const [a, b] of connections) {
+        handCtx.beginPath();
+        handCtx.moveTo(landmarks[a].x * rect.width, landmarks[a].y * rect.height);
+        handCtx.lineTo(landmarks[b].x * rect.width, landmarks[b].y * rect.height);
+        handCtx.stroke();
+      }
+
+      for (let i = 0; i < landmarks.length; i++) {
+        const point = landmarks[i];
+        handCtx.beginPath();
+        handCtx.fillStyle = i === 4 || i === 8 ? "rgba(255, 212, 106, 0.96)" : "rgba(255, 255, 255, 0.92)";
+        handCtx.arc(point.x * rect.width, point.y * rect.height, i === 4 || i === 8 ? 4.5 : 3.1, 0, Math.PI * 2);
+        handCtx.fill();
+      }
+
+      handCtx.shadowBlur = 0;
+    }
+
+    function updateMeters() {
+      const pinchValue = clamp(gesture.pinch);
+      const energyValue = clamp(gesture.energy);
+      pinchMeter.style.width = `${Math.round(pinchValue * 100)}%`;
+      energyMeter.style.width = `${Math.round(energyValue * 100)}%`;
+      pinchText.textContent = pinchValue.toFixed(2);
+      energyText.textContent = energyValue.toFixed(2);
+    }
+
+    function animate(now) {
+      const seconds = (now - startTime) / 1000;
+      const delta = Math.min(0.05, Math.max(0.001, (animate.last ? now - animate.last : 16) / 1000));
+      animate.last = now;
+
+      updateHandState(now);
+
+      gesture.present = lerp(gesture.present, gesture.targetPresent, 0.08);
+      gesture.x = lerp(gesture.x, gesture.targetX, 0.085);
+      gesture.y = lerp(gesture.y, gesture.targetY, 0.085);
+      gesture.pinch = lerp(gesture.pinch, gesture.targetPinch, 0.09);
+      gesture.energy = lerp(gesture.energy, gesture.targetEnergy, 0.08);
+      gesture.spread = lerp(gesture.spread, gesture.targetSpread, 0.075);
+
+      if (gesture.present < 0.08) {
+        autoShapeTimer += delta;
+        gesture.targetX = Math.sin(seconds * 0.33) * 0.55;
+        gesture.targetY = Math.cos(seconds * 0.29) * 0.28;
+        gesture.targetPinch = 0.48 + Math.sin(seconds * 0.86) * 0.18;
+        gesture.targetEnergy = 0.42 + Math.sin(seconds * 1.22) * 0.16;
+        gesture.targetSpread = 1.0 + Math.sin(seconds * 0.72) * 0.28;
+        if (autoShapeTimer > 8.5) {
+          const currentIndex = FORM_NAMES.indexOf(currentShape);
+          setShape(FORM_NAMES[(currentIndex + 1) % FORM_NAMES.length]);
+        }
+      }
+
+      const target = targets.get(currentShape);
+      const expansion = gesture.spread;
+      const swirl = 0.08 + gesture.energy * 0.18;
+      const morphSpeed = 0.055 + gesture.energy * 0.06;
+      const pulse = Math.sin(seconds * 2.4) * 0.06 * gesture.energy;
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const i3 = i * 3;
+        const noise = Math.sin(seconds * (1.2 + seeds[i] * 2.2) + phase[i]) * swirl;
+        const px = target[i3] * (expansion + pulse) + Math.cos(phase[i] + seconds * 1.2) * noise;
+        const py = target[i3 + 1] * (expansion + pulse) + Math.sin(phase[i] + seconds * 1.1) * noise;
+        const pz = target[i3 + 2] * (expansion + pulse) + Math.cos(phase[i] * 0.7 + seconds) * noise;
+
+        positions[i3] += (px - positions[i3]) * morphSpeed;
+        positions[i3 + 1] += (py - positions[i3 + 1]) * morphSpeed;
+        positions[i3 + 2] += (pz - positions[i3 + 2]) * morphSpeed;
+      }
+
+      geometry.attributes.position.needsUpdate = true;
+      group.rotation.y = lerp(group.rotation.y, gesture.x * 0.9 + seconds * 0.08, 0.045);
+      group.rotation.x = lerp(group.rotation.x, -gesture.y * 0.55 + Math.sin(seconds * 0.25) * 0.08, 0.045);
+      group.rotation.z = lerp(group.rotation.z, gesture.x * 0.18, 0.04);
+      material.size = 0.048 + gesture.energy * 0.065;
+      material.opacity = 0.62 + gesture.energy * 0.3;
+      camera.position.z = lerp(camera.position.z, 6.8 - gesture.energy * 0.95 + gesture.pinch * 0.36, 0.04);
+      camera.lookAt(0, 0, 0);
+
+      updateMeters();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      startButton.disabled = true;
+      statusEl.textContent = "浏览器不支持摄像头，当前为自动巡航";
+    }
+
+    if (new URLSearchParams(window.location.search).get("autostart") === "1") {
+      window.setTimeout(() => startCamera(), 500);
+    }
+  </script>
+</body>
+</html>
