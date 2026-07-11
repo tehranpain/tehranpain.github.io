@@ -36,13 +36,16 @@
       </div>
     </section>
 
-    <section class="boss-search" id="boss-search" aria-labelledby="boss-title">
+    <aside class="boss-search collapsed" id="boss-search" aria-labelledby="boss-title">
       <div class="boss-heading">
         <span class="boss-mark" aria-hidden="true">BOSS</span>
         <div>
           <p class="section-kicker">LIVE JOB SEARCH</p>
           <h2 id="boss-title">搜索 BOSS 在招岗位</h2>
         </div>
+        <button class="boss-panel-toggle" id="bossPanelToggle" type="button" title="展开BOSS岗位搜索" aria-label="展开BOSS岗位搜索" aria-expanded="false">
+          <i data-lucide="panel-right-open"></i>
+        </button>
       </div>
       <form class="boss-form" id="bossSearchForm">
         <label>
@@ -76,7 +79,7 @@
         <p><i data-lucide="info"></i>结果由 BOSS 直聘实时提供；部分职位需登录后查看完整信息。</p>
         <a href="https://www.zhipin.com/web/geek/jobs" target="_blank" rel="noopener noreferrer">打开 BOSS 职位首页<i data-lucide="arrow-up-right"></i></a>
       </div>
-    </section>
+    </aside>
 
     <section class="directory" id="directory">
       <div class="directory-head">
@@ -140,5 +143,131 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="app.js"></script>
+  <style>
+    /* Compact side utility: fixed positioning keeps the existing page layout unchanged. */
+    #boss-search.boss-search {
+      position: fixed;
+      top: 84px;
+      right: 14px;
+      z-index: 19;
+      width: 284px;
+      max-height: calc(100vh - 100px);
+      margin: 0;
+      padding: 14px;
+      overflow: auto;
+      border: 1px solid #cfd6d5;
+      border-top: 3px solid #2b9f9a;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(20, 23, 26, .16);
+      transition: width .2s ease, padding .2s ease;
+    }
+    #boss-search .boss-heading { position: relative; gap: 10px; margin: 0 0 12px; padding-right: 34px; }
+    #boss-search .boss-mark { flex: 0 0 auto; width: 44px; height: 44px; font-size: 11px; }
+    #boss-search .boss-heading h2 { font-size: 17px; line-height: 1.35; }
+    #boss-search .boss-heading .section-kicker { margin-bottom: 4px; font-size: 9px; }
+    #boss-search .boss-form { grid-template-columns: minmax(0, 1fr); gap: 9px; padding: 11px; box-shadow: none; }
+    #boss-search .boss-form input,
+    #boss-search .boss-form select,
+    #boss-search .boss-form button { height: 40px; }
+    #boss-search .boss-form button { width: 100%; }
+    #boss-search .boss-footnote { align-items: flex-start; flex-direction: column; gap: 9px; padding-top: 10px; }
+    .boss-panel-toggle {
+      position: absolute;
+      top: 5px;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid #cad2d1;
+      background: #f6f9f8;
+      color: #247f7b;
+      cursor: pointer;
+    }
+    .boss-panel-toggle:hover { border-color: #2b9f9a; background: #effafa; }
+    .boss-panel-toggle svg { width: 16px; height: 16px; }
+    #boss-search.collapsed { width: 58px; padding: 6px; overflow: visible; }
+    #boss-search.collapsed .boss-heading { margin: 0; padding: 0; }
+    #boss-search.collapsed .boss-heading > div,
+    #boss-search.collapsed .boss-form,
+    #boss-search.collapsed .boss-footnote { display: none; }
+    #boss-search.collapsed .boss-mark { width: 42px; height: 42px; }
+    #boss-search.collapsed .boss-panel-toggle { top: 47px; right: 6px; background: #fff; }
+
+    .company-name h3 { display: flex; align-items: center; gap: 10px; }
+    .company-mini-logo {
+      position: relative;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid #d9dddf;
+      background: #fff;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .company-mini-logo img { width: 20px; height: 20px; object-fit: contain; }
+    .company-mini-logo.fallback { border-color: #a91f24; background: #b92329; }
+
+    @media (max-width: 700px) {
+      #boss-search.boss-search { top: 72px; right: 10px; width: min(320px, calc(100vw - 20px)); max-height: calc(100vh - 84px); }
+      #boss-search.collapsed { width: 58px; }
+      .company-name h3 { gap: 8px; }
+      .company-mini-logo { width: 26px; height: 26px; }
+      .company-mini-logo img { width: 18px; height: 18px; }
+    }
+  </style>
+  <script>
+    (() => {
+      const panel = document.querySelector('#boss-search');
+      const toggle = document.querySelector('#bossPanelToggle');
+
+      function setPanel(open) {
+        panel.classList.toggle('collapsed', !open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? '收起BOSS岗位搜索' : '展开BOSS岗位搜索');
+        toggle.title = open ? '收起BOSS岗位搜索' : '展开BOSS岗位搜索';
+        toggle.innerHTML = `<i data-lucide="${open ? 'panel-right-close' : 'panel-right-open'}"></i>`;
+        if (window.lucide) lucide.createIcons();
+      }
+
+      toggle.addEventListener('click', () => setPanel(panel.classList.contains('collapsed')));
+
+      function addCompanyLogos() {
+        document.querySelectorAll('.company-row').forEach(row => {
+          const heading = row.querySelector('.company-name h3');
+          if (!heading || heading.querySelector('.company-mini-logo')) return;
+
+          const homeLink = row.querySelector('.actions a.icon-button[href]');
+          const logo = document.createElement('span');
+          logo.className = 'company-mini-logo';
+          logo.setAttribute('aria-hidden', 'true');
+          const image = document.createElement('img');
+          image.alt = '';
+          image.loading = 'lazy';
+
+          try {
+            image.src = new URL('/favicon.ico', homeLink.href).href;
+          } catch {
+            image.src = '';
+          }
+
+          image.addEventListener('error', () => {
+            logo.classList.add('fallback');
+            logo.textContent = heading.textContent.trim().slice(0, 1) || '央';
+          }, { once: true });
+          logo.append(image);
+          heading.prepend(logo);
+        });
+      }
+
+      addCompanyLogos();
+      new MutationObserver(addCompanyLogos).observe(document.querySelector('#companyList'), { childList: true });
+    })();
+  </script>
 </body>
 </html>
