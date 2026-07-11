@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="98家中央企业官方招聘入口导航">
+  <title>央企招聘导航｜98家官方入口</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="央企招聘导航首页">
+      <span class="brand-mark" aria-hidden="true">央</span>
+      <span><b>央企招聘导航</b><small>官方入口目录</small></span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#boss-search">BOSS找岗位</a>
+      <a href="#directory">企业目录</a>
+      <a href="#notes">使用说明</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <p class="eyebrow">按图片名单整理 · 98 家</p>
+        <h1 id="page-title">找到央企的<br><span>官方招聘入口</span></h1>
+        <p class="lede">集中查看校招、社招与实习信息。优先直达企业招聘系统，也可按企业、岗位和城市前往 BOSS 直聘查看实时职位。</p>
+      </div>
+      <div class="overview" aria-label="目录概览">
+        <div><strong id="totalCount">98</strong><span>名单企业</span></div>
+        <div><strong id="directCount">—</strong><span>招聘直达</span></div>
+        <div><strong id="favoriteCount">0</strong><span>我的收藏</span></div>
+        <p><i data-lucide="shield-check"></i> 链接均指向企业官方域名或其官方招聘服务平台</p>
+      </div>
+    </section>
+
+    <section class="boss-search" id="boss-search" aria-labelledby="boss-title">
+      <div class="boss-heading">
+        <span class="boss-mark" aria-hidden="true">BOSS</span>
+        <div>
+          <p class="section-kicker">LIVE JOB SEARCH</p>
+          <h2 id="boss-title">搜索 BOSS 在招岗位</h2>
+        </div>
+      </div>
+      <form class="boss-form" id="bossSearchForm">
+        <label>
+          <span>企业</span>
+          <select id="bossCompany"><option value="">不限企业</option></select>
+        </label>
+        <label>
+          <span>岗位关键词</span>
+          <input id="bossKeyword" type="search" placeholder="如：财务、机械、算法" autocomplete="off">
+        </label>
+        <label>
+          <span>城市</span>
+          <select id="bossCity">
+            <option value="100010000">全国</option>
+            <option value="101010100">北京</option>
+            <option value="101020100">上海</option>
+            <option value="101030100">天津</option>
+            <option value="101040100">重庆</option>
+            <option value="101280100">广州</option>
+            <option value="101280600">深圳</option>
+            <option value="101270100">成都</option>
+            <option value="101210100">杭州</option>
+            <option value="101200100">武汉</option>
+            <option value="101190100">南京</option>
+            <option value="101110100">西安</option>
+          </select>
+        </label>
+        <button type="submit"><i data-lucide="search"></i>搜索 BOSS 岗位</button>
+      </form>
+      <div class="boss-footnote">
+        <p><i data-lucide="info"></i>结果由 BOSS 直聘实时提供；部分职位需登录后查看完整信息。</p>
+        <a href="https://www.zhipin.com/web/geek/jobs" target="_blank" rel="noopener noreferrer">打开 BOSS 职位首页<i data-lucide="arrow-up-right"></i></a>
+      </div>
+    </section>
+
+    <section class="directory" id="directory">
+      <div class="directory-head">
+        <div>
+          <p class="section-kicker">CENTRAL SOE DIRECTORY</p>
+          <h2>企业目录</h2>
+        </div>
+        <p>名单沿用你提供的 98 家版本；企业重组、改名等变化单独标注。</p>
+      </div>
+
+      <div class="toolbar" role="search">
+        <label class="search-box">
+          <i data-lucide="search"></i>
+          <span class="sr-only">搜索企业</span>
+          <input id="searchInput" type="search" placeholder="搜索企业、简称或行业" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <div class="select-wrap">
+          <i data-lucide="sliders-horizontal"></i>
+          <label class="sr-only" for="industryFilter">行业筛选</label>
+          <select id="industryFilter"><option value="all">全部行业</option></select>
+        </div>
+        <button class="filter-button" id="favoritesFilter" type="button" aria-pressed="false">
+          <i data-lucide="star"></i><span>只看收藏</span>
+        </button>
+        <button class="filter-button" id="directFilter" type="button" aria-pressed="false">
+          <i data-lucide="external-link"></i><span>招聘直达</span>
+        </button>
+      </div>
+
+      <div class="result-meta" aria-live="polite">
+        <span>显示 <b id="resultCount">98</b> 家企业</span>
+        <button id="clearFilters" type="button">清除筛选</button>
+      </div>
+      <div class="company-list" id="companyList"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <i data-lucide="search-x"></i>
+        <h3>没有找到匹配企业</h3>
+        <p>换个关键词或清除筛选条件。</p>
+      </div>
+    </section>
+
+    <section class="notes" id="notes">
+      <div>
+        <p class="section-kicker">BEFORE YOU APPLY</p>
+        <h2>投递前，请再核对一次</h2>
+      </div>
+      <div class="note-grid">
+        <article><span>01</span><h3>认准域名</h3><p>招聘系统可能由智联、前程无忧、北森等服务商承载，但应能从集团官网交叉验证。</p></article>
+        <article><span>02</span><h3>不交费用</h3><p>正规央企招聘不会以报名、内推、培训或保证录用为由收取费用。</p></article>
+        <article><span>03</span><h3>交叉核对</h3><p>BOSS 职位由招聘方发布，投递前请与集团官方招聘公告核对单位名称、岗位与报名要求。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><b>央企招聘导航</b><p>资料核对日期：2026-07-11</p></div>
+    <p>名单来源：<a href="https://www.sasac.gov.cn/n2588045/n27271785/n27271792/index.html" target="_blank" rel="noopener noreferrer">国务院国资委央企名录</a> · 招聘信息汇总：<a href="https://job.mohrss.gov.cn/qyzp/index.jhtml" target="_blank" rel="noopener noreferrer">中国公共招聘网</a></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
