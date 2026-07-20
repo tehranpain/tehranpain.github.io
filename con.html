@@ -1325,6 +1325,54 @@ margin-top: 1px;
   flex-shrink: 0;
 }
 
+#rank-fan-month-bar {
+  display: flex;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 10px;
+  margin: 8px 12px 0;
+  padding: 3px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#rank-fan-month-bar.hidden {
+  display: none;
+}
+
+#rank-fan-month-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 6px);
+  width: calc(50% - 3px);
+  background: rgba(230, 0, 18, 0.10);
+  border: 1px solid rgba(230, 0, 18, 0.18);
+  border-radius: 7px;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+.rank-fan-month-tab {
+  flex: 1;
+  text-align: center;
+  padding: 5px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 7px;
+  position: relative;
+  z-index: 1;
+  color: #888;
+  transition: color 0.25s;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.rank-fan-month-tab.active {
+  color: #e60012;
+}
+
 /* 可滚动内容区 */
 #rank-panel-body {
   overflow-y: auto;
@@ -2889,7 +2937,7 @@ margin-top: 1px;
 .lpc-group-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   margin-bottom: 10px;
 }
@@ -2912,24 +2960,22 @@ margin-top: 1px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 9px;
-  border-radius: 999px;
+  padding: 0;
+  border-radius: 0;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0;
   flex-shrink: 0;
+  background: transparent !important;
 }
 .lpc-kind-badge.lyric {
   color: #e60012;
-  background: rgba(230,0,18,0.08);
 }
 .lpc-kind-badge.shop {
   color: #d97904;
-  background: rgba(217,121,4,0.12);
 }
 .lpc-kind-badge.venue {
-  color: #1766d1;
-  background: rgba(23,102,209,0.11);
+  color: #e60012;
 }
 .lpc-entry-list {
   display: flex;
@@ -3068,6 +3114,51 @@ margin-top: 1px;
   display: inline;
 }
 
+/* 演出场所：图片 + 名称 + 高德地址 */
+.lpc-venue-card {
+  position: relative;
+  width: 100%;
+}
+.lpc-venue-photo {
+  width: 100%;
+  height: 112px;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(230,0,18,0.72), rgba(20,20,20,0.86)),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: auto, 18px 18px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+.lpc-venue-photo .lpc-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.lpc-venue-card .lpc-kind-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 12px;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.75);
+}
+.lpc-venue-body {
+  padding: 0 4px 2px;
+}
+.lpc-venue-body .lpc-song-title {
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+  margin-bottom: 6px;
+}
+.lpc-venue-address {
+  color: #8a8a8a;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
 /* 小三角（白色） */
 .landmark-popup-card::after {
   content: '';
@@ -3183,7 +3274,7 @@ margin-top: 1px;
   flex-direction: column;
   gap: 8px;
   align-items: stretch;
-  width: min(360px, calc(100vw - 20px));
+  width: min(430px, calc(100vw - 20px));
   max-width: calc(100vw - 20px);
   padding: 12px;
   background: rgba(255,255,255,0.97);
@@ -3226,7 +3317,7 @@ margin-top: 1px;
   white-space: nowrap;
 }
 #landmark-category-tabs {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
 }
@@ -3252,11 +3343,11 @@ margin-top: 1px;
 }
 .landmark-city-panel-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
 }
 .city-nav-btn {
-  padding: 8px 10px;
+  padding: 8px 4px;
   border: none;
   border-radius: 10px;
   background: #f5f5f6;
@@ -3279,7 +3370,7 @@ margin-top: 1px;
   box-shadow: 0 2px 8px rgba(230,0,18,0.24);
 }
 .landmark-free-btn {
-  grid-column: span 2;
+  display: none;
   background: #111;
   color: #fff;
 }
@@ -3295,10 +3386,12 @@ margin-top: 1px;
     border-radius: 14px;
   }
   .landmark-city-panel-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
   }
-  .landmark-free-btn {
-    grid-column: span 2;
+  .city-nav-btn {
+    font-size: 11px;
+    padding: 8px 2px;
   }
   .landmark-pin-label {
     font-size: 10px;
@@ -3575,13 +3668,7 @@ margin-top: 1px;
       <div id="landmark-city-dropdown">
         <div class="landmark-city-panel-head">
         <div class="landmark-city-panel-title" id="landmark-city-panel-title">探索地标</div>
-        <div class="landmark-city-panel-count" id="landmark-city-panel-count">全部 / 地标 / 店铺 / 场所</div>
-        </div>
-        <div id="landmark-category-tabs">
-          <button class="landmark-category-btn active" type="button" data-landmark-category="all">全部</button>
-          <button class="landmark-category-btn" type="button" data-landmark-category="lyric">地标</button>
-          <button class="landmark-category-btn" type="button" data-landmark-category="shop">店铺</button>
-          <button class="landmark-category-btn" type="button" data-landmark-category="venue">场所</button>
+        <div class="landmark-city-panel-count" id="landmark-city-panel-count">全部点位</div>
         </div>
         <div class="landmark-city-panel-list">
           <button class="city-nav-btn" data-lat="30.65" data-lng="104.06" data-zoom="13">成都</button>
@@ -3589,7 +3676,6 @@ margin-top: 1px;
           <button class="city-nav-btn" data-lat="28.22" data-lng="112.93" data-zoom="13">长沙</button>
           <button class="city-nav-btn" data-lat="29.53" data-lng="106.50" data-zoom="13">重庆</button>
           <button class="city-nav-btn" data-lat="31.23" data-lng="121.47" data-zoom="13">上海</button>
-          <button class="city-nav-btn landmark-free-btn" data-action="free">自由探索</button>
         </div>
       </div>
       <div id="search-suggestions"></div>
@@ -3650,12 +3736,6 @@ margin-top: 1px;
         <button class="mobile-city-btn" type="button" data-city="重庆">重庆</button>
         <button class="mobile-city-btn" type="button" data-city="上海">上海</button>
       </div>
-      <div id="mobile-landmark-categories">
-        <button class="mobile-landmark-category-btn active" type="button" data-landmark-category="all">全部</button>
-        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="lyric">地标</button>
-        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="shop">店铺</button>
-        <button class="mobile-landmark-category-btn" type="button" data-landmark-category="venue">场所</button>
-      </div>
       <button id="mobile-city-collapse" type="button" aria-label="收起城市列表">>></button>
     </div>
     <div id="mobile-layer-menu">
@@ -3696,6 +3776,11 @@ margin-top: 1px;
     <div class="rank-tab"        data-tab="fans">粉丝数量排行榜</div>
   </div>
   <div id="rank-panel-subtitle">点击歌手名可定位到地图</div>
+  <div id="rank-fan-month-bar">
+    <div id="rank-fan-month-slider"></div>
+    <div class="rank-fan-month-tab active" data-month="april">4月</div>
+    <div class="rank-fan-month-tab" data-month="may">5月</div>
+  </div>
   <div id="rank-panel-body"></div>
 </div>
 
@@ -6185,6 +6270,30 @@ collaborators: [
   avatar: "http://p1.music.126.net/MCS9P3RR84aZ-KBBO4LD0w==/109951172655158702.jpg",
   neteaseId: "13417028"
 }
+,
+{
+  name: "Three thousand***",
+  fans: "3.6万",
+  lat: 27.710000, lng: 106.930000,
+  avatar: "http://p1.music.126.net/hitEnVrvGKLyOvHP5QOQig==/109951173128872837.jpg",
+  neteaseId: "34597980"
+}
+,
+{
+  name: "九莲",
+  fans: "1.6万",
+  lat: 41.670000, lng: 123.430000,
+  avatar: "http://p1.music.126.net/y_nFacCULRCi-vbJv5kspA==/109951173224330171.jpg",
+  neteaseId: "52118688"
+}
+,
+{
+  name: "Taco",
+  fans: "待补充",
+  lat: 39.930000, lng: 116.170000,
+  avatar: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><rect width='130' height='130' rx='20' fill='%23181818'/><circle cx='65' cy='48' r='22' fill='%23e60012' opacity='0.9'/><path d='M30 110c7-20 24-31 35-31s28 11 35 31' fill='%23f0f0f0' opacity='0.92'/><text x='65' y='122' text-anchor='middle' font-size='12' fill='%23999'>AUTO</text></svg>",
+  neteaseId: ""
+}
 
       ];
 
@@ -6871,7 +6980,7 @@ if (item.aliases && item.aliases.length > 0) {
 (function initRankPanel() {
 
   // ★ 乐迷团月活跃度数据（活跃粉丝数，数字类型，按从多到少排列）
-  const fanClubData = [
+  const fanClubDataApril = [
    { name: "SASIOVERLXRD",             val: 621, avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
 { name: "艾志恒Asen",             val: 498, avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
 { name: "马思唯",             val: 278, avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
@@ -6923,6 +7032,59 @@ if (item.aliases && item.aliases.length > 0) {
 { name: "kkluv",             val: 27, avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130" },
 { name: "Vinz-T",             val: 27, avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130" },
 
+  ];
+
+  const fanClubDataMay = [
+{ name: "SASIOVERLXRD",             val: 782, avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
+{ name: "艾志恒Asen",               val: 695, avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
+{ name: "马思唯",                   val: 338, avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
+{ name: "极品贵公子",               val: 327, avatar: "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130" },
+{ name: "沙一汀EL",                 val: 309, avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
+{ name: "张方钊",                   val: 261, avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
+{ name: "法老",                     val: 238, avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
+{ name: "Top Barry",                val: 221, avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
+{ name: "Capper",                   val: 188, avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
+{ name: "蛋堡",                     val: 177, avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
+{ name: "Rapeter",                  val: 165, avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
+{ name: "MULA SAKEE",               val: 163, avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130" },
+{ name: "加木",                     val: 152, avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
+{ name: "连麻Swimming",             val: 138, avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
+{ name: "mac ova seas",             val: 114, avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
+{ name: "姜云升",                   val: 99, avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
+{ name: "BOBBYNOPEACE",             val: 97, avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130" },
+{ name: "KenRobb",                  val: 99, avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130" },
+{ name: "TizzyT",                   val: 86, avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
+{ name: "JinJiBeWater-隼",          val: 73, avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
+{ name: "DD Ma Shawty",             val: 73, avatar: "https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130" },
+{ name: "THOME",                    val: 71, avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
+{ name: "罗言",                     val: 61, avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
+{ name: "GALI",                     val: 59, avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
+{ name: "Vansdaddy",                val: 55, avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130" },
+{ name: "李大奔BENZO",               val: 55, avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130" },
+{ name: "王齐铭WatchMe",             val: 50, avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130" },
+{ name: "ljz329",                   val: 49, avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
+{ name: "CashTrippy",               val: 49, avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130" },
+{ name: "卦者灵风",                 val: 48, avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
+{ name: "MISTERK",                  val: 47, avatar: "https://p1.music.126.net/UnxqtJlc2dfN4ozg9F3ywg==/109951172030852354.jpg?param=130y130" },
+{ name: "KEY.L刘聪",                 val: 47, avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
+{ name: "杨和苏KeyNG",               val: 46, avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
+{ name: "万妮达Vinida Weng",        val: 43, avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130" },
+{ name: "Billionhappy",             val: 39, avatar: "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130" },
+{ name: "RICHNOMADIC",              val: 38, avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130" },
+{ name: "XMASwu(吴骜)",             val: 37, avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
+{ name: "翁杰Winjay",               val: 35, avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130" },
+{ name: "Spylent",                  val: 35, avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
+{ name: "Lil Asian",                val: 35, avatar: "https://p2.music.126.net/X7u05eURHRUPDJ9Osf2TRQ==/109951172325962977.jpg?param=130y130" },
+{ name: "刀酱",                     val: 35, avatar: "https://p1.music.126.net/2dBXEgMVR2RHOxGux3w0Xw==/109951169452459547.jpg?param=130y130" },
+{ name: "等一下就回家",             val: 35, avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130" },
+{ name: "小精灵",                   val: 34, avatar: "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130" },
+{ name: "王以太",                   val: 31, avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
+{ name: "华云龙KLE",                val: 31, avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130" },
+{ name: "Tlatre特雷西",             val: 30, avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130" },
+{ name: "Jesse Margiela",           val: 30, avatar: "https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130" },
+{ name: "Jony J",                   val: 29, avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
+{ name: "Vinz-T",                   val: 29, avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130" },
+{ name: "泰格西",                   val: 28, avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130" },
   ];
 
   // ★ 粉丝数量数据（字符串，按从多到少排列）
@@ -7000,6 +7162,15 @@ if (item.aliases && item.aliases.length > 0) {
       .sort((a, b) => parseFansValue(b.val) - parseFansValue(a.val));
   }
 
+  const fanClubMonthData = {
+    april: fanClubDataApril,
+    may: fanClubDataMay,
+  };
+
+  function getCurrentFanClubData() {
+    return fanClubMonthData[currentFanMonth] || fanClubMonthData.april;
+  }
+
   // 渲染榜单
   function renderList(data) {
     const body = document.getElementById('rank-panel-body');
@@ -7064,8 +7235,26 @@ row.innerHTML = `
     });
   }
 
+  function updateRankPanelSubtitle() {
+    const subtitle = document.getElementById('rank-panel-subtitle');
+    if (currentTab === 'fan') {
+      subtitle.textContent = `点击歌手名可定位到地图 · 乐迷团月榜（${currentFanMonth === 'april' ? '4月' : '5月'}）`;
+    } else {
+      subtitle.textContent = '点击歌手名可定位到地图';
+    }
+  }
+
+  function updateFanMonthBarVisibility() {
+    const monthBar = document.getElementById('rank-fan-month-bar');
+    monthBar.classList.toggle('hidden', currentTab !== 'fan');
+  }
+
   // 初始显示乐迷团榜
-  renderList(fanClubData);
+  let currentTab = 'fan';
+  let currentFanMonth = 'april';
+  renderList(getCurrentFanClubData());
+  updateRankPanelSubtitle();
+  updateFanMonthBarVisibility();
 
   // ===== 关系网列表面板逻辑 =====
   const networkListBtn = document.getElementById('network-list-btn');
@@ -7137,9 +7326,26 @@ row.innerHTML = `
   });
 
   // 切换标签逻辑
-  let currentTab = 'fan';
   const tabs   = document.querySelectorAll('.rank-tab');
   const slider = document.getElementById('rank-tab-slider');
+  const monthTabs = document.querySelectorAll('.rank-fan-month-tab');
+  const monthSlider = document.getElementById('rank-fan-month-slider');
+
+  monthTabs.forEach((tab, idx) => {
+    tab.addEventListener('click', function() {
+      if (this.dataset.month === currentFanMonth) return;
+      currentFanMonth = this.dataset.month;
+
+      monthTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      monthSlider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
+
+      if (currentTab === 'fan') {
+        renderList(getCurrentFanClubData());
+        updateRankPanelSubtitle();
+      }
+    });
+  });
 
   tabs.forEach((tab, idx) => {
     tab.addEventListener('click', function() {
@@ -7154,7 +7360,9 @@ row.innerHTML = `
       slider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
 
       // 渲染对应数据
-      renderList(currentTab === 'fan' ? fanClubData : getFansCountData());
+      updateFanMonthBarVisibility();
+      updateRankPanelSubtitle();
+      renderList(currentTab === 'fan' ? getCurrentFanClubData() : getFansCountData());
     });
   });
 
@@ -7216,6 +7424,7 @@ document.getElementById('index-panel').classList.remove('show');
 // artist: 艺术家名
 // location: 地标名称
 // city: 所属城市（"成都"/"杭州"/"长沙"/"重庆"/"上海"）
+const CHANGSHA_CE_CHANGSHA_COVER = "http://p2.music.126.net/4yI-ClgZGIGaHisOWwJFXg==/5931865232257374.jpg?param=177y177";
 const rapLandmarks = [
 { lat: 30.61, lng: 104.06, type: "lyric",
 
@@ -7413,6 +7622,251 @@ const rapLandmarks = [
   location: "成都SKP", city: "成都",
 
   lyric: "amirijean Prada bag我们在SKP", song: "AJ3", artist: "KITO/邓典果DDG", cover: "http://p2.music.126.net/gvzEBuzUOArI26iDWNOCaA==/109951169063966962.jpg" }
+,
+
+{ lat: 28.126000, lng: 112.997000, type: "lyric",
+
+  location: "韶山南路", city: "长沙",
+
+  lyric: "哥们住在韶山南路 rap长沙南部", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.149000, lng: 112.955000, type: "lyric",
+
+  location: "猴子石", city: "长沙",
+
+  lyric: "我每次经过猴子石望着那湘江", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.191000, lng: 112.956000, type: "lyric",
+
+  location: "湘江", city: "长沙",
+
+  lyric: "我每次经过猴子石望着那湘江", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.190900, lng: 112.957700, type: "lyric",
+
+  location: "青年毛泽东", city: "长沙",
+
+  lyric: "青年毛泽东屹立在革命的江上", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.188500, lng: 112.936000, type: "lyric",
+
+  location: "岳麓山", city: "长沙",
+
+  lyric: "风吹散岳麓山顶的乌云", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.416000, lng: 113.102000, type: "lyric",
+
+  location: "黑麋峰", city: "长沙",
+
+  lyric: "黑麋峰 压山路 看日出", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.200700, lng: 112.978000, type: "lyric",
+
+  location: "中山亭", city: "长沙",
+
+  lyric: "从中山亭到白沙路", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.179000, lng: 112.982000, type: "lyric",
+
+  location: "白沙路", city: "长沙",
+
+  lyric: "我从中山亭到白沙路", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.194900, lng: 112.972000, type: "lyric",
+
+  location: "解放西", city: "长沙",
+
+  lyric: "解放西那不是我的hood", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.173000, lng: 112.933000, type: "lyric",
+
+  location: "中南大学", city: "长沙",
+
+  lyric: "中南大学开到梅溪湖", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.195000, lng: 112.892000, type: "lyric",
+
+  location: "梅溪湖", city: "长沙",
+
+  lyric: "中南大学开到梅溪湖", song: "长沙HOOD", artist: "KEY.L刘聪", cover: "https://lineimg.omusic.com.tw/img/album/6432618.jpg?v=20221003165301" }
+,
+
+{ lat: 28.183000, lng: 112.981500, type: "lyric",
+
+  location: "白沙井", city: "长沙",
+
+  lyric: "你晓得白沙井 白沙烟 白沙酒", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.172700, lng: 113.006700, type: "lyric",
+
+  location: "红花坡", city: "长沙",
+
+  lyric: "不晓得红花坡 黄土岭 黑石渡", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.159500, lng: 112.986000, type: "lyric",
+
+  location: "黄土岭", city: "长沙",
+
+  lyric: "不晓得红花坡 黄土岭 黑石渡", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.228800, lng: 113.022000, type: "lyric",
+
+  location: "黑石渡", city: "长沙",
+
+  lyric: "不晓得红花坡 黄土岭 黑石渡", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.209000, lng: 113.027000, type: "lyric",
+
+  location: "马王堆", city: "长沙",
+
+  lyric: "马王堆的辛追现在住得博物馆里", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.213700, lng: 112.983900, type: "lyric",
+
+  location: "博物馆", city: "长沙",
+
+  lyric: "马王堆的辛追现在住得博物馆里", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.186600, lng: 112.991700, type: "lyric",
+
+  location: "省图书馆", city: "长沙",
+
+  lyric: "省图书馆从周一到周日都是满的", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.190600, lng: 112.975800, type: "lyric",
+
+  location: "走马楼", city: "长沙",
+
+  lyric: "古迹现在只有走马楼和天心阁", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.182900, lng: 112.975600, type: "lyric",
+
+  location: "天心阁", city: "长沙",
+
+  lyric: "古迹现在只有走马楼和天心阁", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.183800, lng: 112.944400, type: "lyric",
+
+  location: "爱晚厅", city: "长沙",
+
+  lyric: "爱晚厅和岳麓书院你要清白", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.184300, lng: 112.944100, type: "lyric",
+
+  location: "岳麓书院", city: "长沙",
+
+  lyric: "爱晚厅和岳麓书院你要清白", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.194400, lng: 112.976600, type: "lyric",
+
+  location: "五一广场", city: "长沙",
+
+  lyric: "嗲嗲60岁还要克五一广场玩板", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.190700, lng: 112.975500, type: "lyric",
+
+  location: "步行街", city: "长沙",
+
+  lyric: "一车过桥步行街", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.193000, lng: 112.970800, type: "lyric",
+
+  location: "药王街", city: "长沙",
+
+  lyric: "药王街的四合一 那硬是要恰热的", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.183800, lng: 112.976000, type: "lyric",
+
+  location: "南门口", city: "长沙",
+
+  lyric: "从南门口走到河边头", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.206700, lng: 112.975200, type: "lyric",
+
+  location: "北正街", city: "长沙",
+
+  lyric: "以前稀烂的北正街早就已经不在", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.171100, lng: 112.993800, type: "lyric",
+
+  location: "东塘", city: "长沙",
+
+  lyric: "从东塘 清水塘到扫把塘", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.208000, lng: 112.984000, type: "lyric",
+
+  location: "清水塘", city: "长沙",
+
+  lyric: "从东塘 清水塘到扫把塘", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.151000, lng: 112.999000, type: "lyric",
+
+  location: "扫把塘", city: "长沙",
+
+  lyric: "从东塘 清水塘到扫把塘", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.180700, lng: 112.998000, type: "lyric",
+
+  location: "长岭", city: "长沙",
+
+  lyric: "还有长岭 窑岭到伍家岭", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.189100, lng: 112.993200, type: "lyric",
+
+  location: "窑岭", city: "长沙",
+
+  lyric: "还有长岭 窑岭到伍家岭", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.226000, lng: 112.987500, type: "lyric",
+
+  location: "伍家岭", city: "长沙",
+
+  lyric: "还有长岭 窑岭到伍家岭", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.190300, lng: 112.975000, type: "lyric",
+
+  location: "杨裕兴", city: "长沙",
+
+  lyric: "四 杨裕兴 火宫殿", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
+,
+
+{ lat: 28.193000, lng: 112.972400, type: "lyric",
+
+  location: "火宫殿", city: "长沙",
+
+  lyric: "四 杨裕兴 火宫殿", song: "长沙策长沙", artist: "C-BLOCK", cover: CHANGSHA_CE_CHANGSHA_COVER }
 
 ];
 
@@ -7427,6 +7881,13 @@ const rapRelatedVenues = [
   location: "CH8绿树演艺中心", city: "成都",
 
   cover: "", lyric: "livehouse", address: "成都", song: "CH8绿树演艺中心", artist: "livehouse" }
+,
+
+{ lat: 28.224541, lng: 112.959801,
+
+  location: "达丰空间(保利店)", city: "长沙",
+
+  cover: "https://q3.itc.cn/q_70/images03/20250422/43997dddc165447cbe4c9413bdaefede.png", lyric: "演出场所", address: "湖南省长沙市岳麓区银盆岭街道岳麓大道5号商场5楼", song: "达丰空间(保利店)", artist: "演出场所" }
 ];
 
 // 地标图层（独立于歌手聚合图层）
@@ -7456,7 +7917,7 @@ const LANDMARK_CATEGORY_META = {
   all: { label: '全部', badge: '全部点位', shortTag: '地标' },
   lyric: { label: '歌词地标', badge: '歌词地标', shortTag: '地标' },
   shop: { label: '店铺', badge: '店铺', shortTag: '店铺' },
-  venue: { label: '相关场所', badge: '相关场所', shortTag: '场所' }
+  venue: { label: '演出场所', badge: '演出场所', shortTag: '演出场所' }
 };
 
 function getAllLandmarkItems() {
@@ -7520,10 +7981,9 @@ function updateLandmarkPanelMode() {
   const title = document.getElementById('landmark-city-panel-title');
   const count = document.getElementById('landmark-city-panel-count');
   if (!title || !count) return;
-  const meta = LANDMARK_CATEGORY_META[activeLandmarkCategory] || LANDMARK_CATEGORY_META.all;
   const activeItems = getGroupedVisibleLandmarkItems(getActiveLandmarkItems());
   title.textContent = '说唱地标';
-  count.textContent = `${meta.label} · ${activeItems.length}个点位`;
+  count.textContent = `${activeItems.length}个点位`;
 }
 
 function syncLandmarkCategoryTabs() {
@@ -7632,10 +8092,15 @@ function closeLandmarkCityDropdown() {
   if (cityDropdown) cityDropdown.classList.remove('open');
 }
 
+function clearActiveLandmarkCitySelection() {
+  document.querySelectorAll('.city-nav-btn, .mobile-city-btn').forEach(btn => btn.classList.remove('active'));
+}
+
 // 创建PIN图标标记（带悬浮/点击展开卡片）
 function createLandmarkPin(item) {
   const isLyric = item.landmarkCategory === 'lyric' || !item.landmarkCategory;
   const isShop = item.landmarkCategory === 'shop';
+  const isVenue = item.landmarkCategory === 'venue';
   const categoryClass = isLyric ? 'lyric' : (isShop ? 'shop' : 'venue');
   const categoryBadge = item.landmarkCategoryLabel || LANDMARK_CATEGORY_META[item.landmarkCategory || 'all']?.badge || '地标';
   const lyricEntries = isLyric ? (item.entries && item.entries.length ? item.entries : [item]) : [item];
@@ -7665,7 +8130,6 @@ function createLandmarkPin(item) {
 
     popupContent = `
       <div class="lpc-group-head">
-        <div class="lpc-group-location">${item.location}</div>
         <div style="display:flex;align-items:center;gap:6px;">
           <div class="lpc-kind-badge ${categoryClass}">${categoryBadge}</div>
           ${lyricEntries.length > 1 ? `<div class="lpc-group-count">${lyricEntries.length}条歌词</div>` : ''}
@@ -7673,6 +8137,20 @@ function createLandmarkPin(item) {
       </div>
       <div class="lpc-entry-list">
         ${entriesHtml}
+      </div>
+    `;
+  } else if (isVenue) {
+    const venueCoverHtml = item.cover
+      ? `<img class="lpc-cover-img" src="${item.cover}" onerror="this.style.display='none';" />`
+      : `<div class="lpc-cover-default"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/></svg></div>`;
+    popupContent = `
+      <div class="lpc-venue-card">
+        <div class="lpc-kind-badge venue">${categoryBadge}</div>
+        <div class="lpc-venue-photo">${venueCoverHtml}</div>
+        <div class="lpc-venue-body">
+          <div class="lpc-song-title">${item.location}</div>
+          <div class="lpc-venue-address">${item.address || ''}</div>
+        </div>
       </div>
     `;
   } else {
@@ -7861,10 +8339,26 @@ function hideLandmarks() {
   map.removeLayer(landmarkLayerGroup);
   map.off('zoomend', renderLandmarksByZoom);
   landmarkVisible = false;
+  clearActiveLandmarkCitySelection();
   // 恢复普通模式最大缩放限制
   map.setMaxZoom(12);
   // 收起城市快捷列表
   closeLandmarkCityDropdown();
+}
+
+function ensureLandmarkMode() {
+  const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+  document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
+  if (landmarkBtn) landmarkBtn.classList.add('active');
+  if (typeof updateModeFilterSlider === 'function') {
+    updateModeFilterSlider();
+  }
+  markerClusterGroup.clearLayers();
+  if (!landmarkVisible) {
+    showLandmarks();
+  } else {
+    renderLandmarksByZoom();
+  }
 }
 
 function launchLandmarkExplorer() {
@@ -7898,7 +8392,6 @@ function launchLandmarkExplorer() {
   if (networkPanel) networkPanel.classList.remove('show');
   if (networkBtn) networkBtn.classList.remove('open');
 
-  document.querySelectorAll('.city-nav-btn').forEach(btn => btn.classList.remove('active'));
   markerClusterGroup.clearLayers();
   if (!landmarkVisible) {
     showLandmarks();
@@ -7926,22 +8419,10 @@ function launchFoodExplorer() {
 document.querySelectorAll('.city-nav-btn').forEach(btn => {
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
-    const themeBtn = document.querySelector('.filter-btn[data-type="landmark"]');
-    if (themeBtn) {
-      document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
-      themeBtn.classList.add('active');
-      if (typeof updateModeFilterSlider === 'function') {
-        updateModeFilterSlider();
-      }
-    }
+    ensureLandmarkMode();
 
     if (this.dataset.action === 'free') {
-      if (!landmarkVisible) {
-        markerClusterGroup.clearLayers();
-        showLandmarks();
-      } else {
-        openLandmarkCityDropdown();
-      }
+      openLandmarkCityDropdown();
       document.querySelectorAll('.city-nav-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.mobile-city-btn').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
@@ -7957,11 +8438,7 @@ document.querySelectorAll('.city-nav-btn').forEach(btn => {
     document.querySelectorAll('.city-nav-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.mobile-city-btn').forEach(b => b.classList.toggle('active', b.dataset.city === this.textContent.trim()));
     this.classList.add('active');
-    // 确保地标模式已激活
-    if (!landmarkVisible) {
-      markerClusterGroup.clearLayers();
-      showLandmarks();
-    }
+    openLandmarkCityDropdown();
   });
 });
 
@@ -7983,6 +8460,7 @@ window.addEventListener('resize', positionLandmarkCityDropdown);
 
 // 点击地图空白处关闭所有弹窗
 map.on('click', function() {
+  closeLandmarkCityDropdown();
   if (currentOpenPopupEl) {
     currentOpenPopupEl.classList.remove('show');
     currentOpenPopupEl = null;
@@ -8136,7 +8614,12 @@ setActiveLandmarkCategory('all', false);
     }
 
     function syncMobileControls() {
-      if (!mobileLayerLabel) return;
+      const currentMobileLayerLabel = document.getElementById('mobile-layer-label');
+      const currentMobileLayerOptions = document.querySelectorAll('.mobile-layer-option');
+      const currentMobileLandmarkCategoryButtons = document.querySelectorAll('.mobile-landmark-category-btn');
+      const currentMobileLayerSwitch = document.getElementById('mobile-layer-switch');
+      const currentMobileCityCollapse = document.getElementById('mobile-city-collapse');
+      if (!currentMobileLayerLabel) return;
       const activeTypeBtn = document.querySelector('.filter-btn[data-type].active');
       const activeType = activeTypeBtn ? activeTypeBtn.dataset.type : 'all';
       const activeLayer = activeType === 'landmark' ? 'landmark' : 'info';
@@ -8144,30 +8627,32 @@ setActiveLandmarkCategory('all', false);
         info: '信息资料',
         landmark: '说唱地标'
       };
-      mobileLayerLabel.textContent = labelMap[activeLayer];
-      mobileLayerOptions.forEach(option => {
+      currentMobileLayerLabel.textContent = labelMap[activeLayer];
+      currentMobileLayerOptions.forEach(option => {
         option.classList.toggle('active', option.dataset.layer === activeLayer);
       });
-      mobileLandmarkCategoryButtons.forEach(option => {
+      currentMobileLandmarkCategoryButtons.forEach(option => {
         option.classList.toggle('active', option.dataset.landmarkCategory === activeLandmarkCategory);
       });
-      if (mobileLayerSwitch) {
+      if (currentMobileLayerSwitch) {
         const isRapLandmark = activeLayer === 'landmark';
-        mobileLayerSwitch.classList.toggle('landmark-mode', isRapLandmark);
+        currentMobileLayerSwitch.classList.toggle('landmark-mode', isRapLandmark);
         if (!isRapLandmark) {
-          mobileLayerSwitch.classList.remove('landmark-cities-collapsed');
+          currentMobileLayerSwitch.classList.remove('landmark-cities-collapsed');
         }
       }
-      if (mobileCityCollapse) {
-        const collapsed = mobileLayerSwitch && mobileLayerSwitch.classList.contains('landmark-cities-collapsed');
-        mobileCityCollapse.textContent = collapsed ? '<<' : '>>';
+      if (currentMobileCityCollapse) {
+        const collapsed = currentMobileLayerSwitch && currentMobileLayerSwitch.classList.contains('landmark-cities-collapsed');
+        currentMobileCityCollapse.textContent = collapsed ? '<<' : '>>';
       }
     }
 
     function closeMobileLayerMenu() {
-      if (!mobileLayerSwitch) return;
-      mobileLayerSwitch.classList.remove('open');
-      if (mobileLayerBtn) mobileLayerBtn.setAttribute('aria-expanded', 'false');
+      const currentMobileLayerSwitch = document.getElementById('mobile-layer-switch');
+      const currentMobileLayerBtn = document.getElementById('mobile-layer-btn');
+      if (!currentMobileLayerSwitch) return;
+      currentMobileLayerSwitch.classList.remove('open');
+      if (currentMobileLayerBtn) currentMobileLayerBtn.setAttribute('aria-expanded', 'false');
     }
 
     if (mobileLayerBtn) {
@@ -8342,7 +8827,15 @@ document.querySelectorAll(".filter-btn[data-type]").forEach(b => b.classList.rem
 if (isAlreadyActive) {
   // 再次点击已激活项 → 取消筛选，回退到"全部"
   if (this.dataset.type === 'landmark') {
-    hideLandmarks();
+    const cityDropdown = document.getElementById('landmark-city-dropdown');
+    const wasOpen = cityDropdown && cityDropdown.classList.contains('open');
+    ensureLandmarkMode();
+    if (wasOpen) {
+      closeLandmarkCityDropdown();
+    } else {
+      openLandmarkCityDropdown();
+    }
+    return;
   }
   const allBtn = document.querySelector('.filter-btn[data-type="all"]');
   if (allBtn) allBtn.classList.add('active');
@@ -8368,15 +8861,12 @@ updateModeFilterSlider();
         // 处理说唱地标模式
         if (this.dataset.type === 'landmark') {
           const cityDropdown = document.getElementById('landmark-city-dropdown');
-          const isSameThemeOpen = cityDropdown && cityDropdown.classList.contains('open') && landmarkVisible;
-          if (isSameThemeOpen) {
-            // 同一主题再次点击：收起城市列表，但不改变地图状态
+          const isOpen = cityDropdown && cityDropdown.classList.contains('open');
+          ensureLandmarkMode();
+          if (isOpen) {
             closeLandmarkCityDropdown();
-            this.classList.remove('active');
           } else {
-            // 首次点击：展开城市列表，进入对应地标模式
-            markerClusterGroup.clearLayers();
-            showLandmarks();
+            openLandmarkCityDropdown();
           }
           return;
         } else {
@@ -8408,6 +8898,13 @@ updateModeFilterSlider();
       }
       if (e.target.closest('.filter-btn[data-type]')) {
         requestAnimationFrame(syncMobileControls);
+      }
+      const cityDropdown = document.getElementById('landmark-city-dropdown');
+      const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
+      const clickedLandmarkPanel = cityDropdown && cityDropdown.contains(e.target);
+      const clickedLandmarkButton = landmarkBtn && landmarkBtn.contains(e.target);
+      if (cityDropdown && cityDropdown.classList.contains('open') && !clickedLandmarkPanel && !clickedLandmarkButton) {
+        closeLandmarkCityDropdown();
       }
     });
 
@@ -9148,3 +9645,5 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 </script>
 </body>
 </html>
+
+
