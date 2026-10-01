@@ -162,7 +162,7 @@
     }
 
     /*
-      page2 主榜单大卡片：承载第 11-50 名。
+      page2 主榜单大卡片：承载第 16-50 名。
       top/left：控制整张榜单卡片的位置。
       width/height：控制榜单卡片尺寸；height 不够会裁掉底部排名。
       border-radius：控制外层卡片圆角。
@@ -239,7 +239,7 @@
       page2 两列榜单容器。
       grid-template-columns: 1fr 1fr 表示左右两列等宽。
       column-gap：控制左右两列之间的间距。
-      JS 会把 11-30 名放入左列，把 31-50 名放入右列。
+      JS 会把 16-33 名放入左列，把 34-50 名放入右列。
     */
     #rank-panel-body {
       overflow: hidden;
@@ -267,7 +267,7 @@
       align-items: center;
       gap: 9px;
       min-width: 0;
-      padding: 14px 7px;
+      padding: 18px 7px;
       border-bottom: 1px solid var(--line);
       border-radius: 11px;
     }
@@ -302,7 +302,7 @@
     .rank-name {
       flex: 1;
       min-width: 0;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 900;
       color: #292929;
       white-space: nowrap;
@@ -626,12 +626,12 @@ RICHNOMADIC 29
       leftColumn.className = "rank-column";
       rightColumn.className = "rank-column";
 
-      data.slice(10, 30).forEach((d, i) => {
-        leftColumn.appendChild(renderRankRow(d, i + 11));
+      data.slice(15, 33).forEach((d, i) => {
+        leftColumn.appendChild(renderRankRow(d, i + 16));
       });
 
-      data.slice(30, 50).forEach((d, i) => {
-        rightColumn.appendChild(renderRankRow(d, i + 31));
+      data.slice(33, 50).forEach((d, i) => {
+        rightColumn.appendChild(renderRankRow(d, i + 34));
       });
 
       body.appendChild(leftColumn);
