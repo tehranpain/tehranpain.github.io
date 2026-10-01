@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>网易云乐迷团月活跃度榜 - 9:16 竖屏海报</title>
+  <style>
+    /* 全局配色变量：改主红色、文字色、卡片透明度时主要看这里 */
+    :root {
+      --red: #e60012;
+      --ink: #171717;
+      --muted: #8f8f8f;
+      --paper: rgba(255,255,255,0.96);
+      --line: rgba(20,20,20,0.075);
+    }
+
+    * { box-sizing: border-box; }
+
+    /* 页面外层背景：只影响浏览器里海报外面的环境，不影响导出的海报主体 */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(230,0,18,0.18), transparent 28%),
+        radial-gradient(circle at 86% 24%, rgba(0,0,0,0.10), transparent 24%),
+        linear-gradient(135deg, #f6f3ed 0%, #ebe6dc 48%, #f8f7f4 100%);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    }
+
+    /* 9:16 海报画布：宽高、主背景、整体阴影都在这里 */
+    .poster {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.86), rgba(255,255,255,0.48)),
+        radial-gradient(circle at 88% 18%, rgba(230,0,18,0.18), transparent 22%),
+        radial-gradient(circle at 8% 86%, rgba(230,0,18,0.12), transparent 26%),
+        #f3efe8;
+      transform-origin: center;
+      box-shadow: 0 32px 90px rgba(0,0,0,0.22);
+    }
+
+    /* 海报背景网格纹理：想删网格可把 opacity 设为 0 */
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: -160px;
+      background-image:
+        linear-gradient(rgba(230,0,18,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230,0,18,0.12) 1px, transparent 1px);
+      background-size: 88px 88px;
+      transform: rotate(-8deg);
+      opacity: 0.28;
+    }
+
+    /* 底部小字签名 */
+    .poster::after {
+      content: "HIPHOP MAP · NETEASE FANCLUB MONTHLY ACTIVITY";
+      position: absolute;
+      left: 54px;
+      bottom: 40px;
+      right: auto;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      color: rgba(0,0,0,0.25);
+      font-weight: 800;
+    }
+
+    /* 顶部标题区：page2 当前隐藏，不显示题头 */
+    .hero {
+      display: none;
+      position: absolute;
+      left: 58px;
+      top: 58px;
+      width: 964px;
+      z-index: 2;
+    }
+
+    /* 顶部小胶囊标签：page2 隐藏标题区时不会显示 */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.10);
+      color: var(--red);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    /* 顶部小胶囊里的红点 */
+    .eyebrow-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 9px rgba(230,0,18,0.12);
+    }
+
+    /* 主标题：page2 当前隐藏标题区时不会显示 */
+    h1 {
+      margin: 42px 0 0;
+      font-size: 88px;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 1000;
+    }
+
+    /* 主标题中的红色文字 */
+    .title-red { color: var(--red); }
+
+    /* 标题下方说明文字：page2 当前隐藏标题区时不会显示 */
+    .subtitle {
+      margin-top: 28px;
+      width: 850px;
+      font-size: 28px;
+      line-height: 1.48;
+      color: #4e4e4e;
+      font-weight: 700;
+    }
+
+    /* 顶部数据小卡片容器：page2 当前隐藏标题区时不会显示 */
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    /* 单个数据小卡片 */
+    .stat {
+      min-width: 152px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+    }
+
+    /* 数据小卡片里的数字 */
+    .stat strong {
+      display: block;
+      font-size: 36px;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    /* 数据小卡片里的说明文字 */
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: #777;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    /*
+      page2 主榜单大卡片：承载第 11-50 名。
+      top/left：控制整张榜单卡片的位置。
+      width/height：控制榜单卡片尺寸；height 不够会裁掉底部排名。
+      border-radius：控制外层卡片圆角。
+    */
+    .rank-panel {
+      position: absolute;
+      top: 86px;
+      left: 58px;
+      right: auto;
+      width: 964px;
+      height: 1760px;
+      z-index: 3;
+      background: var(--paper);
+      backdrop-filter: blur(18px);
+      border-radius: 34px;
+      box-shadow: 0 26px 76px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.65);
+    }
+
+    /* 月份/榜单切换条：当前隐藏，保留是为了以后恢复切换用 */
+    #rank-tab-bar {
+      display: none;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 22px;
+      margin: 28px 28px 0;
+      padding: 5px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* 隐藏切换条里的红色滑块 */
+    #rank-tab-slider {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: calc(100% - 10px);
+      width: calc(100% - 10px);
+      background: var(--red);
+      border-radius: 17px;
+      z-index: 0;
+    }
+
+    /* 隐藏切换条里的文字按钮 */
+    .rank-tab {
+      flex: 1;
+      text-align: center;
+      padding: 16px 8px;
+      font-size: 23px;
+      font-weight: 900;
+      border-radius: 17px;
+      position: relative;
+      z-index: 1;
+      color: #8a8a8a;
+      white-space: nowrap;
+    }
+
+    .rank-tab.active { color: white; }
+
+    /* 榜单卡片副标题：当前 HTML 中没有使用也可保留 */
+    #rank-panel-subtitle {
+      font-size: 17px;
+      color: #a0a0a0;
+      text-align: center;
+      padding: 14px 28px 0;
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    /*
+      page2 两列榜单容器。
+      grid-template-columns: 1fr 1fr 表示左右两列等宽。
+      column-gap：控制左右两列之间的间距。
+      JS 会把 11-30 名放入左列，把 31-50 名放入右列。
+    */
+    #rank-panel-body {
+      overflow: hidden;
+      flex: 1;
+      padding: 18px 24px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 18px;
+      align-content: start;
+    }
+
+    /* 单列容器：左列或右列。min-width: 0 用来避免长名字把列撑宽 */
+    .rank-column {
+      min-width: 0;
+    }
+
+    /*
+      单行榜单。
+      padding：控制行高；如果 20 行放不下，可以减小上下 padding。
+      gap：控制名次、头像、名字、数字之间的横向间距。
+      border-bottom：每一行的分隔线。
+    */
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      padding: 14px 7px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 11px;
+    }
+
+    /* 榜单名次数字：11、12、13... */
+    .rank-no {
+      width: 35px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 1000;
+      color: #a8a8a8;
+      flex-shrink: 0;
+    }
+
+    .rank-no.gold { color: #f5a623; }
+    .rank-no.silver { color: #9b9b9b; }
+    .rank-no.bronze { color: #c47a3a; }
+
+    /* 榜单头像 */
+    .rank-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+      background: linear-gradient(135deg, #eee, #ddd);
+    }
+
+    /* 榜单歌手名：长名字会自动省略号 */
+    .rank-name {
+      flex: 1;
+      min-width: 0;
+      font-size: 24px;
+      font-weight: 900;
+      color: #292929;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 榜单右侧活跃度数字 */
+    .rank-val {
+      font-size: 24px;
+      font-weight: 1000;
+      color: var(--red);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* 前三名卡片容器：page2 当前隐藏，不显示前三名 */
+    .top-strip {
+      display: none;
+      position: absolute;
+      left: 58px;
+      top: 338px;
+      bottom: auto;
+      z-index: 2;
+      width: 964px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* 前三名单张卡片：page2 当前隐藏，不参与画面 */
+    .podium-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 16px 42px rgba(0,0,0,0.11);
+      min-height: 160px;
+    }
+
+    /* 前三名头像：page2 当前隐藏 */
+    .podium-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    /* TOP 1 / TOP 2 / TOP 3 字样：page2 当前隐藏 */
+    .podium-rank {
+      margin-top: 16px;
+      color: var(--red);
+      font-size: 16px;
+      font-weight: 1000;
+    }
+
+    /* 前三名歌手名：page2 当前隐藏 */
+    .podium-name {
+      margin-top: 8px;
+      font-size: 23px;
+      font-weight: 1000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 前三名活跃度数字：page2 当前隐藏 */
+    .podium-val {
+      margin-top: 6px;
+      color: #777;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    /* 左下角数据编辑器：导出海报前可以隐藏或不截图它 */
+    .editor {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      width: 520px;
+      z-index: 20;
+      background: rgba(15,15,15,0.88);
+      color: white;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.24);
+    }
+
+    /* 编辑器折叠标题 */
+    .editor summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    /* 编辑器文本框 */
+    .editor textarea {
+      width: 100%;
+      height: 180px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      resize: vertical;
+      font: 14px/1.45 Consolas, "Microsoft YaHei", monospace;
+    }
+
+    /* 编辑器生成按钮 */
+    .editor button {
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 12px;
+      background: var(--red);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* 浏览器预览时自动缩放整张 1080x1920 海报以适配窗口 */
+    @media screen and (max-height: 1920px) {
+      .poster { transform: scale(min(calc(100vw / 1080), calc(100vh / 1920))); }
+      body { overflow: hidden; }
+    }
+
+    /* 打印或导出时去掉页面背景、阴影和编辑器 */
+    @media print {
+      body { background: white; }
+      .poster { box-shadow: none; transform: none; }
+      .editor { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster" id="poster">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>网易云乐迷团月活跃度</div>
+      <h1><span class="title-red">中文说唱</span><br>乐迷团月榜</h1>
+      <p class="subtitle">统计月榜活跃度大于等于 100 的乐迷数量，按歌手乐迷团活跃规模排序。</p>
+      <div class="stats">
+        <div class="stat"><strong id="stat-month">9月</strong><span>统计月份</span></div>
+        <div class="stat"><strong id="stat-count">50</strong><span>入榜歌手</span></div>
+        <div class="stat"><strong id="stat-top">--</strong><span>榜首活跃</span></div>
+      </div>
+    </section>
+
+    <section class="top-strip" id="podium"></section>
+
+    <section class="rank-panel">
+      <div id="rank-tab-bar">
+        <div id="rank-tab-slider"></div>
+        <div class="rank-tab active">乐迷团排行榜</div>
+      </div>
+      <div id="rank-panel-subtitle"> </div>
+      <div id="rank-panel-body"></div>
+    </section>
+  </main>
+
+  <details class="editor">
+    <summary>粘贴9月数据（每行：歌手名 数字）</summary>
+    <textarea id="data-input">SASIOVERLXRD 999+
+艾志恒Asen 829
+张方钊 427
+极品贵公子 285
+沙一汀EL 280
+马思唯 231
+法老 209
+MULA SAKEE 208
+Top Barry 191
+Rapeter 177
+连麻Swimming 164
+Capper 151
+KenRobb 148
+加木 146
+BOBBYNOPEACE 117
+蛋堡 116
+mac ova seas 114
+姜云升 113
+TizzyT 108
+JinJiBeWater-隼 100
+skiboyvv 98
+1CEKary艾斯凯瑞 94
+李大奔BENZO 77
+THOME 72
+Vansdaddy 71
+DD Ma Shawty 67
+MISTERK 62
+翁杰Winjay 57
+CashTrippy 55
+ljz329 50
+卦者灵风 50
+小精灵 49
+jackzebra 47
+Billionhappy 46
+Yoyi 45
+王以太 42
+KEY.L刘聪 41
+GALI 40
+罗言 40
+Diorgoflex 38
+杨和苏KeyNG 34
+XMASwu(吴骜) 34
+Alkut(Alyway) 34
+Spylent 32
+LSGCsikoriot 32
+王齐铭WatchMe 31
+周乘羽 30
+RICHNOMADIC 29
+亚细亚旷世奇才 29
+万妮达Vinida Weng 28</textarea>
+    <button id="apply-data">生成榜单</button>
+  </details>
+
+  <script>
+    const avatarMap = new Map([
+      ["SASIOVERLXRD", "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130"],
+      ["艾志恒Asen", "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130"],
+      ["张方钊", "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130"],
+      ["极品贵公子", "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130"],
+      ["沙一汀EL", "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130"],
+      ["马思唯", "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130"],
+      ["法老", "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130"],
+      ["MULA SAKEE", "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130"],
+      ["Top Barry", "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130"],
+      ["Rapeter", "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130"],
+      ["连麻Swimming", "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130"],
+      ["Capper", "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130"],
+      ["KenRobb", "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130"],
+      ["加木", "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130"],
+      ["BOBBYNOPEACE", "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130"],
+      ["蛋堡", "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130"],
+      ["mac ova seas", "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130"],
+      ["姜云升", "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130"],
+      ["TizzyT", "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130"],
+      ["JinJiBeWater-隼", "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180"],
+      ["skiboyvv", "https://p2.music.126.net/PkHabhdc8DTG5MNnk2YeNg==/109951173531184468.jpg?param=130y130"],
+      ["1CEKary艾斯凯瑞", "https://p1.music.126.net/QLdG1UlZp-UJ_ZgyGIYEtg==/109951173354476396.jpg?param=130y130"],
+      ["李大奔BENZO", "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130"],
+      ["THOME", "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130"],
+      ["Vansdaddy", "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130"],
+      ["DD Ma Shawty", "https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130"],
+      ["MISTERK", "https://p2.music.126.net/iO9_nkWMDVbqUfEy2-LcNw==/109951173777113938.jpg?param=130y130"],
+      ["翁杰Winjay", "https://p2.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130"],
+      ["CashTrippy", "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130"],
+      ["ljz329", "https://p1.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130"],
+      ["卦者灵风", "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130"],
+      ["小精灵", "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130"],
+      ["jackzebra", "https://p1.music.126.net/7vl_QO121gaeMAja-Y2CCg==/109951173362347543.jpg?param=130y130"],
+      ["Billionhappy", "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130"],
+      ["Yoyi", "https://p1.music.126.net/xBz3pWTAKhLP104mdrMq8w==/109951173902559474.jpg?param=130y130"],
+      ["王以太", "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130"],
+      ["KEY.L刘聪", "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130"],
+      ["GALI", "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130"],
+      ["罗言", "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130"],
+      ["Diorgoflex", "https://p1.music.126.net/ZpzlvD9ffMjH1s5m6T5T-w==/109951168975273804.jpg?param=130y130"],
+      ["杨和苏KeyNG", "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130"],
+      ["XMASwu(吴骜)", "https://p1.music.126.net/sXmkItrAPnmUhffo8k2-gg==/109951173623316431.jpg?param=130y130"],
+      ["Alkut(Alyway)", "https://p2.music.126.net/L9NSyTjFGvWldeCXGf5mNw==/109951174025928899.jpg?param=130y130"],
+      ["Spylent", "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130"],
+      ["LSGCsikoriot", "https://p1.music.126.net/gubm-zDHSIj4aZJwdqiNcQ==/109951171443067525.jpg?param=130y130"],
+      ["王齐铭WatchMe", "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130"],
+      ["周乘羽", "https://p1.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130"],
+      ["RICHNOMADIC", "https://p1.music.126.net/jU3qDkxdBLcgtClW26Rk4w==/109951174001499667.jpg?param=130y130"],
+      ["亚细亚旷世奇才", "https://p2.music.126.net/EAEY23oC3P1KmDHS_ECLbQ==/109951170940380855.jpg?param=130y130"],
+      ["万妮达Vinida Weng","https://p1.music.126.net/M-KcLOHL-qdjzYG7GtR8cw==/109951173127548962.jpg?param=130y130"]
+    ]);
+
+    function fallbackAvatar(name) {
+      const initial = encodeURIComponent((name || "?").slice(0, 2));
+      return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23171717'/><stop offset='1' stop-color='%23e60012'/></linearGradient></defs><rect width='130' height='130' rx='65' fill='url(%23g)'/><text x='65' y='73' text-anchor='middle' font-size='28' font-weight='900' fill='white'>${initial}</text></svg>`;
+    }
+
+    function parseLines(raw) {
+      return raw
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+          const match = line.match(/^(.+?)\s+(\d+(?:\.\d+)?\+?)\s*$/);
+          if (!match) return null;
+          const name = match[1].replace(/\*+/g, "").trim();
+          const rawVal = match[2];
+          return {
+            name,
+            val: Number(rawVal.replace("+", "")),
+            displayVal: rawVal,
+            avatar: avatarMap.get(name) || fallbackAvatar(name)
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => b.val - a.val);
+    }
+
+    function render(data) {
+      const body = document.getElementById("rank-panel-body");
+      const podium = document.getElementById("podium");
+      body.innerHTML = "";
+      podium.innerHTML = "";
+
+      document.getElementById("stat-count").textContent = "50";
+      document.getElementById("stat-top").textContent = data[0] ? (data[0].displayVal || data[0].val.toLocaleString()) : "--";
+
+      const renderRankRow = (d, rank) => {
+        const row = document.createElement("div");
+        row.className = "rank-row";
+        const noClass = rank === 1 ? "gold" : rank === 2 ? "silver" : rank === 3 ? "bronze" : "";
+        row.innerHTML = `
+          <span class="rank-no ${noClass}">${rank}</span>
+          <img class="rank-avatar" src="${d.avatar}" alt="${d.name}">
+          <span class="rank-name">${d.name}</span>
+          <span class="rank-val">${d.displayVal || d.val.toLocaleString()}</span>
+        `;
+        return row;
+      };
+
+      const leftColumn = document.createElement("div");
+      const rightColumn = document.createElement("div");
+      leftColumn.className = "rank-column";
+      rightColumn.className = "rank-column";
+
+      data.slice(10, 30).forEach((d, i) => {
+        leftColumn.appendChild(renderRankRow(d, i + 11));
+      });
+
+      data.slice(30, 50).forEach((d, i) => {
+        rightColumn.appendChild(renderRankRow(d, i + 31));
+      });
+
+      body.appendChild(leftColumn);
+      body.appendChild(rightColumn);
+
+      data.slice(0, 0).forEach((d, i) => {
+        const card = document.createElement("div");
+        card.className = "podium-card";
+        card.innerHTML = `
+          <img src="${d.avatar}" alt="${d.name}">
+          <div class="podium-rank">TOP ${i + 1}</div>
+          <div class="podium-name">${d.name}</div>
+          <div class="podium-val">${d.displayVal || d.val.toLocaleString()} 活跃乐迷</div>
+        `;
+        podium.appendChild(card);
+      });
+    }
+
+    document.getElementById("apply-data").addEventListener("click", () => {
+      render(parseLines(document.getElementById("data-input").value));
+    });
+
+    render(parseLines(document.getElementById("data-input").value));
+  </script>
+</body>
+</html>
+
+
