@@ -107,14 +107,14 @@
       white-space: nowrap;
     }
 
-    /* 第 4-10 名榜单白色大卡片：位置、宽高、圆角和阴影 */
+    /* 第 4-15 名榜单白色大卡片：位置、宽高、圆角和阴影 */
     .rank-panel {
       position: absolute;
       top: 650px;
       left: 58px;
       right: auto;
       width: 964px;
-      height: 660px;
+      height: 1148px;
       z-index: 3;
       background: var(--paper);
       backdrop-filter: blur(18px);
@@ -154,9 +154,9 @@
     .rank-row {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 12px;
       min-width: 0;
-      padding: 14px 18px;
+      padding: 17px 18px;
       border-bottom: 1px solid var(--line);
       border-radius: 11px;
     }
@@ -345,14 +345,14 @@
     <!-- 前三名卡片容器：JS 会按 TOP2 / TOP1 / TOP3 的视觉顺序插入卡片 -->
     <section class="top-strip" id="podium"></section>
 
-    <!-- 第 4-10 名榜单卡片 -->
+    <!-- 第 4-15 名榜单卡片 -->
     <section class="rank-panel">
       <!-- 保留的切换条结构：当前隐藏，未来如果要做月份切换可以复用 -->
       <div id="rank-tab-bar">
         <div id="rank-tab-slider"></div>
         <div class="rank-tab active"></div>
       </div>
-      <!-- 第 4-10 名列表容器：JS 会把每一行榜单插进这里 -->
+      <!-- 第 4-15 名列表容器：JS 会把每一行榜单插进这里 -->
       <div id="rank-panel-body"></div>
     </section>
   </main>
@@ -514,7 +514,7 @@ RICHNOMADIC 29
 
     // 把解析后的榜单数据渲染到页面。
     function render(data) {
-      // 第 4-10 名列表容器。
+      // 第 4-15 名列表容器。
       const body = document.getElementById("rank-panel-body");
       // 前三名卡片容器。
       const podium = document.getElementById("podium");
@@ -522,8 +522,8 @@ RICHNOMADIC 29
       body.innerHTML = "";
       podium.innerHTML = "";
 
-      // 渲染第 4-10 名。slice(3, 10) 表示从数组第 4 个取到第 10 个。
-      data.slice(3, 10).forEach((d, i) => {
+      // 渲染第 4-15 名。slice(3, 15) 表示从数组第 4 个取到第 15 个。
+      data.slice(3, 15).forEach((d, i) => {
         const rank = i + 4;
         const row = document.createElement("div");
         row.className = "rank-row";
