@@ -12,6 +12,8 @@
       --muted: #8f8f8f;
       --paper: rgba(255,255,255,0.96);
       --line: rgba(20,20,20,0.075);
+      --poster-red: #e60012;
+      --poster-red-dark: #b60018;
     }
 
     * { box-sizing: border-box; }
@@ -23,24 +25,22 @@
       display: grid;
       place-items: center;
       background:
-        radial-gradient(circle at 16% 18%, rgba(230,0,18,0.18), transparent 28%),
-        radial-gradient(circle at 86% 24%, rgba(0,0,0,0.10), transparent 24%),
-        linear-gradient(135deg, #f6f3ed 0%, #ebe6dc 48%, #f8f7f4 100%);
+        radial-gradient(circle at 16% 18%, rgba(255,75,55,0.35), transparent 36%),
+        linear-gradient(135deg, #ad0015 0%, #720013 100%);
       color: var(--ink);
       font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
     }
 
-    /* 9:16 海报画布：宽高、主背景、整体阴影都在这里 */
+    /* 9:16 海报画布：大红渐变背景；--poster-red 控制主色。 */
     .poster {
       width: 1080px;
       height: 1920px;
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(90deg, rgba(255,255,255,0.86), rgba(255,255,255,0.48)),
-        radial-gradient(circle at 88% 18%, rgba(230,0,18,0.18), transparent 22%),
-        radial-gradient(circle at 8% 86%, rgba(230,0,18,0.12), transparent 26%),
-        #f3efe8;
+        radial-gradient(circle at 88% 12%, rgba(255,90,65,0.45), transparent 40%),
+        radial-gradient(circle at 8% 86%, rgba(135,0,24,0.30), transparent 42%),
+        linear-gradient(155deg, #ed1428 0%, var(--poster-red) 54%, var(--poster-red-dark) 100%);
       transform-origin: center;
       box-shadow: 0 32px 90px rgba(0,0,0,0.22);
     }
@@ -51,8 +51,8 @@
       position: absolute;
       inset: -160px;
       background-image:
-        linear-gradient(rgba(230,0,18,0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(230,0,18,0.12) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
       background-size: 88px 88px;
       transform: rotate(-8deg);
       opacity: 0.28;
@@ -67,7 +67,7 @@
       right: auto;
       font-size: 18px;
       letter-spacing: 0.18em;
-      color: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.60);
       font-weight: 800;
     }
 
@@ -83,14 +83,15 @@
     /* 主标题：中文说唱 / 乐迷团月榜 */
     h1 {
       margin: 42px 0 0;
+      color: #fff;
       font-size: 80px;
       line-height: 1.1;
       letter-spacing: -0.055em;
       font-weight: 1000;
     }
 
-    /* 主标题中的红色文字 */
-    .title-red { color: var(--red); }
+    /* 保留原类名；大红背景上的标题使用白色，避免红字融入背景。 */
+    .title-red { color: #fff; }
 
     /*
       统计截止日期小字。
@@ -103,7 +104,7 @@
       font-size: 24px;
       font-weight: 900;
       letter-spacing: 0.02em;
-      color: rgba(23,23,23,0.58);
+      color: rgba(255,255,255,0.85);
       white-space: nowrap;
     }
 
@@ -446,7 +447,7 @@ Yoyi 95
 MISTERK 89
 DD Ma Shawty 87
 CashTrippy 81
-Jesse Margiela 81
+周乘羽 81
 jackzebra 80
 Vansdaddy 76
 李大奔BENZO 74
@@ -506,7 +507,7 @@ Spylent 34
       ["MISTERK","https://p2.music.126.net/iO9_nkWMDVbqUfEy2-LcNw==/109951173777113938.jpg?param=130y130"],
       ["DD Ma Shawty","https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130"],
       ["CashTrippy","https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130"],
-      ["Jesse Margiela","https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130"],
+      ["周乘羽","https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130"],
       ["jackzebra","https://p1.music.126.net/7vl_QO121gaeMAja-Y2CCg==/109951173362347543.jpg?param=130y130"],
       ["Vansdaddy","https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130"],
       ["李大奔BENZO","https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130"],
