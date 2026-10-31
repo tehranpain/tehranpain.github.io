@@ -12,6 +12,8 @@
       --muted: #8f8f8f;
       --paper: rgba(255,255,255,0.96);
       --line: rgba(20,20,20,0.075);
+      --poster-red: #e60012;
+      --poster-red-dark: #b60018;
     }
 
     * { box-sizing: border-box; }
@@ -23,24 +25,22 @@
       display: grid;
       place-items: center;
       background:
-        radial-gradient(circle at 16% 18%, rgba(230,0,18,0.18), transparent 28%),
-        radial-gradient(circle at 86% 24%, rgba(0,0,0,0.10), transparent 24%),
-        linear-gradient(135deg, #f6f3ed 0%, #ebe6dc 48%, #f8f7f4 100%);
+        radial-gradient(circle at 16% 18%, rgba(255,75,55,0.35), transparent 36%),
+        linear-gradient(135deg, #ad0015 0%, #720013 100%);
       color: var(--ink);
       font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
     }
 
-    /* 9:16 海报画布：宽高、主背景、整体阴影都在这里 */
+    /* 9:16 海报画布：大红渐变背景；--poster-red 控制主色。 */
     .poster {
       width: 1080px;
       height: 1920px;
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(90deg, rgba(255,255,255,0.86), rgba(255,255,255,0.48)),
-        radial-gradient(circle at 88% 18%, rgba(230,0,18,0.18), transparent 22%),
-        radial-gradient(circle at 8% 86%, rgba(230,0,18,0.12), transparent 26%),
-        #f3efe8;
+        radial-gradient(circle at 88% 12%, rgba(255,90,65,0.45), transparent 40%),
+        radial-gradient(circle at 8% 86%, rgba(135,0,24,0.30), transparent 42%),
+        linear-gradient(155deg, #ed1428 0%, var(--poster-red) 54%, var(--poster-red-dark) 100%);
       transform-origin: center;
       box-shadow: 0 32px 90px rgba(0,0,0,0.22);
     }
@@ -51,8 +51,8 @@
       position: absolute;
       inset: -160px;
       background-image:
-        linear-gradient(rgba(230,0,18,0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(230,0,18,0.12) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
       background-size: 88px 88px;
       transform: rotate(-8deg);
       opacity: 0.28;
@@ -67,7 +67,7 @@
       right: auto;
       font-size: 18px;
       letter-spacing: 0.18em;
-      color: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.60);
       font-weight: 800;
     }
 
