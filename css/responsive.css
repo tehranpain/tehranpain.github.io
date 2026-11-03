@@ -1,0 +1,348 @@
+/* ===== 手机端响应式适配（新增） ===== */
+@media (max-width: 480px) {
+
+  /* ---------- 地图页：手机端浮动控制 ---------- */
+  #top-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 1200;
+    display: block;
+    pointer-events: none;
+  }
+  #search-container {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    top: auto;
+    width: auto;
+    padding: 8px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: none;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    pointer-events: auto;
+  }
+  #search-input-wrap {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  #singer-search {
+    font-size: 13px;
+    padding: 11px 36px 11px 14px;
+  }
+  #search-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+  #index-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .filter-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  #search-input-wrap > .filter-btn[data-type="landmark"],
+  #search-input-wrap > .filter-btn[data-type="food"] {
+    display: none;
+  }
+
+  #mode-filter-tabs {
+    position: absolute;
+    left: 8px;
+    bottom: calc(100% + 8px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 104px;
+    padding: 5px;
+    overflow: visible;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16), inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  #mode-filter-tabs::after {
+    content: "⌄";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  #mode-filter-tabs.mobile-open::after {
+    content: "⌃";
+  }
+  #mode-filter-tabs .mode-filter-slider {
+    display: none;
+  }
+  #mode-filter-tabs .filter-btn {
+    border-left: none;
+    padding: 8px 26px 8px 12px;
+    text-align: left;
+    background: transparent;
+    box-shadow: none;
+    color: #555;
+  }
+  #mode-filter-tabs .filter-btn.active {
+    background: #e60012;
+    color: white;
+    box-shadow: none;
+  }
+  #mode-filter-tabs:not(.mobile-open) .filter-btn:not(.active) {
+    display: none;
+  }
+
+  /* action-group：手机端侧边工具栏 */
+  #action-group {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    z-index: 1300;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+  #more-options-btn,
+  #rank-btn,
+  #network-list-btn {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    gap: 0;
+    font-size: 0;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  }
+  #more-options-btn svg,
+  #rank-btn svg,
+  #network-list-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* ---------- 下拉面板全屏展开 ---------- */
+  #more-options-dropdown,
+  #rank-panel,
+  #network-list-panel {
+    top: 76px !important;
+    left: 12px !important;
+    right: auto !important;
+    width: calc(100vw - 84px) !important;
+    max-height: calc(100dvh - 168px);
+    border-radius: 16px;
+  }
+  #index-panel {
+    width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(74px + env(safe-area-inset-bottom));
+    top: auto !important;
+    max-height: 46vh;
+    border-radius: 16px;
+  }
+
+  #mobile-layer-switch {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top));
+    left: 12px;
+    z-index: 1350;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #mobile-layer-btn {
+    height: 40px;
+    min-width: 116px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(42,43,45,0.96);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.24);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  #mobile-layer-btn .mobile-layer-caret {
+    color: rgba(255,255,255,0.68);
+    font-size: 11px;
+  }
+  #mobile-layer-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 142px;
+    padding: 6px;
+    border-radius: 16px;
+    background: rgba(42,43,45,0.98);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  #mobile-layer-switch.open #mobile-layer-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #mobile-landmark-cities {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(30,31,33,0.88);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+  #mobile-layer-switch.landmark-mode #mobile-landmark-cities {
+    display: inline-flex;
+  }
+  #mobile-landmark-cities .mobile-city-track {
+    display: inline-flex;
+    gap: 6px;
+    transition: transform 0.22s ease, opacity 0.22s ease, width 0.22s ease;
+    width: 230px;
+    opacity: 1;
+    transform: translateX(0);
+    overflow: hidden;
+  }
+  #mobile-layer-switch.landmark-cities-collapsed #mobile-landmark-cities .mobile-city-track {
+    width: 0;
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  #mobile-landmark-categories {
+    display: inline-flex;
+    gap: 6px;
+    margin-left: 2px;
+  }
+  .mobile-landmark-category-btn {
+    border: none;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 760;
+    white-space: nowrap;
+  }
+  .mobile-landmark-category-btn.active {
+    background: rgba(255,255,255,0.32);
+    color: #fff;
+  }
+  .mobile-city-btn {
+    border: none;
+    min-width: 40px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.92);
+    font-size: 12px;
+    font-weight: 760;
+    white-space: nowrap;
+  }
+  .mobile-city-btn.active {
+    background: rgba(255,255,255,0.32);
+    color: #fff;
+  }
+  #mobile-city-collapse {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .mobile-layer-option {
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: rgba(255,255,255,0.86);
+    padding: 9px 10px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 750;
+  }
+  .mobile-layer-option.active {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+
+  /* ---------- 歌手卡片 ---------- */
+  .singer-card {
+    min-width: 0;
+    max-width: calc(100vw - 40px);
+  }
+
+  /* ---------- 退出关系网按鈕 ---------- */
+  #exit-network-btn {
+    bottom: calc(82px + env(safe-area-inset-bottom));
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  /* ---------- 关系网列表：3列布局 ---------- */
+  #network-list-body {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ---------- 搜索建议列表 ---------- */
+  #search-suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% + 8px);
+    max-height: 34vh;
+    margin-top: 0;
+  }
+  .suggestion-item {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  /* ---------- 地图头像图标：手机端缩小 ---------- */
+  .singer-avatar-main {
+    width: 38px;
+    height: 38px;
+    border-width: 2px;
+  }
+  .singer-marker-container {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* 超小屏（如 iPhone SE 320px）幼化处理 */
+@media (max-width: 360px) {
+  #search-container { padding: 8px 10px; }
+  .filter-btn { font-size: 10px; padding: 5px 8px; }
+  #more-options-btn, #rank-btn, #network-list-btn { width: 42px; height: 42px; padding: 0; }
+  #mobile-layer-btn { min-width: 106px; font-size: 12px; }
+}
