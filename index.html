@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>中国说唱地图</title>
+  
+  <link rel="stylesheet" href="./css/map-ui.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" href="./css/mobile-drawer.css">
+  <link rel="stylesheet" href="./css/landmarks.css">
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+  <div id="top-bar">
+    <div id="search-container">
+      <div id="mobile-sheet-handle" aria-hidden="true"></div>
+      <div id="search-input-wrap">
+<!-- 三个基础筛选按钮（缩小版）-->
+        
+
+ <div id="search-input-inner">
+  <input type="text" id="singer-search" placeholder="搜索歌手/团体">
+  <button id="search-clear-btn" title="清除">✕</button>
+</div>
+        <button id="search-btn" class="search-icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 21L16.65 16.65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button id="mobile-search-cancel" type="button">取消</button>
+        <!-- 索引按钮：纯圆形图标，无文字 -->
+        <button id="index-btn" title="索引">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="3" cy="6" r="0.5" fill="currentColor"/>
+            <circle cx="3" cy="12" r="0.5" fill="currentColor"/>
+            <circle cx="3" cy="18" r="0.5" fill="currentColor"/>
+          </svg>
+        </button>
+        <div id="mode-filter-tabs">
+          <span class="mode-filter-slider"></span>
+          <button class="filter-btn active" data-type="all">全部</button>
+          <button class="filter-btn" data-type="singer">仅歌手</button>
+          <button class="filter-btn" data-type="label">仅团体</button>
+        </div>
+        <button class="filter-btn" data-type="landmark">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>说唱地标
+        </button>
+      </div>
+      <!-- 城市快捷列表（说唱地标按钮下方展开） -->
+      <div id="landmark-city-dropdown">
+        <div class="landmark-city-panel-head">
+        <div class="landmark-city-panel-title" id="landmark-city-panel-title">探索地标</div>
+        <div class="landmark-city-panel-count" id="landmark-city-panel-count">全部点位</div>
+        </div>
+        <div class="landmark-city-panel-list">
+          <button class="city-nav-btn" data-lat="30.65" data-lng="104.06" data-zoom="13">成都</button>
+          <button class="city-nav-btn" data-lat="30.27" data-lng="120.15" data-zoom="13">杭州</button>
+          <button class="city-nav-btn" data-lat="28.22" data-lng="112.93" data-zoom="13">长沙</button>
+          <button class="city-nav-btn" data-lat="29.53" data-lng="106.50" data-zoom="13">重庆</button>
+          <button class="city-nav-btn" data-lat="31.23" data-lng="121.47" data-zoom="13">上海</button>
+        </div>
+      </div>
+      <div id="search-suggestions"></div>
+      <div id="mobile-history-section">
+        <div class="mobile-sheet-title">
+          <span>最近搜索</span>
+          <button id="mobile-history-clear" type="button">清除</button>
+        </div>
+        <div id="mobile-history-list"></div>
+      </div>
+      <button id="mobile-index-row" type="button">
+        <span>索引</span>
+        <small>歌手 / 团体</small>
+      </button>
+      <!-- 筛选 + 排行榜按鈕行（搜索框下方第二行） -->
+      <div id="action-group">
+        <button id="more-options-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="3" y1="6"  x2="21" y2="6"/>
+            <line x1="6" y1="12" x2="18" y2="12"/>
+            <line x1="9" y1="18" x2="15" y2="18"/>
+          </svg>
+          筛选
+        </button>
+        <button id="rank-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6"  y1="20" x2="6"  y2="14"/>
+          </svg>
+          排行榜
+        </button>
+        <button id="network-list-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          关系网
+        </button>
+      </div>
+    </div><!-- /#search-container -->
+
+  </div><!-- /#top-bar -->
+
+  <div id="mobile-layer-switch">
+    <button id="mobile-layer-btn" type="button" aria-expanded="false" aria-controls="mobile-layer-menu">
+      <span id="mobile-layer-label">信息资料</span>
+      <span class="mobile-layer-caret">⇌</span>
+    </button>
+    <div id="mobile-landmark-cities">
+      <div class="mobile-city-track">
+        <button class="mobile-city-btn" type="button" data-city="成都">成都</button>
+        <button class="mobile-city-btn" type="button" data-city="杭州">杭州</button>
+        <button class="mobile-city-btn" type="button" data-city="长沙">长沙</button>
+        <button class="mobile-city-btn" type="button" data-city="重庆">重庆</button>
+        <button class="mobile-city-btn" type="button" data-city="上海">上海</button>
+      </div>
+      <button id="mobile-city-collapse" type="button" aria-label="收起城市列表">>></button>
+    </div>
+    <div id="mobile-layer-menu">
+      <button class="mobile-layer-option active" type="button" data-layer="info">信息资料</button>
+      <button class="mobile-layer-option" type="button" data-layer="landmark">说唱地标</button>
+    </div>
+  </div>
+<div id="mobile-detail-sheet">
+  <div class="mobile-detail-handle"></div>
+  <div id="mobile-detail-content"></div>
+</div>
+<button id="exit-network-btn">退出关系网</button>
+
+
+<!-- 更多选项容器（仅保留 wrapper 壳，dropdown 用固定定位） -->
+<div id="more-options-wrapper"></div>
+
+<!-- 筛选下拉列表（固定定位，JS 控制位置） -->
+<div id="more-options-dropdown">
+  <label id="dots-only-option" class="dots-only-option">
+    <input id="dots-only-toggle" type="checkbox">
+    <span>全局只显示红点</span>
+  </label>
+  <div class="fan-threshold-control">
+    <div class="fan-threshold-heading">
+      <span id="fan-threshold-title">歌手粉丝门槛</span>
+      <span id="fan-threshold-value" class="fan-threshold-value">0（不限）</span>
+    </div>
+    <div id="fan-threshold-slider" role="slider" tabindex="0" aria-labelledby="fan-threshold-title" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-valuetext="0，不限" aria-orientation="horizontal">
+      <div class="fan-threshold-track"><div id="fan-threshold-fill" class="fan-threshold-fill"></div></div>
+      <div id="fan-threshold-thumb" class="fan-threshold-thumb"></div>
+    </div>
+    <div class="fan-threshold-labels" aria-hidden="true">
+      <span>0</span><span>5w</span><span>20w</span><span>50w</span><span>100w</span><span>300w+</span>
+    </div>
+  </div>
+  <div class="dropdown-category-label">综艺</div>
+  <button class="filter-btn dropdown-item" data-type="new_rap25">「新说唱2025」全国13强</button>
+  <button class="filter-btn dropdown-item" data-type="new_rap24">「新说唱2024」全国12强</button>
+  <div class="dropdown-category-label">奖项</div>
+  <button class="filter-btn dropdown-item" data-type="ronghe25">「融合嘻哈盛典2025」获奖歌手</button>
+  <button class="filter-btn dropdown-item" data-type="wangyi25">「网易云2025中文说唱音乐奖」获奖歌手</button>
+  <div class="dropdown-category-label">制作人合作</div>
+  <button class="filter-btn dropdown-item" data-type="hanson">ATM Hanson合作歌手</button>
+  <button class="filter-btn dropdown-item" data-type="ybm">YBM（Yoken&YYKBZ）合作歌手</button>
+  <button class="filter-btn dropdown-item" data-type="bb">LusciousBB合作歌手</button>
+  <button class="filter-btn dropdown-item" data-type="mai">Mai合作歌手</button>
+</div>
+
+<!-- 排行榜面板（固定定位，JS 控制位置） -->
+<div id="rank-panel">
+  <div id="rank-tab-bar">
+    <div id="rank-tab-slider"></div>
+    <div class="rank-tab active" data-tab="fan">乐迷团排行榜</div>
+    <div class="rank-tab"        data-tab="fans">粉丝数量排行榜</div>
+  </div>
+  <div id="rank-panel-subtitle">点击歌手名可定位到地图</div>
+  <div id="rank-fan-month-bar">
+    <div id="rank-fan-month-slider"></div>
+    <div class="rank-fan-month-tab active" data-month="april">4月</div>
+    <div class="rank-fan-month-tab" data-month="may">5月</div>
+  </div>
+  <div id="rank-panel-body"></div>
+</div>
+
+<div id="index-panel">
+  <!-- 新增 tab 切换栏，结构与排行榜完全一致 -->
+  <div id="index-tab-bar">
+    <div id="index-tab-slider"></div>
+    <div class="index-tab active" data-tab="singer">歌手</div>
+    <div class="index-tab"       data-tab="label">团体</div>
+  </div>
+  <div id="index-list"></div>
+</div>
+
+<!-- 关系网列表面板 -->
+<div id="network-list-panel">
+  <div id="network-list-header">选择歌手查看关系网</div>
+  <div id="network-list-body"></div>
+</div>
+
+
+
+<!-- 城市快捷列表（嵌入搜索栏，在说唱地标按钮下方展开） -->
+
+  <div id="map"></div>
+<script src="./fans-cache.js"></script>
+<script src="./data/artist-data.js"></script>
+<script src="./data/landmark-data.js"></script>
+<script src="./scripts/app.js"></script>
+</body>
+</html>
+
+
