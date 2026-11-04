@@ -65,6 +65,7 @@
   L.Map.addInitHook('addHandler', 'smoothWheelZoom', L.Map.SmoothWheelZoom);
 
     document.addEventListener('DOMContentLoaded', function() {
+ const RAP_LANDMARKS_ENABLED = document.body.dataset.rapLandmarksEnabled !== 'false';
  const isMobile = window.innerWidth <= 480;
  const map = L.map('map', {
   maxZoom: 12,
@@ -1079,6 +1080,7 @@ const LANDMARK_CATEGORY_META = {
 };
 
 function getAllLandmarkItems() {
+  if (!RAP_LANDMARKS_ENABLED) return [];
   return [
     ...rapLandmarks.map(item => ({
       ...item,
@@ -1233,6 +1235,7 @@ function positionLandmarkCityDropdown() {
 }
 
 function openLandmarkCityDropdown() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   const cityDropdown = document.getElementById('landmark-city-dropdown');
   if (!cityDropdown) return;
   if (window.innerWidth <= 480) {
@@ -1463,6 +1466,7 @@ function createCityNameMarker(cityName, center) {
 
 // 根据缩放级别渲染地标
 function renderLandmarksByZoom() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   if (!landmarkVisible) return;
   const zoom = map.getZoom();
   const activeItems = getGroupedVisibleLandmarkItems(getActiveLandmarkItems());
@@ -1484,6 +1488,7 @@ function renderLandmarksByZoom() {
 }
 
 function showLandmarks() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   activeLandmarkTheme = 'landmark';
   landmarkLayerGroup.clearLayers();
   landmarkVisible = true;
@@ -1509,6 +1514,7 @@ function hideLandmarks() {
 }
 
 function ensureLandmarkMode() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
   document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
   if (landmarkBtn) landmarkBtn.classList.add('active');
@@ -1524,6 +1530,7 @@ function ensureLandmarkMode() {
 }
 
 function launchLandmarkExplorer() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   if (typeof networkLayer !== 'undefined') {
     networkLayer.clearLayers();
   }
@@ -1568,6 +1575,7 @@ function launchLandmarkExplorer() {
 }
 
 function launchFoodExplorer() {
+  if (!RAP_LANDMARKS_ENABLED) return;
   launchLandmarkExplorer();
   setActiveLandmarkCategory('shop');
   markerClusterGroup.clearLayers();
@@ -2249,6 +2257,7 @@ function locateCity(cityObj) {
       }
 
     function locateMapPoint(pointObj) {
+      if (!RAP_LANDMARKS_ENABLED) return;
       activeLandmarkTheme = 'landmark';
       setActiveLandmarkCategory(pointObj.landmarkCategory || 'all', false);
       document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));

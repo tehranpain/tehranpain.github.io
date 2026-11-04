@@ -1,4 +1,15 @@
 /* ===== 说唱地标标注样式 ===== */
+/* 临时隐藏地标版块；将 body 的 data-rap-landmarks-enabled 改为 true 可恢复。 */
+body[data-rap-landmarks-enabled="false"] .filter-btn[data-type="landmark"],
+body[data-rap-landmarks-enabled="false"] .filter-btn[data-type="food"],
+body[data-rap-landmarks-enabled="false"] #landmark-city-dropdown,
+body[data-rap-landmarks-enabled="false"] #mobile-layer-switch,
+body[data-rap-landmarks-enabled="false"] #mobile-landmark-cities,
+body[data-rap-landmarks-enabled="false"] #cover-view-rank {
+  display: none !important;
+}
+
+
 
 /* 说唱地标按钮样式 */
 .filter-btn[data-type="landmark"] {
