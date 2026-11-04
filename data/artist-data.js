@@ -748,7 +748,7 @@ desc:"「说唱听我的第一季」冠军"
 {
   name: "UPNEVERDOWN",
   fans: "2.5万",
-  lat: 28.31, lng: 113.01,
+  lat: 26.43, lng: 111.61,
   avatar: "https://p1.music.126.net/7mSni58uNoCnAJzHa6bh6w==/109951168265422315.jpg?param=130y130",
   neteaseId: "30003901"
 },
