@@ -2,6 +2,14 @@
 window.RapMapData = (() => {
 const singers = [
   {
+    name: "Lu1",
+    aliases: ["路壹", "Lu1路壹"],
+    fans: "13.3万",
+    lat: 30.99, lng: 121.36,
+    avatar: "https://p1.music.126.net/yYvj9G0p7LwAIgpwU2wCYg==/109951168917009533.jpg?param=130y130",
+    neteaseId: "4037"
+  },
+  {
     name: "Gokevin",
     fans: "1.5万",
     lat: 22.71, lng: 113.83,
