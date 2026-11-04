@@ -2550,6 +2550,2647 @@ collaborators: [
       ];
 
 
+// Confirmed group members. Coordinates are supplied by the user; profile-only entries never become map points.
+const collectedMembers20261105 = [
+  {
+    "name": "刘炫廷",
+    "aliases": [
+      "LAST KING"
+    ],
+    "neteaseId": "12157298",
+    "fans": "23.7万",
+    "fanCount": 237029,
+    "avatar": "https://p1.music.126.net/QV0m88znchhwEPRiAIe4Xw==/109951173972906698.jpg?param=130y130",
+    "lat": 41.77,
+    "lng": 86.16,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "法老"
+      },
+      {
+        "name": "黄旭"
+      },
+      {
+        "name": "盛宇D-SHINE"
+      },
+      {
+        "name": "雾都L4WUDU"
+      },
+      {
+        "name": "新秀"
+      },
+      {
+        "name": "杨和苏KeyNG"
+      },
+      {
+        "name": "叶尔林"
+      },
+      {
+        "name": "钟欣cent3e"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "CHOCKEY有三"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "FOX胡天渝"
+      },
+      {
+        "name": "GALI"
+      },
+      {
+        "name": "Hayrul海力"
+      },
+      {
+        "name": "ICE杨长青"
+      },
+      {
+        "name": "KEY.L刘聪"
+      },
+      {
+        "name": "kxpl"
+      },
+      {
+        "name": "MC HotDog热狗"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "Swang多雷"
+      },
+      {
+        "name": "TizzyT"
+      },
+      {
+        "name": "XMASwu(吴骜)"
+      }
+    ]
+  },
+  {
+    "name": "隆历奇",
+    "aliases": [],
+    "neteaseId": "12065015",
+    "fans": "16.7万",
+    "fanCount": 167290,
+    "avatar": "https://p1.music.126.net/6LMxYMm0NtTKG4tuBU4pVA==/109951168203000632.jpg?param=130y130",
+    "lat": 39.15,
+    "lng": 117.09,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "阿拉梅"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "侃迪Kandi"
+      },
+      {
+        "name": "李毅杰PISSY"
+      },
+      {
+        "name": "龙崎"
+      },
+      {
+        "name": "马赫mood"
+      },
+      {
+        "name": "小精灵"
+      },
+      {
+        "name": "杨和苏KeyNG"
+      },
+      {
+        "name": "杨秋儒"
+      },
+      {
+        "name": "叶尔林"
+      },
+      {
+        "name": "AA"
+      },
+      {
+        "name": "AJ赖煜哲"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "FEEEleven"
+      },
+      {
+        "name": "FOX胡天渝"
+      },
+      {
+        "name": "Hayrul海力"
+      },
+      {
+        "name": "JarStick"
+      },
+      {
+        "name": "Swang多雷"
+      },
+      {
+        "name": "Wiz-H张子豪"
+      }
+    ]
+  },
+  {
+    "name": "杨秋儒",
+    "aliases": [],
+    "neteaseId": "30395569",
+    "fans": "11.0万",
+    "fanCount": 109513,
+    "avatar": "https://p1.music.126.net/CWHwao96_ZSNuU2qU_JeLw==/109951168915251633.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "阿达娃"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "侃迪Kandi"
+      },
+      {
+        "name": "李毅杰PISSY"
+      },
+      {
+        "name": "隆历奇"
+      },
+      {
+        "name": "小精灵"
+      },
+      {
+        "name": "杨和苏KeyNG"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "JarStick"
+      }
+    ]
+  },
+  {
+    "name": "谢子通",
+    "aliases": [
+      "直火帮XZT"
+    ],
+    "neteaseId": "15200968",
+    "fans": "10.6万",
+    "fanCount": 106116,
+    "avatar": "https://p1.music.126.net/hupeO9c-RpeE-mtHcP7OkQ==/109951172381324147.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "陆政廷Lil Jet"
+      },
+      {
+        "name": "王嗣尧TURBO"
+      },
+      {
+        "name": "小安迪LilAndyKillThemAll"
+      },
+      {
+        "name": "小酷Coola"
+      },
+      {
+        "name": "直火帮Chuck Zigga Jiang"
+      },
+      {
+        "name": "直火帮Feezy"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "Rapeter"
+      },
+      {
+        "name": "TangoZ"
+      },
+      {
+        "name": "Yee"
+      }
+    ]
+  },
+  {
+    "name": "SIMBA辛巴",
+    "aliases": [
+      "SIIVIBA"
+    ],
+    "neteaseId": "12085585",
+    "fans": "9.3万",
+    "fanCount": 93131,
+    "avatar": "https://p1.music.126.net/8iXS2Y503F8-7EjS3NkzoQ==/109951170613042384.jpg?param=130y130",
+    "lat": 34.35,
+    "lng": 108.83,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "高天佐"
+      },
+      {
+        "name": "鬼卞"
+      },
+      {
+        "name": "国蛋"
+      },
+      {
+        "name": "辉子"
+      },
+      {
+        "name": "梁淞Tsong"
+      },
+      {
+        "name": "林渝植Anoryz"
+      },
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "萨萨"
+      },
+      {
+        "name": "瘦恒SoulHan"
+      },
+      {
+        "name": "王以太"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "俞天时"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "直火帮Feezy"
+      },
+      {
+        "name": "BrAnTB白景屹"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "Cee"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "JarStick"
+      },
+      {
+        "name": "KEY.L刘聪"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "SeanT肖恩恩"
+      }
+    ]
+  },
+  {
+    "name": "Lil Howcy",
+    "aliases": [
+      "冷俊儒"
+    ],
+    "neteaseId": "1209050",
+    "fans": "8.8万",
+    "fanCount": 88210,
+    "avatar": "https://p1.music.126.net/jpQNzBhbdZGkCzfHgi0iiQ==/109951174000031845.jpg?param=130y130",
+    "lat": 32.14,
+    "lng": 118.64,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "八口8uck"
+      },
+      {
+        "name": "斑比Bambii"
+      },
+      {
+        "name": "大D(DLyn)"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "高天佐"
+      },
+      {
+        "name": "侃迪Kandi"
+      },
+      {
+        "name": "连麻Swimming"
+      },
+      {
+        "name": "梁淞Tsong"
+      },
+      {
+        "name": "小安迪LilAndyKillThemAll"
+      },
+      {
+        "name": "小精灵"
+      },
+      {
+        "name": "徐真真"
+      },
+      {
+        "name": "早安"
+      },
+      {
+        "name": "BustaZun"
+      },
+      {
+        "name": "Ice Paper"
+      },
+      {
+        "name": "JarStick"
+      },
+      {
+        "name": "Kc"
+      },
+      {
+        "name": "KnowKnow"
+      },
+      {
+        "name": "lil MILK"
+      },
+      {
+        "name": "Mc光光"
+      },
+      {
+        "name": "Saber梁维嘉"
+      }
+    ]
+  },
+  {
+    "name": "鱼头_killa4nia",
+    "aliases": [
+      "鱼头-killa4nia"
+    ],
+    "neteaseId": "12158158",
+    "fans": "8.7万",
+    "fanCount": 87343,
+    "avatar": "https://p1.music.126.net/cTkPGlwsNKo1K1Z-l8paJA==/109951162806632235.jpg?param=130y130",
+    "lat": 34.36,
+    "lng": 109.07,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "阿拉梅"
+      },
+      {
+        "name": "艾福杰尼"
+      },
+      {
+        "name": "艾里克"
+      },
+      {
+        "name": "艾热AIR"
+      },
+      {
+        "name": "朝三"
+      },
+      {
+        "name": "儿几"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "黄旭"
+      },
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "盛宇D-SHINE"
+      },
+      {
+        "name": "王波"
+      },
+      {
+        "name": "杨布拉德"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "AA"
+      },
+      {
+        "name": "AR刘夫阳"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "C2C"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "Ice Paper"
+      },
+      {
+        "name": "Keyso寿君超"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "Prodby玉",
+    "aliases": [],
+    "neteaseId": "12085424",
+    "fans": "8.0万",
+    "fanCount": 79699,
+    "avatar": "https://p1.music.126.net/O6DMaLGzGHkcQ98QLpKsUQ==/109951169472001986.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "那奇沃夫"
+      },
+      {
+        "name": "帕特龙"
+      },
+      {
+        "name": "杨布拉德"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "kkluv"
+      }
+    ]
+  },
+  {
+    "name": "黄硕N-Bomb",
+    "aliases": [],
+    "neteaseId": "12092260",
+    "fans": "5.9万",
+    "fanCount": 59144,
+    "avatar": "https://p1.music.126.net/QISFE0jKpVDZmnEjF1CTUw==/109951173485717676.jpg?param=130y130",
+    "lat": 39.77,
+    "lng": 116.2,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "儿几"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "金剑GOLDENSWORD"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "秃子2z"
+      },
+      {
+        "name": "王波"
+      },
+      {
+        "name": "徐骁宇DEAN K"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "张千C.Jam"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "AR刘夫阳"
+      },
+      {
+        "name": "DJ Quaver"
+      },
+      {
+        "name": "Keyso寿君超"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "Mido美朵"
+      },
+      {
+        "name": "P.O.E"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "Stinging Ray"
+      },
+      {
+        "name": "TangoZ"
+      }
+    ]
+  },
+  {
+    "name": "Dirty Twinz",
+    "aliases": [],
+    "neteaseId": "1139001",
+    "fans": "3.8万",
+    "fanCount": 37922,
+    "avatar": "https://p1.music.126.net/IjmPN-M_Mj8XHF1AoO4nAQ==/109951163067642594.jpg?param=130y130",
+    "lat": 34.25,
+    "lng": 108.75,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "早安"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "刘柄鑫",
+    "aliases": [],
+    "neteaseId": "1063109",
+    "fans": "3.7万",
+    "fanCount": 37355,
+    "avatar": "https://p1.music.126.net/0SV7mbiZdwKYQtmfuaq3gQ==/109951163063766216.jpg?param=130y130",
+    "lat": 34.17,
+    "lng": 108.97,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "等一下就回家"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "姜云升"
+      },
+      {
+        "name": "谟西Mercy"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "俞天时"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "KIGGA",
+    "aliases": [],
+    "neteaseId": "1153020",
+    "fans": "3.7万",
+    "fanCount": 37241,
+    "avatar": "https://p1.music.126.net/TeUaUDPJbxLm_R0LpVFi2g==/109951166435569368.jpg?param=130y130",
+    "lat": 49.58,
+    "lng": 117.48,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "阿拉梅"
+      },
+      {
+        "name": "艾里克"
+      },
+      {
+        "name": "艾热AIR"
+      },
+      {
+        "name": "朝三"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "功夫胖KUNGFU-PEN"
+      },
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "黄旭"
+      },
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "王波"
+      },
+      {
+        "name": "西奥Sio"
+      },
+      {
+        "name": "杨布拉德"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "AA"
+      },
+      {
+        "name": "AR刘夫阳"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "C2C"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GALI"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "Ice Paper"
+      },
+      {
+        "name": "JD"
+      },
+      {
+        "name": "Jony J"
+      },
+      {
+        "name": "KAFE-HU咖啡胡"
+      },
+      {
+        "name": "KEY.L刘聪"
+      },
+      {
+        "name": "Keyso寿君超"
+      },
+      {
+        "name": "MC脏脏"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "帕特龙",
+    "aliases": [],
+    "neteaseId": "34514656",
+    "fans": "3.6万",
+    "fanCount": 36113,
+    "avatar": "https://p1.music.126.net/7sYRWsn8kYqU02TGiabz0g==/109951172839532347.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "法老"
+      },
+      {
+        "name": "那奇沃夫"
+      },
+      {
+        "name": "BABYKUSH"
+      },
+      {
+        "name": "kkluv"
+      },
+      {
+        "name": "Laser3"
+      },
+      {
+        "name": "Prodby玉"
+      }
+    ]
+  },
+  {
+    "name": "鹤仙问鹿仙",
+    "aliases": [],
+    "neteaseId": "12078198",
+    "fans": "3.5万",
+    "fanCount": 35375,
+    "avatar": "https://p1.music.126.net/AkhItd6_jZtft4HcNk8MnA==/109951165826348119.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "法老"
+      },
+      {
+        "name": "鬼卞"
+      },
+      {
+        "name": "李毅杰PISSY"
+      },
+      {
+        "name": "陆政廷Lil Jet"
+      },
+      {
+        "name": "小精灵"
+      },
+      {
+        "name": "云别"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "Yee"
+      }
+    ]
+  },
+  {
+    "name": "AZ啊之",
+    "aliases": [
+      "AZ阿之"
+    ],
+    "neteaseId": "35946228",
+    "fans": "3.3万",
+    "fanCount": 32687,
+    "avatar": "https://p1.music.126.net/rOdkPMJtv-WrJB4jCYeq1A==/109951167254059738.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "弹壳Danko"
+      },
+      {
+        "name": "法老"
+      },
+      {
+        "name": "高天佐"
+      },
+      {
+        "name": "俞天时"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "ljz329"
+      },
+      {
+        "name": "Mc光光"
+      }
+    ]
+  },
+  {
+    "name": "直火帮Chuck Zigga Jiang",
+    "aliases": [],
+    "neteaseId": "31865263",
+    "fans": "2.9万",
+    "fanCount": 28711,
+    "avatar": "https://p1.music.126.net/i4sL2X7jKii-swMCSoeREA==/109951170527608549.jpg?param=130y130",
+    "lat": 31.1,
+    "lng": 121.23,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "龙崎"
+      },
+      {
+        "name": "陆政廷Lil Jet"
+      },
+      {
+        "name": "施鑫文月"
+      },
+      {
+        "name": "谢子通"
+      },
+      {
+        "name": "直火帮Feezy"
+      },
+      {
+        "name": "AA"
+      },
+      {
+        "name": "Spylent"
+      }
+    ]
+  },
+  {
+    "name": "周夏影",
+    "aliases": [
+      "Sino"
+    ],
+    "neteaseId": "12702147",
+    "fans": "2.2万",
+    "fanCount": 21566,
+    "avatar": "https://p1.music.126.net/UwjYsn5LD771uf7wxQtFxg==/109951172023013925.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "法老"
+      },
+      {
+        "name": "陆政廷Lil Jet"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "EINK"
+      },
+      {
+        "name": "FEEEleven"
+      },
+      {
+        "name": "JYnostop"
+      }
+    ]
+  },
+  {
+    "name": "BustaZun",
+    "aliases": [],
+    "neteaseId": "12287768",
+    "fans": "2.1万",
+    "fanCount": 21027,
+    "avatar": "https://p1.music.126.net/0RIVr-hpar1EjqUEGQTqSA==/109951172617567449.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "高天佐"
+      },
+      {
+        "name": "侃迪Kandi"
+      },
+      {
+        "name": "秃子2z"
+      },
+      {
+        "name": "早安"
+      },
+      {
+        "name": "Ice Paper"
+      },
+      {
+        "name": "Kc"
+      },
+      {
+        "name": "Lil Howcy"
+      },
+      {
+        "name": "Mc光光"
+      }
+    ]
+  },
+  {
+    "name": "Yoanko Futura",
+    "aliases": [],
+    "neteaseId": "34634523",
+    "fans": "1.8万",
+    "fanCount": 17626,
+    "avatar": "https://p1.music.126.net/kudM0KBDRfvATc1Sjal2IQ==/109951173817848931.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "陈俊岐"
+      },
+      {
+        "name": "等一下就回家"
+      },
+      {
+        "name": "鬼卞"
+      },
+      {
+        "name": "李佳隆"
+      },
+      {
+        "name": "LEGGO"
+      },
+      {
+        "name": "Sillygami"
+      }
+    ]
+  },
+  {
+    "name": "张千C.Jam",
+    "aliases": [],
+    "neteaseId": "12286477",
+    "fans": "1.5万",
+    "fanCount": 14759,
+    "avatar": "https://p1.music.126.net/w5ujyaHf5pHPW3GWcmu8iA==/109951168476110587.jpg?param=130y130",
+    "lat": 40,
+    "lng": 116.55,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "辉子"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "瘦恒SoulHan"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "AR刘夫阳"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "Cee"
+      },
+      {
+        "name": "DJ Quaver"
+      },
+      {
+        "name": "Mido美朵"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "Stinging Ray"
+      },
+      {
+        "name": "V.O.B"
+      }
+    ]
+  },
+  {
+    "name": "JYnostop",
+    "aliases": [
+      "街道的王子"
+    ],
+    "neteaseId": "12966930",
+    "fans": "1.4万",
+    "fanCount": 14435,
+    "avatar": "https://p1.music.126.net/_oTEOJ44HSTRJ8KqWVyepw==/109951172645828853.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "法老"
+      },
+      {
+        "name": "杨和苏KeyNG"
+      },
+      {
+        "name": "周夏影"
+      },
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "DANNY K"
+      },
+      {
+        "name": "EINK"
+      },
+      {
+        "name": "FEEEleven"
+      }
+    ]
+  },
+  {
+    "name": "FANVY",
+    "aliases": [],
+    "neteaseId": "12466528",
+    "fans": "1.4万",
+    "fanCount": 14161,
+    "avatar": "https://p1.music.126.net/c3T6OGweDsSU_Fqk-hejbg==/109951166785972339.jpg?param=130y130",
+    "lat": 22.59,
+    "lng": 113.97,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "5IVE5IVE"
+      },
+      {
+        "name": "88LIEN"
+      },
+      {
+        "name": "八口8uck"
+      },
+      {
+        "name": "雾都L4WUDU"
+      },
+      {
+        "name": "ANGPANG"
+      },
+      {
+        "name": "Arthurnevawakes"
+      },
+      {
+        "name": "Billionhappy"
+      },
+      {
+        "name": "CashTrippy"
+      },
+      {
+        "name": "Chalky Wong"
+      },
+      {
+        "name": "Dove鸽子"
+      },
+      {
+        "name": "FENDIGHEE RICCH"
+      },
+      {
+        "name": "HEAT J"
+      },
+      {
+        "name": "YOUNG13DBABY"
+      }
+    ]
+  },
+  {
+    "name": "Chinglish",
+    "aliases": [],
+    "neteaseId": "35950965",
+    "fans": "1.3万",
+    "fanCount": 13380,
+    "avatar": "https://p1.music.126.net/5etm8HBeOZXCq_WAF9SLQg==/109951170187207509.jpg?param=130y130",
+    "lat": 34.78,
+    "lng": 119.27,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "Hoozie"
+      },
+      {
+        "name": "Lan"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      }
+    ]
+  },
+  {
+    "name": "赵山河",
+    "aliases": [],
+    "neteaseId": "12329522",
+    "fans": "1.3万",
+    "fanCount": 13320,
+    "avatar": "https://p1.music.126.net/gvB-V7VgRBd8YrDPwbWfnw==/109951170435065334.jpg?param=130y130",
+    "lat": 40.06,
+    "lng": 116.48,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "辉子"
+      },
+      {
+        "name": "金剑GOLDENSWORD"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "秃子2z"
+      }
+    ]
+  },
+  {
+    "name": "卡力鲨鱼",
+    "aliases": [],
+    "neteaseId": "12215165",
+    "fans": "1.2万",
+    "fanCount": 12436,
+    "avatar": "https://p1.music.126.net/iHxHSw0ELeYQF6tL5yvGZw==/109951173961577850.jpg?param=130y130",
+    "lat": 34.19,
+    "lng": 108.89,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "河北吴孟达"
+      },
+      {
+        "name": "卡力老虎"
+      },
+      {
+        "name": "卡力蛇"
+      },
+      {
+        "name": "连麻Swimming"
+      },
+      {
+        "name": "张方钊"
+      },
+      {
+        "name": "Louis 1520"
+      },
+      {
+        "name": "MISTERK"
+      }
+    ]
+  },
+  {
+    "name": "张昊",
+    "aliases": [
+      "Utopia"
+    ],
+    "neteaseId": "12173444",
+    "fans": "1.2万",
+    "fanCount": 12049,
+    "avatar": "https://p1.music.126.net/1IAmzX9MjcIBok62NMcoCA==/109951170182497360.jpg?param=130y130",
+    "lat": 34.9,
+    "lng": 108.95,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "GIF7ED"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "Lan",
+    "aliases": [],
+    "neteaseId": "35022427",
+    "fans": "1.1万",
+    "fanCount": 10666,
+    "avatar": "https://p1.music.126.net/aj4u8qT3fAAFD7CM5igGoQ==/109951172808346550.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "5IVE5IVE"
+      },
+      {
+        "name": "Alyway"
+      },
+      {
+        "name": "Arthurnevawakes"
+      },
+      {
+        "name": "Chalky Wong"
+      },
+      {
+        "name": "Chinglish"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "Hoozie"
+      },
+      {
+        "name": "IsolYves"
+      },
+      {
+        "name": "Mood"
+      },
+      {
+        "name": "R!R!Riot"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "User116"
+      },
+      {
+        "name": "Yoyi"
+      }
+    ]
+  },
+  {
+    "name": "卡力蛇",
+    "aliases": [],
+    "neteaseId": "58030663",
+    "fans": "1.0万",
+    "fanCount": 10029,
+    "avatar": "https://p1.music.126.net/zzvNLy1fH9bxmZ3v62bHcQ==/109951172767587191.jpg?param=130y130",
+    "lat": 34.82,
+    "lng": 113.64,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "河北吴孟达"
+      },
+      {
+        "name": "卡力老虎"
+      },
+      {
+        "name": "卡力鲨鱼"
+      },
+      {
+        "name": "张方钊"
+      },
+      {
+        "name": "Hidoyard"
+      },
+      {
+        "name": "Louis 1520"
+      }
+    ]
+  },
+  {
+    "name": "Hoozie",
+    "aliases": [],
+    "neteaseId": "36233708",
+    "fans": "9387",
+    "fanCount": 9387,
+    "avatar": "https://p1.music.126.net/DmAqjlaXnXtJjM6EUFASzA==/109951172536036881.jpg?param=130y130",
+    "lat": 39.94,
+    "lng": 116.67,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "5IVE5IVE"
+      },
+      {
+        "name": "africakid"
+      },
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "Arthurnevawakes"
+      },
+      {
+        "name": "Chinglish"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "IsolYves"
+      },
+      {
+        "name": "Lan"
+      },
+      {
+        "name": "Mood"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      }
+    ]
+  },
+  {
+    "name": "4D",
+    "aliases": [],
+    "neteaseId": "12782624",
+    "fans": "9213",
+    "fanCount": 9213,
+    "avatar": "https://p1.music.126.net/VBXFCh5ZBisMz0a10EnLcA==/109951167836955719.jpg?param=130y130",
+    "lat": 30.17,
+    "lng": 120.18,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "黄之仪Kyra Zilver"
+      },
+      {
+        "name": "李大奔BENZO"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "LEGGO"
+      }
+    ]
+  },
+  {
+    "name": "Sillygami",
+    "aliases": [
+      "Gami"
+    ],
+    "neteaseId": "30781063",
+    "fans": "8952",
+    "fanCount": 8952,
+    "avatar": "https://p1.music.126.net/o4mZa0N1L51bPJ7U6lY7gw==/109951173480521981.jpg?param=130y130",
+    "lat": 28.32,
+    "lng": 113.01,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "陈俊岐"
+      },
+      {
+        "name": "等一下就回家"
+      },
+      {
+        "name": "李佳隆"
+      },
+      {
+        "name": "UPNEVERDOWN"
+      },
+      {
+        "name": "Yoanko Futura"
+      }
+    ]
+  },
+  {
+    "name": "CVN源仔",
+    "aliases": [
+      "Sivan Lee "
+    ],
+    "neteaseId": "46882789",
+    "fans": "8383",
+    "fanCount": 8383,
+    "avatar": "https://p1.music.126.net/NUjd43NMp9EL_WyyEQGPaw==/109951172322189973.jpg?param=130y130",
+    "lat": 32.08,
+    "lng": 108.04,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "OneOne"
+      }
+    ]
+  },
+  {
+    "name": "Yaokai",
+    "aliases": [],
+    "neteaseId": "12318443",
+    "fans": "7784",
+    "fanCount": 7784,
+    "avatar": "https://p1.music.126.net/gVIwev3GNL1OGnC5CsGYMA==/109951173892119221.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "希介"
+      },
+      {
+        "name": "africakid"
+      },
+      {
+        "name": "R!R!Riot"
+      },
+      {
+        "name": "Tlatre特雷西"
+      },
+      {
+        "name": "Toryondacloud"
+      }
+    ]
+  },
+  {
+    "name": "Laser3",
+    "aliases": [
+      "Laser 3"
+    ],
+    "neteaseId": "36336627",
+    "fans": "7332",
+    "fanCount": 7332,
+    "avatar": "https://p1.music.126.net/ipFPTMX13cmOy8Ti8JyXeQ==/109951173172348203.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "那奇沃夫"
+      },
+      {
+        "name": "帕特龙"
+      },
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "kkluv"
+      }
+    ]
+  },
+  {
+    "name": "kill bad feelings",
+    "aliases": [],
+    "neteaseId": "33796073",
+    "fans": "7249",
+    "fanCount": 7249,
+    "avatar": "https://p1.music.126.net/Jwbpze3Zvt8TZmMe9Fb3DQ==/109951171271695168.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "八口8uck"
+      },
+      {
+        "name": "布瑞吉Bridge"
+      },
+      {
+        "name": "步步高先生"
+      },
+      {
+        "name": "春"
+      },
+      {
+        "name": "刀脚"
+      },
+      {
+        "name": "贾真Jahgen"
+      },
+      {
+        "name": "刘嘉一"
+      },
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "雾都L4WUDU"
+      },
+      {
+        "name": "希介"
+      },
+      {
+        "name": "Adam Ocean"
+      },
+      {
+        "name": "Akemen杀"
+      },
+      {
+        "name": "BombWayne"
+      },
+      {
+        "name": "BroFA"
+      },
+      {
+        "name": "DiorGoFlex"
+      },
+      {
+        "name": "Haysen郑景曦"
+      },
+      {
+        "name": "Lil Asian"
+      },
+      {
+        "name": "Raelion"
+      },
+      {
+        "name": "Rich4ever"
+      },
+      {
+        "name": "Toryondacloud"
+      }
+    ]
+  },
+  {
+    "name": "金剑GOLDENSWORD",
+    "aliases": [],
+    "neteaseId": "12867397",
+    "fans": "6545",
+    "fanCount": 6545,
+    "avatar": "https://p1.music.126.net/OHoabuyJi4SlQkxUup8PCQ==/109951168716842724.jpg?param=130y130",
+    "lat": 40.06,
+    "lng": 116.33,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "辉子"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "秃子2z"
+      },
+      {
+        "name": "赵山河"
+      },
+      {
+        "name": "Saber梁维嘉"
+      }
+    ]
+  },
+  {
+    "name": "DJ Quaver",
+    "aliases": [],
+    "neteaseId": "12206277",
+    "fans": "5652",
+    "fanCount": 5652,
+    "avatar": "https://p1.music.126.net/6fdrNYrUrxlhqrpNuFC_YQ==/109951166673151884.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "张千C.Jam"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "Mido美朵"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "Stinging Ray"
+      }
+    ]
+  },
+  {
+    "name": "刘嘉一",
+    "aliases": [],
+    "neteaseId": "32638512",
+    "fans": "5340",
+    "fanCount": 5340,
+    "avatar": "https://p1.music.126.net/_Vyyh1ItY8ytqpBah8Uagg==/109951172259810539.jpg?param=130y130",
+    "lat": 29.49,
+    "lng": 106.42,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "希介"
+      },
+      {
+        "name": "BombWayne"
+      },
+      {
+        "name": "Gokevin"
+      },
+      {
+        "name": "Icy White"
+      },
+      {
+        "name": "KenRobb"
+      },
+      {
+        "name": "kill bad feelings"
+      },
+      {
+        "name": "nato"
+      },
+      {
+        "name": "THOME"
+      },
+      {
+        "name": "Toryondacloud"
+      },
+      {
+        "name": "Udigg"
+      }
+    ]
+  },
+  {
+    "name": "tonymvn!a",
+    "aliases": [],
+    "neteaseId": "49338517",
+    "fans": "4883",
+    "fanCount": 4883,
+    "avatar": "https://p1.music.126.net/i5F_E6yz7QEGs2z0VjuVAQ==/109951169005583626.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "JNOLAZY"
+      },
+      {
+        "name": "lov3chanel"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "Wade Warhol"
+      }
+    ]
+  },
+  {
+    "name": "The 100",
+    "aliases": [
+      "一百"
+    ],
+    "neteaseId": "49091724",
+    "fans": "4831",
+    "fanCount": 4831,
+    "avatar": "https://p1.music.126.net/vzqg0_z_f2fJMybrCZ6eYA==/109951171027137470.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "DD Ma Shawty"
+      },
+      {
+        "name": "KenRobb"
+      },
+      {
+        "name": "LSGCsikoriot"
+      },
+      {
+        "name": "Maikon Flocka Flame"
+      }
+    ]
+  },
+  {
+    "name": "Stinging Ray",
+    "aliases": [],
+    "neteaseId": "36455161",
+    "fans": "4807",
+    "fanCount": 4807,
+    "avatar": "https://p1.music.126.net/UQuo7l32l6c8AL-lE89hCg==/109951173498454815.jpg?param=130y130",
+    "lat": 39.91,
+    "lng": 116.57,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "张千C.Jam"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "DJ Quaver"
+      },
+      {
+        "name": "Mido美朵"
+      },
+      {
+        "name": "Saber梁维嘉"
+      }
+    ]
+  },
+  {
+    "name": "Mood",
+    "aliases": [
+      "Infin1tyMood"
+    ],
+    "neteaseId": "32720060",
+    "fans": "4543",
+    "fanCount": 4543,
+    "avatar": "https://p1.music.126.net/7LYp2JqO5rk94wHno7nd7A==/109951167814010852.jpg?param=130y130",
+    "lat": 23.13,
+    "lng": 113.15,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "Hoozie"
+      },
+      {
+        "name": "Lan"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      }
+    ]
+  },
+  {
+    "name": "Raelion",
+    "aliases": [
+      "瑞麗昂"
+    ],
+    "neteaseId": "46997329",
+    "fans": "4191",
+    "fanCount": 4191,
+    "avatar": "https://p1.music.126.net/Wqxl0Zfuedm30RacNSfRKw==/109951167876938254.jpg?param=130y130",
+    "lat": 29.63,
+    "lng": 106.48,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "布瑞吉Bridge"
+      },
+      {
+        "name": "春"
+      },
+      {
+        "name": "迪诺哥"
+      },
+      {
+        "name": "贾真Jahgen"
+      },
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "王嗣尧TURBO"
+      },
+      {
+        "name": "雾都L4WUDU"
+      },
+      {
+        "name": "Adam Ocean"
+      },
+      {
+        "name": "Akemen杀"
+      },
+      {
+        "name": "DiorGoFlex"
+      },
+      {
+        "name": "Haysen郑景曦"
+      },
+      {
+        "name": "kill bad feelings"
+      },
+      {
+        "name": "Maikon Flocka Flame"
+      },
+      {
+        "name": "OneOne"
+      },
+      {
+        "name": "Rich4ever"
+      },
+      {
+        "name": "Uzzy"
+      }
+    ]
+  },
+  {
+    "name": "中俄艾迪AIDI RUSCHINO",
+    "aliases": [],
+    "neteaseId": "12478266",
+    "fans": "3979",
+    "fanCount": 3979,
+    "avatar": "https://p1.music.126.net/GsaUN73Zk6kDzD64uQISzg==/109951172412686742.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "秃子2z"
+      },
+      {
+        "name": "王波"
+      },
+      {
+        "name": "小安迪LilAndyKillThemAll"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "张千C.Jam"
+      },
+      {
+        "name": "AR刘夫阳"
+      },
+      {
+        "name": "DJ Quaver"
+      },
+      {
+        "name": "Keyso寿君超"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "Mido美朵"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "Stinging Ray"
+      }
+    ]
+  },
+  {
+    "name": "Akiiyaki",
+    "aliases": [],
+    "neteaseId": "52403907",
+    "fans": "3682",
+    "fanCount": 3682,
+    "avatar": "https://p1.music.126.net/-JRZ4y24rAlgIME7XxzoJA==/109951173163242103.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "DAMNLIFE"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "Hoozie"
+      },
+      {
+        "name": "JNOLAZY"
+      },
+      {
+        "name": "know the vibe"
+      },
+      {
+        "name": "lov3chanel"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "tonymvn!a"
+      },
+      {
+        "name": "Wade Warhol"
+      }
+    ]
+  },
+  {
+    "name": "陈俊岐",
+    "aliases": [
+      "Astro"
+    ],
+    "neteaseId": "32934047",
+    "fans": "3460",
+    "fanCount": 3460,
+    "avatar": "https://p1.music.126.net/3O3xZzzgEijNyg9QLkzGGg==/109951172252290475.jpg?param=130y130",
+    "lat": 29.5,
+    "lng": 106.64,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "等一下就回家"
+      },
+      {
+        "name": "李佳隆"
+      },
+      {
+        "name": "Sillygami"
+      },
+      {
+        "name": "Yoanko Futura"
+      }
+    ]
+  },
+  {
+    "name": "OG ROLLY",
+    "aliases": [
+      "G女乃人妻"
+    ],
+    "neteaseId": "12493704",
+    "fans": "3400",
+    "fanCount": 3400,
+    "avatar": "https://p1.music.126.net/pDK8-dVbQE2Cp_zjOfxCFQ==/109951173513376450.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "布瑞吉Bridge"
+      },
+      {
+        "name": "吕富贵"
+      },
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "王嗣尧TURBO"
+      },
+      {
+        "name": "希介"
+      },
+      {
+        "name": "KenRobb"
+      },
+      {
+        "name": "Toryondacloud"
+      }
+    ]
+  },
+  {
+    "name": "阿波罗",
+    "aliases": [
+      "菠萝"
+    ],
+    "neteaseId": "30482627",
+    "fans": "2981",
+    "fanCount": 2981,
+    "avatar": "https://p1.music.126.net/c6Q_WCUBon_muV8EbW3W_Q==/109951174098398357.jpg?param=130y130",
+    "lat": 29.61,
+    "lng": 106.64,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "海娃"
+      },
+      {
+        "name": "OneOne"
+      }
+    ]
+  },
+  {
+    "name": "海娃",
+    "aliases": [
+      "Hiver"
+    ],
+    "neteaseId": "57782658",
+    "fans": "2925",
+    "fanCount": 2925,
+    "avatar": "https://p1.music.126.net/HE76uGDUl8W7GPJ2qIqRVg==/109951169847063163.jpg?param=130y130",
+    "lat": 29.6,
+    "lng": 106.44,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "阿波罗"
+      },
+      {
+        "name": "谟西Mercy"
+      },
+      {
+        "name": "OneOne"
+      }
+    ]
+  },
+  {
+    "name": "Mido美朵",
+    "aliases": [],
+    "neteaseId": "12476369",
+    "fans": "2479",
+    "fanCount": 2479,
+    "avatar": "https://p1.music.126.net/GxqyGj3s9s2H8rhJQiEpjQ==/109951162954089580.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "儿几"
+      },
+      {
+        "name": "黄硕N-Bomb"
+      },
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "斯威特MCSWEET"
+      },
+      {
+        "name": "张千C.Jam"
+      },
+      {
+        "name": "中俄艾迪AIDI RUSCHINO"
+      },
+      {
+        "name": "DJ Quaver"
+      },
+      {
+        "name": "Saber梁维嘉"
+      },
+      {
+        "name": "Stinging Ray"
+      }
+    ]
+  },
+  {
+    "name": "Pop J",
+    "aliases": [],
+    "neteaseId": "50746640",
+    "fans": "2404",
+    "fanCount": 2404,
+    "avatar": "https://p1.music.126.net/FwSeFKXqZUAKygN4wjZTHA==/109951170728949311.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "布瑞吉Bridge"
+      },
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "王嗣尧TURBO"
+      },
+      {
+        "name": "雾都L4WUDU"
+      },
+      {
+        "name": "希介"
+      },
+      {
+        "name": "REGI陈彦希"
+      }
+    ]
+  },
+  {
+    "name": "GIF7ED",
+    "aliases": [],
+    "neteaseId": "12373901",
+    "fans": "2290",
+    "fanCount": 2290,
+    "avatar": "https://p1.music.126.net/ycAT_NQTpCy5P9iY52Tsew==/109951170359826674.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "刘柄鑫"
+      },
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "张昊"
+      },
+      {
+        "name": "Capper"
+      },
+      {
+        "name": "CREAM D"
+      },
+      {
+        "name": "Dirty Twinz"
+      },
+      {
+        "name": "KIGGA"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "Wade Warhol",
+    "aliases": [],
+    "neteaseId": "34663387",
+    "fans": "1852",
+    "fanCount": 1852,
+    "avatar": "https://p1.music.126.net/rTIWAwFtYsK3ZjDyV447qw==/109951170979435540.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "JNOLAZY"
+      },
+      {
+        "name": "lov3chanel"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "tonymvn!a"
+      }
+    ]
+  },
+  {
+    "name": "DAMNLIFE",
+    "aliases": [],
+    "neteaseId": "56362111",
+    "fans": "1845",
+    "fanCount": 1845,
+    "avatar": "https://p1.music.126.net/WlXthywIjkn6mOe2KXrY4w==/109951174105138264.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "know the vibe"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      }
+    ]
+  },
+  {
+    "name": "马金在潇洒",
+    "aliases": [
+      "马金"
+    ],
+    "neteaseId": "28186183",
+    "fans": "1800",
+    "fanCount": 1800,
+    "avatar": "https://p1.music.126.net/ZeIX8U8QokPxpfnH7McuUw==/109951169811319062.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "李外LilWine"
+      },
+      {
+        "name": "ProN4c"
+      },
+      {
+        "name": "Toryondacloud"
+      }
+    ]
+  },
+  {
+    "name": "Icy White",
+    "aliases": [],
+    "neteaseId": "32091544",
+    "fans": "1703",
+    "fanCount": 1703,
+    "avatar": "https://p1.music.126.net/mw7dc4J0ynXVx5M41MkZOw==/109951172485439150.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "布瑞吉Bridge"
+      },
+      {
+        "name": "刘嘉一"
+      },
+      {
+        "name": "Rich4ever"
+      },
+      {
+        "name": "Toryondacloud"
+      },
+      {
+        "name": "TSP安琪"
+      },
+      {
+        "name": "YOUNG13DBABY"
+      }
+    ]
+  },
+  {
+    "name": "JNOLAZY",
+    "aliases": [],
+    "neteaseId": "35416621",
+    "fans": "1676",
+    "fanCount": 1676,
+    "avatar": "https://p1.music.126.net/aT4nj0ujwtz3y7QpYzJ6wg==/109951172304114667.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Adam Ocean"
+      },
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "lov3chanel"
+      },
+      {
+        "name": "skiboyvv"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "tonymvn!a"
+      },
+      {
+        "name": "Wade Warhol"
+      }
+    ]
+  },
+  {
+    "name": "岸林",
+    "aliases": [],
+    "neteaseId": "12117175",
+    "fans": "1662",
+    "fanCount": 1662,
+    "avatar": "https://p1.music.126.net/-DtFBbv9fgHVVRFdZg_aUQ==/109951169748432624.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Maikon Flocka Flame"
+      },
+      {
+        "name": "OneOne"
+      }
+    ]
+  },
+  {
+    "name": "DonDream",
+    "aliases": [
+      "TangKing",
+      "TK"
+    ],
+    "neteaseId": "35663102",
+    "fans": "1659",
+    "fanCount": 1659,
+    "avatar": "https://p1.music.126.net/006Q_0HDYO3xZ2hlQVsLsA==/109951169005819062.jpg?param=130y130",
+    "lat": 31.33,
+    "lng": 121.24,
+    "mapVisible": true,
+    "collaborators": [
+      {
+        "name": "颠倒"
+      },
+      {
+        "name": "孤矢"
+      },
+      {
+        "name": "土人儿TRE"
+      },
+      {
+        "name": "西凹木"
+      },
+      {
+        "name": "小酷Coola"
+      },
+      {
+        "name": "Cee"
+      },
+      {
+        "name": "DENZEL丹澤"
+      },
+      {
+        "name": "Keyso寿君超"
+      }
+    ]
+  },
+  {
+    "name": "BIG Shivy",
+    "aliases": [],
+    "neteaseId": "12491056",
+    "fans": "1568",
+    "fanCount": 1568,
+    "avatar": "https://p1.music.126.net/0WLutQNqowsX2uZhdWyOcA==/109951170612666207.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "艾志恒Asen"
+      },
+      {
+        "name": "李佳隆"
+      },
+      {
+        "name": "Maikon Flocka Flame"
+      },
+      {
+        "name": "OneOne"
+      }
+    ]
+  },
+  {
+    "name": "Yung Neo",
+    "aliases": [
+      "YUNG NEO",
+      "neO"
+    ],
+    "neteaseId": "13288489",
+    "fans": "1381",
+    "fanCount": 1381,
+    "avatar": "https://p1.music.126.net/4DBWg8kxvx4gXjNhLN1PlQ==/109951169916123276.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "希介"
+      },
+      {
+        "name": "Taco"
+      },
+      {
+        "name": "Toryondacloud"
+      }
+    ]
+  },
+  {
+    "name": "know the vibe",
+    "aliases": [
+      "Human Register"
+    ],
+    "neteaseId": "48569182",
+    "fans": "1002",
+    "fanCount": 1002,
+    "avatar": "https://p1.music.126.net/8RxMHyk1Q6xXn2Ghwr33dQ==/109951167947072447.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "collaborators": [
+      {
+        "name": "Akiiyaki"
+      },
+      {
+        "name": "DAMNLIFE"
+      },
+      {
+        "name": "skiboyvv"
+      }
+    ]
+  }
+];
+const profiles = collectedMembers20261105.filter(item => !item.mapVisible);
+singers.push(...collectedMembers20261105.filter(item => item.mapVisible));
+const relationshipArtists = [...singers, ...profiles];
+
+
 // 2026-11-05: verified same-song artist credits. Full evidence is in the local research report.
 const verifiedSongPairs20261105 = [
   ["2103","977173"],
@@ -5083,9 +7724,13 @@ const verifiedSongPairs20261105 = [
   ["55275689","59135028"],
 ];
 (function mergeVerifiedSongConnections() {
-  const byId = new Map(singers.filter(item => item.neteaseId).map(item => [String(item.neteaseId), item]));
-  const linked = new Map(singers.map(item => [item, new Set((item.collaborators || []).map(peer => peer.name))]));
-  verifiedSongPairs20261105.forEach(([leftId, rightId]) => {
+  const byId = new Map(relationshipArtists.filter(item => item.neteaseId).map(item => [String(item.neteaseId), item]));
+  const linked = new Map(relationshipArtists.map(item => [item, new Set((item.collaborators || []).map(peer => peer.name))]));
+  const byName = new Map(relationshipArtists.map(item => [item.name, item]));
+  const memberPairs = collectedMembers20261105.flatMap(item => item.collaborators.map(peer => [
+    String(item.neteaseId), String((byName.get(peer.name) || {}).neteaseId || '')
+  ]));
+  verifiedSongPairs20261105.concat(memberPairs).forEach(([leftId, rightId]) => {
     const left = byId.get(leftId);
     const right = byId.get(rightId);
     if (!left || !right || left === right) return;
@@ -5099,7 +7744,7 @@ const verifiedSongPairs20261105 = [
 })();
 
 // 在双向补全前，先标记原始数据中明确有 collaborators 的歌手
-singers.forEach(singer => {
+relationshipArtists.forEach(singer => {
   if (singer.collaborators && singer.collaborators.length > 0) {
     singer._hasOriginalCollaborators = true;
   }
@@ -5107,11 +7752,11 @@ singers.forEach(singer => {
 
 // 自动补全双向合作关系
 (function autoCompleteConnections() {
-  singers.forEach(singer => {
+  relationshipArtists.forEach(singer => {
     if (singer.collaborators) {
       singer.collaborators.forEach(collab => {
         // 找到对方的歌手对象
-        const partner = singers.find(s => s.name === collab.name);
+        const partner = relationshipArtists.find(s => s.name === collab.name);
         if (partner) {
           // 如果对方没有 collaborators 字段，先初始化它
           if (!partner.collaborators) {
@@ -5515,5 +8160,5 @@ labels.forEach(group => {
   group.members = [...new Set((group.members || []).map(name => replacements[name] || name).filter(name => String(name).trim()))];
 });
 
-  return { singers, cities, labels };
+  return { singers, cities, labels, profiles };
 })();

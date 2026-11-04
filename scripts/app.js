@@ -112,14 +112,18 @@ const networkLayer = L.layerGroup().addTo(map);
       }).addTo(map);
 
       // 3. 歌手数据
-      const { singers, cities, labels } = window.RapMapData;
+      const { singers, cities, labels, profiles = [] } = window.RapMapData;
 
 const singersWithType = singers.map(singer => ({
   ...singer,
   type: "singer"
 }));
 
-const allData = [...singersWithType, ...labels];
+const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }));
+const allData = [...singersWithType, ...profilesWithType, ...labels];
+const profileUI = window.RapArtistProfiles.create({
+  artists: [...singersWithType, ...profilesWithType], groups: labels, locate: name => locateAndAnimate(name)
+});
 
 // 粉丝数优先使用 fans-cache.js 里的定期同步结果；没有缓存时保留上方写死的兜底值。
 if (window.FANS_CACHE) {
@@ -428,6 +432,10 @@ function renderMarkers(filterType = "all") {
   
   // 1. 重置搜索列表，并立即把城市数据重新加进去
   searchNameList = [];
+  profilesWithType.forEach(item => {
+    searchNameList.push({ raw: item.name, lower: item.name.toLowerCase(), type: 'singer' });
+    (item.aliases || []).forEach(alias => searchNameList.push({ raw: item.name, lower: alias.toLowerCase(), type: 'singer', alias }));
+  });
   cities.forEach(city => {
     searchNameList.push({ 
       raw: city.name, 
@@ -451,6 +459,7 @@ function renderMarkers(filterType = "all") {
   // 2. 剩下的歌手/厂牌筛选逻辑保持不变...
   const fanThreshold = FAN_THRESHOLD_VALUES[fanThresholdIndex];
   const filtered = allData.filter(item => {
+    if (!profileUI.hasMapLocation(item)) return false;
     let matchesFilter = false;
     if (filterType === "all") {
       matchesFilter = true;
@@ -477,7 +486,7 @@ const icon = createProfileMarkerIcon(item, labelCardWidth);
         if (item.type === "label") {
           // 厂牌/组合卡片
           const membersHtml = item.members && item.members.length
-            ? item.members.join(' · ')
+            ? profileUI.memberLinks(item.members)
             : '暂无详细信息';
           popupHtml = `
             <div class="singer-card label-card" style="--label-card-width:${labelCardWidth}px;">
@@ -2279,6 +2288,11 @@ function locateCity(cityObj) {
 
 
     function locateAndAnimate(name) {
+      const person = profileUI.find(name);
+      if (person && !profileUI.hasMapLocation(person)) {
+        profileUI.open(person.name);
+        return;
+      }
       // 【修复】：检查是否处于关系网模式，如果是则先静默退出该模式（不改变视角），重置普通大地图数据
       const exitBtn = document.getElementById('exit-network-btn');
       if (exitBtn.style.display === 'block') {
@@ -2704,6 +2718,12 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 
    // 触发显示关系网
     window.showNetwork = function(centerName) {
+      const centerSinger = allData.find(s => s.name === centerName);
+      if (!centerSinger || !centerSinger.collaborators) return;
+      if (!profileUI.hasMapLocation(centerSinger)) {
+        profileUI.open(centerSinger.name);
+        return;
+      }
       // 1. 关闭现有弹窗，隐藏退出按钮，清空已有图层
       map.closePopup();
       markerClusterGroup.clearLayers(); 
@@ -2714,8 +2734,6 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       updateModeFilterSlider();
 
       // 2. 找到中心主角的数据
-      let centerSinger = allData.find(s => s.name === centerName);
-      if (!centerSinger || !centerSinger.collaborators) return;
 
       let centerLatLng = [centerSinger.lat, centerSinger.lng];
       let bounds = L.latLngBounds([centerLatLng]); 
@@ -2726,7 +2744,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       // 4. 遍历并渲染合作者与连线
       centerSinger.collaborators.forEach(collab => {
         let targetSinger = allData.find(s => s.name === collab.name);
-        if (targetSinger) {
+        if (targetSinger && profileUI.hasMapLocation(targetSinger)) {
           let targetLatLng = [targetSinger.lat, targetSinger.lng];
           
           let collabMarker = L.marker(targetLatLng, { 
