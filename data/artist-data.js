@@ -1822,6 +1822,7 @@ collaborators: [
 },
 {
   name: "法老",
+  aliases: ["鼠尾草"],
   fans: "507.3万",
   lat:30.51 , lng: 120.68,
   avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130",
