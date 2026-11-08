@@ -122,7 +122,20 @@ const singersWithType = singers.map(singer => ({
 const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }));
 const allData = [...singersWithType, ...profilesWithType, ...labels];
 const profileUI = window.RapArtistProfiles.create({
-  artists: [...singersWithType, ...profilesWithType], groups: labels, locate: name => locateAndAnimate(name)
+  artists: [...singersWithType, ...profilesWithType], groups: labels,
+  locate: name => locateAndAnimate(name, false),
+  network: name => window.showNetwork(name),
+  onOpen: () => {
+    map.closePopup();
+    ['more-options-dropdown', 'rank-panel', 'index-panel', 'network-list-panel'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+    ['more-options-btn', 'rank-btn', 'index-btn', 'network-list-btn'].forEach(id => {
+      document.getElementById(id).classList.remove('open', 'active');
+    });
+    document.getElementById('search-container').classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
+    document.getElementById('search-suggestions').style.display = 'none';
+  }
 });
 
 // 粉丝数优先使用 fans-cache.js 里的定期同步结果；没有缓存时保留上方写死的兜底值。
@@ -182,46 +195,27 @@ cities.forEach(city => {
       setTimeout(() => { if(pulseDiv && pulseDiv.remove) pulseDiv.remove(); }, 900);
     }
     
-    // 核心定位优化函数：平滑飞入 + 脉冲 + 延迟弹窗（避免生硬）
-    function smartLocateAndPopup(marker, name) {
+    // Leave space for the non-modal profile card instead of opening a second map popup.
+    function smartLocateAndPopup(marker, name, showProfile = true) {
       if (!marker) return false;
-      const targetLatLng = marker.getLatLng();
-      // 步骤1: 地图平滑飞入（带动画过渡感）使用 flyTo 而非 setView，自带缓动曲线，体验提升巨大
-      map.flyTo(targetLatLng, Math.max(map.getZoom(), 10), {
-        duration: 0.9,          // 飞行动画时长0.9秒
-        easeLinearity: 0.4,
-        animate: true
-      });
-      
-     
-
-      
-      // 步骤3: 等待飞行完成后再打开Popup，避免popup随地图飞走而显得生硬。监听 'moveend' 事件或延迟开启
-      const onMoveEnd = () => {
-        marker.openPopup();
-        map.off('moveend', onMoveEnd);
-        // 额外显示优雅提示
-        showTip(`已定位 ${name}`, false, 1800);
-      };
-      // 如果当前正在飞行，等moveend触发；如果已经到达（未触发fly），则直接弹窗
-      if (map.getCenter().distanceTo(targetLatLng) < 1000 && Math.abs(map.getZoom() - 10) < 2) {
-        // 距离很近，直接打开弹窗并脉冲
-        marker.openPopup();
-        addPulseEffect(targetLatLng);
-        showTip(`${name} 就在这里`, false, 1500);
-      } else {
-        map.once('moveend', onMoveEnd);
-        // 安全后备：如果2.5秒后moveend没触发，强行打开
-        setTimeout(() => {
-          if (marker.isPopupOpen() === false) {
-            marker.openPopup();
-            map.off('moveend', onMoveEnd);
-          }
-        }, 1200);
+      if (showProfile) profileUI.open(name);
+      map.closePopup();
+      const target = marker.getLatLng();
+      const zoom = Math.max(map.getZoom(), 10);
+      let center = target;
+      const panel = document.getElementById('artist-profile-panel');
+      if (panel && !panel.hidden) {
+        const bounds = panel.getBoundingClientRect();
+        const size = map.getSize();
+        const offset = window.innerWidth <= 600
+          ? [0, Math.min(bounds.height, size.y * .72) / 2]
+          : [-Math.min(bounds.right + 16, size.x * .6) / 2, 0];
+        center = map.unproject(map.project(target, zoom).add(offset), zoom);
       }
+      map.flyTo(center, zoom, { duration: .9, easeLinearity: .4 });
+      showTip('已定位 ' + name, false, 1800);
       return true;
     }
-    
 
 function getProfilePopupOffset(cardWidth) {
   const isMobile = window.matchMedia('(max-width: 480px)').matches;
@@ -480,116 +474,33 @@ const labelCardWidth = item.type === "label"
   : null;
 const icon = createProfileMarkerIcon(item, labelCardWidth);
         
-        const marker = L.marker([item.lat, item.lng], { icon });
+        const marker = L.marker([item.lat, item.lng], { icon, title: item.name, alt: item.name + '的资料' });
         profileMarkerRefs.push({ marker, item, labelCardWidth });
-        let popupHtml = "";
-        if (item.type === "label") {
-          // 厂牌/组合卡片
-          const membersHtml = item.members && item.members.length
-            ? profileUI.memberLinks(item.members)
-            : '暂无详细信息';
-          popupHtml = `
-            <div class="singer-card label-card" style="--label-card-width:${labelCardWidth}px;">
-              <div style="display:flex;align-items:center;">
-                <div class="singer-card-body" style="flex:1;">
-                  <div class="singer-card-name" style="color:#e60012;">${item.name}</div>
-                  <span class="singer-card-fans">团体</span>
-                </div>
-                <div class="singer-card-actions">
-                  <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="关闭">✕</button>
-                </div>
-              </div>
-              <div class="singer-card-members">
-                <div class="singer-card-members-title">成员阵容</div>
-                <div class="singer-card-members-list">${membersHtml}</div>
-              </div>
-            </div>`;
-        } else {
-          // 歌手卡片
-          const descHtml = item.desc && !["自动添加", "网易云自动补全"].includes(item.desc)
-            ? `<div class="singer-card-desc">${item.desc}</div>`
-            : '';
-          const networkBtnHtml = item._hasOriginalCollaborators
-            ? `<button class="singer-card-btn network-icon-btn" onclick="window.showNetwork('${item.name}')" title="查看关系网">
-                关系网
-              </button>`
-            : '';
-          popupHtml = `
-            <div class="singer-card">
-              <div class="singer-card-body">
-                <div class="singer-card-name">${item.name}</div>
-                <span class="singer-card-fans">粉丝 ${item.fans}</span>
-                ${descHtml}
-              </div>
-              <div class="singer-card-actions">
-                ${networkBtnHtml}
-                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${item.neteaseId}','_blank')" title="歌手页">
-                  歌手页
-                </button>
-                <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="关闭">✕</button>
-              </div>
-            </div>`;
-        }
-        marker.bindPopup(popupHtml, { autoPan: false });
-        
-        // 资料框交互：悬停显示，点击切换常驻状态
+        const preview = profileUI.preview(item);
+        marker.bindPopup(preview, { autoPan: false });
         let popupTimeout;
-        let popupPinned = false; // 是否常驻
-
-        marker.on('mouseover', function(e) {
-          if (dotsOnlyMode) return;
-          if (popupPinned) return; // 常驻状态下不重复操作
+        preview.addEventListener('mouseenter', () => clearTimeout(popupTimeout));
+        preview.addEventListener('mouseleave', () => {
+          popupTimeout = setTimeout(() => marker.closePopup(), 200);
+        });
+        marker.on('mouseover', function() {
+          if (dotsOnlyMode || profileUI.isOpen()) return;
           clearTimeout(popupTimeout);
           popupTimeout = setTimeout(() => {
-            this.openPopup();
-            // 弹窗打开后，给弹窗的 DOM 元素绑定事件，防止鼠标移入弹窗时消失
-            const popupNode = this.getPopup().getElement();
-            if (popupNode) {
-              popupNode.addEventListener('mouseenter', () => {
-                clearTimeout(popupTimeout);
-              });
-              popupNode.addEventListener('mouseleave', () => {
-                if (popupPinned) return;
-                popupTimeout = setTimeout(() => {
-                  this.closePopup();
-                }, 200);
-              });
-            }
+            if (!profileUI.isOpen()) this.openPopup();
           }, 150);
         });
-
-        marker.on('mouseout', function(e) {
-          if (dotsOnlyMode) return;
-          if (popupPinned) return; // 常驻状态下不关闭
+        marker.on('mouseout', function() {
           clearTimeout(popupTimeout);
-          popupTimeout = setTimeout(() => {
-            this.closePopup();
-          }, 200);
+          popupTimeout = setTimeout(() => this.closePopup(), 200);
         });
-
         marker.on('click', function(e) {
           L.DomEvent.stopPropagation(e);
+          clearTimeout(popupTimeout);
           if (dotsOnlyMode) return;
-          if (!this.isPopupOpen()) {
-            // 弹窗当前未开：打开并设为常驻
-            popupPinned = true;
-            clearTimeout(popupTimeout);
-            this.openPopup();
-          } else if (!popupPinned) {
-            // 弹窗已开但非常驻：设为常驻
-            popupPinned = true;
-          } else {
-            // 已常驻：再次点击则关闭
-            popupPinned = false;
-            clearTimeout(popupTimeout);
-            this.closePopup();
-          }
+          profileUI.open(item.name);
         });
-
-        // 弹窗关闭时重置常驻状态
-        marker.on('popupclose', function() {
-          popupPinned = false;
-        });
+        marker.on('remove', () => clearTimeout(popupTimeout));
 
         markerClusterGroup.addLayer(marker);
         
@@ -2093,7 +2004,13 @@ updateModeFilterSlider();
     // ----- 搜索 UI 交互 -----
     const searchInput = document.getElementById('singer-search');
     const suggestionsDiv = document.getElementById('search-suggestions');
-    const searchTipDiv = document.getElementById('search-tip');
+    const searchTipDiv = document.getElementById('search-tip') || document.createElement('div');
+    if (!searchTipDiv.id) {
+      searchTipDiv.id = 'search-tip';
+      searchTipDiv.setAttribute('role', 'status');
+      searchTipDiv.setAttribute('aria-live', 'polite');
+      document.body.appendChild(searchTipDiv);
+    }
     const searchBtn = document.getElementById('search-btn');
 
     if (mobileSheetHandle) {
@@ -2287,42 +2204,52 @@ function locateCity(cityObj) {
 
 
 
-    function locateAndAnimate(name) {
+    function locateAndAnimate(name, showProfile = true) {
       const person = profileUI.find(name);
       if (person && !profileUI.hasMapLocation(person)) {
         profileUI.open(person.name);
         return;
       }
-      // 【修复】：检查是否处于关系网模式，如果是则先静默退出该模式（不改变视角），重置普通大地图数据
       const exitBtn = document.getElementById('exit-network-btn');
       if (exitBtn.style.display === 'block') {
         exitBtn.style.display = 'none';
         networkLayer.clearLayers();
-        
-        // 恢复“全部”按钮的高亮
-        const allBtn = document.querySelector('.filter-btn[data-type="all"]');
-        if (allBtn) allBtn.classList.add('active');
-        
-        // 重新将所有普通头像渲染回大地图上
+        document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.type === 'all');
+        });
+        updateModeFilterSlider();
         renderMarkers('all');
       }
-
-      const lowerName = name.toLowerCase();
-      const markerObj = searchMarkerMap.get(lowerName);
+      const lowerName = (person ? person.name : name).toLowerCase();
+      let markerObj = searchMarkerMap.get(lowerName);
+      if (!markerObj && person && profileUI.hasMapLocation(person)) {
+        hideLandmarks();
+        document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.type === 'all');
+        });
+        fanThresholdIndex = 0;
+        updateFanThresholdControl();
+        setFanSliderPercent(0);
+        updateModeFilterSlider();
+        syncMobileControls();
+        renderMarkers('all');
+        markerObj = searchMarkerMap.get(lowerName);
+      }
       if (markerObj && markerObj.marker) {
-        smartLocateAndPopup(markerObj.marker, markerObj.rawName);
+        smartLocateAndPopup(markerObj.marker, markerObj.rawName, showProfile);
       } else {
-        showTip(`没找到 "${name}"，试试其他关键词`, true);
+        showTip('没找到 "' + name + '"，试试其他关键词', true);
       }
     }
-    
+
     // 搜索执行
    function executeSearch() {
         const keyword = searchInput.value.trim();
         if (!keyword) { showTip('输入歌手、团体或城市名称吧', false, 1200); return; }
         saveMobileHistory(keyword);
       const lowerKw = keyword.toLowerCase();
-        const exactMatch = searchNameList.find(item => isSearchItemAllowed(item) && item.lower === lowerKw);
+        const exactMatches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower === lowerKw);
+        const exactMatch = exactMatches.find(item => item.raw.toLowerCase() === lowerKw) || exactMatches[0];
       if (exactMatch) {
           suggestionsDiv.style.display = 'none';
           if (exactMatch.type === 'city') locateCity(exactMatch);
@@ -2718,6 +2645,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 
    // 触发显示关系网
     window.showNetwork = function(centerName) {
+      profileUI.close({ restoreFocus: false });
       const centerSinger = allData.find(s => s.name === centerName);
       if (!centerSinger || !centerSinger.collaborators) return;
       if (!profileUI.hasMapLocation(centerSinger)) {
@@ -2739,7 +2667,10 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       let bounds = L.latLngBounds([centerLatLng]); 
 
       // 3. 把主角渲染到新图层上
-      let centerMarker = L.marker(centerLatLng, { icon: createAvatarIcon(centerSinger), zIndexOffset: 1000 }).addTo(networkLayer);
+      let centerMarker = L.marker(centerLatLng, {
+        icon: createAvatarIcon(centerSinger), zIndexOffset: 1000, title: centerSinger.name, alt: centerSinger.name + '的资料'
+      }).addTo(networkLayer);
+      centerMarker.on('click', () => profileUI.open(centerSinger.name));
       
       // 4. 遍历并渲染合作者与连线
       centerSinger.collaborators.forEach(collab => {
@@ -2748,37 +2679,11 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
           let targetLatLng = [targetSinger.lat, targetSinger.lng];
           
           let collabMarker = L.marker(targetLatLng, { 
-              icon: createAvatarIcon(targetSinger) 
+              icon: createAvatarIcon(targetSinger), title: targetSinger.name, alt: targetSinger.name + '的资料'
           }).addTo(networkLayer);
 
-          const tDescHtml = targetSinger.desc && !["自动添加", "网易云自动补全"].includes(targetSinger.desc)
-              ? `<div class="singer-card-desc">${targetSinger.desc}</div>`
-              : '';
-          const tNetworkBtnHtml = targetSinger._hasOriginalCollaborators
-              ? `<button class="singer-card-btn network-icon-btn" onclick="window.showNetwork('${targetSinger.name}')" title="\u67e5\u770b\u5173\u7cfb\u7f51">
-                  \u5173\u7cfb\u7f51
-                </button>`
-              : '';
-          const popupContent = `
-            <div class="singer-card">
-              <div class="singer-card-body">
-                <div class="singer-card-name">${targetSinger.name}</div>
-                <span class="singer-card-fans">\u7c89\u4e1d ${targetSinger.fans}</span>
-                ${tDescHtml}
-              </div>
-              <div class="singer-card-actions">
-                ${tNetworkBtnHtml}
-                <button class="singer-card-btn netease-btn" onclick="window.open('https://music.163.com/#/artist?id=${targetSinger.neteaseId}','_blank')" title="\u6b4c\u624b\u9875">
-                  \u6b4c\u624b\u9875
-                </button>
-                <button class="singer-card-close-btn" onclick="window._map && window._map.closePopup()" title="\u5173\u95ed">\u2715</button>
-              </div>
-            </div>`;
-
-          collabMarker.bindPopup(popupContent, {
-            offset: getProfilePopupOffset(),
-            autoPan: true
-          });
+          collabMarker.bindPopup(profileUI.preview(targetSinger), { offset: getProfilePopupOffset(), autoPan: false });
+          collabMarker.on('click', () => profileUI.open(targetSinger.name));
 
           // 直接绘制红线（无动画）
           L.polyline([centerLatLng, targetLatLng], {
