@@ -7834,7 +7834,7 @@ members: ["谢帝","Ty.","Mengzi","王以太","马思唯", "KnowKnow", "Melo", "
 members: ["MC光光", "Trouble.Z", "Round-2", "Ice Paper", "Kc","Lil Howcy","Big Year","BustaZun","Joannne"]
   },
 {
-    name: "404 RAPPER(红花会)",
+    name: "404 RAPPER",
     fans: "团体",
     lat: 34.32, lng: 109.00, // 重庆坐标
     avatar: "https://p1.music.126.net/-OPbbZN4XTKpvg-jvwttfw==/109951164076924582.jpg?param=130y130",
@@ -8133,7 +8133,7 @@ const verifiedMemberNames20261105 = {
     "派克特(PACT）": "派克特",
     "鱼头-killa4nia": "鱼头_killa4nia"
   },
-  "404 RAPPER(红花会)": {
+  "404 RAPPER": {
     "AZ阿之": "AZ啊之"
   },
   "CandyShop": {
