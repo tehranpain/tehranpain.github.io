@@ -1911,7 +1911,7 @@ collaborators: [
 {
   name: "KEY.L刘聪",
   fans: "175.7万",
-  lat:26.89 , lng: 112.57,
+  lat: 29.05, lng: 111.68,
   avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130",
   neteaseId: "12788674"
 },
