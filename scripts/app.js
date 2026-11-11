@@ -127,10 +127,10 @@ const profileUI = window.RapArtistProfiles.create({
   network: name => window.showNetwork(name),
   onOpen: () => {
     map.closePopup();
-    ['more-options-dropdown', 'rank-panel', 'index-panel', 'network-list-panel'].forEach(id => {
+    ['more-options-dropdown', 'rank-panel', 'index-panel'].forEach(id => {
       document.getElementById(id).classList.remove('show');
     });
-    ['more-options-btn', 'rank-btn', 'index-btn', 'network-list-btn'].forEach(id => {
+    ['more-options-btn', 'rank-btn', 'index-btn'].forEach(id => {
       document.getElementById(id).classList.remove('open', 'active');
     });
     document.getElementById('search-container').classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
@@ -225,6 +225,52 @@ function getProfilePopupOffset(cardWidth) {
   return [x, isMobile ? 46 : 55];
 }
 
+// Hover previews close on leave; a clicked preview stays open until the map or an action is clicked.
+function bindProfilePreview(marker, item, options = {}) {
+  const preview = profileUI.preview(item);
+  marker.bindPopup(preview, { autoPan: false, ...options });
+  const popup = marker.getPopup();
+  const baseOffset = L.point(popup.options.offset);
+  let popupTimeout;
+  let pinned = false;
+  marker.on('popupopen', () => {
+    // Keep both actions reachable at map edges without panning the map on hover.
+    popup.options.offset = baseOffset;
+    popup.update();
+    const bounds = popup.getElement().getBoundingClientRect();
+    const viewport = map.getContainer().getBoundingClientRect();
+    const dx = Math.max(viewport.left + 16 - bounds.left, Math.min(0, viewport.right - 16 - bounds.right));
+    const dy = Math.max(viewport.top + 16 - bounds.top, Math.min(0, viewport.bottom - 16 - bounds.bottom));
+    if (dx || dy) {
+      popup.options.offset = baseOffset.add([dx, dy]);
+      popup.update();
+    }
+  });
+  function closeLater() {
+    clearTimeout(popupTimeout);
+    if (!pinned) popupTimeout = setTimeout(() => marker.closePopup(), 200);
+  }
+  preview.addEventListener('mouseenter', () => clearTimeout(popupTimeout));
+  preview.addEventListener('mouseleave', closeLater);
+  marker.on('mouseover', () => {
+    if (dotsOnlyMode || profileUI.isOpen()) return;
+    clearTimeout(popupTimeout);
+    popupTimeout = setTimeout(() => {
+      if (!profileUI.isOpen()) marker.openPopup();
+    }, 150);
+  });
+  marker.on('mouseout', closeLater);
+  marker.on('click', event => {
+    L.DomEvent.stopPropagation(event);
+    clearTimeout(popupTimeout);
+    if (dotsOnlyMode) { marker.closePopup(); return; }
+    profileUI.close({ restoreFocus: false });
+    pinned = true;
+    marker.openPopup();
+  });
+  marker.on('popupclose', () => { pinned = false; clearTimeout(popupTimeout); });
+  marker.on('remove', () => clearTimeout(popupTimeout));
+}
 
 
 const FAN_THRESHOLD_VALUES = [0, 50000, 200000, 500000, 1000000, 3000000];
@@ -272,7 +318,7 @@ document.getElementById('dots-only-toggle')?.addEventListener('change', event =>
 document.addEventListener('click', event => {
   if (!dotsOnlyMode || event.target.closest('#dots-only-option')) return;
   const action = event.target.closest(
-    'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .network-list-item, .index-row, .rank-tab, .index-tab, .rank-fan-month-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
+    'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .index-row, .rank-tab, .index-tab, .rank-fan-month-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
   );
   if (action) setDotsOnlyMode(false);
 }, true);
@@ -476,31 +522,7 @@ const icon = createProfileMarkerIcon(item, labelCardWidth);
         
         const marker = L.marker([item.lat, item.lng], { icon, title: item.name, alt: item.name + '的资料' });
         profileMarkerRefs.push({ marker, item, labelCardWidth });
-        const preview = profileUI.preview(item);
-        marker.bindPopup(preview, { autoPan: false });
-        let popupTimeout;
-        preview.addEventListener('mouseenter', () => clearTimeout(popupTimeout));
-        preview.addEventListener('mouseleave', () => {
-          popupTimeout = setTimeout(() => marker.closePopup(), 200);
-        });
-        marker.on('mouseover', function() {
-          if (dotsOnlyMode || profileUI.isOpen()) return;
-          clearTimeout(popupTimeout);
-          popupTimeout = setTimeout(() => {
-            if (!profileUI.isOpen()) this.openPopup();
-          }, 150);
-        });
-        marker.on('mouseout', function() {
-          clearTimeout(popupTimeout);
-          popupTimeout = setTimeout(() => this.closePopup(), 200);
-        });
-        marker.on('click', function(e) {
-          L.DomEvent.stopPropagation(e);
-          clearTimeout(popupTimeout);
-          if (dotsOnlyMode) return;
-          profileUI.open(item.name);
-        });
-        marker.on('remove', () => clearTimeout(popupTimeout));
+        bindProfilePreview(marker, item);
 
         markerClusterGroup.addLayer(marker);
         
@@ -799,75 +821,6 @@ row.innerHTML = `
   updateRankPanelSubtitle();
   updateFanMonthBarVisibility();
 
-  // ===== 关系网列表面板逻辑 =====
-  const networkListBtn = document.getElementById('network-list-btn');
-  const networkListPanel = document.getElementById('network-list-panel');
-  const networkListBody = document.getElementById('network-list-body');
-
-  function positionNetworkListPanel() {
-    const rect = networkListBtn.getBoundingClientRect();
-    const moreRect = document.getElementById('more-options-btn').getBoundingClientRect();
-    if (window.innerWidth <= 480) {
-      relocateMobilePanels();
-      clearPanelInlinePosition(networkListPanel);
-    } else {
-      networkListPanel.style.top = (rect.bottom + 6) + 'px';
-      networkListPanel.style.left = moreRect.left + 'px';
-      networkListPanel.style.right = '';
-      networkListPanel.style.width = '';
-    }
-  }
-
-  function renderNetworkList() {
-    networkListBody.innerHTML = '';
-    // 只显示原始数据中明确有 collaborators 的歌手（不包括双向补全的）
-    const networkSingers = allData.filter(item => item._hasOriginalCollaborators);
-    networkSingers.forEach(singer => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'network-list-item';
-      itemDiv.innerHTML = `
-        <img class="network-list-avatar" src="${singer.avatar}" alt="${singer.name}">
-        <div class="network-list-name">${singer.name}</div>
-      `;
-      itemDiv.addEventListener('click', () => {
-        // 保持列表展开，不关闭面板
-        window.showNetwork(singer.name);
-      });
-      networkListBody.appendChild(itemDiv);
-    });
-  }
-
-  networkListBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (window.innerWidth <= 480) openMobileSheet('network');
-    const isOpen = networkListPanel.classList.contains('show');
-    if (!isOpen || window.innerWidth <= 480) {
-      document.getElementById('more-options-dropdown').classList.remove('show');
-      document.getElementById('more-options-btn').classList.remove('active');
-      document.getElementById('index-panel').classList.remove('show');
-      document.getElementById('index-btn').classList.remove('active');
-      document.getElementById('rank-panel').classList.remove('show');
-      document.getElementById('rank-btn').classList.remove('open');
-      positionNetworkListPanel();
-      renderNetworkList();
-    }
-    if (window.innerWidth <= 480) {
-      networkListPanel.classList.add('show');
-      networkListBtn.classList.add('open');
-    } else {
-      networkListPanel.classList.toggle('show', !isOpen);
-      networkListBtn.classList.toggle('open', !isOpen);
-    }
-  });
-
-  document.addEventListener('click', function(e) {
-    if (window.innerWidth <= 480) return;
-    if (!networkListBtn.contains(e.target) && !networkListPanel.contains(e.target)) {
-      networkListPanel.classList.remove('show');
-      networkListBtn.classList.remove('open');
-    }
-  });
-
   // 切换标签逻辑
   const tabs   = document.querySelectorAll('.rank-tab');
   const slider = document.getElementById('rank-tab-slider');
@@ -928,9 +881,6 @@ row.innerHTML = `
 }
 
   rankBtn.addEventListener('click', function(e) {
-document.getElementById('network-list-panel').classList.remove('show');
-document.getElementById('network-list-btn').classList.remove('open');
-
     e.stopPropagation();
     if (window.innerWidth <= 480) openMobileSheet('rank');
     const isOpen = rankPanel.classList.contains('show');
@@ -1472,14 +1422,10 @@ function launchLandmarkExplorer() {
   const rankBtn = document.getElementById('rank-btn');
   const indexPanel = document.getElementById('index-panel');
   const indexBtn = document.getElementById('index-btn');
-  const networkPanel = document.getElementById('network-list-panel');
-  const networkBtn = document.getElementById('network-list-btn');
   if (rankPanel) rankPanel.classList.remove('show');
   if (rankBtn) rankBtn.classList.remove('open');
   if (indexPanel) indexPanel.classList.remove('show');
   if (indexBtn) indexBtn.classList.remove('active');
-  if (networkPanel) networkPanel.classList.remove('show');
-  if (networkBtn) networkBtn.classList.remove('open');
 
   markerClusterGroup.clearLayers();
   if (!landmarkVisible) {
@@ -1620,12 +1566,10 @@ setActiveLandmarkCategory('all', false);
     function relocateMobilePanels() {
       if (!isMobileLayout() || !searchContainer || !actionGroup) return;
       const rankPanel = document.getElementById('rank-panel');
-      const networkPanel = document.getElementById('network-list-panel');
       const indexPanel = document.getElementById('index-panel');
-      [moreOptionsDropdown, rankPanel, networkPanel, indexPanel].forEach(clearPanelInlinePosition);
+      [moreOptionsDropdown, rankPanel, indexPanel].forEach(clearPanelInlinePosition);
       if (moreOptionsDropdown.parentElement !== searchContainer) actionGroup.after(moreOptionsDropdown);
       if (rankPanel && rankPanel.parentElement !== searchContainer) actionGroup.after(rankPanel);
-      if (networkPanel && networkPanel.parentElement !== searchContainer) actionGroup.after(networkPanel);
       if (indexPanel && indexPanel.parentElement !== searchContainer) {
         (mobileHistorySection || actionGroup).after(indexPanel);
       }
@@ -1672,8 +1616,6 @@ setActiveLandmarkCategory('all', false);
       if (panel === 'filter') {
         document.getElementById('rank-panel').classList.remove('show');
         document.getElementById('rank-btn').classList.remove('open');
-        document.getElementById('network-list-panel').classList.remove('show');
-        document.getElementById('network-list-btn').classList.remove('open');
         document.getElementById('index-panel').classList.remove('show');
         document.getElementById('index-btn').classList.remove('active');
         if (!moreOptionsDropdown.classList.contains('show')) openDropdown();
@@ -1687,8 +1629,6 @@ setActiveLandmarkCategory('all', false);
       moreOptionsDropdown.classList.remove('show');
       document.getElementById('rank-panel').classList.remove('show');
       document.getElementById('rank-btn').classList.remove('open');
-      document.getElementById('network-list-panel').classList.remove('show');
-      document.getElementById('network-list-btn').classList.remove('open');
       closeIndexPanel();
     }
 
@@ -1866,8 +1806,6 @@ moreOptionsBtn.addEventListener('click', function(e) {
     document.getElementById('rank-btn').classList.remove('open');
     document.getElementById('index-panel').classList.remove('show');
     document.getElementById('index-btn').classList.remove('active');
-    document.getElementById('network-list-panel').classList.remove('show');
-    document.getElementById('network-list-btn').classList.remove('open');
     openDropdown();
     return;
   }
@@ -1879,8 +1817,6 @@ moreOptionsBtn.addEventListener('click', function(e) {
     document.getElementById('rank-btn').classList.remove('open');
     document.getElementById('index-panel').classList.remove('show');
     document.getElementById('index-btn').classList.remove('active');
-    document.getElementById('network-list-panel').classList.remove('show');
-    document.getElementById('network-list-btn').classList.remove('open');
     openDropdown();
   }
 });
@@ -2063,7 +1999,7 @@ updateModeFilterSlider();
         return !!target.closest(
           '#mobile-sheet-handle, #search-container:not(.mobile-searching)'
         ) && !target.closest(
-          '#more-options-dropdown, #rank-panel, #network-list-panel, #index-panel, #search-suggestions, #mobile-history-section, #search-input-wrap, button, input, textarea, .dropdown-item, .rank-row, .network-list-item, .index-row'
+          '#more-options-dropdown, #rank-panel, #index-panel, #search-suggestions, #mobile-history-section, #search-input-wrap, button, input, textarea, .dropdown-item, .rank-row, .index-row'
         );
       }
       searchContainer.addEventListener('touchstart', function(e) {
@@ -2670,7 +2606,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       let centerMarker = L.marker(centerLatLng, {
         icon: createAvatarIcon(centerSinger), zIndexOffset: 1000, title: centerSinger.name, alt: centerSinger.name + '的资料'
       }).addTo(networkLayer);
-      centerMarker.on('click', () => profileUI.open(centerSinger.name));
+      bindProfilePreview(centerMarker, centerSinger);
       
       // 4. 遍历并渲染合作者与连线
       centerSinger.collaborators.forEach(collab => {
@@ -2682,8 +2618,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
               icon: createAvatarIcon(targetSinger), title: targetSinger.name, alt: targetSinger.name + '的资料'
           }).addTo(networkLayer);
 
-          collabMarker.bindPopup(profileUI.preview(targetSinger), { offset: getProfilePopupOffset(), autoPan: false });
-          collabMarker.on('click', () => profileUI.open(targetSinger.name));
+          bindProfilePreview(collabMarker, targetSinger);
 
           // 直接绘制红线（无动画）
           L.polyline([centerLatLng, targetLatLng], {

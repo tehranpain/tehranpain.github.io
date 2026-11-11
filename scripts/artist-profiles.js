@@ -259,8 +259,34 @@
       const node = element('div', 'singer-card profile-preview');
       const body = element('div', 'singer-card-body');
       body.append(element('div', 'singer-card-name', item.name), element('span', 'singer-card-fans', item.type === 'label' ? memberNames(item).length + ' 位成员 · 团体' : '粉丝 ' + fans(item)));
+      const actions = element('div', 'singer-card-actions');
+      if (network && hasMapLocation(item) && (item.collaborators || []).length) {
+        const action = button('singer-card-btn network-icon-btn preview-network-btn', undefined, event => {
+          event.stopPropagation();
+          close({ restoreFocus: false });
+          network(item.name);
+        });
+        action.title = '查看关系网';
+        action.setAttribute('aria-label', '查看' + item.name + '的关系网');
+        const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const attributes = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'aria-hidden': 'true', focusable: 'false' };
+        Object.entries(attributes).forEach(([name, value]) => svg.setAttribute(name, value));
+        [
+          ['path', { d: 'M8.6 10.5 15.4 6.5M8.6 13.5l6.8 4' }],
+          ['circle', { cx: 18, cy: 5, r: 3 }],
+          ['circle', { cx: 6, cy: 12, r: 3 }],
+          ['circle', { cx: 18, cy: 19, r: 3 }]
+        ].forEach(([tag, attributes]) => {
+          const part = doc.createElementNS('http://www.w3.org/2000/svg', tag);
+          Object.entries(attributes).forEach(([name, value]) => part.setAttribute(name, value));
+          svg.append(part);
+        });
+        action.append(svg);
+        actions.append(action);
+      }
       const action = button('singer-card-btn', '查看资料', event => { event.stopPropagation(); open(item.name); });
-      node.append(body, action);
+      actions.append(action);
+      node.append(body, actions);
       return node;
     }
     if (doc) {

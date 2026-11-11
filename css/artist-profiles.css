@@ -77,8 +77,11 @@
 .profile-source { margin: 16px 0 0; color: #aaa29a; font-size: 10px; line-height: 1.6; }
 .profile-empty { margin: 0; color: #938a80; font-size: 12px; line-height: 1.8; }
 .artist-profile-panel :focus-visible, .member-profile-link:focus-visible { outline: 2px solid #e60012; outline-offset: 3px; }
-.profile-preview { align-items: center; gap: 16px; }
+.profile-preview { align-items: center; gap: 0; min-width: min(360px, calc(100vw - 40px)); }
 .profile-preview .singer-card-btn { border: 0; white-space: nowrap; cursor: pointer; }
+.profile-preview .preview-network-btn { width: 34px; height: 34px; padding: 0; border-radius: 50%; }
+.profile-preview .preview-network-btn svg { display: block; pointer-events: none; }
+.profile-preview .singer-card-btn:focus-visible { outline: 2px solid #e60012; outline-offset: 2px; }
 .member-profile-link { border: 0; padding: 2px 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; text-decoration-color: #ddd; text-underline-offset: 3px; cursor: pointer; }
 .member-profile-link:hover { color: #e60012; }
 @keyframes profile-enter { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }

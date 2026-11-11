@@ -113,8 +113,7 @@
     pointer-events: auto;
   }
   #more-options-btn,
-  #rank-btn,
-  #network-list-btn {
+  #rank-btn {
     width: 46px;
     height: 46px;
     padding: 0;
@@ -125,16 +124,14 @@
     box-shadow: 0 8px 22px rgba(0,0,0,0.18);
   }
   #more-options-btn svg,
-  #rank-btn svg,
-  #network-list-btn svg {
+  #rank-btn svg {
     width: 19px;
     height: 19px;
   }
 
   /* ---------- 下拉面板全屏展开 ---------- */
   #more-options-dropdown,
-  #rank-panel,
-  #network-list-panel {
+  #rank-panel {
     top: 76px !important;
     left: 12px !important;
     right: auto !important;
@@ -308,11 +305,6 @@
     font-size: 14px;
   }
 
-  /* ---------- 关系网列表：3列布局 ---------- */
-  #network-list-body {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   /* ---------- 搜索建议列表 ---------- */
   #search-suggestions {
     position: absolute;
@@ -343,6 +335,6 @@
 @media (max-width: 360px) {
   #search-container { padding: 8px 10px; }
   .filter-btn { font-size: 10px; padding: 5px 8px; }
-  #more-options-btn, #rank-btn, #network-list-btn { width: 42px; height: 42px; padding: 0; }
+  #more-options-btn, #rank-btn { width: 42px; height: 42px; padding: 0; }
   #mobile-layer-btn { min-width: 106px; font-size: 12px; }
 }
