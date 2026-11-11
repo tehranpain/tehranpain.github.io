@@ -285,9 +285,8 @@
         action.append(svg);
         actions.append(action);
       }
-      const action = button('singer-card-btn', '查看资料', event => { event.stopPropagation(); open(item.name); });
-      actions.append(action);
-      node.append(body, actions);
+      node.append(body);
+      if (actions.children.length) node.append(actions);
       return node;
     }
     if (doc) {

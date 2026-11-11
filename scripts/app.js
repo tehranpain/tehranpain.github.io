@@ -243,14 +243,13 @@ function getProfilePopupOffset(cardWidth) {
   return [x, isMobile ? 46 : 55];
 }
 
-// Hover previews close on leave; a clicked preview stays open until the map or an action is clicked.
+// Hover shows a compact preview; clicking the avatar opens its full profile directly.
 function bindProfilePreview(marker, item, options = {}) {
   const preview = profileUI.preview(item);
   marker.bindPopup(preview, { autoPan: false, ...options });
   const popup = marker.getPopup();
   const baseOffset = L.point(popup.options.offset);
   let popupTimeout;
-  let pinned = false;
   marker.on('popupopen', () => {
     // Keep both actions reachable at map edges without panning the map on hover.
     popup.options.offset = baseOffset;
@@ -266,7 +265,7 @@ function bindProfilePreview(marker, item, options = {}) {
   });
   function closeLater() {
     clearTimeout(popupTimeout);
-    if (!pinned) popupTimeout = setTimeout(() => marker.closePopup(), 200);
+    popupTimeout = setTimeout(() => marker.closePopup(), 200);
   }
   preview.addEventListener('mouseenter', () => clearTimeout(popupTimeout));
   preview.addEventListener('mouseleave', closeLater);
@@ -282,14 +281,9 @@ function bindProfilePreview(marker, item, options = {}) {
     L.DomEvent.stopPropagation(event);
     clearTimeout(popupTimeout);
     if (dotsOnlyMode) { marker.closePopup(); return; }
-    profileUI.close({ restoreFocus: false });
-    pinned = true;
-    marker.openPopup();
-    setSelectedProfileMarker(item.name);
+    profileUI.open(item.name);
   });
   marker.on('popupclose', () => {
-    if (pinned && selectedProfileName === item.name && !profileUI.isOpen()) setSelectedProfileMarker();
-    pinned = false;
     clearTimeout(popupTimeout);
   });
   marker.on('add', () => {
