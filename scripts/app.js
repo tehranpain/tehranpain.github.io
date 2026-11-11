@@ -121,12 +121,25 @@ const singersWithType = singers.map(singer => ({
 
 const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }));
 const allData = [...singersWithType, ...profilesWithType, ...labels];
+let selectedProfileName = null;
+
+function setSelectedProfileMarker(name = null) {
+  selectedProfileName = name;
+  map.getPane('markerPane').querySelectorAll('.singer-custom-marker').forEach(element => {
+    const selected = name !== null && element.title === name;
+    element.classList.toggle('is-profile-selected', selected);
+    element.setAttribute('aria-current', String(selected));
+  });
+}
+
 const profileUI = window.RapArtistProfiles.create({
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: name => window.showNetwork(name),
-  onOpen: () => {
+  onClose: () => setSelectedProfileMarker(),
+  onOpen: item => {
     map.closePopup();
+    setSelectedProfileMarker(item.name);
     ['more-options-dropdown', 'rank-panel', 'index-panel'].forEach(id => {
       document.getElementById(id).classList.remove('show');
     });
@@ -267,8 +280,16 @@ function bindProfilePreview(marker, item, options = {}) {
     profileUI.close({ restoreFocus: false });
     pinned = true;
     marker.openPopup();
+    setSelectedProfileMarker(item.name);
   });
-  marker.on('popupclose', () => { pinned = false; clearTimeout(popupTimeout); });
+  marker.on('popupclose', () => {
+    if (pinned && selectedProfileName === item.name && !profileUI.isOpen()) setSelectedProfileMarker();
+    pinned = false;
+    clearTimeout(popupTimeout);
+  });
+  marker.on('add', () => {
+    if (selectedProfileName === item.name) setSelectedProfileMarker(item.name);
+  });
   marker.on('remove', () => clearTimeout(popupTimeout));
 }
 
@@ -461,6 +482,7 @@ function updateProfileMarkerDisplay() {
   profileMarkerRefs.forEach(({ marker, item, labelCardWidth }) => {
     marker.setIcon(createProfileMarkerIcon(item, labelCardWidth, showAvatar));
   });
+  setSelectedProfileMarker(selectedProfileName);
 }
 
 // 缩放仅更新共享尺寸变量；仅圆点模式切换时才重建标记。

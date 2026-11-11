@@ -48,6 +48,20 @@ html, body {
   position: relative;
   z-index: 2;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.18s ease;
+}
+
+/* Enlarge only the selected avatar, preserving the zoom scale and Leaflet anchor. */
+.singer-custom-marker.is-profile-selected { z-index: 10000 !important; }
+.singer-custom-marker.is-profile-selected .singer-avatar-main {
+  transform: scale(1.25);
+  transform-origin: center;
+}
+.singer-custom-marker.is-profile-selected .singer-marker-container:hover {
+  transform: scale(var(--profile-avatar-scale, 1));
+}
+@media (prefers-reduced-motion: reduce) {
+  .singer-avatar-main { transition: none; }
 }
 
 .singer-avatar-main img {

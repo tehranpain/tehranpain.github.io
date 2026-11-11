@@ -4,7 +4,7 @@
       && Math.abs(item.lat) <= 90 && Math.abs(item.lng) <= 180);
   }
 
-  function create({ artists, groups, locate, network, onOpen, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
+  function create({ artists, groups, locate, network, onOpen, onClose, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
     const doc = suppliedDocument || root.document;
     const normalize = value => String(value || '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
     const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -116,6 +116,7 @@
       panel.hidden = true;
       selected = null;
       revision++;
+      if (onClose) onClose();
       if (restoreFocus && returnFocus && returnFocus.isConnected !== false && typeof returnFocus.focus === 'function') {
         returnFocus.focus({ preventScroll: true });
       }
