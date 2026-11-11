@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./css/landmarks.css">
   <link rel="stylesheet" href="./css/artist-profiles.css">
   <link rel="stylesheet" href="./css/network-scene.css">
+  <link rel="stylesheet" href="./css/mobile-navigation.css">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -32,7 +33,7 @@
   <input type="text" id="singer-search" placeholder="搜索歌手/团体">
   <button id="search-clear-btn" title="清除">✕</button>
 </div>
-        <button id="search-btn" class="search-icon-btn">
+        <button id="search-btn" class="search-icon-btn" aria-label="执行搜索">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M21 21L16.65 16.65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -111,6 +112,42 @@
     </div><!-- /#search-container -->
 
   </div><!-- /#top-bar -->
+
+  <div id="mobile-navigation-home">
+    <nav id="mobile-bottom-nav" aria-label="地图工具">
+      <span class="mobile-nav-indicator" aria-hidden="true"></span>
+      <button type="button" data-mobile-panel="search" aria-haspopup="dialog" aria-controls="mobile-control-dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>搜索</span>
+      </button>
+      <button type="button" data-mobile-panel="filter" aria-haspopup="dialog" aria-controls="mobile-control-dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 4v4m8 2v4M9 16v4" stroke-width="3"/></svg><span>筛选</span>
+      </button>
+      <button type="button" data-mobile-panel="rank" aria-haspopup="dialog" aria-controls="mobile-control-dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10h5v10m0 0V4h6v16m0 0v-7h5v7M3 20h18"/></svg><span>榜单</span>
+      </button>
+      <button type="button" data-mobile-panel="index" aria-haspopup="dialog" aria-controls="mobile-control-dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r=".8" fill="currentColor"/><circle cx="4" cy="12" r=".8" fill="currentColor"/><circle cx="4" cy="18" r=".8" fill="currentColor"/></svg><span>索引</span>
+      </button>
+    </nav>
+  </div>
+  <dialog id="mobile-control-dialog" aria-labelledby="mobile-panel-title" aria-modal="true">
+    <div class="mobile-panel-scrim" aria-hidden="true"></div>
+    <section class="mobile-panel-sheet">
+      <header class="mobile-panel-header">
+        <div class="mobile-panel-handle" aria-hidden="true"></div>
+        <div class="mobile-panel-heading"><div><span class="mobile-panel-brand">中文说唱地图</span><h2 id="mobile-panel-title">搜索</h2></div><button id="mobile-panel-close" type="button" aria-label="关闭弹窗">×</button></div>
+      </header>
+      <div id="mobile-view-search" class="mobile-panel-view" hidden>
+        <div id="mobile-search-toolbar"></div>
+        <div id="mobile-search-results"><p id="mobile-search-empty" role="status" hidden>没有找到匹配结果，试试完整艺名。</p></div>
+      </div>
+      <div id="mobile-view-filter" class="mobile-panel-view" hidden>
+        <div class="mobile-filter-heading">地图显示</div><div id="mobile-filter-mode"></div><div id="mobile-filter-options"></div>
+      </div>
+      <div id="mobile-view-rank" class="mobile-panel-view" hidden></div>
+      <div id="mobile-view-index" class="mobile-panel-view" hidden></div>
+    </section>
+  </dialog>
 
   <div id="mobile-layer-switch">
     <button id="mobile-layer-btn" type="button" aria-expanded="false" aria-controls="mobile-layer-menu">
@@ -211,6 +248,7 @@
 <script src="./data/landmark-data.js"></script>
 <script src="./scripts/artist-profiles.js"></script>
 <script src="./scripts/network-scene.js"></script>
+<script src="./scripts/mobile-navigation.js"></script>
 <script src="./scripts/app.js"></script>
 </body>
 </html>

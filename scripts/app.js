@@ -127,6 +127,7 @@ const singersWithType = singers.map(singer => ({
 const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }));
 const allData = [...singersWithType, ...profilesWithType, ...labels];
 let selectedProfileName = null;
+let mobileNavigation = null;
 
 function setSelectedProfileMarker(name = null) {
   selectedProfileName = name;
@@ -143,6 +144,7 @@ const profileUI = window.RapArtistProfiles.create({
   network: name => window.showNetwork(name),
   onClose: () => setSelectedProfileMarker(),
   onOpen: item => {
+    if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
     map.closePopup();
     setSelectedProfileMarker(item.name);
     ['more-options-dropdown', 'rank-panel', 'index-panel'].forEach(id => {
@@ -1561,7 +1563,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     requestAnimationFrame(updateModeFilterSlider);
-    window.addEventListener('resize', updateModeFilterSlider);
+    window.addEventListener('resize', () => requestAnimationFrame(updateModeFilterSlider));
 
     const mobileLayerSwitch = document.getElementById('mobile-layer-switch');
     const mobileLayerBtn = document.getElementById('mobile-layer-btn');
@@ -1585,6 +1587,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     function relocateMobilePanels() {
+      if (mobileNavigation && mobileNavigation.isEnabled()) return;
       if (!isMobileLayout() || !searchContainer || !actionGroup) return;
       const rankPanel = document.getElementById('rank-panel');
       const indexPanel = document.getElementById('index-panel');
@@ -1629,6 +1632,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     function openMobileSheet(panel = 'filter') {
+      if (mobileNavigation && mobileNavigation.isEnabled()) { mobileNavigation.open(panel); return; }
       if (!isMobileLayout() || !searchContainer) return;
       relocateMobilePanels();
       searchContainer.classList.remove('mobile-searching');
@@ -1644,6 +1648,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     function closeMobileSheet() {
+      if (mobileNavigation && mobileNavigation.isEnabled()) { mobileNavigation.close(); return; }
       if (!searchContainer) return;
       searchContainer.classList.remove('mobile-expanded', 'mobile-searching');
       searchContainer.classList.remove('mobile-mode-open');
@@ -1654,6 +1659,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     function openMobileSearch() {
+      if (mobileNavigation && mobileNavigation.isEnabled()) { mobileNavigation.open('search'); return; }
       if (!isMobileLayout() || !searchContainer) return;
       relocateMobilePanels();
       searchContainer.classList.remove('mobile-expanded');
@@ -1778,6 +1784,7 @@ setActiveLandmarkCategory('all', false);
     });
 
     modeFilterTabs.addEventListener('click', function(e) {
+      if (mobileNavigation && mobileNavigation.isEnabled()) return;
       if (!isMobileLayout()) return;
       const targetBtn = e.target.closest('.filter-btn[data-type]');
       if (!targetBtn || !modeFilterTabs.contains(targetBtn)) return;
@@ -2049,6 +2056,9 @@ updateModeFilterSlider();
     let tipTimeout = null;
     function showTip(msg, isError = false, duration = 2000) {
       if (tipTimeout) clearTimeout(tipTimeout);
+      const tipHost = mobileNavigation && mobileNavigation.isOpen()
+        ? document.getElementById('mobile-control-dialog') : document.body;
+      tipHost.append(searchTipDiv);
       searchTipDiv.textContent = msg;
       searchTipDiv.style.display = 'block';
       searchTipDiv.style.background = isError ? 'rgba(220,53,69,0.9)' : 'rgba(0,0,0,0.75)';
@@ -2133,6 +2143,7 @@ updateModeFilterSlider();
     }
     
 function locateCity(cityObj) {
+        if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
         // 飞行到该城市并增加轻微的缩放展示
         map.flyTo([cityObj.lat, cityObj.lng], 10, { duration: 1.2, easeLinearity: 0.3 });
         showTip(`已前往城市：${cityObj.raw}`, false, 2000);
@@ -2141,6 +2152,7 @@ function locateCity(cityObj) {
 
     function locateMapPoint(pointObj) {
       if (!RAP_LANDMARKS_ENABLED) return;
+      if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       activeLandmarkTheme = 'landmark';
       setActiveLandmarkCategory(pointObj.landmarkCategory || 'all', false);
       document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
@@ -2163,6 +2175,7 @@ function locateCity(cityObj) {
 
     function locateAndAnimate(name, showProfile = true) {
       const person = profileUI.find(name);
+      if (person && mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       if (person && !profileUI.hasMapLocation(person)) {
         profileUI.open(person.name);
         return;
@@ -2252,6 +2265,7 @@ function locateCity(cityObj) {
       }
     });
     document.addEventListener('click', (e) => {
+      if (mobileNavigation && mobileNavigation.contains(e.target)) return;
       if (!document.getElementById('search-container').contains(e.target)) {
         suggestionsDiv.style.display = 'none';
       }
@@ -2594,6 +2608,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
     window.showNetwork = function(centerName) {
       const centerSinger = profileUI.find(centerName);
       if (!centerSinger || !centerSinger.collaborators) return;
+      if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       if (!profileUI.hasMapLocation(centerSinger)) {
         profileUI.open(centerSinger.name);
         return;
@@ -2633,4 +2648,42 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       renderMarkers(activeType);
       
           });
+
+    // Reuse the original controls, so mobile popups and desktop menus share state.
+    if (window.RapMobileNavigation) {
+      const dismissMobilePanels = () => {
+        moreOptionsDropdown.classList.remove('show');
+        document.getElementById('rank-panel').classList.remove('show');
+        document.getElementById('rank-btn').classList.remove('open');
+        closeIndexPanel();
+      };
+      mobileNavigation = window.RapMobileNavigation.create({
+        beforeOpen: () => {
+          profileUI.close({ restoreFocus: false });
+          map.closePopup();
+          closeMobileLayerMenu();
+        },
+        onActivate: key => {
+          searchContainer.classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
+          modeFilterTabs.classList.remove('mobile-open');
+          dismissMobilePanels();
+          if (key === 'search') {
+            renderMobileHistory();
+            updateSuggestions(searchInput.value);
+            updateClearBtn();
+          } else if (key === 'filter') {
+            moreOptionsDropdown.classList.add('show');
+            requestAnimationFrame(updateModeFilterSlider);
+          } else if (key === 'rank') {
+            document.getElementById('rank-panel').classList.add('show');
+            document.getElementById('rank-btn').classList.add('open');
+          } else if (key === 'index') openIndexPanel();
+        },
+        onClose: () => {
+          dismissMobilePanels();
+          suggestionsDiv.style.display = 'none';
+          document.body.append(searchTipDiv);
+        }
+      });
+    }
   }); // 对应开头的 DOMContentLoaded 监听
