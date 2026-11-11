@@ -101,6 +101,11 @@ updateProfileAvatarScale();
 
 
 const networkLayer = L.layerGroup().addTo(map);
+let networkScene = null;
+function clearNetworkScene() {
+  if (networkScene) networkScene.clear();
+  else networkLayer.clearLayers();
+}
 
 
       //高德地图瓦片
@@ -317,7 +322,7 @@ function setDotsOnlyMode(enabled) {
   if (dotsOnlyMode) {
     map.closePopup();
     profileMarkerRefs.forEach(({ marker }) => marker.closePopup());
-    if (typeof networkLayer !== 'undefined') networkLayer.clearLayers();
+    clearNetworkScene();
     const exitNetworkButton = document.getElementById('exit-network-btn');
     if (exitNetworkButton) exitNetworkButton.style.display = 'none';
     if (typeof currentOpenPopupEl !== 'undefined' && currentOpenPopupEl) {
@@ -1424,7 +1429,7 @@ function ensureLandmarkMode() {
 function launchLandmarkExplorer() {
   if (!RAP_LANDMARKS_ENABLED) return;
   if (typeof networkLayer !== 'undefined') {
-    networkLayer.clearLayers();
+    clearNetworkScene();
   }
   const exitBtn = document.getElementById('exit-network-btn');
   if (exitBtn) exitBtn.style.display = 'none';
@@ -1861,7 +1866,7 @@ moreOptionsBtn.addEventListener('click', function(e) {
     document.querySelectorAll(".filter-btn[data-type]").forEach(btn => {
       btn.addEventListener("click", function() {
         if (typeof networkLayer !== 'undefined') {
-          networkLayer.clearLayers();
+          clearNetworkScene();
         }
         const exitBtn = document.getElementById('exit-network-btn');
         if (exitBtn) exitBtn.style.display = 'none';
@@ -2169,9 +2174,9 @@ function locateCity(cityObj) {
         return;
       }
       const exitBtn = document.getElementById('exit-network-btn');
-      if (exitBtn.style.display === 'block') {
+      if (networkScene && networkScene.isActive()) {
         exitBtn.style.display = 'none';
-        networkLayer.clearLayers();
+        clearNetworkScene();
         document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
           btn.classList.toggle('active', btn.dataset.type === 'all');
         });
@@ -2585,86 +2590,29 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 
 // ===== 关系网模式核心逻辑 =====
     
-    // 生成单个头像Marker的复用工具函数
-    function createAvatarIcon(item) {
-      return L.divIcon({
-        className: 'singer-custom-marker',
-        html: `
-          <div class="singer-marker-container">
-            <div class="singer-avatar-main">
-              <img src="${item.avatar}">
-            </div>
-          </div>
-        `,
-        iconSize: [50, 50],
-        iconAnchor: [25, 25]
-      });
-    }
+    networkScene = window.RapNetworkScene.create({
+      map, layer: networkLayer, resolve: name => profileUI.find(name),
+      hasLocation: profileUI.hasMapLocation, bindPreview: bindProfilePreview,
+      exitButton: document.getElementById('exit-network-btn')
+    });
 
    // 触发显示关系网
     window.showNetwork = function(centerName) {
-      profileUI.close({ restoreFocus: false });
-      const centerSinger = allData.find(s => s.name === centerName);
+      const centerSinger = profileUI.find(centerName);
       if (!centerSinger || !centerSinger.collaborators) return;
       if (!profileUI.hasMapLocation(centerSinger)) {
         profileUI.open(centerSinger.name);
         return;
       }
-      // 1. 关闭现有弹窗，隐藏退出按钮，清空已有图层
+      profileUI.close({ restoreFocus: false });
       map.closePopup();
       markerClusterGroup.clearLayers(); 
-      networkLayer.clearLayers();
 
       // 【修复】：清除所有筛选按钮的激活状态（红底）
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
       updateModeFilterSlider();
 
-      // 2. 找到中心主角的数据
-
-      let centerLatLng = [centerSinger.lat, centerSinger.lng];
-      let bounds = L.latLngBounds([centerLatLng]); 
-
-      // 3. 把主角渲染到新图层上
-      let centerMarker = L.marker(centerLatLng, {
-        icon: createAvatarIcon(centerSinger), zIndexOffset: 1000, title: centerSinger.name, alt: centerSinger.name + '的资料'
-      }).addTo(networkLayer);
-      bindProfilePreview(centerMarker, centerSinger);
-      
-      // 4. 遍历并渲染合作者与连线
-      centerSinger.collaborators.forEach(collab => {
-        let targetSinger = allData.find(s => s.name === collab.name);
-        if (targetSinger && profileUI.hasMapLocation(targetSinger)) {
-          let targetLatLng = [targetSinger.lat, targetSinger.lng];
-          
-          let collabMarker = L.marker(targetLatLng, { 
-              icon: createAvatarIcon(targetSinger), title: targetSinger.name, alt: targetSinger.name + '的资料'
-          }).addTo(networkLayer);
-
-          bindProfilePreview(collabMarker, targetSinger);
-
-          // 直接绘制红线（无动画）
-          L.polyline([centerLatLng, targetLatLng], {
-            color: '#e60012',
-            weight: 2,
-            opacity: 0.85,
-            lineCap: 'round',
-            lineJoin: 'round'
-          }).addTo(networkLayer);
-
-          bounds.extend(targetLatLng);
-        }
-      });
-
-      // 以中心人物为原点，平滑飞入到全国视野（zoom=5）
-      map.flyTo(centerLatLng, 5.5, {
-        animate: true,
-        duration: 0.55,
-        easeLinearity: 0.55
-      });
-
-
-      // 6. 显示底部的退出按钮
-      document.getElementById('exit-network-btn').style.display = 'block';
+      networkScene.show(centerSinger);
     };
 
 // 退出关系网的交互
@@ -2673,7 +2621,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       this.style.display = 'none';
       
       // 2. 清空关系网专用的线和点
-      networkLayer.clearLayers();
+      clearNetworkScene();
       
       // 2.5 隐藏说唱地标
       if (typeof hideLandmarks === 'function') hideLandmarks();
