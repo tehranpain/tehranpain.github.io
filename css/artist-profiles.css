@@ -26,7 +26,7 @@
 .artist-profile-panel button, .artist-profile-panel a { font: inherit; -webkit-tap-highlight-color: transparent; }
 .profile-toolbar { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; padding: 15px 19px 11px; }
 .profile-toolbar-label { color: #938a80; font-size: 12px; letter-spacing: 1px; }
-.profile-close { border: 0; border-radius: 999px; background: #eeeae4; color: #655e56; font-size: 12px !important; padding: 7px 13px; cursor: pointer; }
+.profile-close { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: #eeeae4; color: #655e56; font-size: 24px !important; line-height: 1; padding: 0; cursor: pointer; }
 .profile-close:hover { background: #e8e1d9; color: #191919; }
 .profile-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding: 0 13px 14px; scrollbar-width: thin; scrollbar-color: #d8d0c6 transparent; }
 .profile-hero { position: relative; text-align: center; padding: 25px 19px 22px; background: #fff; border-radius: 23px; }

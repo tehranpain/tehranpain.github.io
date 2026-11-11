@@ -104,7 +104,7 @@
       panel.setAttribute('aria-labelledby', 'artist-profile-title');
       const toolbar = element('div', 'profile-toolbar');
       toolbar.append(element('span', 'profile-toolbar-label', '资料卡片'));
-      closeButton = button('profile-close', '关闭', () => close());
+      closeButton = button('profile-close', '×', () => close());
       closeButton.setAttribute('aria-label', '关闭资料卡片');
       toolbar.append(closeButton);
       scroller = element('div', 'profile-scroll');
