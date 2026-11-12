@@ -6,6 +6,318 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "1044021": {
+      "songs": [
+        {
+          "id": "1365893257",
+          "name": "五千块 feat. 春艳",
+          "artists": "Leo王 / 春艳"
+        },
+        {
+          "id": "1985421540",
+          "name": "小石头",
+          "artists": "春艳"
+        },
+        {
+          "id": "29829241",
+          "name": "化学男子的诞生",
+          "artists": "春艳"
+        }
+      ],
+      "biography": "饶舌创作者，早期参加过DISS-RBL比赛。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=1044021"
+    },
+    "1156003": {
+      "songs": [
+        {
+          "id": "2749783752",
+          "name": "NEVERMIND",
+          "artists": "Gummy B / 鹤 The Crane / 熊仔"
+        },
+        {
+          "id": "525565542",
+          "name": "关你屁事啊",
+          "artists": "彭佳慧 / 熊仔"
+        },
+        {
+          "id": "1928178548",
+          "name": "星座学家",
+          "artists": "熊仔 / 9m88"
+        }
+      ],
+      "biography": "饶舌歌手、词曲创作者。曾以《PRO》获得第34届金曲奖最佳华语专辑，以《88BARS》获得第33届金曲奖最佳作词人，并担任《大嘻哈时代》导师。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=1156003"
+    },
+    "12047599": {
+      "songs": [
+        {
+          "id": "76848",
+          "name": "夜聊 (你说, 我说) [feat. 李英宏]",
+          "artists": "蛋堡 / 李英宏"
+        },
+        {
+          "id": "1323304608",
+          "name": "峇里岛",
+          "artists": "李英宏"
+        },
+        {
+          "id": "1323303537",
+          "name": "为什么",
+          "artists": "李英宏"
+        }
+      ],
+      "biography": "又名DJ DIDILONG，创作歌手与演员，音乐融合Funk、NuDisco及HipHop，发行过《台北直直撞》《东方美人》等专辑。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=12047599"
+    },
+    "12195538": {
+      "songs": [
+        {
+          "id": "458957161",
+          "name": "Money Stash (Reprod. Bob Fang)",
+          "artists": "蛋头BG8Locc"
+        },
+        {
+          "id": "451347572",
+          "name": "Ten Years After 十年之后 (Freestyle)",
+          "artists": "蛋头BG8Locc"
+        },
+        {
+          "id": "451432348",
+          "name": "金派(翻自  Juicy J - Stop It)",
+          "artists": "蛋头BG8Locc"
+        }
+      ],
+      "biography": "曾使用Teezy这一艺名，2015年改用BG8LOCC。作品涉及西海岸、南岸与Trap风格，曾与PNC陈老师组成中正区联盟。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=12195538"
+    },
+    "12202146": {
+      "songs": [
+        {
+          "id": "443876698",
+          "name": "陪妳过假日 feat. 9m88",
+          "artists": "Leo王 / 9m88"
+        },
+        {
+          "id": "1365893260",
+          "name": "无病呻吟 feat. 蛋堡",
+          "artists": "Leo王 / 蛋堡"
+        },
+        {
+          "id": "3338865286",
+          "name": "最后一张纸 feat. ?",
+          "artists": "Leo王"
+        }
+      ],
+      "biography": "曾任“巨大的轰鸣”乐团主唱，加入颜社后与春艳组成夜猫组，融合摇滚与嘻哈进行创作。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=12202146"
+    },
+    "12795019": {
+      "songs": [
+        {
+          "id": "2735886112",
+          "name": "玛格莉塔 Margarita",
+          "artists": "莫宰羊 / Tyson Yoshi / 派伟俊 / 娄峻硕 / Juice Boy"
+        },
+        {
+          "id": "2047742163",
+          "name": "一首歌",
+          "artists": "娄峻硕 / 派伟俊"
+        },
+        {
+          "id": "2051342736",
+          "name": "Just Break Up",
+          "artists": "娄峻硕 / Tyson Yoshi"
+        }
+      ],
+      "biography": "花莲出生的饶舌歌手与创作者。2017年以单曲《你老爸在你背后》正式出道，发行专辑《IDOL RAPPER??》。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=12795019"
+    },
+    "13021017": {
+      "songs": [
+        {
+          "id": "1500377527",
+          "name": "那我先",
+          "artists": "孙盛希 / 吕士轩"
+        },
+        {
+          "id": "1390480249",
+          "name": "成为一个厉害的普通人",
+          "artists": "陈珊妮 / 吕士轩"
+        },
+        {
+          "id": "476553463",
+          "name": "啵啦",
+          "artists": "J. Sheon / 吕士轩"
+        }
+      ],
+      "biography": "艺名Trout Fresh，新竹出身的饶舌歌手，SmashRegz成员，2017年发行个人专辑《误入奇途》。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=13021017"
+    },
+    "13497197": {
+      "songs": [
+        {
+          "id": "1352615722",
+          "name": "Without You",
+          "artists": "高尔宣"
+        },
+        {
+          "id": "1339957830",
+          "name": "Why You Gonna Lie?",
+          "artists": "高尔宣"
+        },
+        {
+          "id": "1846238180",
+          "name": "So Bad",
+          "artists": "高尔宣"
+        }
+      ],
+      "biography": "高尔宣OSN，创作型歌手，作品以饶舌结合旋律为特色。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=13497197"
+    },
+    "29765846": {
+      "songs": [
+        {
+          "id": "2735886112",
+          "name": "玛格莉塔 Margarita",
+          "artists": "莫宰羊 / Tyson Yoshi / 派伟俊 / 娄峻硕 / Juice Boy"
+        },
+        {
+          "id": "1398872934",
+          "name": "未接来电",
+          "artists": "莫宰羊"
+        },
+        {
+          "id": "1877017102",
+          "name": "爱江山更爱美人 (Live)",
+          "artists": "余梓桾 / 张子薇 / 莫宰羊"
+        }
+      ],
+      "biography": "本名杨宇恩，来自花莲，饶舌团队BackMountKrew成员。代表作品包括《未接来电》《水》。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=29765846"
+    },
+    "33630934": {
+      "songs": [
+        {
+          "id": "2054294503",
+          "name": "在Cypher里  (LIVE版)",
+          "artists": "瘦子E.SO / 欧阳靖 / 李佳隆 / 小春Kenzy"
+        },
+        {
+          "id": "2052408650",
+          "name": "必杀技 (LIVE版)",
+          "artists": "满舒克 / Wiz_H张子豪 / 小春Kenzy"
+        },
+        {
+          "id": "2111974796",
+          "name": "爱到才知痛",
+          "artists": "小春Kenzy"
+        }
+      ],
+      "biography": "顽童MJ116成员，与瘦子E.SO及大渊MUTA共同创作、演出。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=33630934"
+    },
+    "46905797": {
+      "songs": [
+        {
+          "id": "2151096286",
+          "name": "基礎憂鬱",
+          "artists": "wannasleep / 郑宜农"
+        },
+        {
+          "id": "3447428755",
+          "name": "NOVA / DON'T SMOKE (Live)",
+          "artists": "Gummy B / wannasleep"
+        },
+        {
+          "id": "3447429202",
+          "name": "ABC (Live)",
+          "artists": "Gummy B / wannasleep / 熊仔"
+        }
+      ],
+      "biography": "本名李奕贤，台北出身的独立音乐人，擅长饶舌与创作。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=46905797"
+    },
+    "47409571": {
+      "songs": [
+        {
+          "id": "2050717192",
+          "name": "Last 9 On Earth (地球最后一夜) (LIVE版)",
+          "artists": "派克特（PACT） / 大渊MUTA"
+        },
+        {
+          "id": "2052404580",
+          "name": "Back to the stree8 (回到街头) (LIVE版)",
+          "artists": "派克特（PACT） / 大渊MUTA / 艾福杰尼"
+        },
+        {
+          "id": "2061938248",
+          "name": "GET DOWN (LIVE版)",
+          "artists": "盛宇D-SHINE / 大渊MUTA"
+        }
+      ],
+      "biography": "本名林睦渊，顽童MJ116成员，唱腔低沉浑厚，富有爆发力。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=47409571"
+    },
+    "56140461": {
+      "songs": [
+        {
+          "id": "2046433223",
+          "name": "往而不返 (feat. Sam Yang)",
+          "artists": "someshiit 山姆 / 杨世暄 Sam Yang"
+        },
+        {
+          "id": "2725561362",
+          "name": "TMSX",
+          "artists": "Robot Swing / LEO37 / Flowstrong / someshiit 山姆 / BRADD / 陳嫺靜 / Star Wu / DCIV / LINION / Dac / FRαNKIE阿法 / 鄭雙雙 / Minyen Hsieh / That's My Shhh"
+        },
+        {
+          "id": "2630962353",
+          "name": "善良是 (ft. CHS)",
+          "artists": "someshiit 山姆 / CHS"
+        }
+      ],
+      "biography": "以个人生活、情绪与自我思考为创作主题的饶舌音乐人。",
+      "biographyDate": "2026-11-12",
+      "biographySource": "网易云音乐公开艺人简介摘要",
+      "biographySummary": true,
+      "sourceUrl": "https://music.163.com/artist?id=56140461"
+    },
     "2103": {
       "songs": [
         {

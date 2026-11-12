@@ -19,7 +19,7 @@ const singers = [
   {
     name: "春",
     fans: "4.7万",
-    lat: 30.73, lng: 103.89,
+    lat: 28.04, lng: 105.81,
     avatar: "https://p1.music.126.net/3LH_n2xALrBEEg6Noi7bvQ==/109951173273173275.jpg?param=130y130",
     neteaseId: "55460322"
   },
@@ -5189,6 +5189,412 @@ const collectedMembers20261105 = [
 ];
 const profiles = collectedMembers20261105.filter(item => !item.mapVisible);
 singers.push(...collectedMembers20261105.filter(item => item.mapVisible));
+// 2026-11-12: profile-only additions; coordinates await the user's confirmation.
+const taiwanProfiles20261112 = [
+  {
+    "name": "高尔宣",
+    "aliases": [
+      "高爾宣",
+      "高尔宣OSN",
+      "高爾宣OSN",
+      "OSN"
+    ],
+    "neteaseId": "13497197",
+    "fans": "4.9万",
+    "fanCount": 48968,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p1.music.126.net/uNn977HTfbS6fwek27pPcQ==/109951170197465059.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "成长地：台湾 · 台北市文山区（木栅）",
+    "origin": {
+      "place": "台湾 · 台北市文山区（木栅）",
+      "type": "成长地",
+      "precision": "district",
+      "sources": [
+        "https://truecolor.mu/article?id=909"
+      ]
+    },
+    "collaborators": []
+  },
+  {
+    "name": "熊仔",
+    "aliases": [
+      "Kumachan",
+      "熊仔Kumachan"
+    ],
+    "neteaseId": "1156003",
+    "fans": "1.8万",
+    "fanCount": 17796,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/0dAOMefIXHptkthwpfOegg==/109951172128011870.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出生地：台湾 · 台北市",
+    "origin": {
+      "place": "台湾 · 台北市",
+      "type": "出生地",
+      "precision": "city",
+      "sources": [
+        "https://www.mirrormedia.mg/external/setn_1665963"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "Gummy B"
+      }
+    ]
+  },
+  {
+    "name": "小春Kenzy",
+    "aliases": [
+      "小春",
+      "Kenzy"
+    ],
+    "neteaseId": "33630934",
+    "fans": "1.6万",
+    "fanCount": 16186,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/MPCh5110RoNXqyL3zjsjPA==/109951169174170394.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "家乡：台湾 · 台北市文山区（木栅）",
+    "origin": {
+      "place": "台湾 · 台北市文山区（木栅）",
+      "type": "家乡",
+      "precision": "district",
+      "sources": [
+        "https://news.videoland.com.tw/article/36823e07-a968-4e8c-a33b-60edd52ae28e.html"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "瘦子E.SO"
+      },
+      {
+        "name": "李佳隆"
+      },
+      {
+        "name": "满舒克"
+      },
+      {
+        "name": "Wiz-H张子豪"
+      }
+    ]
+  },
+  {
+    "name": "莫宰羊",
+    "aliases": [],
+    "neteaseId": "29765846",
+    "fans": "1.5万",
+    "fanCount": 15299,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p1.music.126.net/7gW2ww6_Tuht4_I1YzXp7w==/109951166543465955.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出身地：台湾 · 花莲县",
+    "origin": {
+      "place": "台湾 · 花莲县",
+      "type": "出身地",
+      "precision": "county",
+      "sources": [
+        "https://www.biosmonthly.com/article/10538"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "娄峻硕"
+      }
+    ]
+  },
+  {
+    "name": "大渊MUTA",
+    "aliases": [
+      "大淵MUTA",
+      "大渊",
+      "大淵",
+      "MUTA"
+    ],
+    "neteaseId": "47409571",
+    "fans": "1.5万",
+    "fanCount": 14770,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/yJ00Fl-Om34GgZUoKq_wcw==/109951165868264769.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "家乡：台湾 · 台北市文山区（木栅）",
+    "origin": {
+      "place": "台湾 · 台北市文山区（木栅）",
+      "type": "家乡",
+      "precision": "district",
+      "sources": [
+        "https://www.travel.taipei/file/3291/",
+        "https://news.videoland.com.tw/article/36823e07-a968-4e8c-a33b-60edd52ae28e.html"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "派克特"
+      },
+      {
+        "name": "艾福杰尼"
+      },
+      {
+        "name": "盛宇D-SHINE"
+      }
+    ]
+  },
+  {
+    "name": "Leo王",
+    "aliases": [
+      "Leo 王",
+      "Leo Wang"
+    ],
+    "neteaseId": "12202146",
+    "fans": "1.3万",
+    "fanCount": 13125,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/s2nJB5DHk1SBm-4bxJ8Swg==/109951172582288745.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "成长地：台湾 · 高雄市",
+    "origin": {
+      "place": "台湾 · 高雄市",
+      "type": "成长地",
+      "precision": "city",
+      "sources": [
+        "https://web.cheers.com.tw/event/2020youth/article/y04.html"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "蛋堡"
+      }
+    ]
+  },
+  {
+    "name": "李英宏",
+    "aliases": [
+      "DJ Didilong"
+    ],
+    "neteaseId": "12047599",
+    "fans": "1.2万",
+    "fanCount": 12002,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/FH4fT7GLflDx3Ko5aI-huw==/109951170607689988.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "成长地：台湾 · 新北市新庄区",
+    "origin": {
+      "place": "台湾 · 新北市新庄区",
+      "type": "成长地",
+      "precision": "district",
+      "note": "幼时也住过板桥；不把成长地直接当作出生地。",
+      "sources": [
+        "https://tw.news.yahoo.com/金曲準歌王李英宏專訪-直直撞-進時間的慢流-121624520.html"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "蛋堡"
+      }
+    ]
+  },
+  {
+    "name": "吕士轩",
+    "aliases": [
+      "呂士軒",
+      "Trout Fresh"
+    ],
+    "neteaseId": "13021017",
+    "fans": "4642",
+    "fanCount": 4642,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/4ewnWryBc5RQyOmYBBQMOw==/109951170220242095.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出身地：台湾 · 新竹地区",
+    "origin": {
+      "place": "台湾 · 新竹地区",
+      "type": "出身地",
+      "precision": "region",
+      "note": "已确认新竹出身，暂不细分县市或行政区。",
+      "sources": [
+        "https://www.gq.com.tw/article/呂士軒-trout-fresh-好聲豪氣-金曲獎-浪人祭-2025"
+      ]
+    },
+    "collaborators": []
+  },
+  {
+    "name": "娄峻硕",
+    "aliases": [
+      "婁峻碩",
+      "SHOU"
+    ],
+    "neteaseId": "12795019",
+    "fans": "2319",
+    "fanCount": 2319,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p1.music.126.net/7YRbL33SvE5xQpnY0eXEow==/109951168593293624.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出生与成长地：台湾 · 花莲县",
+    "origin": {
+      "place": "台湾 · 花莲县",
+      "type": "出生与成长地",
+      "precision": "county",
+      "sources": [
+        "https://www.myplus.com.tw/article-20200530/1174/1",
+        "https://www.cna.com.tw/news/amov/202506190162.aspx"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "莫宰羊"
+      }
+    ]
+  },
+  {
+    "name": "wannasleep",
+    "aliases": [],
+    "neteaseId": "46905797",
+    "fans": "2246",
+    "fanCount": 2246,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/rrcAPEZzRJoBtoZGnxCnIA==/109951165770809097.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出身地：台湾 · 台北",
+    "origin": {
+      "place": "台湾 · 台北",
+      "type": "出身地",
+      "precision": "region",
+      "note": "公开简介仅写台北，不据就读学校推断行政区。",
+      "sources": [
+        "https://music.163.com/artist?id=46905797"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "Gummy B"
+      },
+      {
+        "name": "熊仔"
+      }
+    ]
+  },
+  {
+    "name": "蛋头BG8Locc",
+    "aliases": [
+      "蛋頭BG8LOCC",
+      "BG8LOCC",
+      "蛋头",
+      "蛋頭"
+    ],
+    "neteaseId": "12195538",
+    "fans": "1661",
+    "fanCount": 1661,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p2.music.126.net/c7AsWjuc17KFPpuWSlYriw==/109951164327569343.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "家乡县市待核实",
+    "origin": {
+      "place": null,
+      "type": "待核实",
+      "precision": "unverified",
+      "note": "简介中的中正区联盟是创作经历，不能据此确认出生地或家乡。",
+      "sources": [
+        "https://music.163.com/artist?id=12195538"
+      ]
+    },
+    "collaborators": []
+  },
+  {
+    "name": "someshiit 山姆",
+    "aliases": [
+      "someshiit",
+      "someshiit山姆",
+      "山姆"
+    ],
+    "neteaseId": "56140461",
+    "fans": "1603",
+    "fanCount": 1603,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p1.music.126.net/zNqfiel3Dsyb7KVxit1u9Q==/109951169994415014.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "成长地：台湾 · 桃园市中坜区",
+    "origin": {
+      "place": "台湾 · 桃园市中坜区",
+      "type": "成长地",
+      "precision": "district",
+      "sources": [
+        "https://www.marieclaire.com.tw/entertainment/music/87021"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "陈娴静"
+      }
+    ]
+  },
+  {
+    "name": "春艳",
+    "aliases": [
+      "春艷",
+      "Chunyan"
+    ],
+    "neteaseId": "1044021",
+    "fans": "784",
+    "fanCount": 784,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-12",
+    "avatar": "https://p1.music.126.net/3NdUnhi9y-28bQ85jfb63g==/109951173905171339.jpg?param=130y130",
+    "lat": null,
+    "lng": null,
+    "mapVisible": false,
+    "desc": "出生地：台湾 · 台北市",
+    "origin": {
+      "place": "台湾 · 台北市",
+      "type": "出生地",
+      "precision": "city",
+      "sources": [
+        "https://zh.wikipedia.org/wiki/春艷"
+      ]
+    },
+    "collaborators": [
+      {
+        "name": "Leo王"
+      }
+    ]
+  }
+];
+profiles.push(...taiwanProfiles20261112);
 const relationshipArtists = [...singers, ...profiles];
 
 
