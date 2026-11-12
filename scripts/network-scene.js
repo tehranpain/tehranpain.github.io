@@ -1,4 +1,7 @@
 (function (root) {
+  // Every graph opens at the same scale, regardless of collaborator distances.
+  const NETWORK_ZOOM = 6;
+
   function mappedPeers(center, resolve, hasLocation) {
     const seen = new Set([center.name]);
     return (center.collaborators || []).flatMap(relation => {
@@ -69,8 +72,11 @@
     pane.style.zIndex = '410';
     pane.style.pointerEvents = 'none';
     const renderer = L.svg({ pane: paneName, padding: .4 });
-    let active = false, ready = false, revision = 0, pending, onReady, centerName;
+    let active = false, revision = 0, pendingFrame, centerName;
     let nodes = [], links = [], guides = [];
+    const requestFrame = callback => timers.requestAnimationFrame
+      ? timers.requestAnimationFrame(callback) : timers.setTimeout(callback, 16);
+    const cancelFrame = id => timers.cancelAnimationFrame ? timers.cancelAnimationFrame(id) : timers.clearTimeout(id);
 
     function element(tag, className, text) {
       const node = doc.createElement(tag);
@@ -111,7 +117,7 @@
           html: offset, iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2] }),
         title: person.name, alt: person.name + '的资料', zIndexOffset: center ? 1800 : 100
       }).addTo(layer);
-      const delay = center ? 0 : 240 + Math.min(360, index * 13);
+      const delay = center ? 0 : Math.min(120, index * 6);
       item.getElement().style.setProperty('--network-node-delay', delay + 'ms');
       bindPreview(item, person);
       item.on('mouseover focus', () => focus(index));
@@ -126,7 +132,7 @@
         opacity: 1, lineCap: 'round', lineJoin: 'round', smoothFactor: .4 }).addTo(layer);
       const svg = path.getElement();
       svg.setAttribute('pathLength', '1');
-      svg.style.setProperty('--network-line-delay', Math.min(360, index * 13) + 'ms');
+      svg.style.setProperty('--network-line-delay', Math.min(120, index * 6) + 'ms');
       return path;
     }
     function cameraPadding() {
@@ -139,10 +145,10 @@
       return { left, right: size.x <= 600 ? 32 : 92, top: size.x <= 480 ? 70 : 128, bottom: size.x <= 480 ? 160 : 118 };
     }
     function layout() {
-      if (!active) return;
+      if (!active || !nodes.length) return;
       guides.forEach(path => layer.removeLayer(path)); guides = [];
       updateScale();
-      const zoom = map.getZoom(), scale = nodeScale(zoom), size = map.getSize(), padding = cameraPadding();
+      const scale = nodeScale(map.getZoom()), size = map.getSize(), padding = cameraPadding();
       const anchors = nodes.map((entry, i) => ({
         ...map.latLngToContainerPoint(entry.marker.getLatLng()), radius: entry.size * scale / 2 + (i ? 0 : 18)
       }));
@@ -151,9 +157,10 @@
       anchors[0].labelBox = { left: anchors[0].x - labelWidth / 2, right: anchors[0].x + labelWidth / 2,
         top: labelTop, bottom: labelTop + 30 * scale };
       const positions = spreadNodes(anchors, { left: padding.left / 2, right: size.x - padding.right / 2, top: padding.top, bottom: size.y - padding.bottom });
-      let expanded = 0;
       nodes.forEach((entry, index) => {
         const position = positions[index];
+        entry.offset = { x: position.dx, y: position.dy };
+        entry.tether = null;
         const node = entry.marker.getElement();
         node.style.setProperty('--network-offset-x', position.dx + 'px');
         node.style.setProperty('--network-offset-y', position.dy + 'px');
@@ -161,32 +168,58 @@
         const popup = entry.marker.getPopup?.();
         if (popup && popup.isOpen()) popup.update();
         if (Math.hypot(position.dx, position.dy) > 3) {
-          expanded++;
           const anchor = entry.marker.getLatLng();
           const display = map.containerPointToLatLng(L.point(position.x, position.y));
-          guides.push(L.polyline([anchor, display], { pane: paneName, renderer, interactive: false, className: 'network-tether',
-            color: '#8b9397', weight: 1, opacity: .55, dashArray: '2 5' }).addTo(layer));
+          entry.tether = L.polyline([anchor, display], { pane: paneName, renderer, interactive: false, className: 'network-tether',
+            color: '#8b9397', weight: 1, opacity: .55, dashArray: '2 5' }).addTo(layer);
+          guides.push(entry.tether);
           guides.push(L.circleMarker(anchor, { pane: paneName, renderer, interactive: false, className: 'network-geo-anchor',
             radius: 2, stroke: false, fillColor: '#b57f80', fillOpacity: .8 }).addTo(layer));
         }
       });
+      drawLinks();
+    }
+    // Reproject during zoom without rerunning the collision solver on every frame.
+    function drawLinks() {
+      if (!active || !nodes.length) return;
+      const zoom = map.getZoom();
       const project = value => map.project(value, zoom);
       const unproject = point => map.unproject(L.point(point.x, point.y), zoom);
       const center = nodes[0].marker.getLatLng();
       links.forEach((entry, index) => {
-        const target = positions[index + 1];
-        const end = map.containerPointToLatLng(L.point(target.x, target.y));
+        const target = nodes[index + 1];
+        const anchor = target.marker.getLatLng();
+        const point = map.latLngToContainerPoint(anchor);
+        const end = map.containerPointToLatLng(L.point(point.x + target.offset.x, point.y + target.offset.y));
         const curve = curvePoints(center, end, project, unproject, index);
         entry.paths.forEach(path => path.setLatLngs(curve));
+        if (target.tether) target.tether.setLatLngs([anchor, end]);
       });
-      const hint = exitButton.querySelector('.network-dock-hint');
-      if (hint) hint.textContent = expanded ? '相邻头像已展开 · 虚线指向实际位置' : '悬停头像，聚焦合作连线';
+    }
+    function scheduleLinks() {
+      if (!active || !nodes.length || pendingFrame !== undefined) return;
+      const current = revision;
+      pendingFrame = requestFrame(() => {
+        if (revision !== current) return;
+        pendingFrame = undefined;
+        if (active) drawLinks();
+      });
+    }
+    function focusCamera(center) {
+      map.stop();
+      // Center first, so flying between remote artists cannot introduce a zoom-out detour.
+      const location = [center.lat, center.lng];
+      map.panTo(location, { animate: false });
+      if (prefersReducedMotion() || Math.abs(map.getZoom() - NETWORK_ZOOM) < .001) {
+        map.setView(location, NETWORK_ZOOM, { animate: false });
+      } else {
+        map.flyTo(location, NETWORK_ZOOM, { duration: .72, animate: true });
+      }
     }
     function clear() {
-      revision++; active = false; ready = false; centerName = null;
-      if (onReady) map.off('moveend', onReady);
-      onReady = null;
-      timers.clearTimeout(pending); pending = null;
+      revision++; active = false; centerName = null;
+      if (pendingFrame !== undefined) cancelFrame(pendingFrame);
+      pendingFrame = undefined;
       map.stop();
       layer.clearLayers(); nodes = []; links = []; guides = [];
       container.classList.remove('network-view', 'network-is-ready', 'network-has-focus', 'network-is-zooming');
@@ -196,47 +229,40 @@
     }
     function show(center) {
       if (!hasLocation(center)) return false;
-      if (active && centerName === center.name) { focus(null); return true; }
+      if (active && centerName === center.name) { focus(null); focusCamera(center); return true; }
       clear(); active = true; centerName = center.name;
-      const current = revision;
       const peers = mappedPeers(center, resolve, hasLocation).sort((a, b) =>
         map.distance([center.lat, center.lng], [a.lat, a.lng]) - map.distance([center.lat, center.lng], [b.lat, b.lng]) || a.name.localeCompare(b.name));
       container.classList.add('network-view'); updateScale();
       nodes = [marker(center, true, 0), ...peers.map((person, index) => marker(person, false, index + 1))];
       links = peers.map((person, index) => ({ paths: [line('network-link network-link-halo', index), line('network-link network-link-ink', index)] }));
       const copy = element('span', 'network-dock-copy');
-      copy.append(element('span', 'network-dock-title', center.name),
-        element('span', 'network-dock-count', peers.length + ' 位地图合作者'), element('span', 'network-dock-hint', '正在展开合作关系'));
-      const symbol = element('span', 'network-dock-symbol'); symbol.setAttribute('aria-hidden', 'true');
+      const count = element('span', 'network-dock-count');
+      count.append(element('span', '', '合作'), element('strong', 'network-dock-number', peers.length), element('span', '', '人'));
+      copy.append(element('span', 'network-dock-title', center.name), count);
+      const avatar = element('span', 'network-dock-avatar', Array.from(center.name)[0]);
+      avatar.setAttribute('aria-hidden', 'true');
+      if (typeof center.avatar === 'string' && /^(https?:\/\/|\.?\.?\/|assets\/)/.test(center.avatar)) {
+        const image = element('img');
+        image.alt = '';
+        image.addEventListener('error', () => { image.hidden = true; });
+        image.src = center.avatar;
+        avatar.append(image);
+      }
       const close = element('span', 'network-dock-close', '×'); close.setAttribute('aria-hidden', 'true');
-      exitButton.replaceChildren(symbol, copy, close);
+      exitButton.replaceChildren(avatar, copy, close);
       exitButton.setAttribute('aria-label', '退出关系网'); exitButton.title = '退出关系网';
       exitButton.classList.add('network-dock'); exitButton.style.display = 'flex';
-      onReady = () => {
-        if (!active || revision !== current || ready) return;
-        ready = true; map.off('moveend', onReady); onReady = null;
-        timers.clearTimeout(pending); pending = null;
-        layout(); container.classList.add('network-is-ready');
-      };
-      const finish = onReady;
-      map.on('moveend', finish);
-      pending = timers.setTimeout(finish, 1400);
-      const padding = cameraPadding();
-      const bounds = L.latLngBounds(nodes.map(entry => entry.marker.getLatLng()));
-      const options = { paddingTopLeft: [padding.left, padding.top], paddingBottomRight: [padding.right, padding.bottom],
-        maxZoom: 7.5, duration: 1.05, easeLinearity: .25, animate: !prefersReducedMotion() };
-      if (prefersReducedMotion()) { map.fitBounds(bounds, options); finish(); }
-      else map.flyToBounds(bounds, options);
+      layout();
+      container.classList.add('network-is-ready');
+      focusCamera(center);
       return true;
     }
-    map.on('zoom', updateScale);
-    map.on('zoomstart', () => { if (active && ready) container.classList.add('network-is-zooming'); });
-    map.on('zoomend resize', () => {
-      if (active && ready) { layout(); container.classList.remove('network-is-zooming'); }
-    });
+    map.on('zoom', () => { updateScale(); scheduleLinks(); });
+    map.on('zoomend moveend resize', layout);
     return { show, clear, isActive: () => active };
   }
-  const api = { create, mappedPeers, curvePoints, spreadNodes, nodeScale };
+  const api = { create, mappedPeers, curvePoints, spreadNodes, nodeScale, NETWORK_ZOOM };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RapNetworkScene = api;
 })(typeof window !== 'undefined' ? window : globalThis);
