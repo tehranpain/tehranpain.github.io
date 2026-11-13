@@ -32,6 +32,16 @@
  <div id="search-input-inner">
   <input type="text" id="singer-search" placeholder="搜索歌手/团体">
   <button id="search-clear-btn" title="清除">✕</button>
+  <button id="index-btn" type="button" title="艺人索引" aria-label="打开艺人索引" aria-controls="index-panel" aria-expanded="false">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="8" y1="6" x2="21" y2="6"/>
+      <line x1="8" y1="12" x2="21" y2="12"/>
+      <line x1="8" y1="18" x2="21" y2="18"/>
+      <circle cx="3" cy="6" r="0.5" fill="currentColor"/>
+      <circle cx="3" cy="12" r="0.5" fill="currentColor"/>
+      <circle cx="3" cy="18" r="0.5" fill="currentColor"/>
+    </svg>
+  </button>
 </div>
         <button id="search-btn" class="search-icon-btn" aria-label="执行搜索">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,17 +50,6 @@
           </svg>
         </button>
         <button id="mobile-search-cancel" type="button">取消</button>
-        <!-- 索引按钮：纯圆形图标，无文字 -->
-        <button id="index-btn" title="索引">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="8" y1="6" x2="21" y2="6"/>
-            <line x1="8" y1="12" x2="21" y2="12"/>
-            <line x1="8" y1="18" x2="21" y2="18"/>
-            <circle cx="3" cy="6" r="0.5" fill="currentColor"/>
-            <circle cx="3" cy="12" r="0.5" fill="currentColor"/>
-            <circle cx="3" cy="18" r="0.5" fill="currentColor"/>
-          </svg>
-        </button>
         <div id="mode-filter-tabs">
           <span class="mode-filter-slider"></span>
           <button class="filter-btn active" data-type="all">全部</button>
@@ -63,6 +62,22 @@
             <circle cx="12" cy="10" r="3"/>
           </svg>说唱地标
         </button>
+        <div id="action-group">
+          <button id="more-options-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="6" y1="12" x2="18" y2="12"/>
+              <line x1="9" y1="18" x2="15" y2="18"/>
+            </svg>筛选
+          </button>
+          <button id="rank-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>排行榜
+          </button>
+        </div>
       </div>
       <!-- 城市快捷列表（说唱地标按钮下方展开） -->
       <div id="landmark-city-dropdown">
@@ -90,25 +105,6 @@
         <span>索引</span>
         <small>歌手 / 团体</small>
       </button>
-      <!-- 筛选 + 排行榜按鈕行（搜索框下方第二行） -->
-      <div id="action-group">
-        <button id="more-options-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="3" y1="6"  x2="21" y2="6"/>
-            <line x1="6" y1="12" x2="18" y2="12"/>
-            <line x1="9" y1="18" x2="15" y2="18"/>
-          </svg>
-          筛选
-        </button>
-        <button id="rank-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6"  y1="20" x2="6"  y2="14"/>
-          </svg>
-          排行榜
-        </button>
-      </div>
     </div><!-- /#search-container -->
 
   </div><!-- /#top-bar -->

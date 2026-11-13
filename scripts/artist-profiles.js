@@ -4,7 +4,7 @@
       && Math.abs(item.lat) <= 90 && Math.abs(item.lng) <= 180);
   }
 
-  function create({ artists, groups, locate, network, onOpen, onClose, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
+  function create({ artists, groups, locate, network, onOpen, onClose, getReturnTarget, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
     const doc = suppliedDocument || root.document;
     const normalize = value => String(value || '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
     const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -12,7 +12,8 @@
     const all = artists.concat(groups);
     const allNames = indexNames(all);
     const artistNames = indexNames(artists);
-    let panel, scroller, closeButton, returnFocus, selected, revision = 0;
+    let panel, scroller, closeButton, backButton, returnFocus, selected, revision = 0;
+    let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
 
@@ -95,7 +96,7 @@
     }
     function personLink(person, displayName, className) {
       const node = person
-        ? button(className, undefined, () => open(person.name))
+        ? button(className, undefined, () => open(person.name, { remember: true }))
         : element('div', className + ' is-unresolved');
       node.append(avatar(person || { name: displayName }, 'profile-person-avatar', true), element('span', 'profile-person-name', displayName));
       if (!person) node.append(element('span', 'profile-person-status', '待建资料'));
@@ -125,7 +126,15 @@
       panel.setAttribute('role', 'region');
       panel.setAttribute('aria-labelledby', 'artist-profile-title');
       const toolbar = element('div', 'profile-toolbar');
-      toolbar.append(element('span', 'profile-toolbar-label', '资料卡片'));
+      backButton = button('profile-back', undefined, event => { event.stopPropagation(); back(); });
+      const arrow = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      Object.entries({ width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2,
+        'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true', focusable: 'false' })
+        .forEach(([key, value]) => arrow.setAttribute(key, value));
+      const path = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'm14 6-6 6 6 6'); arrow.append(path); backButton.append(arrow);
+      backButton.hidden = true;
+      toolbar.append(backButton, element('span', 'profile-toolbar-label', '资料卡片'));
       closeButton = button('profile-close', '×', () => close());
       closeButton.setAttribute('aria-label', '关闭资料卡片');
       toolbar.append(closeButton);
@@ -137,6 +146,8 @@
       if (!panel || panel.hidden) return;
       panel.hidden = true;
       selected = null;
+      history = [];
+      updateBackButton();
       revision++;
       if (onClose) onClose();
       if (restoreFocus && returnFocus && returnFocus.isConnected !== false && typeof returnFocus.focus === 'function') {
@@ -144,6 +155,36 @@
       }
     }
     function isOpen() { return Boolean(panel && !panel.hidden); }
+    function updateBackButton() {
+      const previous = history[history.length - 1];
+      backButton.hidden = !previous;
+      panel.setAttribute('data-profile-history', String(Boolean(previous)));
+      const label = '返回' + (previous?.name || previous?.target?.label || '上一页');
+      backButton.title = label;
+      backButton.setAttribute('aria-label', label);
+    }
+    function captureView() {
+      return { scrollTop: scroller.scrollTop || 0,
+        expanded: scroller.querySelector('.profile-biography-toggle')?.getAttribute('aria-expanded') === 'true' };
+    }
+    function restoreView(state) {
+      if (!state) { scroller.scrollTop = 0; return; }
+      const toggle = scroller.querySelector('.profile-biography-toggle');
+      if (state.expanded && toggle && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
+      scroller.scrollTop = state.scrollTop;
+    }
+    function back() {
+      const previous = history.pop();
+      if (!previous) return false;
+      if (previous.target) {
+        close({ restoreFocus: false });
+        previous.target.restore();
+      } else {
+        open(previous.name, { fromHistory: true, viewState: previous.state });
+        if (backButton.hidden) closeButton.focus({ preventScroll: true });
+      }
+      return true;
+    }
 
     // Load public metadata only when a singer card is opened, not on every map visit.
     function loadDetails() {
@@ -198,11 +239,20 @@
         }
       } else bioSection.append(element('p', 'profile-empty', '暂未获取到公开的艺人简介。'));
     }
-    function open(name) {
+    function open(name, { remember = false, fromHistory = false, viewState } = {}) {
       const item = find(name);
       if (!item) return false;
       ensurePanel();
       const wasOpen = isOpen();
+      if (remember && wasOpen && selected === item) return true;
+      if (!fromHistory) {
+        if (remember && wasOpen && selected) history.push({ name: selected.name, state: captureView() });
+        else {
+          history = [];
+          const target = getReturnTarget && getReturnTarget();
+          if (target && typeof target.restore === 'function') history.push({ target });
+        }
+      }
       if (!wasOpen) returnFocus = doc.activeElement;
       selected = item;
       const currentRevision = ++revision;
@@ -282,13 +332,17 @@
         scroller.append(collaborators);
       }
       panel.hidden = false;
-      scroller.scrollTop = 0;
+      updateBackButton();
+      restoreView(viewState);
       if (onOpen) onOpen(item);
       if (!wasOpen) closeButton.focus({ preventScroll: true });
       if (!group && !snapshot) {
         loadDetails().then(source => {
           // A late snapshot must not replace a more recently selected artist or a closed card.
-          if (revision === currentRevision && selected === item && isOpen()) renderMusic(item, songsSection, bioSection, source);
+          if (revision === currentRevision && selected === item && isOpen()) {
+            renderMusic(item, songsSection, bioSection, source);
+            if (viewState) restoreView(viewState);
+          }
         });
       }
       return true;
@@ -319,13 +373,13 @@
         if (!trigger) return;
         event.preventDefault();
         event.stopPropagation();
-        open(trigger.dataset.artistProfile);
+        open(trigger.dataset.artistProfile, { remember: Boolean(panel && panel.contains(trigger)) });
       }, true);
       doc.addEventListener('keydown', event => {
         if (event.key === 'Escape' && !event.defaultPrevented && isOpen()) { event.preventDefault(); close(); }
       });
     }
-    return { open, close, isOpen, find, memberLinks, hasMapLocation, preview };
+    return { open, close, back, isOpen, find, memberLinks, hasMapLocation, preview };
   }
 
   const api = { create, hasMapLocation };

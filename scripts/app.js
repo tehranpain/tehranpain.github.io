@@ -138,10 +138,53 @@ function setSelectedProfileMarker(name = null) {
   });
 }
 
+// Keep the originating list state without coupling profile history to its rendering code.
+function captureProfileReturnTarget() {
+  const mobilePanel = mobileNavigation && mobileNavigation.isEnabled() && mobileNavigation.isOpen()
+    ? mobileNavigation.activePanel() : null;
+  const kind = ['rank', 'index'].includes(mobilePanel) ? mobilePanel
+    : ['rank', 'index'].find(key => document.getElementById(key + '-panel').classList.contains('show'));
+  if (!kind) return null;
+  const list = document.getElementById(kind === 'rank' ? 'rank-panel-body' : 'index-list');
+  const scrollTop = list.scrollTop;
+  const tab = document.querySelector('.' + kind + '-tab.active')?.dataset.tab;
+  const month = document.querySelector('.rank-fan-month-tab.active')?.dataset.month;
+  return {
+    label: kind === 'rank' ? '排行榜' : '索引',
+    restore() {
+      const mobile = mobileNavigation && mobileNavigation.isEnabled();
+      const button = document.getElementById(kind + '-btn');
+      if (mobile) mobileNavigation.open(kind);
+      else if (!document.getElementById(kind + '-panel').classList.contains('show')) button.click();
+      const selectedTab = document.querySelector('.' + kind + '-tab[data-tab="' + tab + '"]');
+      if (selectedTab && !selectedTab.classList.contains('active')) selectedTab.click();
+      if (kind === 'rank') {
+        const selectedMonth = document.querySelector('.rank-fan-month-tab[data-month="' + month + '"]');
+        if (selectedMonth && !selectedMonth.classList.contains('active')) selectedMonth.click();
+      }
+      list.scrollTop = scrollTop;
+      if (!mobile) button.focus({ preventScroll: true });
+    }
+  };
+}
+
+function positionDesktopPopover(panel, anchor, { width = 320, alignRight = false } = {}) {
+  const rect = anchor.getBoundingClientRect();
+  const panelWidth = Math.min(width, window.innerWidth - 24);
+  const left = Math.max(12, Math.min(alignRight ? rect.right - panelWidth : rect.left, window.innerWidth - panelWidth - 12));
+  const top = rect.bottom + 10;
+  panel.style.top = top + 'px';
+  panel.style.left = left + 'px';
+  panel.style.right = '';
+  panel.style.width = panelWidth + 'px';
+  panel.style.maxHeight = Math.max(120, Math.min(720, window.innerHeight - top - 36)) + 'px';
+}
+
 const profileUI = window.RapArtistProfiles.create({
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
+  getReturnTarget: captureProfileReturnTarget,
   onClose: () => setSelectedProfileMarker(),
   onOpen: item => {
     if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
@@ -153,6 +196,7 @@ const profileUI = window.RapArtistProfiles.create({
     ['more-options-btn', 'rank-btn', 'index-btn'].forEach(id => {
       document.getElementById(id).classList.remove('open', 'active');
     });
+    document.getElementById('index-btn').setAttribute('aria-expanded', 'false');
     document.getElementById('search-container').classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
     document.getElementById('search-suggestions').style.display = 'none';
   }
@@ -890,18 +934,13 @@ row.innerHTML = `
   const rankPanel = document.getElementById('rank-panel');
 
   function positionRankPanel() {
-  const rect = rankBtn.getBoundingClientRect();
-  const moreRect = moreOptionsBtn.getBoundingClientRect();
-  if (window.innerWidth <= 480) {
-    relocateMobilePanels();
-    clearPanelInlinePosition(rankPanel);
-  } else {
-    rankPanel.style.top  = (rect.bottom + 6) + 'px';
-    rankPanel.style.left = (moreRect.left - 20) + 'px';
-    rankPanel.style.right = '';
-    rankPanel.style.width = '';
+    if (window.innerWidth <= 480) {
+      relocateMobilePanels();
+      clearPanelInlinePosition(rankPanel);
+    } else {
+      positionDesktopPopover(rankPanel, rankBtn, { alignRight: true });
+    }
   }
-}
 
   rankBtn.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -909,8 +948,7 @@ row.innerHTML = `
     const isOpen = rankPanel.classList.contains('show');
     if (!isOpen || window.innerWidth <= 480) {
 document.getElementById('more-options-dropdown').classList.remove('show');
-document.getElementById('index-panel').classList.remove('show');
-    document.getElementById('index-btn').classList.remove('active');
+    closeIndexPanel();
       positionRankPanel();
     }
     if (window.innerWidth <= 480) {
@@ -1584,6 +1622,7 @@ setActiveLandmarkCategory('all', false);
       panel.style.left = '';
       panel.style.right = '';
       panel.style.width = '';
+      panel.style.maxHeight = '';
     }
 
     function relocateMobilePanels() {
@@ -1807,15 +1846,11 @@ setActiveLandmarkCategory('all', false);
     }, true);
 
     function openDropdown() {
-      const rect = moreOptionsBtn.getBoundingClientRect();
       if (window.innerWidth <= 480) {
         relocateMobilePanels();
         clearPanelInlinePosition(moreOptionsDropdown);
       } else {
-        moreOptionsDropdown.style.top  = (rect.bottom + 6) + 'px';
-        moreOptionsDropdown.style.left = (rect.left - 20) + 'px';
-        moreOptionsDropdown.style.right = '';
-        moreOptionsDropdown.style.width = '';
+        positionDesktopPopover(moreOptionsDropdown, moreOptionsBtn, { alignRight: true });
       }
       moreOptionsDropdown.classList.add('show');
     }
@@ -1832,8 +1867,7 @@ moreOptionsBtn.addEventListener('click', function(e) {
   if (window.innerWidth <= 480) {
     document.getElementById('rank-panel').classList.remove('show');
     document.getElementById('rank-btn').classList.remove('open');
-    document.getElementById('index-panel').classList.remove('show');
-    document.getElementById('index-btn').classList.remove('active');
+    closeIndexPanel();
     openDropdown();
     return;
   }
@@ -1843,8 +1877,7 @@ moreOptionsBtn.addEventListener('click', function(e) {
     // 打开筛选前先关闭其他所有面板
     document.getElementById('rank-panel').classList.remove('show');
     document.getElementById('rank-btn').classList.remove('open');
-    document.getElementById('index-panel').classList.remove('show');
-    document.getElementById('index-btn').classList.remove('active');
+    closeIndexPanel();
     openDropdown();
   }
 });
@@ -2175,7 +2208,6 @@ function locateCity(cityObj) {
 
     function locateAndAnimate(name, showProfile = true) {
       const person = profileUI.find(name);
-      if (person && mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       if (person && !profileUI.hasMapLocation(person)) {
         profileUI.open(person.name);
         return;
@@ -2511,7 +2543,6 @@ const sortedKeys = Object.keys(groups).sort((a, b) => {
               <span class="index-name">${item.name}</span>
             `;
             row.addEventListener('click', () => {
-              closeIndexPanel();
               locateAndAnimate(item.name);
             });
             indexList.appendChild(row);
@@ -2537,43 +2568,51 @@ const sortedKeys = Object.keys(groups).sort((a, b) => {
 
     }
 
-    function openIndexPanel() {
-document.getElementById('rank-panel').classList.remove('show');
-  document.getElementById('rank-btn').classList.remove('open');
-  document.getElementById('more-options-dropdown').classList.remove('show');
-      const rect = indexBtn.getBoundingClientRect();
+    function positionIndexPanel() {
       if (window.innerWidth <= 480) {
         relocateMobilePanels();
         clearPanelInlinePosition(indexPanel);
       } else {
-        // 面板宽320px，若右侧放不下则左对齐到按钮右边缘
-        const panelW = 320;
-        let left = rect.left;
-        if (left + panelW > window.innerWidth - 10) {
-          left = Math.max(10, window.innerWidth - panelW - 10);
-        }
-        indexPanel.style.top  = (rect.bottom + 6) + 'px';
-        indexPanel.style.left = left + 'px';
-        indexPanel.style.right = '';
-        indexPanel.style.width = '';
+        const anchor = document.getElementById('search-input-inner');
+        const width = Math.max(300, Math.min(340, anchor.getBoundingClientRect().width + 54));
+        positionDesktopPopover(indexPanel, anchor, { width });
       }
-// 在 buildIndexList(''); 这行前面插入：
-currentIndexTab = 'singer';
-indexTabSlider.style.transform = 'translateX(0)';
-document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
-document.querySelector('.index-tab[data-tab="singer"]').classList.add('active');
+    }
+    function openIndexPanel() {
+      profileUI.close({ restoreFocus: false });
+      document.getElementById('rank-panel').classList.remove('show');
+      document.getElementById('rank-btn').classList.remove('open');
+      document.getElementById('more-options-dropdown').classList.remove('show');
+      positionIndexPanel();
+      suggestionsDiv.style.display = 'none';
+      currentIndexTab = 'singer';
+      indexTabSlider.style.transform = 'translateX(0)';
+      document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('.index-tab[data-tab="singer"]').classList.add('active');
       buildIndexList('');
       indexPanel.classList.add('show');
       indexBtn.classList.add('active');
+      indexBtn.setAttribute('aria-expanded', 'true');
     }
     function closeIndexPanel() {
       indexPanel.classList.remove('show');
       indexBtn.classList.remove('active');
+      indexBtn.setAttribute('aria-expanded', 'false');
     }
 
     indexBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       indexPanel.classList.contains('show') ? closeIndexPanel() : openIndexPanel();
+    });
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(() => {
+        if (window.innerWidth <= 480) return;
+        if (indexPanel.classList.contains('show')) positionIndexPanel();
+        if (moreOptionsDropdown.classList.contains('show')) positionDesktopPopover(moreOptionsDropdown, moreOptionsBtn, { alignRight: true });
+        if (document.getElementById('rank-panel').classList.contains('show')) {
+          positionDesktopPopover(document.getElementById('rank-panel'), document.getElementById('rank-btn'), { alignRight: true });
+        }
+      });
     });
 // 索引 tab 切换
 document.querySelectorAll('.index-tab').forEach((tab, idx) => {
