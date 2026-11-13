@@ -11,17 +11,17 @@
     {
       type: 'album', format: 'Mixtape', artist: 'THOME',
       title: 'SAYLESS MIXTAPE VOL.1', headline: 'THOME新Mixtape发布', albumId: '408811475',
-      image: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/41/7a/a4/417aa464-31b2-12fb-7f60-8a29304ab1e9/cover.jpg/632x632bb.webp'
+      image: 'https://p2.music.126.net/RcX7rPxi9gtMbrAOR4hZlw==/109951174255162100.jpg?param=750y750'
     },
     {
       type: 'album', format: 'EP', artist: '三火flame',
       headline: '三火flame新EP发布', albumId: '408322398',
-      image: 'https://p1.music.126.net/RvJKkFCm7LAve3fL_l-YIQ==/109951174237715977.jpg?param=750y750'
+      image: 'https://p2.music.126.net/RvJKkFCm7LAve3fL_l-YIQ==/109951174237715977.jpg?param=750y750'
     },
     {
       type: 'single', artist: 'Young Cash Jason', artists: ['Young Cash Jason', 'Lil Asian'],
       title: 'Sing My Song', headline: 'Young Cash Jason/Lil Asian新歌《Sing My Song》',
-      albumId: '408819124',
+      albumId: '408819124', songId: '3459362349',
       image: 'https://p1.music.126.net/ev_AmZAc4OR-fIaCL9vo2g==/109951174255317732.jpg?param=750y750'
     }
   ];
