@@ -615,111 +615,8 @@ if (item.aliases && item.aliases.length > 0) {
 // ===== 双榜切换排行榜 =====
 (function initRankPanel() {
 
-  // ★ 乐迷团月活跃度数据（活跃粉丝数，数字类型，按从多到少排列）
-  const fanClubDataApril = [
-   { name: "SASIOVERLXRD",             val: 621, avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
-{ name: "艾志恒Asen",             val: 498, avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
-{ name: "马思唯",             val: 278, avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
-{ name: "极品贵公子",             val: 274, avatar: "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130" },
-{ name: "张方钊",             val: 273, avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
-{ name: "法老",             val: 216, avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
-{ name: "Top Barry",             val: 187, avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
-{ name: "Capper",             val: 186, avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
-{ name: "沙一汀EL",             val: 177, avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
-{ name: "Rapeter",             val: 135, avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
-{ name: "蛋堡",             val: 133, avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
-{ name: "加木",             val: 130, avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
-{ name: "MULA SAKEE",             val: 122, avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130" },
-{ name: "连麻Swimming",             val: 120, avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
-{ name: "mac ova seas",             val: 99, avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
-{ name: "姜云升",             val: 93, avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
-{ name: "KenRobb",             val: 86, avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130" },
-{ name: "TizzyT",             val: 86, avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
-{ name: "JinJiBeWater-隼",             val: 77, avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
-{ name: "BOBBYNOPEACE",             val: 75, avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130" },
-{ name: "GALI",             val: 72, avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
-{ name: "Vansdaddy",             val: 70, avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130" },
-{ name: "THOME",             val: 64, avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
-{ name: "罗言",             val: 63, avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
-{ name: "DD Ma Shawty",             val: 63, avatar: "https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130" },
-{ name: "ljz329",             val: 55, avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
-{ name: "MISTERK",             val: 54, avatar: "https://p1.music.126.net/UnxqtJlc2dfN4ozg9F3ywg==/109951172030852354.jpg?param=130y130" },
-{ name: "KEY.L刘聪",             val: 52, avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
-{ name: "李大奔BENZO",             val: 48, avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130" },
-{ name: "王齐铭WatchMe",             val: 45, avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130" },
-{ name: "卦者灵风",             val: 43, avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
-{ name: "杨和苏KeyNG",             val: 42, avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
-{ name: "王以太",             val: 41, avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
-{ name: "翁杰Winjay",             val: 41, avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130" },
-{ name: "小精灵",             val: 40, avatar: "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130" },
-{ name: "CashTrippy",             val: 37, avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130" },
-{ name: "Spylent",             val: 36, avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
-{ name: "Billionhappy",             val: 34, avatar: "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130" },
-{ name: "Tlatre特雷西",             val: 34, avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130" },
-{ name: "Lil Asian",             val: 33, avatar: "https://p2.music.126.net/X7u05eURHRUPDJ9Osf2TRQ==/109951172325962977.jpg?param=130y130" },
-{ name: "RICHNOMADIC",             val: 32, avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130" },
-{ name: "XMASwu(吴骜)",             val: 32, avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
-{ name: "泰格西",             val: 32, avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130" },
-{ name: "Jony J",             val: 31, avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
-{ name: "等一下就回家",             val: 30, avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130" },
-{ name: "华云龙KLE",             val: 29, avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130" },
-        { name: "周乘羽",             val: 27, avatar: "https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130" },
-{ name: "kkluv",             val: 27, avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130" },
-{ name: "Vinz-T",             val: 27, avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130" },
-
-  ];
-
-  const fanClubDataMay = [
-{ name: "SASIOVERLXRD",             val: 782, avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
-{ name: "艾志恒Asen",               val: 695, avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
-{ name: "马思唯",                   val: 338, avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
-{ name: "极品贵公子",               val: 327, avatar: "https://p1.music.126.net/0ulhlQhO44wQB4Vg8Zcg1Q==/109951172481109650.jpg?param=130y130" },
-{ name: "沙一汀EL",                 val: 309, avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
-{ name: "张方钊",                   val: 261, avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
-{ name: "法老",                     val: 238, avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
-{ name: "Top Barry",                val: 221, avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
-{ name: "Capper",                   val: 188, avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
-{ name: "蛋堡",                     val: 177, avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
-{ name: "Rapeter",                  val: 165, avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
-{ name: "MULA SAKEE",               val: 163, avatar: "https://p1.music.126.net/DbZbi9RPzl4naeJ26VuKuw==/109951172226965666.jpg?param=130y130" },
-{ name: "加木",                     val: 152, avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
-{ name: "连麻Swimming",             val: 138, avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
-{ name: "mac ova seas",             val: 114, avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
-{ name: "姜云升",                   val: 99, avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
-{ name: "BOBBYNOPEACE",             val: 97, avatar: "https://p2.music.126.net/PktYMPpHiwXonwLfjTpbpw==/109951171196983840.jpg?param=130y130" },
-{ name: "KenRobb",                  val: 99, avatar: "https://p2.music.126.net/c5uvnFo5PW7r3QSPkeXx1g==/109951172355663423.jpg?param=130y130" },
-{ name: "TizzyT",                   val: 86, avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
-{ name: "JinJiBeWater-隼",          val: 73, avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
-{ name: "DD Ma Shawty",             val: 73, avatar: "https://p2.music.126.net/jIsA8nVO2yAqtOrrGMSUsQ==/109951172980023535.jpg?param=130y130" },
-{ name: "THOME",                    val: 71, avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
-{ name: "罗言",                     val: 61, avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
-{ name: "GALI",                     val: 59, avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
-{ name: "Vansdaddy",                val: 55, avatar: "https://p2.music.126.net/THxEtLref6ZVSDR7kWOZjA==/109951170501017897.jpg?param=130y130" },
-{ name: "李大奔BENZO",               val: 55, avatar: "https://p2.music.126.net/pmFMjBo76IptKl9nyi98_A==/109951171849778984.jpg?param=130y130" },
-{ name: "王齐铭WatchMe",             val: 50, avatar: "https://p2.music.126.net/2NkqRM-esPbSjYR0freJYg==/109951172165801367.jpg?param=130y130" },
-{ name: "ljz329",                   val: 49, avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
-{ name: "CashTrippy",               val: 49, avatar: "https://p1.music.126.net/kL7d-0ehorNXgSa8tznQGg==/109951172338582374.jpg?param=130y130" },
-{ name: "卦者灵风",                 val: 48, avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
-{ name: "MISTERK",                  val: 47, avatar: "https://p1.music.126.net/UnxqtJlc2dfN4ozg9F3ywg==/109951172030852354.jpg?param=130y130" },
-{ name: "KEY.L刘聪",                 val: 47, avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
-{ name: "杨和苏KeyNG",               val: 46, avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
-{ name: "万妮达Vinida Weng",        val: 43, avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130" },
-{ name: "Billionhappy",             val: 39, avatar: "https://p2.music.126.net/ZvDg-bazTDpuXy5WWj9RUg==/109951169700242006.jpg?param=130y130" },
-{ name: "RICHNOMADIC",              val: 38, avatar: "https://p1.music.126.net/9i0SjB7b2YIgaObzGsM_CA==/109951172511951472.jpg?param=130y130" },
-{ name: "XMASwu(吴骜)",             val: 37, avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
-{ name: "翁杰Winjay",               val: 35, avatar: "https://p1.music.126.net/rtP5KlpX97D16QROC9WYng==/109951172549373407.jpg?param=130y130" },
-{ name: "Spylent",                  val: 35, avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
-{ name: "Lil Asian",                val: 35, avatar: "https://p2.music.126.net/X7u05eURHRUPDJ9Osf2TRQ==/109951172325962977.jpg?param=130y130" },
-{ name: "等一下就回家",             val: 35, avatar: "https://p2.music.126.net/UQvJnE8N7QL1UEXppFB79Q==/109951172862745822.jpg?param=130y130" },
-{ name: "小精灵",                   val: 34, avatar: "https://p2.music.126.net/B3m-yvuVF_fXd9pS7VgUhQ==/109951164018724146.jpg?param=130y130" },
-{ name: "王以太",                   val: 31, avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
-{ name: "华云龙KLE",                val: 31, avatar: "https://p1.music.126.net/uud8eP712UuyHhDR3HtGYg==/109951172821942552.jpg?param=130y130" },
-{ name: "Tlatre特雷西",             val: 30, avatar: "https://p1.music.126.net/JWL86O8vRRUirfFZ4zOArg==/109951170020217838.jpg?param=130y130" },
-{ name: "周乘羽",           val: 30, avatar: "https://p2.music.126.net/7HYUGjbQHQ__tzjh352bCg==/109951170063220002.jpg?param=130y130" },
-{ name: "Jony J",                   val: 29, avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
-{ name: "Vinz-T",                   val: 29, avatar: "https://p1.music.126.net/ZSJe4ayYhXH5a72RFkHOnQ==/109951169914672045.jpg?param=130y130" },
-{ name: "泰格西",                   val: 28, avatar: "https://p1.music.126.net/d5mOPfT6kg1Tmz2VKGzL8Q==/109951169825979476.jpg?param=130y130" },
-  ];
+  // Monthly counts are separate from the live follower-count leaderboard.
+  const fanClubRankings = window.RapFanClubData;
 
   // ★ 粉丝数量数据（字符串，按从多到少排列）
   const fansCountData = [
@@ -794,13 +691,10 @@ if (item.aliases && item.aliases.length > 0) {
       .sort((a, b) => parseFansValue(b.val) - parseFansValue(a.val));
   }
 
-  const fanClubMonthData = {
-    april: fanClubDataApril,
-    may: fanClubDataMay,
-  };
+  const fanClubMonthData = fanClubRankings.months;
 
   function getCurrentFanClubData() {
-    return fanClubMonthData[currentFanMonth] || fanClubMonthData.april;
+    return (fanClubMonthData[currentFanMonth] || fanClubMonthData[fanClubRankings.defaultMonth]).entries;
   }
 
   // 渲染榜单
@@ -812,10 +706,10 @@ if (item.aliases && item.aliases.length > 0) {
       const noClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : '';
       const row = document.createElement('div');
       row.className = 'rank-row';
-      const avatarUrl = d.avatar || '';
-
-      // 判断该歌手是否有关系网
-      const singerData = allData.find(s => s.name === d.name);
+      // Display names can change without breaking the profile or network destination.
+      const singerData = profileUI.find(d.artistName || d.name);
+      const targetName = singerData ? singerData.name : (d.artistName || d.name);
+      const avatarUrl = d.avatar || (singerData && singerData.avatar) || '';
       const hasNetwork = singerData && singerData._hasOriginalCollaborators;
 
 row.innerHTML = `
@@ -824,7 +718,7 @@ row.innerHTML = `
   <span class="rank-name" style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.name}</span>
   <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
     ${hasNetwork ? `
-      <button class="rank-network-btn" data-name="${d.name}" title="查看关系网">
+      <button class="rank-network-btn" data-name="${targetName}" title="查看关系网">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="18" cy="5" r="3"></circle>
           <circle cx="6" cy="12" r="3"></circle>
@@ -834,7 +728,7 @@ row.innerHTML = `
         </svg>
       </button>
     ` : ''}
-    <span class="rank-val">${typeof d.val === 'number' ? d.val.toLocaleString() : d.val}</span>
+    <span class="rank-val">${d.displayVal ?? (typeof d.val === 'number' ? d.val.toLocaleString() : d.val)}</span>
   </div>
 `;
 
@@ -844,7 +738,7 @@ row.innerHTML = `
         networkBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           // 不收起排行榜面板，直接触发关系网（flyTo 已在 showNetwork 内统一处理）
-          window.showNetwork(d.name);
+          window.showNetwork(targetName);
         });
       }
 
@@ -861,7 +755,7 @@ row.innerHTML = `
           if (moreBtn) moreBtn.classList.remove('active');
           renderMarkers('all');
         }
-        locateAndAnimate(d.name);
+        locateAndAnimate(targetName);
       });
       body.appendChild(row);
     });
@@ -870,7 +764,7 @@ row.innerHTML = `
   function updateRankPanelSubtitle() {
     const subtitle = document.getElementById('rank-panel-subtitle');
     if (currentTab === 'fan') {
-      subtitle.textContent = `点击歌手名可定位到地图 · 乐迷团月榜（${currentFanMonth === 'april' ? '4月' : '5月'}）`;
+      subtitle.textContent = `点击歌手名可定位到地图 · 乐迷团月榜（${fanClubMonthData[currentFanMonth].label}）`;
     } else {
       subtitle.textContent = '点击歌手名可定位到地图';
     }
@@ -883,7 +777,7 @@ row.innerHTML = `
 
   // 初始显示乐迷团榜
   let currentTab = 'fan';
-  let currentFanMonth = 'april';
+  let currentFanMonth = fanClubRankings.defaultMonth;
   renderList(getCurrentFanClubData());
   updateRankPanelSubtitle();
   updateFanMonthBarVisibility();
@@ -893,6 +787,7 @@ row.innerHTML = `
   const slider = document.getElementById('rank-tab-slider');
   const monthTabs = document.querySelectorAll('.rank-fan-month-tab');
   const monthSlider = document.getElementById('rank-fan-month-slider');
+  monthSlider.style.transform = `translateX(${Array.from(monthTabs).findIndex(tab => tab.dataset.month === currentFanMonth) * 100}%)`;
 
   monthTabs.forEach((tab, idx) => {
     tab.addEventListener('click', function() {
@@ -901,7 +796,7 @@ row.innerHTML = `
 
       monthTabs.forEach(t => t.classList.remove('active'));
       this.classList.add('active');
-      monthSlider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
+      monthSlider.style.transform = `translateX(${idx * 100}%)`;
 
       if (currentTab === 'fan') {
         renderList(getCurrentFanClubData());
