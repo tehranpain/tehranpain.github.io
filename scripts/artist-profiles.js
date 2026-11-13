@@ -58,7 +58,7 @@
       node.rel = 'noopener noreferrer';
       return node;
     }
-    function avatar(item, className, lazy) {
+    function avatar(item, className, lazy, imageSize) {
       const frame = element('span', 'profile-avatar-frame ' + className);
       const fallback = element('span', 'profile-avatar-fallback', Array.from(item.name || '?')[0]);
       fallback.setAttribute('aria-hidden', 'true');
@@ -69,7 +69,13 @@
         image.decoding = 'async';
         if (lazy) image.loading = 'lazy';
         image.addEventListener('error', () => { image.hidden = true; });
-        image.src = item.avatar;
+        let source = item.avatar;
+        if (imageSize && /^https?:\/\/p\d+\.music\.126\.net\//.test(source)) {
+          source = /([?&])param=\d+y\d+/.test(source)
+            ? source.replace(/([?&])param=\d+y\d+/, '$1param=' + imageSize + 'y' + imageSize)
+            : source + (source.includes('?') ? '&' : '?') + 'param=' + imageSize + 'y' + imageSize;
+        }
+        image.src = source;
         frame.append(image);
       }
       return frame;
@@ -94,6 +100,22 @@
       node.append(avatar(person || { name: displayName }, 'profile-person-avatar', true), element('span', 'profile-person-name', displayName));
       if (!person) node.append(element('span', 'profile-person-status', '待建资料'));
       return node;
+    }
+    function networkIcon() {
+      const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      const attributes = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'aria-hidden': 'true', focusable: 'false' };
+      Object.entries(attributes).forEach(([name, value]) => svg.setAttribute(name, value));
+      [
+        ['path', { d: 'M8.6 10.5 15.4 6.5M8.6 13.5l6.8 4' }],
+        ['circle', { cx: 18, cy: 5, r: 3 }],
+        ['circle', { cx: 6, cy: 12, r: 3 }],
+        ['circle', { cx: 18, cy: 19, r: 3 }]
+      ].forEach(([tag, values]) => {
+        const part = doc.createElementNS('http://www.w3.org/2000/svg', tag);
+        Object.entries(values).forEach(([name, value]) => part.setAttribute(name, value));
+        svg.append(part);
+      });
+      return svg;
     }
     function ensurePanel() {
       if (panel) return;
@@ -141,7 +163,7 @@
     }
     function renderMusic(item, songsSection, bioSection, source) {
       songsSection.replaceChildren(element('h3', 'profile-section-title', '代表作品'));
-      bioSection.replaceChildren(element('h3', 'profile-section-title', '资料信息'));
+      bioSection.replaceChildren(element('h3', 'profile-section-title', '艺人简介'));
       const entry = source && source.byArtist && source.byArtist[String(item.neteaseId)];
       const songs = entry && Array.isArray(entry.songs)
         ? entry.songs.filter(song => /^\d+$/.test(String(song.id)) && typeof song.name === 'string').slice(0, 3) : [];
@@ -157,9 +179,8 @@
         list.append(row);
       });
       if (songs.length) {
-        songsSection.append(list, element('p', 'profile-source', '网易云热门歌曲 · 点击图标打开歌曲页'));
+        songsSection.append(list);
       } else songsSection.append(element('p', 'profile-empty', '暂无可核验的热门歌曲'));
-      bioSection.append(element('h4', 'profile-biography-heading', '艺人简介'));
       const biography = entry && typeof entry.biography === 'string' ? entry.biography : '';
       if (biography.trim()) {
         const characters = Array.from(biography);
@@ -175,7 +196,6 @@
           toggle.setAttribute('aria-expanded', 'false');
           bioSection.append(toggle);
         }
-        bioSection.append(element('p', 'profile-source', '来源：网易云音乐' + (entry.biographyDate ? ' · ' + entry.biographyDate : '')));
       } else bioSection.append(element('p', 'profile-empty', '暂未获取到公开的艺人简介。'));
     }
     function open(name) {
@@ -190,22 +210,37 @@
       const members = memberNames(item);
       panel.setAttribute('data-profile-name', item.name);
       panel.setAttribute('data-profile-type', group ? 'label' : 'singer');
-      const hero = element('section', 'profile-hero');
+      const hero = element('section', 'profile-hero' + (group ? '' : ' profile-hero-cover'));
       if (group) hero.append(element('p', 'profile-kind', '团体'));
-      hero.append(avatar(item, 'profile-hero-avatar'));
+      hero.append(avatar(item, group ? 'profile-hero-avatar' : 'profile-cover-avatar', false, group ? undefined : 750));
+      const identity = group ? hero : element('div', 'profile-hero-identity');
       const title = element('h2', 'profile-title', item.name);
       title.id = 'artist-profile-title';
-      hero.append(title);
+      title.title = item.name;
+      identity.append(title);
       const metric = element('div', 'profile-metric', group ? String(members.length) : fans(item));
       metric.append(element('span', 'profile-metric-label', group ? '位成员' : '粉丝'));
-      hero.append(metric);
-      if (item.desc && !['自动添加', '网易云自动补全'].includes(item.desc)) hero.append(element('p', 'profile-description', item.desc));
+      identity.append(metric);
+      if (item.desc && !['自动添加', '网易云自动补全'].includes(item.desc)) identity.append(element('p', 'profile-description', item.desc));
+      if (!group) hero.append(identity);
       if (!hasMapLocation(item)) hero.append(element('p', 'profile-only-note', '仅收录资料，不在地图显示'));
       const actions = element('div', 'profile-actions');
-      if (hasMapLocation(item) && locate) actions.append(button('profile-locate', '在地图查看', () => locate(item.name)));
-      if (!group && /^\d+$/.test(String(item.neteaseId))) actions.append(musicLink('profile-music-link', '网易云主页', 'artist', String(item.neteaseId)));
-      if (network && hasMapLocation(item) && (item.collaborators || []).length) {
-        actions.append(button('profile-network', '关系网', () => network(item.name, { keepProfile: true })));
+      if (group) {
+        if (hasMapLocation(item) && locate) actions.append(button('profile-locate', '在地图查看', () => locate(item.name)));
+      } else {
+        const homepage = /^\d+$/.test(String(item.neteaseId))
+          ? musicLink('profile-music-link', '查看主页', 'artist', String(item.neteaseId))
+          : button('profile-music-link', '查看主页', () => {});
+        if (homepage.tagName.toLowerCase() === 'button') { homepage.disabled = true; homepage.title = '暂未收录网易云主页'; }
+        actions.append(homepage);
+        const available = Boolean(network && hasMapLocation(item) && (item.collaborators || []).length);
+        const relation = button('profile-network', undefined, () => {
+          if (available) network(item.name, { keepProfile: true });
+        });
+        relation.append(networkIcon(), element('span', '', '关系网'));
+        relation.disabled = !available;
+        if (!available) relation.title = '暂无可定位的合作关系';
+        actions.append(relation);
       }
       if (actions.children.length) hero.append(actions);
       scroller.replaceChildren(hero);
@@ -213,10 +248,13 @@
       let songsSection, bioSection;
       if (!group) {
         songsSection = section('代表作品');
-        bioSection = section('资料信息');
+        bioSection = section('艺人简介');
         if (snapshot || root.RapArtistDetails) renderMusic(item, songsSection, bioSection, snapshot || root.RapArtistDetails);
-        else songsSection.append(element('p', 'profile-empty', '正在加载作品资料…'));
-        scroller.append(songsSection);
+        else {
+          bioSection.append(element('p', 'profile-empty', '正在加载艺人简介…'));
+          songsSection.append(element('p', 'profile-empty', '正在加载作品资料…'));
+        }
+        scroller.append(bioSection, songsSection);
       }
       if (group) {
         const roster = section('团体成员', members.length);
@@ -238,12 +276,11 @@
       const peers = [...new Set((item.collaborators || []).map(peer => typeof peer === 'string' ? peer : peer.name).filter(Boolean))];
       if (peers.length) {
         const collaborators = section('合作关系', peers.length);
-        const list = element('div', 'profile-relations');
-        peers.forEach(peer => list.append(personLink(findArtist(peer), peer, 'profile-relation')));
+        const list = element('div', 'profile-collaborators');
+        peers.forEach(peer => list.append(personLink(findArtist(peer), peer, 'profile-collaborator')));
         collaborators.append(list);
         scroller.append(collaborators);
       }
-      if (bioSection) scroller.append(bioSection);
       panel.hidden = false;
       scroller.scrollTop = 0;
       if (onOpen) onOpen(item);
@@ -269,20 +306,7 @@
         });
         action.title = '查看关系网';
         action.setAttribute('aria-label', '查看' + item.name + '的关系网');
-        const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        const attributes = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'aria-hidden': 'true', focusable: 'false' };
-        Object.entries(attributes).forEach(([name, value]) => svg.setAttribute(name, value));
-        [
-          ['path', { d: 'M8.6 10.5 15.4 6.5M8.6 13.5l6.8 4' }],
-          ['circle', { cx: 18, cy: 5, r: 3 }],
-          ['circle', { cx: 6, cy: 12, r: 3 }],
-          ['circle', { cx: 18, cy: 19, r: 3 }]
-        ].forEach(([tag, attributes]) => {
-          const part = doc.createElementNS('http://www.w3.org/2000/svg', tag);
-          Object.entries(attributes).forEach(([name, value]) => part.setAttribute(name, value));
-          svg.append(part);
-        });
-        action.append(svg);
+        action.append(networkIcon());
         actions.append(action);
       }
       node.append(body);

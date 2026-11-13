@@ -24,10 +24,10 @@ window.RapArtistDetails = {
           "artists": "春艳"
         }
       ],
-      "biography": "饶舌创作者，早期参加过DISS-RBL比赛。",
+      "biography": "「春艳」是一个男生饶舌歌手的艺名，你如果好像有听过「春艳」这个名字应该就是在DISS-RBL或是Instagram，如果你问我什么是DISS-RBL跟Instagram，那就代表你老了，掰。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=1044021"
     },
     "1156003": {
@@ -48,10 +48,10 @@ window.RapArtistDetails = {
           "artists": "熊仔 / 9m88"
         }
       ],
-      "biography": "饶舌歌手、词曲创作者。曾以《PRO》获得第34届金曲奖最佳华语专辑，以《88BARS》获得第33届金曲奖最佳作词人，并担任《大嘻哈时代》导师。",
+      "biography": "曾获第34届金曲奖「最佳华语专辑」、第33届金曲奖「最佳作词人」、第12届金音奖「最佳嘻哈歌曲」及第13届金音奖「最佳嘻哈歌曲」、「最佳嘻哈专辑」。2021年于饶舌选秀《大嘻哈时代》担任导师，连手多位嘻哈圈代表打造节目主题曲《凭什么》，2022年举办个人演唱会《PRO MAX》。\n",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=1156003"
     },
     "12047599": {
@@ -72,10 +72,10 @@ window.RapArtistDetails = {
           "artists": "李英宏"
         }
       ],
-      "biography": "又名DJ DIDILONG，创作歌手与演员，音乐融合Funk、NuDisco及HipHop，发行过《台北直直撞》《东方美人》等专辑。",
+      "biography": "李英宏aka DJ DIDILONG 又名迪爵迪迪龙。\n创作歌手与演员，音乐风格以华语流行为基础，结合Funk、NuDisco、HipHop，富有浓厚的个人特色。\n2016年发行个人首张专辑《台北直直撞》浓烈的台式都会气质，融合嘻哈与电子元素，独特的音乐风格与视觉形象极具辨识度。\n除了个人作品外，近年来他不仅持续推出音乐作品，还在电影配乐领域崭露头角，并投入戏剧演出，展现多面向的才华。\n2025年，他带来全新个人专辑《东方美人 Oriental Beauty》，让众人再度见证了他的新突破！",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=12047599"
     },
     "12195538": {
@@ -96,10 +96,10 @@ window.RapArtistDetails = {
           "artists": "蛋头BG8Locc"
         }
       ],
-      "biography": "曾使用Teezy这一艺名，2015年改用BG8LOCC。作品涉及西海岸、南岸与Trap风格，曾与PNC陈老师组成中正区联盟。",
+      "biography": "aka thaEiht, Im too good for those 碧池s\n15开始接触饶舌说唱音乐，17岁开始创作，18岁首次登台参加台湾的饶舌比赛。\n现年25岁的蛋头已经接触了饶舌音乐10个年头，\n从18岁时的90年代西海岸风格说唱饶舌到20出头时的南岸风格。\n甚至是现在的Trap跟添加了摇滚朋克的反抗风格，无论如何都是证明着蛋头的突破以及变化。\n从来不稀罕与虚假的艺术音乐创作者为伍是蛋头一贯的行事作风，\n追求燃烧自己的生命做出艺术般的音乐作品则是愿景。\n2012年与跟自己居住在同一条街上的说唱歌手也是话题性的人物 PNC陈老师组合 中正区联盟，\n并发行了自己的首张混音带 靛蓝孩童(indigo children)而后制作了更多具有争议性极高的作品。\n2013年录制了代表混音歌曲夏日风情画 还有2014许多支团体名义的音乐录影带\n2015年将自己的饶舌艺名从Teezy改为高中时唱饶舌的名字BG8LOCC，恢复成个人的创作生涯。\n2016年再次发行了第二章的混音带 牯岭街少年 (ABSDmixtape) 说唱风格改变之大 不同于以往的创作风格，目的就是让自己成为有影响力的人来改变华语饶舌。.",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=12195538"
     },
     "12202146": {
@@ -120,10 +120,10 @@ window.RapArtistDetails = {
           "artists": "Leo王"
         }
       ],
-      "biography": "曾任“巨大的轰鸣”乐团主唱，加入颜社后与春艳组成夜猫组，融合摇滚与嘻哈进行创作。",
+      "biography": "他是Leo王，是一名顶着各种头衔的疯癫少年，社会边缘的他是台大社会不了了之生，在独立乐团『巨大的轰鸣』里担任意气风发的主唱，半路出家发现自己想当个饶舌歌手，于是找上了颜社，跟搭挡春艳组成嘻哈双人团体『夜猫组』，随着创作的再进化不断更新自己的多重身分。\n\n来到颜社后，身为这块嘻哈老厂牌底下的小学弟却以超惊人创作力不断在地下发行个人mixtape，跃升现今饶舌圈备受关注的天才型人物，利用特(古)殊(怪)的哼唱风格与狂(自)妄(恋)的舞台魅力极速掳获观众注意，汲取摇滚与嘻哈的养分，自成一脉，初次啼声即以一曲《把所有烦都烧了让它变成烟》入围金音奖最佳嘻哈单曲。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=12202146"
     },
     "12795019": {
@@ -144,10 +144,10 @@ window.RapArtistDetails = {
           "artists": "娄峻硕 / Tyson Yoshi"
         }
       ],
-      "biography": "花莲出生的饶舌歌手与创作者。2017年以单曲《你老爸在你背后》正式出道，发行专辑《IDOL RAPPER??》。",
+      "biography": "娄峻硕（JunShou Lou，1993年9月14日－），为台湾男歌手、Rapper。娄峻硕出生在花莲，2014年底与米乐士娱乐签约成为旗下新人。2015年参加歌唱选秀节目Super Star 我要当歌手2作为白队队员。目前就读东吴大学国际经营与贸易学系。2017年发行首张数位单曲你老爸在你背后正式出道。除了音乐创作全才外，首张单曲连MV都自导自演自己剪辑，不只音乐作品甚至跨足影像作品。2017年底发行首张全创作专辑IDOL RAPPER??",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=12795019"
     },
     "13021017": {
@@ -168,10 +168,10 @@ window.RapArtistDetails = {
           "artists": "J. Sheon / 吕士轩"
         }
       ],
-      "biography": "艺名Trout Fresh，新竹出身的饶舌歌手，SmashRegz成员，2017年发行个人专辑《误入奇途》。",
+      "biography": "吕士轩 （1989年3月12日—），艺名Trout Fresh，台湾饶舌歌手，新竹人，毕业于玄奘大学，2015年12月以饶舌团体SmashRegz发行EP《戏剧话》，2017年12月发行首张个人专辑《误入奇途》，并于2018年3月25日在Legacy举办团体专场演唱会，2020年11月7日于Legacy Max举办个人首场演唱会。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=13021017"
     },
     "13497197": {
@@ -192,10 +192,10 @@ window.RapArtistDetails = {
           "artists": "高尔宣"
         }
       ],
-      "biography": "高尔宣OSN，创作型歌手，作品以饶舌结合旋律为特色。",
+      "biography": "高尔宣OSN，高人气新生代创作型歌手，OSN 以其多才多艺、丰富的创作能力俘获了无数歌迷的心。 OSN 健康而富有魅力的形象也使他成为广告界和各大品牌的合作对象。他还受邀为多部电影创作和演唱这些歌曲。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=13497197"
     },
     "29765846": {
@@ -216,10 +216,10 @@ window.RapArtistDetails = {
           "artists": "余梓桾 / 张子薇 / 莫宰羊"
         }
       ],
-      "biography": "本名杨宇恩，来自花莲，饶舌团队BackMountKrew成员。代表作品包括《未接来电》《水》。",
+      "biography": "歌手简介\n本名：杨宇恩\n\n国籍：中国\n\n出生地：台湾花莲\n\n出生日期：1998年10月23日\n\n职业：歌手\n\n代表作：《未接来电》《水》\n\n简介：莫宰羊，1998年10月23日出生于台湾花莲，为饶舌团队BackMountKrew（前身BackMountkidz 后山孩子）一员，被称为“怪物天才少年”。17岁出道，仅一年多就已成为台湾新生代rapper的代表人物。他的作品回归说唱音乐的初衷，反应自我与世界的观察，风格独特强烈。他的三首单曲每一出来便霸占街声榜首，无法被定义的风格。这位来自花莲的少年所在做的都是在刷新世界对华语Rapper的定义。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=29765846"
     },
     "33630934": {
@@ -240,10 +240,10 @@ window.RapArtistDetails = {
           "artists": "小春Kenzy"
         }
       ],
-      "biography": "顽童MJ116成员，与瘦子E.SO及大渊MUTA共同创作、演出。",
+      "biography": "因为酷爱饶舌，而组成顽童 。 MJ，代表他们同样来自木栅区;116，就是他们的邮政编码。\n顽童的音乐唱出许多现代年轻人的心声，他们不玩文字游戏、不做讽刺政治时事的歌词，以简单直接 的文字表达出内心最深层的欲望。\n他们是近十年内，台湾 Hip Hop 界的传奇团体，打破以往中文饶舌 歌曲的限制及界线，创造出属于自己的音乐及唱法。\n「顽童 MJ116」成立于 2004 年 7 月。由瘦子ESO 与 小春Kenzy 两人为初始成立团员。\n以节奏强烈的美式南岸音 乐风格和强调节奏的饶舌 Flow，在非主流 Hip Hop 圈里引起热烈讨论，放荡不羁的曲风与鲜明的音乐 色彩正是他们所表达的内心诉求，往往都能在派对里头达到一波又一波的高潮。\n强烈的节奏、丰富的 音乐性，让顽童成为夜店最抢手的演出团体。知名经纪人黄静波说:「看过他们的现场演出后，会令人兴奋、血脉喷张。」\n\n小春Kenzy与瘦子因高中同学关系，再加上两人有共同热爱的音乐 Hip Hop，因此决定组成 顽童 MJ116 进而踏上音乐创作这条路。\n早期出身庙会八家将的小春，13 岁就在庙会阵头中挑大梁，这个经历造就他多年来舞台表演震慑全场的魅力，加上热爱棒球运动也让他在音乐内容中有种无所畏惧勇往直前的性格与特色，也因独特的 Kenzy 个人风格，在2012独立发行了个人混音带 Kenzy『No.1 Hustler Mixtape』在台湾有着四千多张的销售量，Kenzy 实为台湾说唱音乐圈中生代的指标人物之一。\n\n-",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=33630934"
     },
     "46905797": {
@@ -264,10 +264,10 @@ window.RapArtistDetails = {
           "artists": "Gummy B / wannasleep / 熊仔"
         }
       ],
-      "biography": "本名李奕贤，台北出身的独立音乐人，擅长饶舌与创作。",
+      "biography": "wannasleep（1999年6月13日－），本名李奕贤，台湾台北人，独立音乐人，擅长饶舌。",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=46905797"
     },
     "47409571": {
@@ -288,10 +288,10 @@ window.RapArtistDetails = {
           "artists": "盛宇D-SHINE / 大渊MUTA"
         }
       ],
-      "biography": "本名林睦渊，顽童MJ116成员，唱腔低沉浑厚，富有爆发力。",
+      "biography": "大渊MUTA 本名 林睦渊 ，大渊MUTA 本名 林睦渊 ，国中开始接触Hip Hop音乐；在尚未成立顽童之前，跟同学一起跳街舞。在与瘦子E.SO的相识后，开始耳濡目染对饶舌产生兴趣\n瘦子偶然之间发现，自己儿时的玩伴大渊，在可爱逗趣的圆胖外表下，其实拥有一副好嗓音。他的唱腔低沉浑厚，并且充满爆发力，在现今台湾饶舌乐之中十分少见。\n2004年与国中、高中同学一起合组嘻哈饶舌团体「顽童MJ116」，MJ，代表他们同样来自木栅区； 116，就是他们的邮政编码\n中开始接触Hip Hop音乐；在尚未成立顽童之前，跟同学一起跳街舞。在与瘦子E.SO的相识后，开始耳濡目染对饶舌产生兴趣\n瘦子偶然之间发现，自己儿时的玩伴大渊，在可爱逗趣的圆胖外表下，其实拥有一副好嗓音。他的唱腔低沉浑厚，并且充满爆发力，在现今台湾饶舌乐之中十分少见。\n2004年与国中、高中同学一起合组嘻哈饶舌团体「顽童MJ116」，MJ，代表他们同样来自木栅区； 116，就是他们的邮政编码\n\n2019 在 顽童MJ116 单飞不解散后，醉心于DJ放歌的他，开始了北、中、南三城的夜店巡回活动，场场塞爆夜店，之后更受邀参加 F1赛车来台的派对指定DJ。更在MC HOTDOG热狗 在年中举办的「废欲清」演唱会中被指定为开场DJ ，让大家见识到大渊MUTA 对音乐与节拍的敏锐性与特有的舞台魅力\n\n-",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=47409571"
     },
     "56140461": {
@@ -312,10 +312,10 @@ window.RapArtistDetails = {
           "artists": "someshiit 山姆 / CHS"
         }
       ],
-      "biography": "以个人生活、情绪与自我思考为创作主题的饶舌音乐人。",
+      "biography": "唱着some shit about my life\n\n但还是很常不知道自己在押什么韵\n\n总茫然地诠释，或没有重点地谈论\n\n可能有时候会在鼓与鼓之间放进一些消极\n\n一些对常态的不理解\n\n也可能偶尔在字句中思考某些不可能\n\n某些被说得很重要\n\n但其实没有人真的在意的人",
       "biographyDate": "2026-11-12",
-      "biographySource": "网易云音乐公开艺人简介摘要",
-      "biographySummary": true,
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=56140461"
     },
     "2103": {
