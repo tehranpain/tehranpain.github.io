@@ -1,6 +1,7 @@
 (function (root) {
   // Every graph opens at the same scale, regardless of collaborator distances.
   const NETWORK_ZOOM = 6;
+  const NETWORK_PAN_DURATION = .32;
 
   function mappedPeers(center, resolve, hasLocation) {
     const seen = new Set([center.name]);
@@ -205,12 +206,17 @@
         if (active) drawLinks();
       });
     }
-    function focusCamera(center) {
+    function focusCamera(center, switching = false) {
       map.stop();
-      // Center first, so flying between remote artists cannot introduce a zoom-out detour.
       const location = [center.lat, center.lng];
+      const reducedMotion = prefersReducedMotion();
+      if (switching && !reducedMotion && Math.abs(map.getZoom() - NETWORK_ZOOM) < .001) {
+        map.panTo(location, { animate: true, duration: NETWORK_PAN_DURATION, easeLinearity: .25 });
+        return;
+      }
+      // Center before changing scale, without introducing a zoom-out detour.
       map.panTo(location, { animate: false });
-      if (prefersReducedMotion() || Math.abs(map.getZoom() - NETWORK_ZOOM) < .001) {
+      if (reducedMotion || Math.abs(map.getZoom() - NETWORK_ZOOM) < .001) {
         map.setView(location, NETWORK_ZOOM, { animate: false });
       } else {
         map.flyTo(location, NETWORK_ZOOM, { duration: .72, animate: true });
@@ -230,6 +236,7 @@
     function show(center) {
       if (!hasLocation(center)) return false;
       if (active && centerName === center.name) { focus(null); focusCamera(center); return true; }
+      const switching = active;
       clear(); active = true; centerName = center.name;
       const peers = mappedPeers(center, resolve, hasLocation).sort((a, b) =>
         map.distance([center.lat, center.lng], [a.lat, a.lng]) - map.distance([center.lat, center.lng], [b.lat, b.lng]) || a.name.localeCompare(b.name));
@@ -255,7 +262,7 @@
       exitButton.classList.add('network-dock'); exitButton.style.display = 'flex';
       layout();
       container.classList.add('network-is-ready');
-      focusCamera(center);
+      focusCamera(center, switching);
       return true;
     }
     map.on('zoom', () => { updateScale(); scheduleLinks(); });
