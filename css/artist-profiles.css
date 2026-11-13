@@ -48,7 +48,6 @@
 .profile-only-note { margin: 16px 0 0; border-radius: 11px; padding: 9px; background: var(--profile-paper); color: var(--profile-muted); font-size: 11px; }
 .profile-actions { display: flex; gap: 8px; margin-top: 22px; }
 .profile-actions > * { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 7px; border: 0; border-radius: 12px; background: #eeeae4; color: #463d33; text-decoration: none; font-size: 12px !important; line-height: 1.3; font-weight: 700 !important; cursor: pointer; }
-.profile-actions .profile-locate { background: var(--profile-red); color: #fff; }
 .profile-actions > *:hover { filter: brightness(.96); }
 /* Both profile types share a square, full-bleed cover; membership chips are independent. */
 .artist-profile-panel .profile-toolbar { position: absolute; inset: 0 0 auto; z-index: 3; justify-content: flex-end; padding: 12px; pointer-events: none; }
@@ -62,6 +61,11 @@
 .profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #463e38; }
 .profile-cover-avatar .profile-avatar-fallback { font-size: 84px; color: #ffffff38; }
 .profile-hero-cover .profile-title { margin: 0; color: #fff; font-size: 32px; line-height: 1.16; letter-spacing: -.5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+/* Keep group location beside the title without squeezing long names or changing artist actions. */
+.profile-group-heading { display: flex; align-items: center; gap: 12px; }
+.profile-group-heading .profile-title { flex: 1; min-width: 0; }
+.profile-group-heading .profile-locate { flex-shrink: 0; min-height: 32px; padding: 6px 12px; border: 1px solid #ffffff70; border-radius: 999px; background: #ffffff26; color: #fff; font-size: 12px; font-weight: 600; line-height: 1.4; cursor: pointer; }
+.profile-group-heading .profile-locate:hover { background: #ffffff40; }
 .profile-hero-cover .profile-metric { display: flex; align-items: baseline; margin-top: 8px; color: #fff; font-size: 14px; line-height: 1.4; font-weight: 600; }
 .profile-hero-cover .profile-metric-label { display: inline; margin: 0; color: inherit; font-size: inherit; font-weight: inherit; }
 .profile-founded { margin: 9px 0 0; color: #ffffffe0; font-size: 12px; line-height: 1.5; }
@@ -73,8 +77,6 @@
 .profile-hero-cover .profile-actions > * { gap: 6px; min-height: 42px; padding: 11px 8px; border: 1px solid transparent; border-radius: 11px; color: #fff; }
 .profile-hero-cover .profile-music-link { background: var(--profile-red); }
 .profile-hero-cover .profile-network { border-color: #ffffff70; background: #ffffff24; }
-.profile-hero-cover .profile-locate { border-color: #ffffff70; background: #ffffff24; }
-.profile-hero-cover .is-single-action .profile-locate { border-color: transparent; background: var(--profile-red); }
 .profile-hero-cover .profile-network svg { flex-shrink: 0; width: 16px; height: 16px; }
 .profile-hero-cover .profile-actions > *:disabled { opacity: .45; cursor: not-allowed; }
 .profile-section { margin-top: 12px; padding: 20px 17px; border-radius: 20px; background: #fff; }

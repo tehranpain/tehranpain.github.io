@@ -266,10 +266,18 @@
       const title = element('h2', 'profile-title', item.name);
       title.id = 'artist-profile-title';
       title.title = item.name;
-      identity.append(title);
       if (group) {
+        const heading = element('div', 'profile-group-heading');
+        heading.append(title);
+        if (hasMapLocation(item) && locate) {
+          const location = button('profile-locate', '定位', () => locate(item.name));
+          location.setAttribute('aria-label', '在地图上定位' + item.name);
+          heading.append(location);
+        }
+        identity.append(heading);
         if (item.founded) identity.append(element('p', 'profile-founded', '成立于' + item.founded));
       } else {
+        identity.append(title);
         const metric = element('div', 'profile-metric', fans(item));
         metric.append(element('span', 'profile-metric-label', '粉丝'));
         identity.append(metric);
@@ -281,7 +289,6 @@
       if (group) {
         // Group IDs are added only after matching the account's biography or member credits.
         if (/^\d+$/.test(String(item.neteaseId))) actions.append(musicLink('profile-music-link', '查看主页', 'artist', String(item.neteaseId)));
-        if (hasMapLocation(item) && locate) actions.append(button('profile-locate', '在地图查看', () => locate(item.name)));
         if (actions.children.length === 1) actions.className += ' is-single-action';
       } else {
         const homepage = /^\d+$/.test(String(item.neteaseId))
