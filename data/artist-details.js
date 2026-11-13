@@ -6,6 +6,1640 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "2122": {
+      "songs": [
+        {
+          "id": "65739",
+          "name": "Everywhere We Go",
+          "artists": "陈冠希 / MC仁 / 厨房仔 / 应采儿"
+        },
+        {
+          "id": "66068",
+          "name": "战争 (feat. 陈奂仁, 胡蓓蔚, MC 仁)",
+          "artists": "陈冠希 / 陈奂仁 / 胡蓓蔚 / MC仁"
+        },
+        {
+          "id": "66164",
+          "name": "I Never Told You",
+          "artists": "陈冠希 / 陈奂仁"
+        }
+      ],
+      "biography": "香港Hip Hop音乐文化引领者，最佳嘻哈艺人奖得主。代表电影作品《无间道Ⅱ》、《千机变》、《头文字D》、《狗咬狗》、《神枪手》，音乐作品《单恋高校》、《坏孩子的天空》、《故意》、《I Never Told You》、《Sorry Sorry》等。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=2122"
+    },
+    "2802": {
+      "songs": [
+        {
+          "id": "1847534609",
+          "name": "广东 Stand Up (ft. Tizzy T, ODD陈思键, Yamy郭颖, 廖效浓, 徐真真, 瘦恒SoulHan, Vyan, 肥宝, 大雕Roc, JR Fog)",
+          "artists": "AR刘夫阳 / TizzyT / ODD陈思键 / Yamy郭颖 / 廖效浓 / 徐真真 / 瘦恒SoulHan / Vyan / 肥宝 / 大雕Roc / JR Fog"
+        },
+        {
+          "id": "2124421466",
+          "name": "Yanking",
+          "artists": "塞壬唱片-MSR / 李吉吉 / 肥宝"
+        },
+        {
+          "id": "1967442950",
+          "name": "广东妹 Remix(ft.Yamy郭颖,何美延HAMY,日出俱乐部 叶晓粤,泳恩Joannne)",
+          "artists": "瘦恒SoulHan / Yamy郭颖 / 何美延HAMY / 日出俱乐部 / 叶晓粤 / 泳恩Joannne / 肥宝"
+        }
+      ],
+      "biography": "广州的Hip Hop乐队噔哚（Dumdue）的成员。。噔哚Dumdue，是2005年组成的一个广州的Hip Hop乐队。音乐风格是Alternative Hip-Hop，Underground Hip-Hop。 噔哚首发专辑，Featuring国内多个著名Hip-Hop团体/个人。共27首歌曲。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=2802"
+    },
+    "4489": {
+      "songs": [
+        {
+          "id": "65739",
+          "name": "Everywhere We Go",
+          "artists": "陈冠希 / MC仁 / 厨房仔 / 应采儿"
+        },
+        {
+          "id": "66068",
+          "name": "战争 (feat. 陈奂仁, 胡蓓蔚, MC 仁)",
+          "artists": "陈冠希 / 陈奂仁 / 胡蓓蔚 / MC仁"
+        },
+        {
+          "id": "329213",
+          "name": "煞科",
+          "artists": "郑秀文 / MC仁"
+        }
+      ],
+      "biography": "陈广仁是香港人，1997年从法国取得视觉艺术学位，在香港音乐、涂鸦、潮流界占有一定地位，同时也是LMF大懒堂乐队的主唱，近年来转入独立音乐制作，并涉及涂鸦、设计、展览等领域。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=4489"
+    },
+    "4573": {
+      "songs": [
+        {
+          "id": "79177",
+          "name": "遥控",
+          "artists": "林俊杰 / Masta Mic / DJ Tommy"
+        },
+        {
+          "id": "1365726407",
+          "name": "破地狱",
+          "artists": "Masta Mic"
+        },
+        {
+          "id": "26429341",
+          "name": "上位 (Feat. 侧田 & Jerald)",
+          "artists": "Masta Mic / 侧田 / Jerald"
+        }
+      ],
+      "biography": "目前签约著名DJ Tommy旗下的Masta Mic在香港被称为“Freestyle之王”，他可以连续不停地freestyle上一个多小时，除此之外，Masta Mic随时变换Flow的能力也同样强大。 ",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=4573"
+    },
+    "4935": {
+      "songs": [
+        {
+          "id": "442518718",
+          "name": "挂念",
+          "artists": "爽子"
+        },
+        {
+          "id": "419077145",
+          "name": "黑暗中的莲花",
+          "artists": "爽子 / 莲花 / Bear"
+        },
+        {
+          "id": "1335406718",
+          "name": "过年喽",
+          "artists": "天堂乐队 / 栾树 / 宁浩 / 爽子 / 叶世荣 / 二手玫瑰 / 秦勇 / 轮回乐队 / 唐朝乐队 / 黑豹乐队 / 面孔乐队 / 扭曲机器 / 脑浊乐队 / 夏"
+        }
+      ],
+      "biography": "爽子 一个做音乐的人",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=4935"
+    },
+    "6333": {
+      "songs": [
+        {
+          "id": "2034533724",
+          "name": "TANK",
+          "artists": "Toryondacloud / 九龙皇帝 / Lil Chucky / Young Kin"
+        },
+        {
+          "id": "2621208244",
+          "name": "飞得高",
+          "artists": "Young Kin / 赵山河"
+        },
+        {
+          "id": "184871",
+          "name": "革命的歌",
+          "artists": "Young Kin"
+        }
+      ],
+      "biography": "Young Kin 的中文名叫“奕峻”。他1984年出生于瑞士，4个月大时来到中国，从小就成长在国际社会和中国社会相融合的环境中，再加上中国父亲和瑞士母亲的影响，使得MC YoungKin对中国传统文化有着十分深刻的了解，并且同时又保持着与世界文化的接轨。6岁时YoungKin进入德国国际学校并于2004年毕业。与此同时，他开始和在“为人民服务”专辑中，在中国说唱界享有很高知名度的MC Sbazzo 合作录音。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=6333"
+    },
+    "43515": {
+      "songs": [
+        {
+          "id": "27955142",
+          "name": "Sorrow",
+          "artists": "Sbazzo"
+        },
+        {
+          "id": "563032142",
+          "name": "如果我能回头",
+          "artists": "Sbazzo / 老郑XIV / 张楠Chef"
+        },
+        {
+          "id": "5262829",
+          "name": "Dont Leave",
+          "artists": "Sbazzo / Shef / Fortean / Yang Yang / Bad Blood"
+        }
+      ],
+      "biography": "Sbazzo（马克）中国HIPHOP音乐殿堂级人物，2002年作为中国第一支先锋说唱组合“隐藏”的一员，他参与的“隐藏”首张专辑《为人民服务》成功发行。《为人民服务》专辑一面市就引起了国内音乐界和国际上的关注，从而参选2003年度百事音乐风云榜的评比，被提名为最佳摇滚说唱组合，并最终赢得了该奖项，这个新闻被《纽约时报》《洛杉矶时报》《中国时报》报道，。他与众多国外艺人合作CORMEGE,SAIGON,ONYX,DJ KID KOALA,DJ DOPEY,THE JUNGLE BROTHER, MOBB DEEP,DJ PREMIER,UGLY DUCKLING等等。最终在第一届中国嘻哈颁奖典礼上获得了最有价值的说唱歌手以及最佳原创歌曲两项大奖。在已经推出的试听hip-hop杂志《FAR DVD》中收录了他和北京顶尖说唱艺人共同制作的作品，包括双CD《SECTION6》《KING OF BEIJING》《花天酒地》2011年推出他个人的首张双张大碟《THE LIGHT》,并开始准备全国6个城市的巡演巡演。2017年推出他第二张个人专辑《THE LIGHT2.0》 ，2018年推出个人第三张专辑《灰色区域》。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=43515"
+    },
+    "187462": {
+      "songs": [
+        {
+          "id": "1349162456",
+          "name": "Berlin wall / a song for myself",
+          "artists": "阿克江Akin / 小老虎 / Trius"
+        },
+        {
+          "id": "463842914",
+          "name": "无人喝彩",
+          "artists": "小老虎"
+        },
+        {
+          "id": "1482657575",
+          "name": "阿珍爱上了阿强 (Live)",
+          "artists": "五条人 / 小老虎 / 大众乐迷"
+        }
+      ],
+      "biography": "小老虎，或者J-Fever，都是独立音乐人赵宏的名号。他生于1986年，属虎，北京人。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=187462"
+    },
+    "736013": {
+      "songs": [
+        {
+          "id": "3440395575",
+          "name": "Poker Face",
+          "artists": "jackzebra / YoungQueenz"
+        },
+        {
+          "id": "482699518",
+          "name": "FOTAN LAIKI - 火炭麗琪 ft. YoungQueenz",
+          "artists": "YoungQueenz / FOTAN LAIKI"
+        },
+        {
+          "id": "3324385955",
+          "name": "Dragontown, Pt. III",
+          "artists": "YoungQueenz / N.O.L.Y / Floyd Cheung"
+        }
+      ],
+      "biography": "#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA\n#OZMA",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=736013"
+    },
+    "1050156": {
+      "songs": [
+        {
+          "id": "27591378",
+          "name": "大东北",
+          "artists": "李萌"
+        },
+        {
+          "id": "27937065",
+          "name": "最后一根烟",
+          "artists": "李萌"
+        },
+        {
+          "id": "1922234375",
+          "name": "五元RMB",
+          "artists": "李萌"
+        }
+      ],
+      "biography": "李萌－说唱歌手，曾用艺名：小驴－tommy,2005年凭借一曲《十元人民币》走红于网络。2006年签约嚎叫唱片，并在同年发行了首张专辑《饶舌生涯》。代表作品：《十元人民币》《最后一根烟》《中国说唱》《感谢那个女孩》《饶舌者》等\n\n新浪微博：@李萌_小驴tommy",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=1050156"
+    },
+    "1083118": {
+      "songs": [
+        {
+          "id": "1804879213",
+          "name": "过",
+          "artists": "王嘉尔 / 林俊杰"
+        },
+        {
+          "id": "3434710986",
+          "name": "Thank You",
+          "artists": "王嘉尔"
+        },
+        {
+          "id": "2011553686",
+          "name": "Why Why Why",
+          "artists": "王嘉尔"
+        }
+      ],
+      "biography": "王嘉尔（Jackson Wang），1994年3月28日出生于中国香港，歌手、表演者、主设计师、创意总监、TEAM WANG records & TEAM WANG design创始人。\n2017年开始发布个人音乐作品。2018年，获得全美青少年选择奖明日之星奖，成为首位获此殊荣的中国人。2019年，推出个人首张数字专辑《MIRRORS》。2020年，发行个人英文单曲《100Ways》，成为首位进入Mediabase电台榜单TOP40 的华人歌手。2021年，发行个人英文单曲《LMLY》。2022年3月，发行英文单曲《Blow》，该歌曲登顶iTunes 32个国家&地区 TOP1；4月，成为首位登上Coachella音乐节主舞台的中国SOLO歌手；7月，发行英文单曲《Cruel》；9月，推出专辑《MAGIC MAN》，该专辑空降Billboard 200公告牌专辑榜第15位，成为首位进入榜单Top20的中国艺人；11月，开启个人首次世界巡演，跨越亚洲、欧洲、北美洲与南美洲，共15座城市。2023年4月，受Coachella音乐节官方邀请，成为唯一一位二登Coachella的中国SOLO歌手，并与格莱美奖获得者、歌手Ciara推出合作曲《Slow》，随后发行2023年首支个人单曲《Cheetah》。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=1083118"
+    },
+    "1203015": {
+      "songs": [
+        {
+          "id": "2100558978",
+          "name": "飞天茅台 (Ultimate Remix)",
+          "artists": "俞天时 / Q.luv / KnowKnow / 派克特（PACT） / 盛宇D-SHINE / 李尔新 / BLOWFEVER / Dough-Boy / 谟西Mercy / Cee"
+        },
+        {
+          "id": "2117510473",
+          "name": "不过期的爱",
+          "artists": "Dough-Boy / 梦飞船"
+        },
+        {
+          "id": "2117510474",
+          "name": "情人",
+          "artists": "Dough-Boy / 余佳运"
+        }
+      ],
+      "biography": "Dough-Boy 全能音乐制作人、说唱歌手、艺术家、演员、香港说唱组合 BAKERIE 最主要的一员。Dough-Boy 出生于香港，在多伦多和新加坡长大，是香港乃至全国最具影响力的音乐制作人和说唱歌手之一。代表作品：《MK Circus》、《望穿抽水》、《Noisy》等。作为说唱歌手，Dough-Boy 共发行《CHINGLISH》(2018)、《Good, Bad & Ugly》(2019)、《POWER》(2021)、《Departure》(2022)、《Better Days》(2024) 、《当你回头发现人生只剩一半时(国语极品之选)》(2025) 六张个人录音室专辑，首张个人专辑《CHINGLISH》便入围了 「阿比鹿音乐奖」。第二张专辑联合时尚品牌上官喆 SANKUANZ，清河联合（擦主席）以及 Bong Studio 一起出品全新的概念玩具，第三张开始逐渐转型为制作人专辑。\n\n作为全能音乐制作人，Dough-Boy 合作的音乐人遍布全球各地，他曾为王嘉尔、Lil Yachty 、顽童 MJ116、侧田、欧阳靖、热狗、Tizzy T 、梦飞船等众多国内外知名音乐人操刀制作。2019 年开始涉足影视圈，在“翻生争霸赛”、“总有爱在隔离”、“金童”等都饰演重要角色。同时独特的形象气质以及前卫的时尚品味，也让他深受各大品牌的喜爱，仅仅一年内就担任了 CHANEL，Adidas Origins，Vans，Places+Faces，SANKUANZ 等的形象代言人，无论什么身份，Dough-Boy 都以先行者的姿态存在于大众视野。\n\n微博 @DoughBoyHK\nInstagram @doughboybeastsyou\n抖音 @Dough-Boy\n小红书 @Dough-Boy",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=1203015"
+    },
+    "12021086": {
+      "songs": [
+        {
+          "id": "471982800",
+          "name": "唯一的",
+          "artists": "C-BLOCK / Bigdog王可"
+        },
+        {
+          "id": "494645233",
+          "name": "继续 (Live)",
+          "artists": "Bigdog王可 / 李大奔BENZO"
+        },
+        {
+          "id": "407441570",
+          "name": "7 讲者第六人",
+          "artists": "Bigdog王可"
+        }
+      ],
+      "biography": "BIGDOG王可-美貌与智慧的结合 英雄与侠义的象征。\n2009 《王可》 \n2013 《王可II》\n2021 《王可III》",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12021086"
+    },
+    "12227290": {
+      "songs": [
+        {
+          "id": "1427444926",
+          "name": "不跟你好了",
+          "artists": "BigYear大年"
+        },
+        {
+          "id": "1387183835",
+          "name": "她不是",
+          "artists": "BigYear大年 / Taisheng Music"
+        },
+        {
+          "id": "2019386574",
+          "name": "夜南京（谁都别睡）",
+          "artists": "BigYear大年 / Well威尔"
+        }
+      ],
+      "biography": "水瓶座\n微博@BigYear_大年\n工作联系：小野151-0169-2234（微信同号）",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12227290"
+    },
+    "12256361": {
+      "songs": [
+        {
+          "id": "1303273415",
+          "name": "回到未来",
+          "artists": "TizzyT / Double Zhuo"
+        },
+        {
+          "id": "1336866718",
+          "name": "K.C.G.风暴(Prod. by Double K)",
+          "artists": "嘻哈融合体 / Illson (더블케이) / Double Zhuo / BRB  / Aos147 / 姜云升 / 二毛拖拉机"
+        },
+        {
+          "id": "519478294",
+          "name": "街上的孩子",
+          "artists": "Double Zhuo"
+        }
+      ],
+      "biography": "邮箱：doublezhuo0131@gmail.com\n",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12256361"
+    },
+    "12293847": {
+      "songs": [
+        {
+          "id": "461343463",
+          "name": "团结湖 (feat. Lady Coney)",
+          "artists": "Nasty Ray"
+        },
+        {
+          "id": "521133857",
+          "name": "Close Ur Eyes",
+          "artists": "Dojo Shaolin / 老郑 / 小老虎 / 王泓漓 / Nasty Ray / 龍胆紫/PurpleSoul"
+        },
+        {
+          "id": "1844335202",
+          "name": "Wu-Tang Forever",
+          "artists": "Nasty Ray"
+        }
+      ],
+      "biography": "Nasty Ray was born and raised in Beijing, 13 Times Freestyle Battle Champion, 2009 Iron Mic China Final Champion, Emcee And Hip-Hop DJ, founder of Natural Flavor, member of Universal Zulu Nation.\nNasty Ray出生和成长在北京, 1998年接触Hip-Hop, 2004年开始说唱参加Freestyle Battle比赛, 6年内拿下了13次各大赛事冠军, 包括2009年全国Iron Mic冠军, 2008年和隐藏成员老郑发行Dirty North Mixtape, 2011年发行单曲“团结湖”, 蝉联FM88.7电台ThePark四周冠军, 入选节目单曲名人堂, 即是Emcee也是Hip-Hop DJ, 收藏将近上万张实体唱片, 2012年创办Natural Flavor, 每月一次Party分享推广音乐, 至今连续举办超过十年, 成为中国Hip-Hop历史最久的派对, 2018年受邀加入1973年纽约成立的全球首个Hip-Hop组织Zulu Nation, 2019年发行国内首张12寸黑胶单曲“适者生存”, 并在日本唱片店发售, 以及美国三大Hip-Hop电台之一的Shade45首次播放中文说唱歌曲, 20年的现场经验, 曾经受邀与众多美国Hip-Hop传奇同台演出, 包括Ghostface Killah of Wu-Tang Clan, Das EFX, Madlib, Akil & DJ Nu-Mark of Jurassic 5, Diamond D of D.I.T.C.等等, 受到他们一致认可.",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12293847"
+    },
+    "12360325": {
+      "songs": [
+        {
+          "id": "500538107",
+          "name": "盛夏的舞",
+          "artists": "Heyo"
+        },
+        {
+          "id": "1305806513",
+          "name": "Homeless",
+          "artists": "Heyo"
+        },
+        {
+          "id": "2636713090",
+          "name": "当我走了 (feat. Claudia Koh)",
+          "artists": "Heyo / Claudia Koh"
+        }
+      ],
+      "biography": "HEYO 霍嘉豪 - 香港 HIP HOP 多媒体创作人 @heyoliztic :\n香港说唱标志，粤语 Hip Hop 文化先导者之一，youtube 累计点击次数已达二千万。\n2016年推出个人专辑《花华》，受众遍布港澳、内地、台湾、东南亚及欧美，其粤语说唱创作备受肯定。亦凭电影《 狂舞派3 》获台湾金马影展两项提名及担任演出嘉宾， 同时提名角逐香港金像奖最佳电影歌曲及演出。新概念专辑《梦谣》正不断释出中。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12360325"
+    },
+    "12362533": {
+      "songs": [
+        {
+          "id": "489998641",
+          "name": "李嘉诚",
+          "artists": "BAKERIE / Dough-Boy / TOMMY GROOVES / Geniuz F the Future / Seanie P"
+        },
+        {
+          "id": "536622926",
+          "name": "早班火车",
+          "artists": "BAKERIE / Dough-Boy / Geniuz F the Future / TOMMY GROOVES / Seanie P"
+        },
+        {
+          "id": "501467055",
+          "name": "Nigo Is My Dad",
+          "artists": "Dough-Boy / TOMMY GROOVES / Geniuz F the Future / BAKERIE"
+        }
+      ],
+      "biography": "小學時因為偶然的機會下從表哥家中接觸到Hip-Hop音樂，十多歲時受到Latin-Rap風格、香港樂隊LMF 、日本樂隊Dragon-Ash和韓國地下Hip-Hop音樂影響下，16歲便開始嘗試創作Rap並加入melody。 同年與當時的拍擋組成組合O.S Family及\"Too Monkey\"。成立後幾年間到過不同的大學和城市作小型演出。17歲首次參與灌錄獨立音樂廠牌「催化行動」當時發行的首張香港Hip Hop專輯《協合戰紀》。 後來受到\"24Herbs''製作人Ghost Style 相中，並改名\"Tommy Grooves\"展開其個人創作生涯。 及後聯同好友Seanie.P、Dough-Boy、Geuniz.F成立獨立音樂廠牌\"Bakerie Music Productions\"，同年發行首張個人專輯《Room Service》當中憑藉《一個人》、《Take me away》、《風箏》等走另類曲風路線的單曲加上濃烈個人特色R&B唱歌風格開始受到注意。在2012發行的《Room Service》專輯正是想向外界展示說唱音樂以外的唱作功力，全碟由Dough-Boy監製，曲風穿插了Down tempo R&B、迷幻和流行等元素。組合發展方面，在2018年重返BAKERIE團隊工作並參與創作了廠牌成軍以來首張以團隊名義推出的專輯《老佛爺》，專輯推出後得到中港兩地極大關注而當中歌曲《李嘉城》、《DLLM》、《周生生》在網路上成為一時佳話，在2018年4月完成團隊中國巡演工作後，將會重新回到崗位以個人名義繼續創作。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12362533"
+    },
+    "12460868": {
+      "songs": [
+        {
+          "id": "482699518",
+          "name": "FOTAN LAIKI - 火炭麗琪 ft. YoungQueenz",
+          "artists": "YoungQueenz / FOTAN LAIKI"
+        },
+        {
+          "id": "1994254475",
+          "name": "Over It",
+          "artists": "FOTAN LAIKI / 柒羊"
+        },
+        {
+          "id": "1841171493",
+          "name": "Bad Habit (feat. Organ Tapes) (Rmx) (Rmx)",
+          "artists": "柒羊 / FOTAN LAIKI / Organ Tapes"
+        }
+      ],
+      "biography": "HAHAHAHAHAHHAHAHAHAHHAHAHAHHAHAHHHAHAHHAHAHAHAHHAHA",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12460868"
+    },
+    "12471974": {
+      "songs": [
+        {
+          "id": "2037061220",
+          "name": "Free-Out 2023 Cypher",
+          "artists": "Free-Out / 侃迪kandi / Kc / BigYear大年 / BustaZun / 泳恩Joannne / Lil Howcy / G.G张思源 / 贰万 / 早安 / Ice Paper / 高天佐"
+        },
+        {
+          "id": "1906280839",
+          "name": "Free-Out 2021 Cypher",
+          "artists": "Free-Out / Ice Paper / Lil Howcy / 侃迪kandi / 高天佐 / BigYear大年 / 泳恩Joannne / G.G张思源 / BustaZun / Kc / Round_2 / 早安 / 贰万"
+        },
+        {
+          "id": "2653450818",
+          "name": "航海日",
+          "artists": "Free-Out / 高天佐 / 贰万 / 早安 / 泳恩Joannne / BigYear大年 / Ice Paper / Lil Howcy / Kc / G.G张思源 / 侃迪kandi"
+        }
+      ],
+      "biography": "希望能将随想的每一个旋律踏实做成精致的甜点，微不足道的小学徒在路上。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12471974"
+    },
+    "12553901": {
+      "songs": [
+        {
+          "id": "2108788094",
+          "name": "孙子兵法 (feat. Novel Friday)",
+          "artists": "Novel Fergus / Novel Friday"
+        },
+        {
+          "id": "511566435",
+          "name": "第五超現實",
+          "artists": "Novel Friday / DylanHing"
+        },
+        {
+          "id": "496391275",
+          "name": "雨中遊戲",
+          "artists": "Novel Friday"
+        }
+      ],
+      "biography": "NovelFriday Instagram: novelfriday",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12553901"
+    },
+    "12570295": {
+      "songs": [
+        {
+          "id": "1949111703",
+          "name": "NOUS Underground 2022 Cypher",
+          "artists": "派克特（PACT） / CREAM D / KIGGA / 张昊 / 鱼头_killa4nia / SIMBA辛巴 / 刘柄鑫 / GIF7ED / Dirty Twinz / 井剑歌"
+        },
+        {
+          "id": "1965122203",
+          "name": "止渴的鸩",
+          "artists": "刘柄鑫 / 井剑歌"
+        },
+        {
+          "id": "1813355151",
+          "name": "焰升",
+          "artists": "Tyan / 井剑歌"
+        }
+      ],
+      "biography": "一位没有姓名的普通帅哥",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12570295"
+    },
+    "12643458": {
+      "songs": [
+        {
+          "id": "1366356907",
+          "name": "告別",
+          "artists": "Matt Force"
+        },
+        {
+          "id": "507646248",
+          "name": "死亡香",
+          "artists": "Matt Force / YoungQueenz / GrymeMan"
+        },
+        {
+          "id": "1366356899",
+          "name": "If I Die Tomorrow",
+          "artists": "Matt Force"
+        }
+      ],
+      "biography": "撒野作風 WILD$TYLE RECORDS - rhymes and beats",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12643458"
+    },
+    "12729306": {
+      "songs": [
+        {
+          "id": "1358226065",
+          "name": "Flexin'",
+          "artists": "#圳动Shakegang / #cmt / KUCCI"
+        },
+        {
+          "id": "1324359759",
+          "name": "97LUV",
+          "artists": "#圳动Shakegang / #Kid / #cmt"
+        },
+        {
+          "id": "1401261108",
+          "name": "Virtual",
+          "artists": "#cmt"
+        }
+      ],
+      "biography": "Everything pure.",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12729306"
+    },
+    "12758024": {
+      "songs": [
+        {
+          "id": "2750133190",
+          "name": "混沌",
+          "artists": "DARK9COMMUNITY 暗夜社区 / Omega / Arthurnevawakes"
+        },
+        {
+          "id": "2123158795",
+          "name": "Super Saiyan.d9c",
+          "artists": "DARK9COMMUNITY 暗夜社区 / Arthurnevawakes / 5IVE5IVE / Omega"
+        },
+        {
+          "id": "2750129101",
+          "name": "WASSUP",
+          "artists": "DARK9COMMUNITY 暗夜社区 / FANVY / Omega / Arthurnevawakes"
+        }
+      ],
+      "biography": "Omega\nig：omeeeeega_\nweibo：Omeeeeega_",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12758024"
+    },
+    "12868703": {
+      "songs": [
+        {
+          "id": "1413323233",
+          "name": "感谢",
+          "artists": "龙井说唱 孙骁 / 王韵韵"
+        },
+        {
+          "id": "1311346477",
+          "name": "经济舱",
+          "artists": "龙井说唱 孙骁 / 星驰"
+        },
+        {
+          "id": "1384277965",
+          "name": "使徒",
+          "artists": "龙井说唱 孙骁 / 金志文"
+        }
+      ],
+      "biography": "孙骁 XIAO\n龙井说唱：队长\n1990年出生北京，14岁开始接触HIP-HOP音乐，被这种音乐的自由勇敢的气息所吸引。孙骁的声音浑厚有力，音色极具有代表性。\n2007年组建（龙井说唱）并担任 队长至今，2013年出国深造并与欧美众多优秀的音乐人深度交流与合作。期间参演诸多国际·国内（大中小型）音乐活动担任嘉宾，并多次在海外举办（龙井说唱）专场，受到众多海外年轻人的喜爱。\n2017年与马克Mailk，YYKBZ合作单曲《请开始你的表演》广受好评。\n2018年5月8日发行电影同名曲《罪途》宣布正式回归国内。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12868703"
+    },
+    "12911301": {
+      "songs": [
+        {
+          "id": "426291165",
+          "name": "望穿抽水",
+          "artists": "Geniuz F the Future / Dough-Boy"
+        },
+        {
+          "id": "489998641",
+          "name": "李嘉诚",
+          "artists": "BAKERIE / Dough-Boy / TOMMY GROOVES / Geniuz F the Future / Seanie P"
+        },
+        {
+          "id": "536622926",
+          "name": "早班火车",
+          "artists": "BAKERIE / Dough-Boy / Geniuz F the Future / TOMMY GROOVES / Seanie P"
+        }
+      ],
+      "biography": "GENIUZ F THE FUTURE，說唱歌手，音樂製作人，填詞人。 現分別屬於香港兩大著名說唱團體 BAKERIE、生番 的主要成員。 童年時被稱FUTURE，事源被前輩們取笑他十歲開始說唱，是香港HIP-HOP的未來，而取其名。 近年與不少藝人合作，包括：側田、農夫、廿四味、DOUGH-BOY等。2016年，與《中國有嘻哈》全國六強 TIZZY T 合製《F.W.M.C.》一曲。2017年，憑著側田《HEADS UP PHONES DOWN》成為香港電台中文歌曲龍虎榜冠軍歌曲的填詞人。此外，與DOUGH-BOY一同獲邀拍攝 出人頭地OTTNO系列紀錄片《Feat.China聯合利華》，與日本說唱團隊KILLA合製單曲《WORLDWIDE》。 同時亦開始涉足時裝界，為雜誌 HYPEBEAST 擔任模特兒，拍攝著名運動品牌 REEBOK 的廣告照。 他亦獲得G-SHOCK、SANKUANZ等著名時裝品牌，邀請到BROTHERHOOD演唱會2017作為表演嘉賓。 2017年，陸續以 BAKERIE 身份推出組合作品，並與著名玩具設計師CHINO LAM跨界合作，計劃在年底推出首張組合專輯《老佛爺》。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12911301"
+    },
+    "13699897": {
+      "songs": [
+        {
+          "id": "1476216697",
+          "name": "See Fog 2020cypher",
+          "artists": "景逖 / Sealikethis / Shear"
+        },
+        {
+          "id": "1407242708",
+          "name": "You out！",
+          "artists": "BlackTurbo / Sealikethis"
+        },
+        {
+          "id": "1445651466",
+          "name": "ON MY FACE",
+          "artists": "景逖 / Sealikethis"
+        }
+      ],
+      "biography": "就玩玩.......",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=13699897"
+    },
+    "13791194": {
+      "songs": [
+        {
+          "id": "2731378961",
+          "name": "接住",
+          "artists": "Luna Is A Bep"
+        },
+        {
+          "id": "1990467006",
+          "name": "Time to Let Go",
+          "artists": "周子涵 / Luna Is A Bep"
+        },
+        {
+          "id": "1909681483",
+          "name": "A Day With Me",
+          "artists": "Luna Is A Bep"
+        }
+      ],
+      "biography": "Luna Is A Bep（1995年5月12日－），香港女子说唱歌手，于2018年出道，代表作歌曲有《麻甩系》、《收成期》、《我想行开下》等。2018年 Luna 开始在 Instagram 写自创的押韵文句宣泄情绪，经朋友鼓励她创作 Rap，她便以 “Luna Is A B*tch” 名义，将文句创作成第一首作品《Everybody's Sleepy》，并于 YouTube 发布，道出香港人们在车上睡觉的疲态众生相。其后，Luna 觉得“B*tch”这个字“不太好”，欲将原艺名 “Luna Is A B*tch” 改成 “Luna Is A Beep”，却于起名时打漏了一个“e”，从此 Luna Is A Bep 的艺名便一直沿用至今。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=13791194"
+    },
+    "13911452": {
+      "songs": [
+        {
+          "id": "2747401481",
+          "name": "炸弹爱",
+          "artists": "africakid / ATM Hanson"
+        },
+        {
+          "id": "2610845548",
+          "name": "RAIN (feat. Arthurnevawakes & ATM Hanson)",
+          "artists": "R!R!Riot / Arthurnevawakes / ATM Hanson"
+        },
+        {
+          "id": "2747401480",
+          "name": "圣罗兰男装",
+          "artists": "africakid / ATM Hanson / 贾真Jahgen / THOME"
+        }
+      ],
+      "biography": "也许跳到外太空我才能找到路\nwaitaikong2002",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=13911452"
+    },
+    "27910555": {
+      "songs": [
+        {
+          "id": "3324385955",
+          "name": "Dragontown, Pt. III",
+          "artists": "YoungQueenz / N.O.L.Y / Floyd Cheung"
+        },
+        {
+          "id": "3324385948",
+          "name": "Hoyeonjung",
+          "artists": "YoungQueenz / N.O.L.Y"
+        },
+        {
+          "id": "3324385150",
+          "name": "姑娘",
+          "artists": "YoungQueenz / N.O.L.Y"
+        }
+      ],
+      "biography": "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=27910555"
+    },
+    "28611978": {
+      "songs": [
+        {
+          "id": "3361120050",
+          "name": "Deadend(活该)",
+          "artists": "Tyson Yoshi / 王嘉尔"
+        },
+        {
+          "id": "2069931450",
+          "name": "2nd Favourite 第二最爱",
+          "artists": "古巨基 / Tyson Yoshi"
+        },
+        {
+          "id": "2735886112",
+          "name": "玛格莉塔 Margarita",
+          "artists": "莫宰羊 / Tyson Yoshi / 派伟俊 / 娄峻硕 / Juice Boy"
+        }
+      ],
+      "biography": "香港的独立创作音乐人、词曲作家及MV导演。热爱音乐的他于2018年在台湾正式出道，首支单曲《To My Queen》发布后迅速获得关注。2019年，他为女友创作的歌曲《Christy》爆红，这首歌在YouTube上的观看次数超过3000万，标志着他的音乐事业的起步。\nTyson Yoshi的音乐风格融合了流行、嘻哈和R&B等元素，歌词使用华语和英语，直接而富有情感，深受年轻听众喜爱。他的作品不仅在香港受到欢迎，还在国际上获得认可，歌曲《That Guy》的MV在亚洲及欧洲的三个影展共获五个奖项，包括“2022年欧洲电影节最佳视觉特效艺术家”和“World Film Singapore 2022音乐录影带最佳导演”等。他的创作过程充满惊喜，曾与多位知名歌手合作，如古巨基、派伟俊和娄峻硕，不断拓展音乐视野和风格。2023年，他的单曲《be mine》邀请了女神“三上悠亚”拍摄MV。同年年底，他写给歌迷的《你不会一辈子的爱上我》成为热门，MV点击超过800万，歌曲串流量过千万，并在台北和吉隆坡举行了《My New World Order》演唱会。2024年，他的求婚歌曲《Would you be mine?》广为传唱，MV点击超过300万。\n\n进入2025年，Tyson邀请了周殷廷合唱广东歌《1994》，向90年代粤语歌曲致敬！他投入百万拍摄了一部电影般的MV，在48小时内拿下YouTube热门音乐影片第一位（之前的第一位是超级巨星权志龙的新歌《Too Bad》）。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=28611978"
+    },
+    "29750314": {
+      "songs": [],
+      "biography": "",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=29750314"
+    },
+    "30307680": {
+      "songs": [
+        {
+          "id": "1908547850",
+          "name": "地球空心论 (feat. Young Hysan)",
+          "artists": "Dear Jane / Young Hysan"
+        },
+        {
+          "id": "3329148821",
+          "name": "唯有妳",
+          "artists": "Young Hysan"
+        },
+        {
+          "id": "1921552342",
+          "name": "地球空心论 2.0 (feat. Young Hysan)",
+          "artists": "Dear Jane / Young Hysan"
+        }
+      ],
+      "biography": "Young Hysan 是香港的说唱歌手，歌手和词曲作者，目前与香港华纳唱片公司签约。 尽管年仅23岁，但 Young Hysan 无疑是过去十年中最有影响力的本地艺术家之一，并作为新一代香港人的反文化偶像而脱颖而出。 \n",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=30307680"
+    },
+    "30477064": {
+      "songs": [
+        {
+          "id": "1333035302",
+          "name": "Why You So Beautiful",
+          "artists": "TIAB / Tyson Yoshi"
+        },
+        {
+          "id": "1451235050",
+          "name": "Reserve 後備",
+          "artists": "TIAB / AKIKO"
+        },
+        {
+          "id": "2096107791",
+          "name": "温饱艺术家Grounded (feat. PetPetShawn)",
+          "artists": "TIAB / PetPetShawn"
+        }
+      ],
+      "biography": "Tiab簡介 TIAB\nHONG KONG 香港\n合作 郵件：tiab@makeinfuture.com",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=30477064"
+    },
+    "30691237": {
+      "songs": [
+        {
+          "id": "2094435761",
+          "name": "板斧",
+          "artists": "Novel Flash / Novel Fergus"
+        },
+        {
+          "id": "2160775756",
+          "name": "That’s My City (feat. PetPetShawn)",
+          "artists": "Novel Flash / PetPetShawn"
+        },
+        {
+          "id": "1999519155",
+          "name": "UNDERDOG (feat. Anna hisbbuR)",
+          "artists": "Novel Flash / Anna hisbbuR"
+        }
+      ],
+      "biography": "Yack Studio ",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=30691237"
+    },
+    "31012563": {
+      "songs": [
+        {
+          "id": "2740859541",
+          "name": "WLG（Whole Lotta Guap）",
+          "artists": "BornLegendMusic / 李佳隆 / 陈俊岐 / Yoanko Futura / ZenithILuvYou / 等一下就回家 / Sillygami"
+        },
+        {
+          "id": "2740859141",
+          "name": "落雨",
+          "artists": "BornLegendMusic / 等一下就回家 / ZenithILuvYou / Sillygami"
+        },
+        {
+          "id": "2740858988",
+          "name": "天才的汗水",
+          "artists": "BornLegendMusic / Yoanko Futura / 陈俊岐 / Sillygami / ZenithILuvYou"
+        }
+      ],
+      "biography": "ZIY\n@BornLegendMusic",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=31012563"
+    },
+    "31049343": {
+      "songs": [
+        {
+          "id": "2141298734",
+          "name": "火",
+          "artists": "G Sauce / SASIOVERLXRD"
+        },
+        {
+          "id": "3419432779",
+          "name": "操盘手",
+          "artists": "G Sauce / 迪诺哥"
+        },
+        {
+          "id": "1466022945",
+          "name": "ROB93-贵·藏TEAM(Remix)",
+          "artists": "G Sauce / ROB93 / OWVRO老弟 / ZAN"
+        }
+      ],
+      "biography": "JDS MAFIA \nFeaturing、演出、商业合作私信联系",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=31049343"
+    },
+    "31089739": {
+      "songs": [
+        {
+          "id": "1981748749",
+          "name": "如果有我",
+          "artists": "龙井说唱益晗 / 张伯宏"
+        },
+        {
+          "id": "2060962639",
+          "name": "城市梦想家",
+          "artists": "龙井说唱 / 龙井说唱 孙旭 / 龙井说唱 孙骁 / 龙井说唱益晗"
+        },
+        {
+          "id": "1336414221",
+          "name": "Kiki Do U Luv Me",
+          "artists": "龙井说唱益晗"
+        }
+      ],
+      "biography": "独立音乐人AKA21，制作人，擅长多种风格并且创作曲风的多元化让益晗独具特色。 2003年在澳洲墨尔本成立了YC组合，并制作了专辑《那些年我们一起走过的日子》。2007年在北京创建了龙井说唱。2008年龙井组合以益晗为主人公推出了《归》， 以兄弟情义打动了千万大众。之后益晗相继制作了《感谢》、《Forever Young》、《You Can't Back Down》等一系列作品，也得到了大众和业内的认可。多年的海外生活让他对音乐和人生有了新的定义。2018年再次拿起麦克，相继发行了《Kiki Do You Love Me》，《我的乔丹鞋》等一系列作品，再次用音乐开启自己新的人生。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=31089739"
+    },
+    "31315789": {
+      "songs": [
+        {
+          "id": "1451235050",
+          "name": "Reserve 後備",
+          "artists": "TIAB / AKIKO"
+        },
+        {
+          "id": "1352181587",
+          "name": "Let Go 放緃",
+          "artists": "Tyson Yoshi / AKIKO / JNYBeatz"
+        },
+        {
+          "id": "1969387146",
+          "name": "柴灣角街",
+          "artists": "TomFatKi / Billy Choi / AKIKO / East City"
+        }
+      ],
+      "biography": "INS : akakakikokoko\nHONG KONG RAPPER\nFirst Album : Proud of being a Rapper",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=31315789"
+    },
+    "31333290": {
+      "songs": [
+        {
+          "id": "1341538040",
+          "name": "点解咁撚肥",
+          "artists": "JB"
+        },
+        {
+          "id": "2083960341",
+          "name": "西游记",
+          "artists": "JB"
+        },
+        {
+          "id": "2080016906",
+          "name": "现世",
+          "artists": "JB / MU / Novel Fergus / TXMIYAMA"
+        }
+      ],
+      "biography": "JB是本地炙手可热的说唱歌手，凭着对香港街头文化的熟悉以及对社会议题的敏锐洞察，创作出《得个等》、《我要玩》等作品。他的歌曲因经常反映出城市的生活现实和年轻人的心声而引起听众共鸣。2022年于香港首个Hip Hop音乐颁奖典礼《Whats Good Music Awards 2022》夺得七个奖项成大赢家，包括年度歌手、最佳男歌手等。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=31333290"
+    },
+    "32432482": {
+      "songs": [
+        {
+          "id": "1987542938",
+          "name": "无常 (feat. Ivory)",
+          "artists": "Billy Choi"
+        },
+        {
+          "id": "2752957111",
+          "name": "168.5 (feat. Billy Choi)",
+          "artists": "MC 张天赋 / Billy Choi"
+        },
+        {
+          "id": "2143850969",
+          "name": "王菀之嘅歌鼓励人",
+          "artists": "王菀之 / Teddy Fan / Billy Choi"
+        }
+      ],
+      "biography": "From Hong Kong.\nDrumming for Bakerie Music Production.\nRapping for myself.",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=32432482"
+    },
+    "32463970": {
+      "songs": [
+        {
+          "id": "2704491979",
+          "name": "Gang Sign L.I.T",
+          "artists": "希介 / LitXu力旭"
+        },
+        {
+          "id": "2712607978",
+          "name": "IN THE LAB",
+          "artists": "kill bad feelings / FlyThugFlow / LitXu力旭 / WAYUP"
+        },
+        {
+          "id": "2072296297",
+          "name": "Magic",
+          "artists": "LitXu力旭 / Raelion / WAYUP"
+        }
+      ],
+      "biography": "-力旭无束缚-\n*WAYUP MUSIC*\n*永力兄弟*",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=32463970"
+    },
+    "33900764": {
+      "songs": [
+        {
+          "id": "1909440852",
+          "name": "mo plug mo cash",
+          "artists": "pornstar"
+        },
+        {
+          "id": "1436102455",
+          "name": "我讨厌(*꒦ິ⌓꒦ີ)Prod.Kay57",
+          "artists": "pornstar"
+        },
+        {
+          "id": "1458246872",
+          "name": "一場夢Prod. JACKWAVY",
+          "artists": "pornstar"
+        }
+      ],
+      "biography": "ig@p0rrnstar",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=33900764"
+    },
+    "34050704": {
+      "songs": [
+        {
+          "id": "2074599949",
+          "name": "Park Place Players (feat. JNOLAZY, delphia!, Taco, Wade Warhol, lov3chanel, tonymvn!a, ANT NIRVANA & Akiiyaki)",
+          "artists": "Search&Destroy / JNOLAZY / delphia! / Taco / Wade Warhol / lov3chanel / tonymvn!a / ANE / Akiiyaki"
+        },
+        {
+          "id": "2683731902",
+          "name": "FYP",
+          "artists": "Virtual Adam / JNOLAZY / delphia! / ANE / tonymvn!a / Wade Warhol / lov3chanel"
+        },
+        {
+          "id": "1478762433",
+          "name": "巴特弗莱 BUTTERFLY",
+          "artists": "ANE"
+        }
+      ],
+      "biography": "1/7 Virtual Adam",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=34050704"
+    },
+    "34402395": {
+      "songs": [
+        {
+          "id": "2747400527",
+          "name": "差生逃亡",
+          "artists": "africakid / ATM Hanson / Lil Ken"
+        },
+        {
+          "id": "1848204638",
+          "name": "IDC 无所谓",
+          "artists": "A Few Good Kids Records / Lil Ken / YOUNG13DBABY / Chopie / ATM Hanson"
+        },
+        {
+          "id": "1425575314",
+          "name": "我不写作业",
+          "artists": "Lil Ken"
+        }
+      ],
+      "biography": "Lil Ken\n出生于香港的Lil Ken对嘻哈音乐十分热爱，和ATMHanson一起创作",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=34402395"
+    },
+    "34635035": {
+      "songs": [
+        {
+          "id": "1995236883",
+          "name": "池中物（Prod.STORMY）",
+          "artists": "YBlanket / 国产阿发"
+        },
+        {
+          "id": "1434763800",
+          "name": "嘉陵江（Prod.by 27Corazones Beats）",
+          "artists": "YBlanket"
+        },
+        {
+          "id": "1434449564",
+          "name": "告白情书",
+          "artists": "YBlanket"
+        }
+      ],
+      "biography": "机关算尽风吹散 追名逐利曲终断\n孤芳自饮会有时 拨云见雾照金銮",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=34635035"
+    },
+    "35252449": {
+      "songs": [
+        {
+          "id": "3457800911",
+          "name": "Jungle Flight",
+          "artists": "LEON LEE"
+        },
+        {
+          "id": "1454447789",
+          "name": "2314 Cypher Freestyle (StreetSweeper Extended)",
+          "artists": "BIG Shivy / Kronic / Maikon Flocka Flame / XZTYWXZYTYXZ / 艾志恒Asen / LEON LEE"
+        },
+        {
+          "id": "3361572470",
+          "name": "Space Cowboy（太空牛仔）",
+          "artists": "LEON LEE"
+        }
+      ],
+      "biography": "《Middle Kiddo / 中间人》MK Season Soon…",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=35252449"
+    },
+    "35570236": {
+      "songs": [
+        {
+          "id": "2015383368",
+          "name": "我的瓷",
+          "artists": "九维 / JahjahWay / FAC-D12"
+        },
+        {
+          "id": "1962028946",
+          "name": "围城",
+          "artists": "JahjahWay / YEHAIYAHAN"
+        },
+        {
+          "id": "2617744517",
+          "name": "JahjahWay - 自由式",
+          "artists": "JahjahWay"
+        }
+      ],
+      "biography": "北京 北京 北京  ",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=35570236"
+    },
+    "37335544": {
+      "songs": [
+        {
+          "id": "2668283608",
+          "name": "一张床一个家",
+          "artists": "eden2001 / 求索4"
+        },
+        {
+          "id": "2658839732",
+          "name": "我开始害怕明天",
+          "artists": "eden2001 / 求索4"
+        },
+        {
+          "id": "3316045872",
+          "name": "鲜花",
+          "artists": "eden2001 / 求索4"
+        }
+      ],
+      "biography": "由分别与静夜混合而成，希望您喜欢。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=37335544"
+    },
+    "37621718": {
+      "songs": [
+        {
+          "id": "1838388285",
+          "name": "+* SAY?!! *+",
+          "artists": "tree"
+        },
+        {
+          "id": "1938931273",
+          "name": "+* SAY?!! *+ (original ver)",
+          "artists": "tree"
+        },
+        {
+          "id": "1877289823",
+          "name": "Everlasting ♡",
+          "artists": "siick / tree"
+        }
+      ],
+      "biography": "ig:iam_tree07\n合作请私信",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=37621718"
+    },
+    "46356652": {
+      "songs": [
+        {
+          "id": "1974976094",
+          "name": "老家传奇",
+          "artists": "Toryondacloud / KenRobb / TivAaa"
+        },
+        {
+          "id": "2601992004",
+          "name": "扯谎Lia白",
+          "artists": "布瑞吉Bridge / TivAaa / Icy White"
+        },
+        {
+          "id": "1906295053",
+          "name": "Retro on my way",
+          "artists": "永力兄弟 / TivAaa"
+        }
+      ],
+      "biography": "来自九龙坡的说唱传奇",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=46356652"
+    },
+    "46441791": {
+      "songs": [
+        {
+          "id": "3424219822",
+          "name": "Wu Freestyle",
+          "artists": "Yeahmebaby / Big Light"
+        },
+        {
+          "id": "3424219821",
+          "name": "Whatup",
+          "artists": "Yeahmebaby / Big Light"
+        },
+        {
+          "id": "3424219820",
+          "name": "Doit",
+          "artists": "Yeahmebaby / Big Light"
+        }
+      ],
+      "biography": "Just keep classic street style.\nFxxking Real MC",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=46441791"
+    },
+    "46998751": {
+      "songs": [
+        {
+          "id": "3364890633",
+          "name": "尘埃",
+          "artists": "川渝之子BigSkies / YU张渝 / 谢帝"
+        },
+        {
+          "id": "3452019790",
+          "name": "悲伤海",
+          "artists": "YU张渝 / Cy."
+        },
+        {
+          "id": "3417867149",
+          "name": "月亮的孩子",
+          "artists": "YU张渝 / Spawner刷怪笼"
+        }
+      ],
+      "biography": "Hi，IAmYU..",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=46998751"
+    },
+    "48302591": {
+      "songs": [
+        {
+          "id": "3376052464",
+          "name": "时也命也",
+          "artists": "Novel Fergus / 揽佬SKAI ISYOURGOD"
+        },
+        {
+          "id": "3361810923",
+          "name": "像话 (feat. Novel Fergus)",
+          "artists": "MC 张天赋 / Novel Fergus"
+        },
+        {
+          "id": "2166443603",
+          "name": "胭脂扣",
+          "artists": "Novel Fergus"
+        }
+      ],
+      "biography": "Novel Fergus，香港顶尖独立说唱厂牌 Yack Studio 的创始人。作为当代粤语嘻哈（Hip-Hop）最具代表性的领军人物之一，他擅长将地道街头文化、市井江湖隐喻与深厚的古典中文词汇巧妙融合，凭借极具文学色彩与现代诗意境的歌词，被乐迷和乐坛誉为“Hip-Hop 诗人”。\n\n在正式成为音乐人前，Novel Fergus 曾涉足地盘工人、厨房以及便利店员等基层工作，并转型为一名纹身师。这些真切的底层生活体验与未加修饰的街头百态，深刻内化为了他日后创作中直击人心、不可复制的粗粝养分。2019年，他与音乐搭档 DaiShin (大仙) 共同创立 Yack Studio，并凭借极具古典文学意境的出道作《老神仙》在嘻哈圈迅速崭露头角。\n\n\n\n作为 Yack Studio 的灵魂人物，他不仅带领厂牌从真核街头一步步走向国际巡回演出，其个人音乐造诣同样备受赞誉。首张个人大碟《人之初》凭借《至尊宝》、《深水埗》等名作轰动乐坛，一举斩获 Whats Good Music Awards “最受欢迎 Hip Hop 歌手”、“最佳男歌手”及“最佳大碟”三项大奖。随后推出的专辑《枭》、《三瞳》到近期的《Fadon 花燈》，更见证了他从含蓄诗意走向写实市井速写的音乐蜕变。\n\n近年来，Novel Fergus 的独特才华备受主流乐坛与内地乐迷的广泛青睐：\n\n· 内地爆款神曲《时也命也》：联合同厂牌老友揽佬推出的大热单曲《时也命也》，凭借道尽人生百态的写实歌词与极具宿命感的狠劲旋律，在内地潮流、汽车JDM及励志混剪等短视频圈层掀起粤语说唱热潮，成为无数内地乐迷认识并入坑 Novel Fergus 的必听代表作。\n\n\n· 主流破圈与跨界巨制：频频受到主流流行乐坛的主动邀约，联手郑秀文（《爱是… 2.0》）、麦浚龙（《金榜题名》）、陈柏宇（《坠落》）以及MC张天赋（《像话》）等顶尖流行歌手，并在合作中全方位担任 Rap 演唱、作词、作曲及音乐监制，展现极其全面的全能唱作才华。\n\n从深水埗旧货天光墟一路唱到红馆与亚洲国际博览馆等万人舞台，并成功开启《你情我愿》个人亚洲巡回演唱会。拥有超高本土号召力的 Novel Fergus 正用他标志性的粤语 Flow，勾勒出属于这个时代漂亮与粗粝并存的香港城市记忆。",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=48302591"
+    },
+    "48422815": {
+      "songs": [
+        {
+          "id": "3355699546",
+          "name": "天使Beat",
+          "artists": "Aye叶师傅"
+        },
+        {
+          "id": "3341980062",
+          "name": "天灰灰（Intro）",
+          "artists": "kill bad feelings / Aye叶师傅"
+        },
+        {
+          "id": "3422146730",
+          "name": "难言",
+          "artists": "Zy / Aye叶师傅"
+        }
+      ],
+      "biography": "Mixer&BeatMaker&Producer；\n混音师&音乐制作人&独立音乐人；\n来自福建，坐落于重庆；",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=48422815"
+    },
+    "51130716": {
+      "songs": [
+        {
+          "id": "2069720002",
+          "name": "韵",
+          "artists": "OneOne / 海娃 / burning / nocry / REVO"
+        },
+        {
+          "id": "2012885767",
+          "name": "阿香",
+          "artists": "OneOne / nocry"
+        },
+        {
+          "id": "3390218141",
+          "name": "逃出北极 (Remaster)",
+          "artists": "Fakewrld / nocry"
+        }
+      ],
+      "biography": "巴福镇传来贺电说可以一直耍起走做你对的选择让自己舒服",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=51130716"
+    },
+    "51251325": {
+      "songs": [
+        {
+          "id": "1964513771",
+          "name": "雾中花 Prod.cior",
+          "artists": "OneOne / Theboynevacomeback / REVO"
+        },
+        {
+          "id": "2069720002",
+          "name": "韵",
+          "artists": "OneOne / 海娃 / burning / nocry / REVO"
+        },
+        {
+          "id": "3399393817",
+          "name": "That Days (那些日子)",
+          "artists": "OneOne / YU张渝 / REVO / Taisheng Music"
+        }
+      ],
+      "biography": "Yangjiaping boi RVLTNZ",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=51251325"
+    },
+    "53264415": {
+      "songs": [
+        {
+          "id": "2080468389",
+          "name": "La Haine",
+          "artists": "FAC-D12 / SouthSideSamurai / 九维"
+        },
+        {
+          "id": "2122928371",
+          "name": "惡口1&2(Prod.by Natural Doc)",
+          "artists": "SouthSideSamurai"
+        },
+        {
+          "id": "2122928424",
+          "name": "脏话(Prod.by Jinsfake)",
+          "artists": "SouthSideSamurai"
+        }
+      ],
+      "biography": "",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=53264415"
+    },
+    "53347353": {
+      "songs": [
+        {
+          "id": "1999514479",
+          "name": "長命斜 (feat. PetPetShawn & Polar G)",
+          "artists": "Novel Fergus / PetPetShawn / Polar G"
+        },
+        {
+          "id": "1970450934",
+          "name": "喺呢到大",
+          "artists": "PetPetShawn"
+        },
+        {
+          "id": "2096107791",
+          "name": "温饱艺术家Grounded (feat. PetPetShawn)",
+          "artists": "TIAB / PetPetShawn"
+        }
+      ],
+      "biography": "",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=53347353"
+    },
+    "54305414": {
+      "songs": [
+        {
+          "id": "3364890633",
+          "name": "尘埃",
+          "artists": "川渝之子BigSkies / YU张渝 / 谢帝"
+        },
+        {
+          "id": "3364890635",
+          "name": "新·宝剑",
+          "artists": "川渝之子BigSkies / 谢帝 / OneOne"
+        },
+        {
+          "id": "3364891381",
+          "name": "底层逻辑",
+          "artists": "川渝之子BigSkies / burning"
+        }
+      ],
+      "biography": "给我钱",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=54305414"
+    },
+    "54459580": {
+      "songs": [
+        {
+          "id": "2040572199",
+          "name": "追龍",
+          "artists": "mac ova seas / 刀脚 / Lil Chucky"
+        },
+        {
+          "id": "2095377945",
+          "name": "悬龙门阵",
+          "artists": "王齐铭WatchMe / Lil Chucky"
+        },
+        {
+          "id": "1906293354",
+          "name": "感谢",
+          "artists": "永力兄弟 / Toryondacloud / Lil Chucky / 九龙皇帝"
+        }
+      ],
+      "biography": "感谢你的收听，合作商务+V Check0922Hk",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=54459580"
+    },
+    "55797982": {
+      "songs": [
+        {
+          "id": "2023974707",
+          "name": "My Friends",
+          "artists": "Cat Beak-猫比克 / 施施巳敌门 / Zeming Xu / 许家瑞SCARY / 陈娅琪 / 地磁卡 / 滇声气 / Starstar星之星 / 00孁 / Yehwa / LULU SAKEYO / 7‘Angelo / LA. / GaLi Wei"
+        },
+        {
+          "id": "3329310427",
+          "name": "幻灯片",
+          "artists": "馬街頭-TIG / 7‘Angelo"
+        },
+        {
+          "id": "3329310424",
+          "name": "水边生",
+          "artists": "馬街頭-TIG / 坤真2K / 7‘Angelo"
+        }
+      ],
+      "biography": "",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=55797982"
+    },
+    "57598485": {
+      "songs": [
+        {
+          "id": "3453669291",
+          "name": "碎片",
+          "artists": "黄稔钦 / 滇声气大辉Daphe / AFF"
+        },
+        {
+          "id": "2066701491",
+          "name": "Chines Underground HipHop All School Cypher 2023",
+          "artists": "王波 / AR刘夫阳 / 肥宝 / Keyso寿君超 / 贰万 / 滇声气大辉Daphe / 鱼头_killa4nia / KIGGA / 中俄艾迪AIDI RUSCHINO / 黄硕N-Bomb / 白路COIN / 天山摇摆客DyoSeLF / DropScience还魂散 / JahurrySun孙佳睿 / 派克特（PACT） / 此号作废 / Metro Clan / Riddim"
+        },
+        {
+          "id": "2750478818",
+          "name": "南部啰啰",
+          "artists": "火枪FIREGUN（刀哥） / 双面 / 梁展程CKAY / DOHK.O童虎 / 王锐淇Ricky / 黄达DA / 滇声气大辉Daphe / 新秀"
+        }
+      ],
+      "biography": "滇声气rapper mc",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=57598485"
+    },
+    "58262954": {
+      "songs": [
+        {
+          "id": "3353487118",
+          "name": "龙虎血脉",
+          "artists": "burning / OneOne / 谢帝"
+        },
+        {
+          "id": "3353488061",
+          "name": "释放我的兄弟",
+          "artists": "burning / OneOne / Young Cash Jason"
+        },
+        {
+          "id": "3313396811",
+          "name": "永利兄弟",
+          "artists": "OneOne / burning"
+        }
+      ],
+      "biography": "重庆！观山水恶劣角色",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=58262954"
+    },
+    "59308541": {
+      "songs": [
+        {
+          "id": "3410063169",
+          "name": "SKIT（feat.DP）",
+          "artists": "BrAnTB白景屹 / DP"
+        },
+        {
+          "id": "2139750751",
+          "name": "Jeremy Lin",
+          "artists": "BrAnTB白景屹 / DP"
+        },
+        {
+          "id": "2139746345",
+          "name": "家族生意",
+          "artists": "BrAnTB白景屹 / DP"
+        }
+      ],
+      "biography": "DP，在多伦多的深造12年之久，以犀利的flow与独特的音色展现个人风格，对音乐创作具有深度的见解。由于常年与国外音乐人合作，受到海外环境的熏陶，他融洽地将自我风格与海外LOCAL的HIPHOP音乐创造进行融合，进一步丰富了自己的音乐层次，在外界媒体将其誉为能代表Real life style 的华人中坚力量，曾发行mv《bbbyh》因其先锐的风格被Linkup TV报道，在海外华人说唱圈具有先锋级的影响力，而之前曾发行的《Cartier Heaux》和《Pure Ting》即使在国内，亦备获好评。\n\ndptheocean@gmail.com",
+      "biographyDate": "2026-11-14",
+      "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=59308541"
+    },
     "12643557": {
       "songs": [
         { "id": "3397667122", "name": "问爱", "artists": "Yamy郭颖" },

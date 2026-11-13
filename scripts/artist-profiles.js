@@ -34,7 +34,7 @@
     function findArtist(name) { return artistNames.get(normalize(name)) || null; }
     function memberLinks(names) {
       return names.map(name => {
-        const person = findArtist(name);
+        const person = find(name);
         return person
           ? '<button type="button" class="member-profile-link" data-artist-profile="' + escape(person.name) + '">' + escape(name) + '</button>'
           : '<span>' + escape(name) + '</span>';
@@ -69,6 +69,7 @@
         image.alt = item.name;
         image.decoding = 'async';
         if (lazy) image.loading = 'lazy';
+        else image.fetchPriority = 'high';
         image.addEventListener('error', () => { image.hidden = true; });
         let source = item.avatar;
         if (imageSize && /^https?:\/\/p\d+\.music\.126\.net\//.test(source)) {
@@ -322,7 +323,8 @@
       if (group) {
         const roster = section('团体成员', members.length);
         const grid = element('div', 'profile-members');
-        members.forEach(name => grid.append(personLink(findArtist(name), name, 'profile-member')));
+        // Some roster entries, such as Round_2, are subgroups rather than solo artists.
+        members.forEach(name => grid.append(personLink(find(name), name, 'profile-member')));
         if (members.length) roster.append(grid);
         else roster.append(element('p', 'profile-empty', '暂未收录成员资料。'));
         scroller.append(roster);

@@ -545,9 +545,9 @@ function renderMarkers(filterType = "all") {
   
   // 1. 重置搜索列表，并立即把城市数据重新加进去
   searchNameList = [];
-  profilesWithType.forEach(item => {
-    searchNameList.push({ raw: item.name, lower: item.name.toLowerCase(), type: 'singer' });
-    (item.aliases || []).forEach(alias => searchNameList.push({ raw: item.name, lower: alias.toLowerCase(), type: 'singer', alias }));
+  profilesWithType.concat(labels.filter(item => !profileUI.hasMapLocation(item))).forEach(item => {
+    searchNameList.push({ raw: item.name, lower: item.name.toLowerCase(), type: item.type });
+    (item.aliases || []).forEach(alias => searchNameList.push({ raw: item.name, lower: alias.toLowerCase(), type: item.type, alias }));
   });
   cities.forEach(city => {
     searchNameList.push({ 
