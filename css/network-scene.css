@@ -44,7 +44,7 @@
 .network-dock-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px; line-height: 1.3; font-weight: 800; }
 .network-dock-count { display: inline-flex; align-items: baseline; gap: 3px; color: #ad5260; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .network-dock-number { color: #c72f43; font-size: 22px; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
-.network-dock-close { display: flex; align-items: center; justify-content: center; flex: 0 0 32px; width: 32px; height: 32px; margin-left: 4px; border-radius: 50%; background: #f1ede8; color: #8d827a; font: 400 22px/1 sans-serif; }
+.network-dock-close { display: flex; align-items: center; justify-content: center; flex: 0 0 52px; width: 52px; height: 32px; margin-left: 4px; border-radius: 999px; background: #e60012; color: #fff; font: 700 12px/1 'PingFang SC', 'Microsoft YaHei', sans-serif; white-space: nowrap; }
 @keyframes network-node-enter { from { opacity: .45; transform: translateY(4px) scale(.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes network-line-enter { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes network-dock-enter { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
@@ -54,7 +54,7 @@
   .network-dock-title { font-size: 14px; }
   .network-dock-count { font-size: 11px; }
   .network-dock-avatar { flex-basis: 32px; width: 32px; height: 32px; }
-  .network-dock-close { flex-basis: 28px; width: 28px; height: 28px; margin-left: 0; }
+  .network-dock-close { flex-basis: 48px; width: 48px; height: 30px; margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   #map .leaflet-tile-pane, .network-node-offset, .network-node-name, .network-link { transition: none; }

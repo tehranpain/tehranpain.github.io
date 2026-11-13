@@ -256,7 +256,7 @@
         image.src = center.avatar;
         avatar.append(image);
       }
-      const close = element('span', 'network-dock-close', '×'); close.setAttribute('aria-hidden', 'true');
+      const close = element('span', 'network-dock-close', '退出'); close.setAttribute('aria-hidden', 'true');
       exitButton.replaceChildren(avatar, copy, close);
       exitButton.setAttribute('aria-label', '退出关系网'); exitButton.title = '退出关系网';
       exitButton.classList.add('network-dock'); exitButton.style.display = 'flex';
