@@ -8207,7 +8207,9 @@ const cities = [
     fans: "团体",
     lat: 31.12, lng: 121.66,
     avatar: "https://p1.music.126.net/XAWTPQVVGAa8t_uj0t8Ckw==/109951170374141020.jpg?param=180y180",
-    neteaseId: "",
+    neteaseId: "48979985",
+    founded: "2020年4月9日",
+    foundedSource: "https://www.sohu.com/a/488620177_121124772",
     type: "label",
     // 成员来源：网易云《1SHOT CYPHER 2024》，歌曲ID 2157638955。
     members: ["Cee", "Keyso寿君超", "小酷Coola", "土人儿TRE", "孤矢", "颠倒", "西凹木", "DENZEL丹澤", "DonDream"]
@@ -8217,7 +8219,7 @@ const cities = [
     fans: "团体",
     lat: 22.68, lng: 114.20,
     avatar: "./assets/labels/virtual-adam.jpg",
-    neteaseId: "",
+    neteaseId: "53937586",
     type: "label",
     members: ["delphia!", "Wade Warhol", "lov3chanel", "tonymvn!a", "ANT NIRVANA", "JNOLAZY", "ANE"]
   },
@@ -8227,6 +8229,8 @@ const cities = [
     lat: 30.62, lng: 104.12, // 团体地理坐标（比如成都）
     avatar: "https://p1.music.126.net/jLLS_h9IbrQhHt-Pk2VCxA==/109951164947982934.jpg?param=130y130", // 团体logo链接
     neteaseId: "35005076", // 团体无网易云ID则留空
+    founded: "2020年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=35005076",
     type: "label", // 标记为团体类型
 members: ["谢帝","Ty.","Mengzi","王以太","马思唯", "KnowKnow", "Melo", "Psy.P", "邓典果DDG","AnsrJ","李尔新","SleepyCat"]
   },
@@ -8235,7 +8239,9 @@ members: ["谢帝","Ty.","Mengzi","王以太","马思唯", "KnowKnow", "Melo", "
     fans: "团体",
     lat: 32.06, lng: 118.65, // 重庆坐标
     avatar: "https://p1.music.126.net/eRA3G0rIhTzB_Hitvan0Ow==/109951169201083437.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "33872026",
+    founded: "2016年",
+    foundedSource: "https://www.bilibili.com/video/BV1yM411T773/",
     type: "label",
 members: ["MC光光", "Trouble.Z", "Round-2", "Ice Paper", "Kc","Lil Howcy","Big Year","BustaZun","Joannne"]
   },
@@ -8244,7 +8250,7 @@ members: ["MC光光", "Trouble.Z", "Round-2", "Ice Paper", "Kc","Lil Howcy","Big
     fans: "团体",
     lat: 34.32, lng: 109.00, // 重庆坐标
     avatar: "https://p1.music.126.net/-OPbbZN4XTKpvg-jvwttfw==/109951164076924582.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "30003804",
     type: "label",
 members: ["ljz329", "弹壳Danko", "AZ阿之", "", "毕冉","DP"]
   },
@@ -8254,6 +8260,8 @@ members: ["ljz329", "弹壳Danko", "AZ阿之", "", "毕冉","DP"]
     lat: 29.55, lng: 106.51, // 重庆坐标
     avatar: "https://p2.music.126.net/_Mv6nmc8S6O5mPZxnJrRGQ==/109951163104160083.jpg?param=130y130",
     neteaseId: "12072073",
+    founded: "2012年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=12072073",
     type: "label",
 members: ["GAI周延","Toryondacloud","雾都L4WUDU","王嗣尧TURBO","布瑞吉Bridge", "Pop J", "REGI陈彦希", "OG ROLLY", "希介","小艾EYE"]
   },
@@ -8271,7 +8279,7 @@ members: ["OneOne","burning在飞","川渝之子BigSkies","阿波罗","海娃", 
     fans: "团体",
     lat: 31.10, lng: 121.58, // 重庆坐标
     avatar: "https://p1.music.126.net/sv15Ht_46qotsbPU5zEIGg==/109951169200216608.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "59528242",
     type: "label",
 members: ["鼠尾草","Buzzy","DANNY K","EINK","FEEELEVEN", "JYnostop", "周夏影"]
   },
@@ -8280,7 +8288,9 @@ members: ["鼠尾草","Buzzy","DANNY K","EINK","FEEELEVEN", "JYnostop", "周夏�
     fans: "团体",
     lat: 44.05, lng: 81.52,
     avatar: "https://p2.music.126.net/JKmU1RdARAU010AhSUWKfQ==/109951168652576426.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "32537205",
+    founded: "2019年",
+    foundedSource: "https://www.xihachina.com/21408.html",
     type: "label",
 members: ["叶尔林", "kxpl", "Hayrul海力", "Swang多雷", "刘炫廷"]
   },
@@ -8290,7 +8300,7 @@ members: ["叶尔林", "kxpl", "Hayrul海力", "Swang多雷", "刘炫廷"]
   fans: "团体",
   lat: 22.60, lng: 114.12,
   avatar: "https://p1.music.126.net/5erInoTwe_J-k_I3zkhkmA==/109951170536212253.jpg?param=130y130",
-  neteaseId: "",
+  neteaseId: "50271799",
 type: "label",
 members: ["FANVY", "5IVE5IVE", "88LIEN","Arthurnevawakes","Chalky Wong","Crazy Omega"]
 },
@@ -8300,7 +8310,7 @@ members: ["FANVY", "5IVE5IVE", "88LIEN","Arthurnevawakes","Chalky Wong","Crazy O
     fans: "团体",
     lat: 29.52, lng: 106.54, // 重庆坐标
     avatar: "https://p1.music.126.net/6XvHmFJOl2wx_HHZYdPrHg==/109951163182548906.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "13449974",
     type: "label",
 members: ["Toryondacloud","希介","Lil Chucky","G Sauce","刘嘉一", "Icy White", "TivaAaa", "Raelion", "kill bad feelings","LitXu力旭","Yaokai","YUNG NEO","#cmt"]
   },
@@ -8311,6 +8321,8 @@ members: ["Toryondacloud","希介","Lil Chucky","G Sauce","刘嘉一", "Icy Whit
     lat: 30.62, lng: 104.07, // 重庆坐标
     avatar: "https://p2.music.126.net/4e4PZYbNakiSBkuKdOvw7A==/109951166769142486.jpg?param=130y130",
     neteaseId: "33693423",
+    founded: "2020年",
+    foundedSource: "https://www.weibo.com/ttarticle/p/show?id=2309404724914266702503",
     type: "label",
 members: ["mac ova seas", "艾志恒Asen", "TOYOKI", "MULA SAKEE", "KIV","THOME"]
   },
@@ -8338,6 +8350,8 @@ members: ["马思唯", "YOUNG13DBABY", "FENDIGHEE RICCH", "CashTrippy", "YTH Cho
     lat: 30.59, lng: 104.03, // 重庆坐标
     avatar: "https://p1.music.126.net/U9_yVbWosdU9hd2PluL7mQ==/109951164269437732.jpg?param=130y130",
     neteaseId: "12002201",
+    founded: "2016年1月",
+    foundedSource: "https://neocha.com/magazine/higher-brothers/",
     type: "label",
 members: ["马思唯", "KnowKnow", "PSY.P", "Melo"]
   },
@@ -8356,7 +8370,9 @@ members: ["罗言", "LSGCsikoriot", "Uzzy", "吕富贵", "BOBBYNOPEACE","黄云�
     fans: "团体",
     lat: 30.28, lng: 120.12, // 重庆坐标
     avatar: "https://p1.music.126.net/bc4bF5Dg3eBkNcCyXD689g==/109951165057276292.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "35547742",
+    founded: "2018年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=35547742",
     type: "label",
 members: ["LEGGO", "黄之仪Kyra Zilver", "4D"]
   },
@@ -8374,7 +8390,9 @@ members: ["Player J", "步步高先生", "阿牛"]
     fans: "团体",
     lat: 24.99, lng: 102.79, // 重庆坐标
     avatar: "https://p1.music.126.net/5dEUmKOrBn-yKEnKuwrCnA==/109951168762553034.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "13034811",
+    founded: "2016年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=13034811",
     type: "label",
 members: ["D-roc", "大晖", "MC脏脏","卓卓","7'angelo陶英杰"]
   },
@@ -8384,7 +8402,7 @@ members: ["D-roc", "大晖", "MC脏脏","卓卓","7'angelo陶英杰"]
   fans: "团体",
   lat: 39.90, lng: 116.26,
   avatar: "https://p2.music.126.net/yPtHFPYrG3OBnFUI9qgSJA==/109951167535658905.jpg?param=130y130",
-  neteaseId: "",
+  neteaseId: "777622",
 type: "label",
 members: ["FAC-D12", "JahjahWay", "SouthSideSamurai"]
 },
@@ -8402,7 +8420,9 @@ members: ["辉子", "秃子2z", "金剑GOLDENSWORD","赵山河"]
   fans: "团体",
   lat: 39.77, lng: 116.45,
   avatar: "https://p2.music.126.net/anpTIBDMSvMVgEX2qaquBQ==/177021372091849.jpg?param=130y130",
-  neteaseId: "",
+  neteaseId: "12181",
+  founded: "2007年",
+  foundedSource: "https://www.sohu.com/a/358582188_765652",
 type: "label",
 members: ["孙骁","孙旭","奕文","益含"]
 },
@@ -8412,7 +8432,9 @@ members: ["孙骁","孙旭","奕文","益含"]
   fans: "团体",
   lat: 39.89, lng: 116.43,
   avatar: "https://p2.music.126.net/-22Jtm-ZLLcuBSXWKFX42g==/109951163297130138.jpg?param=130y130",
-  neteaseId: "",
+  neteaseId: "12146285",
+  founded: "2016年",
+  foundedSource: "https://podcasts.apple.com/nz/podcast/id1682198228?i=1000788952759",
 type: "label",
 members: ["刘悦spam-生番", "黄硕N-Bomb", "张千C.Jam","Saber梁维嘉","Stinging Ray","Mido美朵","中俄艾迪AIDI RUSCHINO","DJ Quaver","斯威特MCSWEET"]
 },
@@ -8421,7 +8443,9 @@ members: ["刘悦spam-生番", "黄硕N-Bomb", "张千C.Jam","Saber梁维嘉","S
   fans: "团体",
   lat: 31.13, lng: 121.51,
   avatar: "https://p1.music.126.net/yAuwlHfV9CRDOrMhanna4Q==/109951170529567546.jpg?param=130y130",
-  neteaseId: "",
+  neteaseId: "12003155",
+  founded: "2016年",
+  foundedSource: "https://streetvoice.com/lfq232323/about/",
 type: "label",
 members: ["直火帮Feezy","谢子通","直火帮Chuck Zigga Jiang"]
 },
@@ -8430,7 +8454,9 @@ members: ["直火帮Feezy","谢子通","直火帮Chuck Zigga Jiang"]
     fans: "团体",
     lat: 28.13, lng: 113.05, // 重庆坐标
     avatar: "https://p1.music.126.net/N0QdcHmHuEiiu4kkmCflsA==/109951164217358679.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "11257",
+    founded: "2007年",
+    foundedSource: "https://www.xihachina.com/63005.html",
     type: "label",
 members: ["盛宇D-SHINE", "KEY.L刘聪", "功夫胖KUNGFU-PEN"]
   },
@@ -8440,7 +8466,9 @@ members: ["盛宇D-SHINE", "KEY.L刘聪", "功夫胖KUNGFU-PEN"]
     fans: "团体",
     lat: 31.27, lng: 121.40, // 重庆坐标
     avatar: "https://p1.music.126.net/n7fkKOT96Sw64XCMXCO2yg==/109951162816427244.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "12200652",
+    founded: "2016年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=12200652",
     type: "label",
 members: ["法老", "龙崎", "小精灵", "杨和苏KeyNG", "JarStick","李毅杰PISSY","隆历奇","鹤仙问鹿仙","杨秋儒"]
   },
@@ -8477,7 +8505,9 @@ members: ["SASIOVERLXRD", "RICHNOMADIC", "连麻Swimming", "JinJiBeWater-隼"]
     fans: "团体",
     lat: 30.57, lng: 104.07, // 重庆坐标
     avatar: "https://p1.music.126.net/pv_lEi71QotuScCgA84eFw==/109951169771636485.jpg?param=200y200",
-    neteaseId: "",
+    neteaseId: "128657450",
+    founded: "2022年",
+    foundedSource: "https://huodong.com/event/detail/teexug",
     type: "label",
 members: ["Vansdaddy", "Kito", "Monovisa", "李文","叶轩池"]
   },
@@ -8486,7 +8516,7 @@ members: ["Vansdaddy", "Kito", "Monovisa", "李文","叶轩池"]
     fans: "团体",
     lat: 34.71, lng: 113.63, // 重庆坐标
     avatar: "https://p2.music.126.net/XE29r0E-P1_wY5TRQcc5NA==/109951168731827120.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "57505069",
     type: "label",
 members: ["张方钊", "河北吴孟达", "Louis 1520", "卡力鲨鱼","卡力老虎","卡力蛇"]
   },
@@ -8496,7 +8526,9 @@ members: ["张方钊", "河北吴孟达", "Louis 1520", "卡力鲨鱼","卡力�
     fans: "团体",
     lat: 25.02, lng: 121.54, // 重庆坐标
     avatar: "https://p2.music.126.net/qsiisFdPgdIUwioeNEju9g==/109951170726257577.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "13200",
+    founded: "2004年",
+    foundedSource: "https://music.163.com/#/artist/desc?id=13200",
     type: "label",
 members: ["瘦子E.SO", "小春Kenzy", "大渊MUTA"]
   },
@@ -8505,7 +8537,7 @@ members: ["瘦子E.SO", "小春Kenzy", "大渊MUTA"]
     fans: "团体",
     lat: 23.07, lng: 113.22, // 重庆坐标
     avatar: "https://p2.music.126.net/XPBiITW7goMb18F1PmGPyg==/109951168500522995.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "56194859",
     type: "label",
 members: ["TizzyT", "Crazy C", "CHOCKEY有三","HEAT J"]
   },
@@ -8516,6 +8548,8 @@ members: ["TizzyT", "Crazy C", "CHOCKEY有三","HEAT J"]
     lat: 34.24, lng: 108.91, // 西安坐标
     avatar: "https://p1.music.126.net/NuaOT6u6v2N6OD9zbB6wYg==/109951162800007664.jpg?param=200y200",
     neteaseId: "",
+    founded: "2010年",
+    foundedSource: "https://www.sohu.com/a/439669545_296992",
     type: "label",
 members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","SIMBA辛巴","刘柄鑫","GIF7ED","Dirty Twinz","井剑歌","Echo"]
   },
@@ -8524,7 +8558,7 @@ members: ["派克特(PACT）", "CREAM D", "KIGGA", "张昊","鱼头-killa4nia","
     fans: "团体",
     lat: 31.16, lng: 121.28,
     avatar: "https://p2.music.126.net/ItuxjP2v-coLKVi_hF_HHg==/109951169962583151.jpg?param=130y130",
-    neteaseId: "",
+    neteaseId: "54271480",
     type: "label",
     members: ["Akiiyaki", "Chinglish", "Hoozie", "Lan", "Mood", "pornstar", "skiboyvv", "Taco", "tree", "DAMNLIFE", "know the vibe", "求索4 (qs4)", "duckroi", "Leadest"]
   }

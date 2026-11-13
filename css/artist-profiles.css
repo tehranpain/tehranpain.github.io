@@ -50,13 +50,13 @@
 .profile-actions > * { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 7px; border: 0; border-radius: 12px; background: #eeeae4; color: #463d33; text-decoration: none; font-size: 12px !important; line-height: 1.3; font-weight: 700 !important; cursor: pointer; }
 .profile-actions .profile-locate { background: var(--profile-red); color: #fff; }
 .profile-actions > *:hover { filter: brightness(.96); }
-/* Singer covers are full-bleed; group heroes and membership chips keep their existing layout. */
-.artist-profile-panel[data-profile-type="singer"] .profile-toolbar { position: absolute; inset: 0 0 auto; z-index: 3; justify-content: flex-end; padding: 12px; pointer-events: none; }
-.artist-profile-panel[data-profile-type="singer"] .profile-toolbar-label { display: none; }
-.artist-profile-panel[data-profile-type="singer"] .profile-close { pointer-events: auto; background: #0005; color: #fff; backdrop-filter: blur(8px); }
-.artist-profile-panel[data-profile-type="singer"] .profile-back { pointer-events: auto; background: #0005; color: #fff; backdrop-filter: blur(8px); }
-.artist-profile-panel[data-profile-type="singer"] .profile-scroll { padding: 0 0 14px; }
-.artist-profile-panel[data-profile-type="singer"] .profile-section { margin-left: 13px; margin-right: 13px; }
+/* Both profile types share a square, full-bleed cover; membership chips are independent. */
+.artist-profile-panel .profile-toolbar { position: absolute; inset: 0 0 auto; z-index: 3; justify-content: flex-end; padding: 12px; pointer-events: none; }
+.artist-profile-panel .profile-toolbar-label { display: none; }
+.artist-profile-panel .profile-close { pointer-events: auto; background: #0005; color: #fff; backdrop-filter: blur(8px); }
+.artist-profile-panel .profile-back { pointer-events: auto; background: #0005; color: #fff; backdrop-filter: blur(8px); }
+.artist-profile-panel .profile-scroll { padding: 0 0 14px; }
+.artist-profile-panel .profile-section { margin-left: 13px; margin-right: 13px; }
 .profile-hero-cover { isolation: isolate; aspect-ratio: 1; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding: 22px; border-radius: 0; text-align: left; background: #302a27; overflow: hidden; }
 .profile-hero-cover::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #0000 25%, #0003 48%, #000c 100%); pointer-events: none; }
 .profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #463e38; }
@@ -64,21 +64,28 @@
 .profile-hero-cover .profile-title { margin: 0; color: #fff; font-size: 32px; line-height: 1.16; letter-spacing: -.5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .profile-hero-cover .profile-metric { display: flex; align-items: baseline; margin-top: 8px; color: #fff; font-size: 14px; line-height: 1.4; font-weight: 600; }
 .profile-hero-cover .profile-metric-label { display: inline; margin: 0; color: inherit; font-size: inherit; font-weight: inherit; }
+.profile-founded { margin: 9px 0 0; color: #ffffffe0; font-size: 12px; line-height: 1.5; }
 .profile-hero-cover .profile-description { margin-top: 8px; color: #ffffffe0; font-size: 11px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .profile-hero-cover .profile-only-note { position: absolute; top: 14px; left: 16px; max-width: calc(100% - 76px); margin: 0; padding: 5px 8px; border-radius: 7px; background: #0005; color: #fff; font-size: 10px; }
-.artist-profile-panel[data-profile-type="singer"][data-profile-history="true"] .profile-only-note { left: 56px; max-width: calc(100% - 112px); }
+.artist-profile-panel[data-profile-history="true"] .profile-only-note { left: 56px; max-width: calc(100% - 112px); }
 .profile-hero-cover .profile-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+.profile-hero-cover .profile-actions.is-single-action { grid-template-columns: minmax(0, 1fr); }
 .profile-hero-cover .profile-actions > * { gap: 6px; min-height: 42px; padding: 11px 8px; border: 1px solid transparent; border-radius: 11px; color: #fff; }
 .profile-hero-cover .profile-music-link { background: var(--profile-red); }
 .profile-hero-cover .profile-network { border-color: #ffffff70; background: #ffffff24; }
+.profile-hero-cover .profile-locate { border-color: #ffffff70; background: #ffffff24; }
+.profile-hero-cover .is-single-action .profile-locate { border-color: transparent; background: var(--profile-red); }
 .profile-hero-cover .profile-network svg { flex-shrink: 0; width: 16px; height: 16px; }
 .profile-hero-cover .profile-actions > *:disabled { opacity: .45; cursor: not-allowed; }
 .profile-section { margin-top: 12px; padding: 20px 17px; border-radius: 20px; background: #fff; }
 .profile-section-title { margin: 0 0 17px; font-size: 15px; font-weight: 800; line-height: 1.4; }
 .profile-section-count { margin-left: 9px; color: #aaa299; font-size: 11px; font-weight: 400; }
-.profile-members { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 21px 12px; }
-.profile-member { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: #302a24; cursor: pointer; }
-.profile-member .profile-person-avatar { width: 56px; height: 56px; }
+/* Group members are one uninterrupted vertical list, not the artist's collaborator grid. */
+.profile-members { display: flex; flex-direction: column; gap: 6px; }
+.profile-member { min-width: 0; width: 100%; display: flex; align-items: center; gap: 12px; padding: 8px 2px; border: 0; background: none; color: #302a24; text-align: left; cursor: pointer; }
+.profile-member .profile-person-avatar { width: 44px; height: 44px; }
+.profile-member .profile-person-name { flex: 1; font-size: 14px; font-weight: 600; }
+.profile-member .profile-person-status { flex-shrink: 0; }
 .profile-person-name { min-width: 0; line-height: 1.4; overflow-wrap: anywhere; font-size: 12px; }
 .profile-person-status { font-size: 10px; color: var(--profile-muted); }
 .profile-relations { display: flex; flex-wrap: wrap; gap: 8px; }

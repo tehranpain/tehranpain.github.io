@@ -260,23 +260,29 @@
       const members = memberNames(item);
       panel.setAttribute('data-profile-name', item.name);
       panel.setAttribute('data-profile-type', group ? 'label' : 'singer');
-      const hero = element('section', 'profile-hero' + (group ? '' : ' profile-hero-cover'));
-      if (group) hero.append(element('p', 'profile-kind', '团体'));
-      hero.append(avatar(item, group ? 'profile-hero-avatar' : 'profile-cover-avatar', false, group ? undefined : 750));
-      const identity = group ? hero : element('div', 'profile-hero-identity');
+      const hero = element('section', 'profile-hero profile-hero-cover');
+      hero.append(avatar(item, 'profile-cover-avatar', false, 750));
+      const identity = element('div', 'profile-hero-identity');
       const title = element('h2', 'profile-title', item.name);
       title.id = 'artist-profile-title';
       title.title = item.name;
       identity.append(title);
-      const metric = element('div', 'profile-metric', group ? String(members.length) : fans(item));
-      metric.append(element('span', 'profile-metric-label', group ? '位成员' : '粉丝'));
-      identity.append(metric);
+      if (group) {
+        if (item.founded) identity.append(element('p', 'profile-founded', '成立于' + item.founded));
+      } else {
+        const metric = element('div', 'profile-metric', fans(item));
+        metric.append(element('span', 'profile-metric-label', '粉丝'));
+        identity.append(metric);
+      }
       if (item.desc && !['自动添加', '网易云自动补全'].includes(item.desc)) identity.append(element('p', 'profile-description', item.desc));
-      if (!group) hero.append(identity);
+      hero.append(identity);
       if (!hasMapLocation(item)) hero.append(element('p', 'profile-only-note', '仅收录资料，不在地图显示'));
       const actions = element('div', 'profile-actions');
       if (group) {
+        // Group IDs are added only after matching the account's biography or member credits.
+        if (/^\d+$/.test(String(item.neteaseId))) actions.append(musicLink('profile-music-link', '查看主页', 'artist', String(item.neteaseId)));
         if (hasMapLocation(item) && locate) actions.append(button('profile-locate', '在地图查看', () => locate(item.name)));
+        if (actions.children.length === 1) actions.className += ' is-single-action';
       } else {
         const homepage = /^\d+$/.test(String(item.neteaseId))
           ? musicLink('profile-music-link', '查看主页', 'artist', String(item.neteaseId))
