@@ -3,11 +3,15 @@
     return typeof value === 'string' && /^(https?:\/\/|\.?\.?\/|\/|assets\/)/.test(value) && !value.startsWith('//') ? value : '';
   }
   function normalizeRelease(value) {
+    const title = typeof value?.title === 'string' ? value.title.trim() : '';
+    const headline = typeof value?.headline === 'string' ? value.headline.trim() : '';
     if (!value || !['album', 'single'].includes(value.type) || typeof value.artist !== 'string'
-      || !value.artist.trim() || typeof value.title !== 'string' || !value.title.trim()) return null;
-    const item = { type: value.type, artist: value.artist.trim(), title: value.title.trim(),
+      || !value.artist.trim() || (!title && !headline)) return null;
+    const item = { type: value.type, artist: value.artist.trim(), title, headline,
       artistLabel: typeof value.artistLabel === 'string' && value.artistLabel.trim() ? value.artistLabel.trim() : value.artist.trim(),
-      image: safeImage(value.image), format: value.format === 'Mixtape' ? 'Mixtape' : '专辑' };
+      image: safeImage(value.image), format: ['Mixtape', 'EP'].includes(value.format) ? value.format : '专辑' };
+    item.artists = [...new Set([item.artist].concat(Array.isArray(value.artists) ? value.artists : [])
+      .filter(name => typeof name === 'string' && name.trim()).map(name => name.trim()))];
     for (const key of ['songId', 'albumId']) if (/^\d+$/.test(String(value[key] || ''))) item[key] = String(value[key]);
     return item;
   }
@@ -52,6 +56,7 @@
       if (source) {
         const image = element('img'); image.alt = ''; image.decoding = 'async';
         if (lazy) image.loading = 'lazy';
+        else image.fetchPriority = 'high';
         image.addEventListener('error', () => { image.hidden = true; });
         image.src = source; frame.append(image);
       }
@@ -71,19 +76,20 @@
       counter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0');
       carousel.dataset.index = String(index);
       status.textContent = '';
-      if (announce) announcement.textContent = (index + 1) + ' / ' + items.length + '，' + items[index].title;
+      if (announce) announcement.textContent = (index + 1) + ' / ' + items.length + '，' + titleOf(items[index]);
       schedule();
     }
     function titleOf(item) {
-      return item.artistLabel + (item.type === 'single' ? '新歌' : '新' + item.format) + '《' + item.title + '》';
+      return item.headline || item.artistLabel + (item.type === 'single' ? '新歌' : '新' + item.format) + '《' + item.title + '》';
     }
     function renderRelease(item, i) {
       const slide = element('article', 'home-release-slide');
       slide.setAttribute('role', 'group'); slide.setAttribute('aria-roledescription', '幻灯片');
       slide.setAttribute('aria-label', (i + 1) + '：' + titleOf(item));
-      const open = element(item.type === 'single' && item.songId ? 'a' : 'button', 'home-release-open');
+      const open = element(item.type === 'single' && (item.songId || item.albumId) ? 'a' : 'button', 'home-release-open');
       if (open.tagName.toLowerCase() === 'a') {
-        open.href = 'https://music.163.com/#/song?id=' + item.songId;
+        // Never guess a song ID from an album ID. The supplied release page is a temporary fallback.
+        open.href = 'https://music.163.com/#/' + (item.songId ? 'song?id=' + item.songId : 'album?id=' + item.albumId);
         open.target = '_blank'; open.rel = 'noopener noreferrer';
       } else {
         open.type = 'button';
@@ -96,22 +102,29 @@
       }
       const title = element('span', 'home-release-title', titleOf(item));
       title.setAttribute('role', 'heading'); title.setAttribute('aria-level', '2');
-      open.append(artwork(item, 'home-release-image', i !== 0), element('span', 'home-release-shade'),
+      const cover = artwork(item, 'home-release-image', i !== 0);
+      if (!item.image) cover.append(element('span', 'home-release-image-pending', '封面待补充'));
+      open.append(cover, element('span', 'home-release-shade'),
         element('span', 'home-release-type', item.type === 'single' ? '最新单曲' : '最新' + item.format),
         title);
-      const person = findArtist && findArtist(item.artist);
-      const artist = element('button', 'home-release-artist'); artist.type = 'button';
-      artist.disabled = !person;
-      artist.setAttribute('aria-label', person ? '查看' + item.artistLabel + '的资料' : '暂未收录' + item.artistLabel + '的资料');
-      const avatar = artwork(person || {}, 'home-release-artist-avatar');
-      avatar.prepend(element('span', '', Array.from(item.artistLabel)[0]));
-      artist.append(avatar, element('span', 'home-release-artist-name', item.artistLabel), element('span', 'home-release-artist-arrow', '>'));
-      artist.addEventListener('click', event => {
-        event.stopPropagation();
-        if (person && onArtist) onArtist(person.name);
+      const artists = element('div', 'home-release-artists');
+      item.artists.forEach(name => {
+        const person = findArtist && findArtist(name);
+        const label = name === item.artist ? item.artistLabel : name;
+        const artist = element('button', 'home-release-artist'); artist.type = 'button';
+        artist.disabled = !person;
+        artist.setAttribute('aria-label', person ? '查看' + label + '的资料' : '暂未收录' + label + '的资料');
+        const avatar = artwork(person || {}, 'home-release-artist-avatar', true);
+        avatar.prepend(element('span', '', Array.from(label)[0]));
+        artist.append(avatar, element('span', 'home-release-artist-name', label), element('span', 'home-release-artist-arrow', '>'));
+        artist.addEventListener('click', event => {
+          event.stopPropagation();
+          if (person && onArtist) onArtist(person.name);
+        });
+        artists.append(artist);
       });
       // Artist navigation is a sibling of the work link, never a nested link/button.
-      slide.append(open, artist);
+      slide.append(open, artists);
       return slide;
     }
     function setReleases(values) {
