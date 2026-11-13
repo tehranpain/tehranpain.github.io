@@ -205,7 +205,7 @@
       if (hasMapLocation(item) && locate) actions.append(button('profile-locate', '在地图查看', () => locate(item.name)));
       if (!group && /^\d+$/.test(String(item.neteaseId))) actions.append(musicLink('profile-music-link', '网易云主页', 'artist', String(item.neteaseId)));
       if (network && hasMapLocation(item) && (item.collaborators || []).length) {
-        actions.append(button('profile-network', '关系网', () => { close({ restoreFocus: false }); network(item.name); }));
+        actions.append(button('profile-network', '关系网', () => network(item.name, { keepProfile: true })));
       }
       if (actions.children.length) hero.append(actions);
       scroller.replaceChildren(hero);

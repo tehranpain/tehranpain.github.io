@@ -141,7 +141,7 @@ function setSelectedProfileMarker(name = null) {
 const profileUI = window.RapArtistProfiles.create({
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
-  network: name => window.showNetwork(name),
+  network: (name, options) => window.showNetwork(name, options),
   onClose: () => setSelectedProfileMarker(),
   onOpen: item => {
     if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
@@ -2605,7 +2605,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
     });
 
    // 触发显示关系网
-    window.showNetwork = function(centerName) {
+    window.showNetwork = function(centerName, { keepProfile = false } = {}) {
       const centerSinger = profileUI.find(centerName);
       if (!centerSinger || !centerSinger.collaborators) return;
       if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
@@ -2613,7 +2613,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         profileUI.open(centerSinger.name);
         return;
       }
-      profileUI.close({ restoreFocus: false });
+      if (!keepProfile) profileUI.close({ restoreFocus: false });
       map.closePopup();
       markerClusterGroup.clearLayers(); 
 
