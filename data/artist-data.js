@@ -255,7 +255,8 @@ desc:"「中国新说唱2020」冠军"
   fans: "1.2万",
   lat: 40.01, lng: 116.34,
   avatar: "https://p2.music.126.net/bDg4vuOkRYgrWz-bw3xZTg==/109951173190575706.jpg?param=130y130",
-  neteaseId: "34464647"
+  neteaseId: "34464647",
+  desc: "「说唱梦工厂」冠军"
 
 },
 
@@ -1241,7 +1242,7 @@ aliases: ["Jesse Margiela", "杰西马吉拉"]
   lat: 30.59, lng: 104.00,
   avatar: "https://p1.music.126.net/GLgV_NbKYJ8fLOUr39Cicg==/109951168477255172.jpg?param=130y130",
   neteaseId: "12965215",
-desc:"「新说唱2025」亚军"
+desc:"「新说唱2025」亚军 · 「说唱听我的第二季」亚军"
 },
 {
   name: "建坤YOUNG",
@@ -1330,7 +1331,7 @@ desc:"「新说唱2025」亚军"
   lat: 31.23, lng: 121.49,
   avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130",
   neteaseId: "12127362",
-desc:"「中国新说唱2020」季军",
+desc:"「中国新说唱2020」并列季军",
 collaborators: [
     { name: "Sean T肖恩恩"},{ name: "mac ova seas"},{ name: "李大奔BENZO"},{ name: "KenRobb"},{ name: "李佳隆"},{ name: "ICE杨长青"},{ name: "俞天时"},{ name: "BroFA"},{ name: "黄之仪Kyra Zilver"},{ name: "王以太"},{ name: "VaVa娃娃"},{ name: "V.O.B"},{ name: "KnowKnow"},{ name: "BrAnTB白景屹"},{ name: "刘炫廷"},{ name: "Capper"},{ name: "Rapeter"},{ name: "MC HotDog热狗"},{ name: "CHOCKEY有三"},{ name: "满舒克"},{ name: "谟西Mercy"},{ name: "LEGGO"},{ name: "三火flame"},{ name: "TizzyT"},{ name: "Tlatre特雷西"},{ name: "Nxmad诺曼德"},{ name: "离合"},{ name: "黄建威"},{ name: "Cee"},{ name: "艾志恒Asen"},{ name: "万妮达Vinida Weng"},{ name: "派克特"}
   ]
@@ -1391,7 +1392,8 @@ collaborators: [
   fans: "8.3万",
   lat:26.58 , lng: 106.72,
   avatar: "https://p2.music.126.net/in7q2VLKLUX7tmgQLDa6IA==/109951168677635056.jpg?param=130y130",
-  neteaseId: "57187017"
+  neteaseId: "57187017",
+  desc: "「说唱梦工厂」亚军"
 },
 
 {
@@ -1421,7 +1423,7 @@ collaborators: [
   lat:23.05 , lng: 113.41,
   avatar: "https://p2.music.126.net/qTZ4pVGRaExUPzCzyajAVA==/109951165837860957.jpg?param=130y130",
   neteaseId: "12193780",
- desc:"「说唱听我的第一季」亚军"
+ desc:"「说唱听我的第一季」季军"
 
 },
 {
@@ -1697,7 +1699,7 @@ aliases: ["阿卡门"]
   lat:30.34 , lng: 112.23,
   avatar: "https://p2.music.126.net/U1mSNBdqoM_x9oTDUBwt4Q==/109951173293970640.jpg?param=130y130",
   neteaseId: "12277473",
-desc:"「中国新说唱2020」季军"
+desc:"「中国新说唱2020」并列季军"
 
 },
 {
@@ -1705,7 +1707,8 @@ desc:"「中国新说唱2020」季军"
   fans: "57.3万",
   lat:28.26 , lng: 113.04,
   avatar: "https://p2.music.126.net/ANXf31eNT7NTmY4_OWesxQ==/109951172802605277.jpg?param=130y130",
-  neteaseId: "12453329"
+  neteaseId: "12453329",
+  desc: "「说唱巅峰对决2026」季军"
 },
 {
   name: "姜云升",
@@ -1765,7 +1768,7 @@ desc:"「中国有嘻哈」季军"
   lat:41.17 , lng: 80.26,
   avatar: "https://p2.music.126.net/383YzBgZQe471G_xKouzCg==/109951173489860340.jpg?param=130y130",
   neteaseId: "12065096",
-desc:"「中国新说唱2018」亚军"
+desc:"「中国新说唱2019」亚军"
 
 },
 {
@@ -1883,6 +1886,7 @@ collaborators: [
   lat:34.60 , lng: 119.18,
   avatar: "https://p2.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130",
   neteaseId: "12563131",
+  desc: "「说唱巅峰对决2026」亚军",
 collaborators: [
     { name: "SHarK"},{ name: "侃迪kandi"},{ name: "小酷Coola"},{ name: "KITO"},{ name: "杨和苏KeyNG"},{ name: "加木"},{ name: "AA"},{ name: "Mc光光"},{ name: "BOBBYNOPEACE"},{ name: "Athree"},{ name: "V.O.B"}  ]
 },
@@ -2295,7 +2299,8 @@ aliases: ["四口"],
   fans: "57.7万",
   lat:23.37 , lng: 116.72,
   avatar: "https://p2.music.126.net/Gc4qmlH3l2olNuPH9xtwHA==/109951173028746722.jpg?param=130y130",
-  neteaseId: "35784564"
+  neteaseId: "35784564",
+  desc: "「说唱巅峰对决2026」冠军"
 },
 {
   name: "揽佬SKAI ISYOURGOD",
@@ -5595,6 +5600,31 @@ const taiwanProfiles20261112 = [
   }
 ];
 profiles.push(...taiwanProfiles20261112);
+// Verified show participants without user-supplied coordinates remain profile-only.
+const varietyProfiles20261114 = [
+  {
+    name: "Yamy郭颖", aliases: ["Yamy", "郭颖"], neteaseId: "12643557",
+    fans: "9.4万", fanCount: 94299, fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-14",
+    avatar: "https://p1.music.126.net/ggDcg8O_zk055pnjkmdBfA==/109951173466256709.jpg?param=130y130",
+    lat: null, lng: null, mapVisible: false,
+    desc: "「说唱巅峰对决2026」全国15强", collaborators: []
+  },
+  {
+    name: "周汤豪", aliases: ["周湯豪", "NICKTHEREAL", "Nick Chou"], neteaseId: "6730",
+    fans: "5.2万", fanCount: 51579, fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-14",
+    avatar: "https://p1.music.126.net/bzijCKbDxfFVnfWJyOm3eg==/109951173782881334.jpg?param=130y130",
+    lat: null, lng: null, mapVisible: false,
+    desc: "「说唱巅峰对决2026」全国15强", collaborators: []
+  },
+  {
+    name: "hanji林一函", aliases: ["hanji", "林一函"], neteaseId: "14080256",
+    fans: "24.3万", fanCount: 243018, fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-14",
+    avatar: "https://p1.music.126.net/Z8xEYAjoA8l5bKc1KeY3Mg==/109951169520144470.jpg?param=130y130",
+    lat: null, lng: null, mapVisible: false,
+    desc: "「说唱梦工厂」季军", collaborators: []
+  }
+];
+profiles.push(...varietyProfiles20261114);
 const relationshipArtists = [...singers, ...profiles];
 
 

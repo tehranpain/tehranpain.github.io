@@ -219,6 +219,7 @@ if (window.FANS_CACHE) {
 
 // 定义特殊分类名单
 const specialCategories = {
+  "peak_rap26": ["弹壳Danko", "Rapeter", "功夫胖KUNGFU-PEN", "盛宇D-SHINE", "Yamy郭颖", "加木", "翁杰Winjay", "艾热AIR", "那奇沃夫", "ICE杨长青", "辉子", "Top Barry", "布瑞吉Bridge", "李大奔BENZO", "周汤豪"],
   "new_rap25": ["SHarK", "邓典果DDG", "Top Barry", "Rapeter","泰格西","Vinz-T","翁杰Winjay","KITO","DOMMIU","马赫mood","Yosko","BlackTheDevil","阿达娃"], 
 "new_rap24": ["JinJiBeWater-隼", "新秀", "Athree", "辉子","AA","贰万","Nxmad诺曼德","God Øne","JarStick","罗言","MC脏脏","C2C"],
 "ronghe25": ["艾志恒Asen", "万妮达Vinida Weng", "GAI周延", "C-BLOCK","华云龙KLE","陈一豪Clear","SHarK","Rapeter","亚细亚旷世奇才","ljz329","揽佬SKAI ISYOURGOD","泰格西","Top Barry","邓典果DDG","Ranzer","盛宇D-SHINE","功夫胖KUNGFU-PEN","王以太","黄之仪Kyra Zilver","BrAnTB白景屹","asak藏羚羊"],

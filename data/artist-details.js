@@ -1,4 +1,4 @@
-// Public metadata snapshot; reused by exact NetEase artist ID from the mini program.
+// Public metadata snapshot; matched by exact NetEase artist ID.
 window.RapArtistDetails = {
   "metadata": {
     "source": "网易云音乐公开歌手资料与热门歌曲",
@@ -6,6 +6,39 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "12643557": {
+      "songs": [
+        { "id": "3397667122", "name": "问爱", "artists": "Yamy郭颖" },
+        { "id": "3404950706", "name": "Trouble Maker(麻烦你了) (Live)", "artists": "那奇沃夫 / Yamy郭颖" },
+        { "id": "3379886685", "name": "过千山", "artists": "Yamy郭颖" }
+      ],
+      "biography": "Yamy郭颖，中国内地原创音乐人，代表作《问爱》《浮游生物》《过千山》等。2018年参加选秀节目《创造101》并以第五名出道，担任限定团火箭少女101队长。限定团结束后，Yamy继续发展个人音乐事业，推出多张个人专辑与单曲，2025年发布首张粤语说唱专辑《南下》。2026年参加说唱歌手竞演节目《说唱巅峰对决2026》，其中《问爱》成为破圈热门单曲，让粤语说唱进入大众视野，并在总决赛成为唯一入选名人堂年度TOP5的女Rapper。",
+      "biographyDate": "2026-11-14", "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介", "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12643557"
+    },
+    "6730": {
+      "songs": [
+        { "id": "2003248545", "name": "骂醒我", "artists": "周汤豪" },
+        { "id": "2751380095", "name": "TIL THE END", "artists": "周汤豪" },
+        { "id": "1929888741", "name": "爱上你算我贱", "artists": "周汤豪" }
+      ],
+      "biography": "周汤豪，母亲是台湾第一代歌手比莉，周汤豪中学到外国留学 学业完成后回到台湾，身材高大 长相帅气的周汤豪 经人介绍签约知名经纪人蒋承缙旗下于与萧亚轩，罗志祥成为同门，2009年与蔡依林合作歌曲【大丈夫】使得周汤豪未出道就受到各方关注 为正式出道打响第一炮，2010年举行首场出道演唱会现场3000人到场支持，随后发行出道首张同名专辑正式出道 受到强烈反响。",
+      "biographyDate": "2026-11-14", "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介", "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=6730"
+    },
+    "14080256": {
+      "songs": [
+        { "id": "2051980983", "name": "Burn Me Down", "artists": "hanji" },
+        { "id": "1382592787", "name": "天空下着小雨", "artists": "hanji / Young 7" },
+        { "id": "1434800877", "name": "886", "artists": "hanji" }
+      ],
+      "biography": "围脖：hanji林一函\nIG：hanji.917\n商务V：GSG_Made",
+      "biographyDate": "2026-11-14", "songsFetchedOn": "2026-11-14",
+      "biographySource": "网易云音乐公开艺人简介", "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=14080256"
+    },
     "1044021": {
       "songs": [
         {
