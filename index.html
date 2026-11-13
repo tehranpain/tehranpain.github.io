@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./css/artist-profiles.css">
   <link rel="stylesheet" href="./css/network-scene.css">
   <link rel="stylesheet" href="./css/mobile-navigation.css">
+  <link rel="stylesheet" href="./css/home-panel.css">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -21,7 +22,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 </head>
-<body data-rap-landmarks-enabled="false">
+<body data-rap-landmarks-enabled="false" data-map-home="true">
   <div id="top-bar">
     <div id="search-container">
       <div id="mobile-sheet-handle" aria-hidden="true"></div>
@@ -209,6 +210,7 @@
 
 <!-- 排行榜面板（固定定位，JS 控制位置） -->
 <div id="rank-panel">
+  <header class="rank-card-toolbar"><h2>排行榜</h2><button id="rank-panel-close" type="button" aria-label="关闭排行榜">×</button></header>
   <div id="rank-tab-bar">
     <div id="rank-tab-slider"></div>
     <div class="rank-tab active" data-tab="fan">乐迷团排行榜</div>
@@ -239,13 +241,37 @@
 <!-- 城市快捷列表（嵌入搜索栏，在说唱地标按钮下方展开） -->
 
   <div id="map"></div>
+<!-- 首页底卡始终保留；资料卡和排行榜覆盖它，不重建筛选控件。 -->
+<aside id="map-home-panel" class="map-home-panel" aria-label="新作推荐与地图筛选">
+  <button id="home-panel-collapse" class="home-panel-collapse" type="button" aria-controls="map-home-panel" aria-label="收起首页卡片">收起</button>
+  <div id="home-panel-scroll" class="home-panel-scroll">
+    <section id="home-release-carousel" class="home-release-carousel" role="region" aria-roledescription="轮播" aria-label="新作推荐">
+      <div id="home-release-slides" class="home-release-slides"></div>
+      <p id="home-carousel-counter" class="home-carousel-counter" aria-hidden="true" hidden></p>
+      <div id="home-carousel-controls" class="home-carousel-controls" role="group" aria-label="轮播控制" hidden>
+        <button id="home-carousel-previous" type="button" aria-label="上一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
+        <button id="home-carousel-pause" class="home-carousel-pause" type="button" aria-label="暂停自动轮播" aria-pressed="false"><svg class="home-pause-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 5h3v10H6zm5 0h3v10h-3z"/></svg><svg class="home-play-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m7 5 8 5-8 5z"/></svg></button>
+        <button id="home-carousel-next" type="button" aria-label="下一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+      </div>
+      <p id="home-release-status" class="home-release-status" role="status"></p>
+      <span id="home-carousel-announcement" class="home-sr-only" role="status"></span>
+    </section>
+    <section id="home-filter-section" class="home-filter-section" tabindex="-1" aria-labelledby="home-filter-heading">
+      <h2 id="home-filter-heading" class="home-filter-heading">筛选地图</h2>
+      <div id="home-mode-slot"></div><div id="home-filter-slot"></div>
+    </section>
+  </div>
+</aside>
+<button id="home-panel-restore" class="home-panel-restore" type="button" aria-controls="map-home-panel" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="3"/><path d="M8 3v14m3-10 3 3-3 3"/></svg>展开首页</button>
 <script src="./fans-cache.js"></script>
 <script src="./data/artist-data.js"></script>
 <script src="./data/fanclub-data.js"></script>
+<script src="./data/featured-releases.js"></script>
 <script src="./data/landmark-data.js"></script>
 <script src="./scripts/artist-profiles.js"></script>
 <script src="./scripts/network-scene.js"></script>
 <script src="./scripts/mobile-navigation.js"></script>
+<script src="./scripts/home-panel.js"></script>
 <script src="./scripts/app.js"></script>
 </body>
 </html>

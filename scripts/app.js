@@ -128,6 +128,7 @@ const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }))
 const allData = [...singersWithType, ...profilesWithType, ...labels];
 let selectedProfileName = null;
 let mobileNavigation = null;
+let homePanel = null;
 
 function setSelectedProfileMarker(name = null) {
   selectedProfileName = name;
@@ -185,8 +186,12 @@ const profileUI = window.RapArtistProfiles.create({
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
   getReturnTarget: captureProfileReturnTarget,
-  onClose: () => setSelectedProfileMarker(),
+  onClose: () => {
+    setSelectedProfileMarker();
+    if (homePanel) homePanel.cover('profile', false);
+  },
   onOpen: item => {
+    if (homePanel) homePanel.cover('profile', true);
     if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
     map.closePopup();
     setSelectedProfileMarker(item.name);
@@ -382,7 +387,7 @@ document.getElementById('dots-only-toggle')?.addEventListener('change', event =>
 
 // 其他地图操作按钮/可点击列表项开始执行前，自动退出全局红点模式。
 document.addEventListener('click', event => {
-  if (!dotsOnlyMode || event.target.closest('#dots-only-option')) return;
+  if (!dotsOnlyMode || event.target.closest('#dots-only-option, #home-panel-collapse, #home-panel-restore, #home-carousel-controls, .home-release-open')) return;
   const action = event.target.closest(
     'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .index-row, .rank-tab, .index-tab, .rank-fan-month-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
   );
@@ -829,6 +834,11 @@ row.innerHTML = `
   const rankPanel = document.getElementById('rank-panel');
 
   function positionRankPanel() {
+    if (homePanel && window.innerWidth > 480) {
+      clearPanelInlinePosition(rankPanel);
+      document.body.append(rankPanel);
+      return;
+    }
     if (window.innerWidth <= 480) {
       relocateMobilePanels();
       clearPanelInlinePosition(rankPanel);
@@ -839,6 +849,7 @@ row.innerHTML = `
 
   rankBtn.addEventListener('click', function(e) {
     e.stopPropagation();
+    if (homePanel) profileUI.close({ restoreFocus: false });
     if (window.innerWidth <= 480) openMobileSheet('rank');
     const isOpen = rankPanel.classList.contains('show');
     if (!isOpen || window.innerWidth <= 480) {
@@ -852,6 +863,20 @@ document.getElementById('more-options-dropdown').classList.remove('show');
     } else {
       rankPanel.classList.toggle('show', !isOpen);
       rankBtn.classList.toggle('open', !isOpen);
+    }
+  });
+
+  function closeRankPanel() {
+    rankPanel.classList.remove('show');
+    rankBtn.classList.remove('open');
+    rankBtn.focus({ preventScroll: true });
+  }
+  document.getElementById('rank-panel-close').addEventListener('click', event => {
+    event.stopPropagation(); closeRankPanel();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !event.defaultPrevented && rankPanel.classList.contains('show')) {
+      event.preventDefault(); closeRankPanel();
     }
   });
 
@@ -1521,6 +1546,7 @@ setActiveLandmarkCategory('all', false);
     }
 
     function relocateMobilePanels() {
+      if (homePanel) return;
       if (mobileNavigation && mobileNavigation.isEnabled()) return;
       if (!isMobileLayout() || !searchContainer || !actionGroup) return;
       const rankPanel = document.getElementById('rank-panel');
@@ -1741,6 +1767,7 @@ setActiveLandmarkCategory('all', false);
     }, true);
 
     function openDropdown() {
+      if (homePanel && window.innerWidth > 480) { homePanel.showFilters(); return; }
       if (window.innerWidth <= 480) {
         relocateMobilePanels();
         clearPanelInlinePosition(moreOptionsDropdown);
@@ -1755,6 +1782,14 @@ setActiveLandmarkCategory('all', false);
 
 moreOptionsBtn.addEventListener('click', function(e) {
   e.stopPropagation();
+  if (homePanel && window.innerWidth > 480) {
+    profileUI.close({ restoreFocus: false });
+    document.getElementById('rank-panel').classList.remove('show');
+    document.getElementById('rank-btn').classList.remove('open');
+    closeIndexPanel();
+    homePanel.showFilters();
+    return;
+  }
   if (window.innerWidth <= 480 && !searchContainer.classList.contains('mobile-expanded')) {
     openMobileSheet('filter');
     return;
@@ -2503,8 +2538,8 @@ const sortedKeys = Object.keys(groups).sort((a, b) => {
       requestAnimationFrame(() => {
         if (window.innerWidth <= 480) return;
         if (indexPanel.classList.contains('show')) positionIndexPanel();
-        if (moreOptionsDropdown.classList.contains('show')) positionDesktopPopover(moreOptionsDropdown, moreOptionsBtn, { alignRight: true });
-        if (document.getElementById('rank-panel').classList.contains('show')) {
+        if (!homePanel && moreOptionsDropdown.classList.contains('show')) positionDesktopPopover(moreOptionsDropdown, moreOptionsBtn, { alignRight: true });
+        if (!homePanel && document.getElementById('rank-panel').classList.contains('show')) {
           positionDesktopPopover(document.getElementById('rank-panel'), document.getElementById('rank-btn'), { alignRight: true });
         }
       });
@@ -2583,6 +2618,20 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       
           });
 
+    if (window.RapMapHome) {
+      homePanel = window.RapMapHome.create({
+        releases: window.RapFeaturedReleases || [],
+        findArtist: name => profileUI.find(name),
+        onArtist: name => profileUI.open(name),
+        onAlbum: release => {
+          // A future album view can prevent this event and take over navigation.
+          const event = new CustomEvent('rapmap:open-album', { detail: release, cancelable: true });
+          if (document.dispatchEvent(event)) homePanel.announce('专辑详情入口已预留，作品资料将在后续补充。');
+        }
+      });
+      requestAnimationFrame(() => { updateModeFilterSlider(); setFanSliderPercent(fanSliderPercent); });
+    }
+
     // Reuse the original controls, so mobile popups and desktop menus share state.
     if (window.RapMobileNavigation) {
       const dismissMobilePanels = () => {
@@ -2592,6 +2641,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         closeIndexPanel();
       };
       mobileNavigation = window.RapMobileNavigation.create({
+        persistentFilters: Boolean(homePanel),
         beforeOpen: () => {
           profileUI.close({ restoreFocus: false });
           map.closePopup();
@@ -2607,7 +2657,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
             updateClearBtn();
           } else if (key === 'filter') {
             moreOptionsDropdown.classList.add('show');
-            requestAnimationFrame(updateModeFilterSlider);
+            requestAnimationFrame(() => { updateModeFilterSlider(); setFanSliderPercent(fanSliderPercent); });
           } else if (key === 'rank') {
             document.getElementById('rank-panel').classList.add('show');
             document.getElementById('rank-btn').classList.add('open');
@@ -2617,6 +2667,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
           dismissMobilePanels();
           suggestionsDiv.style.display = 'none';
           document.body.append(searchTipDiv);
+          requestAnimationFrame(() => setFanSliderPercent(fanSliderPercent));
         }
       });
     }

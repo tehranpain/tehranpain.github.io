@@ -30,7 +30,7 @@
     return { open, close, toggle, isOpen: () => phase !== 'closed', activePanel: () => active };
   }
 
-  function create({ beforeOpen, onActivate, onClose, document: doc = root.document, window: win = root }) {
+  function create({ beforeOpen, onActivate, onClose, persistentFilters = false, document: doc = root.document, window: win = root }) {
     const nav = doc.getElementById('mobile-bottom-nav');
     const home = doc.getElementById('mobile-navigation-home');
     const dialog = doc.getElementById('mobile-control-dialog');
@@ -55,6 +55,13 @@
       node.before(anchor);
       return { node, anchor, target: doc.getElementById(target) };
     });
+    const isPersistentFilter = node => persistentFilters && ['mode-filter-tabs', 'more-options-dropdown'].includes(node.id);
+    function placeFilters(inDialog) {
+      portals.filter(({ node }) => isPersistentFilter(node)).forEach(({ node, anchor, target }) => {
+        if (inDialog) target.append(node);
+        else anchor.after(node);
+      });
+    }
     const reduced = () => win.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let enabled = false, frame, drag;
 
@@ -83,6 +90,7 @@
       prefersReducedMotion: reduced, timers: win,
       activate(key) {
         if (beforeOpen) beforeOpen();
+        placeFilters(key === 'filter');
         if (doc.activeElement === input && key !== 'search') input.blur();
         resetDrag(); sheet.inert = false;
         dialog.dataset.panel = key;
@@ -125,6 +133,7 @@
         buttons.forEach(button => button.setAttribute('aria-expanded', 'false'));
         resetDrag();
         sheet.inert = false;
+        placeFilters(false);
         if (onClose) onClose();
         if (restoreFocus && enabled) buttons.find(button => button.dataset.mobilePanel === key)?.focus({ preventScroll: true });
       }
@@ -135,7 +144,7 @@
       if (mobile === enabled) { viewport(); return; }
       if (mobile) {
         enabled = true;
-        portals.forEach(({ node, target }) => target.append(node));
+        portals.forEach(({ node, target }) => { if (!isPersistentFilter(node)) target.append(node); });
         doc.getElementById('search-container').classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
         doc.getElementById('mode-filter-tabs').classList.remove('mobile-open');
         doc.body.dataset.mobileNavigation = 'v2';
@@ -144,7 +153,7 @@
         state.close({ immediate: true, restoreFocus: false });
         enabled = false;
         portals.forEach(({ node, anchor }) => {
-          if (['rank-panel', 'index-panel', 'more-options-dropdown'].includes(node.id)) doc.body.append(node);
+          if (['rank-panel', 'index-panel', 'more-options-dropdown'].includes(node.id) && !isPersistentFilter(node)) doc.body.append(node);
           else anchor.after(node);
         });
         delete doc.body.dataset.mobileNavigation;
