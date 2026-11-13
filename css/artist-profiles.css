@@ -76,7 +76,7 @@
 .profile-hero-cover .profile-actions.is-single-action { grid-template-columns: minmax(0, 1fr); }
 .profile-hero-cover .profile-actions > * { gap: 6px; min-height: 42px; padding: 11px 8px; border: 1px solid transparent; border-radius: 11px; color: #fff; }
 .profile-hero-cover .profile-music-link { background: var(--profile-red); }
-.profile-hero-cover .profile-network { border-color: #ffffff70; background: #ffffff24; }
+.profile-hero-cover .profile-network { border-color: #ffffff70; background: #ffffff12; }
 .profile-hero-cover .profile-network svg { flex-shrink: 0; width: 16px; height: 16px; }
 .profile-hero-cover .profile-actions > *:disabled { opacity: .45; cursor: not-allowed; }
 .profile-section { margin-top: 12px; padding: 20px 17px; border-radius: 20px; background: #fff; }
