@@ -23,7 +23,7 @@
     const restore = doc.getElementById('home-panel-restore');
     const collapse = doc.getElementById('home-panel-collapse');
     const controls = doc.getElementById('home-carousel-controls');
-    const counter = doc.getElementById('home-carousel-counter');
+    const dotsHost = doc.getElementById('home-carousel-dots');
     const previous = doc.getElementById('home-carousel-previous');
     const next = doc.getElementById('home-carousel-next');
     const pause = doc.getElementById('home-carousel-pause');
@@ -37,8 +37,9 @@
     const reduced = win.matchMedia('(prefers-reduced-motion: reduce)');
     const covered = new Set();
     const cleanups = [];
-    let items = [], slides = [], index = 0, collapsed = false, timer;
+    let items = [], slides = [], dots = [], index = 0, collapsed = false, timer;
     let hovered = false, focused = false, paused = false, drag;
+    let moving = false, shiftedIndex = null, shiftedBy = 0, settleTimer, swipeTimer, suppressSwipeClick = false;
 
     function listen(target, type, handler, options) {
       target.addEventListener(type, handler, options);
@@ -69,11 +70,49 @@
       carousel.dataset.playing = String(playing);
       if (playing) timer = win.setTimeout(() => select(index + 1), 6000);
     }
-    function select(value, announce = false) {
+    function finishMotion() {
+      win.clearTimeout(settleTimer);
+      moving = false;
+      if (shiftedIndex === null) return;
+      // Reuse the real edge slide for a one-step wrap, then rebase without cloned links or duplicate IDs.
+      slidesHost.classList.add('is-resetting');
+      slides[shiftedIndex].style.transform = '';
+      shiftedIndex = null; shiftedBy = 0;
+      slidesHost.style.transform = 'translate3d(' + (-index * 100) + '%, 0, 0)';
+      void slidesHost.offsetWidth;
+      slidesHost.classList.remove('is-resetting');
+    }
+    function select(value, announce = false, animate = true) {
       if (!items.length) return;
+      const wasMoving = moving;
+      const target = (value + items.length) % items.length;
+      if (animate && target === index) { schedule(); return; }
+      const instant = !animate || reduced.matches;
+      if (instant) finishMotion();
+      else if (!wasMoving && (value < 0 || value >= items.length)) {
+        shiftedIndex = value < 0 ? items.length - 1 : 0;
+        shiftedBy = value < 0 ? -items.length : items.length;
+        slides[shiftedIndex].style.transform = 'translateX(' + (shiftedBy * 100) + '%)';
+      }
       index = (value + items.length) % items.length;
-      slides.forEach((slide, i) => { slide.hidden = i !== index; });
-      counter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0');
+      slidesHost.classList.toggle('is-resetting', instant);
+      const position = index + (index === shiftedIndex ? shiftedBy : 0);
+      slidesHost.style.transform = 'translate3d(' + (-position * 100) + '%, 0, 0)';
+      win.clearTimeout(settleTimer);
+      moving = !instant;
+      if (moving) settleTimer = win.setTimeout(finishMotion, 540);
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === index);
+        slide.inert = i !== index;
+        slide.setAttribute('aria-hidden', String(i !== index));
+        if (i === index) {
+          const image = slide.querySelector('.home-release-image img');
+          if (image) { image.loading = 'eager'; image.fetchPriority = 'high'; }
+        }
+      });
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)));
+      // Reset only when replacing the release list; normal navigation keeps its sliding transition.
+      if (instant) { void slidesHost.offsetWidth; slidesHost.classList.remove('is-resetting'); }
       carousel.dataset.index = String(index);
       status.textContent = '';
       if (announce) announcement.textContent = (index + 1) + ' / ' + items.length + '，' + titleOf(items[index]);
@@ -84,6 +123,8 @@
     }
     function renderRelease(item, i) {
       const slide = element('article', 'home-release-slide');
+      slide.id = 'home-release-slide-' + i;
+      slide.classList.toggle('is-single', item.type === 'single');
       slide.setAttribute('role', 'group'); slide.setAttribute('aria-roledescription', '幻灯片');
       slide.setAttribute('aria-label', (i + 1) + '：' + titleOf(item));
       const open = element(item.type === 'single' && (item.songId || item.albumId) ? 'a' : 'button', 'home-release-open');
@@ -104,44 +145,63 @@
       title.setAttribute('role', 'heading'); title.setAttribute('aria-level', '2');
       const cover = artwork(item, 'home-release-image', i !== 0);
       if (!item.image) cover.append(element('span', 'home-release-image-pending', '封面待补充'));
-      open.append(cover, element('span', 'home-release-shade'),
-        element('span', 'home-release-type', item.type === 'single' ? '最新单曲' : '最新' + item.format),
-        title);
-      const artists = element('div', 'home-release-artists');
-      item.artists.forEach(name => {
-        const person = findArtist && findArtist(name);
-        const label = name === item.artist ? item.artistLabel : name;
-        const artist = element('button', 'home-release-artist'); artist.type = 'button';
-        artist.disabled = !person;
-        artist.setAttribute('aria-label', person ? '查看' + label + '的资料' : '暂未收录' + label + '的资料');
-        const avatar = artwork(person || {}, 'home-release-artist-avatar', true);
-        avatar.prepend(element('span', '', Array.from(label)[0]));
-        artist.append(avatar, element('span', 'home-release-artist-name', label), element('span', 'home-release-artist-arrow', '>'));
-        artist.addEventListener('click', event => {
-          event.stopPropagation();
-          if (person && onArtist) onArtist(person.name);
+      const copy = element('span', 'home-release-copy');
+      copy.append(element('span', 'home-release-type', item.type === 'single' ? '最新单曲' : '最新' + item.format), title);
+      open.append(cover, element('span', 'home-release-shade'), copy);
+      slide.append(open);
+      if (item.type === 'single') {
+        const artists = element('div', 'home-release-artists');
+        item.artists.forEach(name => {
+          const person = findArtist && findArtist(name);
+          const label = name === item.artist ? item.artistLabel : name;
+          const artist = element('button', 'home-release-artist'); artist.type = 'button';
+          artist.disabled = !person;
+          artist.setAttribute('aria-label', person ? '查看' + label + '的资料' : '暂未收录' + label + '的资料');
+          const avatar = artwork(person || {}, 'home-release-artist-avatar', true);
+          avatar.prepend(element('span', '', Array.from(label)[0]));
+          artist.append(avatar, element('span', 'home-release-artist-name', label), element('span', 'home-release-artist-arrow', '>'));
+          artist.addEventListener('click', event => {
+            event.stopPropagation();
+            if (person && onArtist) onArtist(person.name);
+          });
+          artists.append(artist);
         });
-        artists.append(artist);
-      });
-      // Artist navigation is a sibling of the work link, never a nested link/button.
-      slide.append(open, artists);
+        // Only singles retain artist shortcuts, separate from the work link.
+        slide.append(artists);
+      }
       return slide;
     }
     function setReleases(values) {
+      finishMotion();
       items = Array.isArray(values) ? values.map(normalizeRelease).filter(Boolean) : [];
       slidesHost.replaceChildren(); slides = items.map(renderRelease);
+      dotsHost.replaceChildren();
+      dots = items.map((item, i) => {
+        const dot = element('button', 'home-carousel-dot');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', '切换到第' + (i + 1) + '张：' + titleOf(item));
+        dot.setAttribute('aria-controls', 'home-release-slide-' + i);
+        dot.addEventListener('click', () => select(i, true));
+        dotsHost.append(dot);
+        return dot;
+      });
       carousel.classList.toggle('has-multiple', items.length > 1);
       controls.hidden = items.length < 2;
-      counter.hidden = items.length < 2;
       status.textContent = '';
+      announcement.textContent = '';
       if (!items.length) {
         const empty = element('div', 'home-release-empty');
         const art = element('span', 'home-empty-record'); art.setAttribute('aria-hidden', 'true');
         empty.append(element('span', 'home-empty-kicker', '专辑 / Mixtape / 单曲'),
           element('h2', 'home-empty-title', '新作推荐'), art,
           element('p', 'home-empty-note', '等待添加封面与作品信息'));
-        slidesHost.append(empty); schedule();
-      } else { slidesHost.append(...slides); select(0); }
+        slidesHost.classList.add('is-resetting');
+        slidesHost.style.transform = 'translate3d(0, 0, 0)';
+        slidesHost.append(empty);
+        void slidesHost.offsetWidth;
+        slidesHost.classList.remove('is-resetting');
+        index = 0; carousel.dataset.index = '0'; schedule();
+      } else { slidesHost.append(...slides); select(0, false, false); }
     }
     function sync() {
       const blocked = covered.size > 0;
@@ -178,24 +238,32 @@
     listen(carousel, 'keydown', event => {
       if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || items.length < 2) return;
       event.preventDefault(); select(index + (event.key === 'ArrowRight' ? 1 : -1), true);
-      next.focus({ preventScroll: true });
+      dots[index].focus({ preventScroll: true });
     });
     listen(carousel, 'pointerdown', event => {
+      suppressSwipeClick = false; win.clearTimeout(swipeTimer);
       if (event.pointerType !== 'touch' || event.target.closest('#home-carousel-controls')) return;
-      drag = { x: event.clientX, y: event.clientY, moved: false };
+      drag = { x: event.clientX, y: event.clientY };
     });
     listen(carousel, 'pointerup', event => {
       if (!drag) return;
       const x = event.clientX - drag.x, y = event.clientY - drag.y;
-      drag.moved = items.length > 1 && Math.abs(x) > 45 && Math.abs(x) > Math.abs(y) * 1.5;
-      if (drag.moved) select(index + (x < 0 ? 1 : -1), true);
+      drag = null;
+      if (items.length > 1 && Math.abs(x) > 45 && Math.abs(x) > Math.abs(y) * 1.5) {
+        suppressSwipeClick = true;
+        swipeTimer = win.setTimeout(() => { suppressSwipeClick = false; }, 400);
+        select(index + (x < 0 ? 1 : -1), true);
+      }
     });
     listen(carousel, 'pointercancel', () => { drag = null; });
     listen(carousel, 'click', event => {
-      if (drag?.moved) { event.preventDefault(); event.stopPropagation(); drag = null; }
+      if (suppressSwipeClick) { event.preventDefault(); event.stopPropagation(); suppressSwipeClick = false; }
     }, true);
+    listen(slidesHost, 'transitionend', event => {
+      if (event.target === slidesHost && event.propertyName === 'transform') finishMotion();
+    });
     listen(doc, 'visibilitychange', schedule);
-    listen(reduced, 'change', schedule);
+    listen(reduced, 'change', () => { finishMotion(); schedule(); });
     const observer = new win.MutationObserver(() => {
       cover('rank', doc.getElementById('rank-panel').classList.contains('show'));
       cover('mobile', doc.getElementById('mobile-control-dialog').hasAttribute('open'));
@@ -204,7 +272,7 @@
     observer.observe(doc.getElementById('mobile-control-dialog'), { attributes: true, attributeFilter: ['open'] });
     setReleases(releases); sync();
     return { setReleases, cover, expand, showFilters, announce: text => { status.textContent = text; },
-      destroy() { win.clearTimeout(timer); observer.disconnect(); cleanups.forEach(cleanup => cleanup()); } };
+      destroy() { win.clearTimeout(timer); win.clearTimeout(swipeTimer); finishMotion(); observer.disconnect(); cleanups.forEach(cleanup => cleanup()); } };
   }
   const api = { create, normalizeRelease };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

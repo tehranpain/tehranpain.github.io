@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./css/artist-profiles.css">
   <link rel="stylesheet" href="./css/network-scene.css">
   <link rel="stylesheet" href="./css/mobile-navigation.css">
-  <link rel="stylesheet" href="./css/home-panel.css">
+  <link rel="stylesheet" href="./css/home-panel.css?v=20261114-carousel">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -248,11 +248,11 @@
   <div id="home-panel-scroll" class="home-panel-scroll">
     <section id="home-release-carousel" class="home-release-carousel" role="region" aria-roledescription="轮播" aria-label="新作推荐">
       <div id="home-release-slides" class="home-release-slides"></div>
-      <p id="home-carousel-counter" class="home-carousel-counter" aria-hidden="true" hidden></p>
       <div id="home-carousel-controls" class="home-carousel-controls" role="group" aria-label="轮播控制" hidden>
-        <button id="home-carousel-previous" type="button" aria-label="上一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
+        <button id="home-carousel-previous" class="home-carousel-arrow home-carousel-previous" type="button" aria-label="上一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
         <button id="home-carousel-pause" class="home-carousel-pause" type="button" aria-label="暂停自动轮播" aria-pressed="false"><svg class="home-pause-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 5h3v10H6zm5 0h3v10h-3z"/></svg><svg class="home-play-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m7 5 8 5-8 5z"/></svg></button>
-        <button id="home-carousel-next" type="button" aria-label="下一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+        <button id="home-carousel-next" class="home-carousel-arrow home-carousel-next" type="button" aria-label="下一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+        <div id="home-carousel-dots" class="home-carousel-dots" role="group" aria-label="选择轮播页"></div>
       </div>
       <p id="home-release-status" class="home-release-status" role="status"></p>
       <span id="home-carousel-announcement" class="home-sr-only" role="status"></span>
@@ -272,7 +272,7 @@
 <script src="./scripts/artist-profiles.js"></script>
 <script src="./scripts/network-scene.js"></script>
 <script src="./scripts/mobile-navigation.js"></script>
-<script src="./scripts/home-panel.js"></script>
+<script src="./scripts/home-panel.js?v=20261114-carousel"></script>
 <script src="./scripts/app.js"></script>
 </body>
 </html>
