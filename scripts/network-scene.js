@@ -1,7 +1,7 @@
 (function (root) {
   // Every graph opens at the same scale, regardless of collaborator distances.
   const NETWORK_ZOOM = 6;
-  const NETWORK_PAN_DURATION = .32;
+  const NETWORK_PAN_DURATION = .5;
 
   function mappedPeers(center, resolve, hasLocation) {
     const seen = new Set([center.name]);

@@ -146,7 +146,7 @@
       const cover = artwork(item, 'home-release-image', i !== 0);
       if (!item.image) cover.append(element('span', 'home-release-image-pending', '封面待补充'));
       const copy = element('span', 'home-release-copy');
-      copy.append(element('span', 'home-release-type', item.type === 'single' ? '最新单曲' : '最新' + item.format), title);
+      copy.append(title);
       open.append(cover, element('span', 'home-release-shade'), copy);
       slide.append(open);
       if (item.type === 'single') {

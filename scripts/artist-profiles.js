@@ -270,11 +270,6 @@
       if (group) {
         const heading = element('div', 'profile-group-heading');
         heading.append(title);
-        if (hasMapLocation(item) && locate) {
-          const location = button('profile-locate', '定位', () => locate(item.name));
-          location.setAttribute('aria-label', '在地图上定位' + item.name);
-          heading.append(location);
-        }
         identity.append(heading);
         if (item.founded) identity.append(element('p', 'profile-founded', '成立于' + item.founded));
       } else {

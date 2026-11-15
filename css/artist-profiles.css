@@ -61,11 +61,9 @@
 .profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #463e38; }
 .profile-cover-avatar .profile-avatar-fallback { font-size: 84px; color: #ffffff38; }
 .profile-hero-cover .profile-title { margin: 0; color: #fff; font-size: 32px; line-height: 1.16; letter-spacing: -.5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
-/* Keep group location beside the title without squeezing long names or changing artist actions. */
+/* Group headings share the cover title style without an extra location control. */
 .profile-group-heading { display: flex; align-items: center; gap: 12px; }
 .profile-group-heading .profile-title { flex: 1; min-width: 0; }
-.profile-group-heading .profile-locate { flex-shrink: 0; min-height: 32px; padding: 6px 12px; border: 1px solid #ffffff70; border-radius: 999px; background: #ffffff26; color: #fff; font-size: 12px; font-weight: 600; line-height: 1.4; cursor: pointer; }
-.profile-group-heading .profile-locate:hover { background: #ffffff40; }
 .profile-hero-cover .profile-metric { display: flex; align-items: baseline; margin-top: 8px; color: #fff; font-size: 14px; line-height: 1.4; font-weight: 600; }
 .profile-hero-cover .profile-metric-label { display: inline; margin: 0; color: inherit; font-size: inherit; font-weight: inherit; }
 .profile-founded { margin: 9px 0 0; color: #ffffffe0; font-size: 12px; line-height: 1.5; }
