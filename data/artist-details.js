@@ -6,6 +6,301 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "4902": {
+      "songs": [
+        {
+          "id": "30245726",
+          "name": "我是重庆崽儿-Live",
+          "artists": "润土"
+        },
+        {
+          "id": "30070004",
+          "name": "黄丝马马",
+          "artists": "润土"
+        },
+        {
+          "id": "30070005",
+          "name": "小面",
+          "artists": "润土"
+        }
+      ],
+      "biography": "润土，原名李润，著名音乐制作人，RAP歌手，重庆籍人士。代表作品《疯狂的石头》片尾曲《我是重庆崽儿》、《重庆美女》片头曲《妖精妖怪》、《高兴》片头曲《我叫刘高兴》。《小面》MV即将出炉，润土新专辑正在紧张制作中",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=4902"
+    },
+    "5251": {
+      "songs": [
+        {
+          "id": "31421391",
+          "name": "苍山雾隐",
+          "artists": "小老虎 / 唐人踢 / 肥宝 / KAFE.HU胡懿"
+        },
+        {
+          "id": "414670169",
+          "name": "飞盘",
+          "artists": "小老虎 / YEHAIYAHAN / 唐人踢"
+        },
+        {
+          "id": "1465003555",
+          "name": "聊酿蜜和秋裤",
+          "artists": "唐人踢"
+        }
+      ],
+      "biography": "唐人踢 AKA. TOKILL 来自昆明\nMC／Beatmaker 双重身份\n2019即将发行全新专辑",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=5251"
+    },
+    "789532": {
+      "songs": [
+        {
+          "id": "2006467045",
+          "name": "神裁义使 - 神·张飞主题曲",
+          "artists": "大都督DOZ李岩恒 / 李炎欣Master7ee"
+        },
+        {
+          "id": "1872080709",
+          "name": "老鼠折断鼠尾草(feat.李炎欣)",
+          "artists": "大都督DOZ李岩恒"
+        },
+        {
+          "id": "1805737951",
+          "name": "我可以",
+          "artists": "大都督DOZ李岩恒 / FINXNXSS / 西安说唱联盟"
+        }
+      ],
+      "biography": "西安说唱联盟 说唱歌手\nAKA :大都督DOZ",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=789532"
+    },
+    "1078398": {
+      "songs": [
+        {
+          "id": "536295979",
+          "name": "结不完",
+          "artists": "D-Lay / 王以太"
+        },
+        {
+          "id": "1321783873",
+          "name": "2㎡",
+          "artists": "D-Lay / 钟欣cent3e"
+        },
+        {
+          "id": "555142247",
+          "name": "结不完REMIX",
+          "artists": "DrPlay / D-Lay / 王以太"
+        }
+      ],
+      "biography": "一个想法很多，完成能力有限的普通人",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=1078398"
+    },
+    "12059060": {
+      "songs": [
+        {
+          "id": "420400103",
+          "name": "Cold World(Prod By 老道)",
+          "artists": "老黎ShellLee / 小胖kungfupen"
+        },
+        {
+          "id": "520895706",
+          "name": "出去走走 (PROD BY DAO)",
+          "artists": "老黎ShellLee / 功夫胖KUNGFU-PEN / 卡瓷Kazz / 老道"
+        },
+        {
+          "id": "420397071",
+          "name": "长江FLOW(Prod By NewYoungGo)",
+          "artists": "老黎ShellLee / 恶童 / JVROCKY"
+        }
+      ],
+      "biography": "老黎ShellLee,.中文说唱团队自由窝组建人.\n09年组建自由窝(FreeWarz)开始做中文说唱.\n11年初率团队成员发行首张团队MIXTAPE<武昌起义>\n12-14年在全国大小MC FREESTYLE Battle比赛中赢得不少名次\n拥有上百场全国大小演出经历.\n15年邀请他的朋友们一起打造个人首张专辑<渡 Life Style>.\n自由窝,一群向往并追求自由的人,中文说唱团队,音乐以真实,好听为基础,风格不限.生根于武汉,朝全国发展,现有成员太多,有一窝.分布全国各地 各行各业.我们一直都在",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12059060"
+    },
+    "12099108": {
+      "songs": [
+        {
+          "id": "520447817",
+          "name": "我说",
+          "artists": "司徒骏文 / 吉蓓Peggy"
+        },
+        {
+          "id": "1387951739",
+          "name": "情色",
+          "artists": "司徒骏文 / 林嘉"
+        },
+        {
+          "id": "520440192",
+          "name": "过时的借口",
+          "artists": "司徒骏文"
+        }
+      ],
+      "biography": "巡演V:gszeto2022「备注城市哦」",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12099108"
+    },
+    "12119152": {
+      "songs": [
+        {
+          "id": "429461650",
+          "name": "Get Low (Feat.K9999)",
+          "artists": "夜楠H. / 弹壳Danko"
+        },
+        {
+          "id": "1322300569",
+          "name": "Young Mafia（Remix）",
+          "artists": "谟西Mercy / 宝石Gem / 夜楠H."
+        },
+        {
+          "id": "1316481726",
+          "name": "Young MafiA",
+          "artists": "宝石Gem / 夜楠H."
+        }
+      ],
+      "biography": "喜欢hiphop的人 组织过一些事情.\n来自地下 也不再标榜地下.\nRap是我做所有事情的原因\n也是我的本能和表达式\n一直在.",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12119152"
+    },
+    "12265481": {
+      "songs": [
+        {
+          "id": "1847534609",
+          "name": "广东 Stand Up (ft. Tizzy T, ODD陈思键, Yamy郭颖, 廖效浓, 徐真真, 瘦恒SoulHan, Vyan, 肥宝, 大雕Roc, JR Fog)",
+          "artists": "AR刘夫阳 / TizzyT / ODD陈思键 / Yamy郭颖 / 廖效浓 / 徐真真 / 瘦恒SoulHan / Vyan / 肥宝 / 大雕Roc / JR Fog"
+        },
+        {
+          "id": "3386115882",
+          "name": "帝女花",
+          "artists": "Vyan / 张宝允"
+        },
+        {
+          "id": "864648032",
+          "name": "冷",
+          "artists": "KADA.C / Vyan"
+        }
+      ],
+      "biography": "独立音乐人 / 音乐制作人 / 农村外出务工人员\nCube Brothers方块兄弟｜ChillGun Music",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12265481"
+    },
+    "12319701": {
+      "songs": [
+        {
+          "id": "5251443",
+          "name": "带着梦想飞",
+          "artists": "FatKan / 喷嘭乐团 / Jnco / 老熊MOW / JR Fog / 福麟阁 / 大肆院 / 夏之禹 / 盛宇D-SHINE / 叁劈 / SoulCrew / 摇摆族群 / AP满人 / NoFearFamily"
+        },
+        {
+          "id": "467238103",
+          "name": "做作男些 Beautiful Girls Remix",
+          "artists": "老熊MOW / Lil White"
+        },
+        {
+          "id": "504030877",
+          "name": "车夫",
+          "artists": "FatKan / 老熊MOW"
+        }
+      ],
+      "biography": "愚痴愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛愛止观",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12319701"
+    },
+    "12493703": {
+      "songs": [
+        {
+          "id": "1436520262",
+          "name": "林弯弯 (Prod K eleven)",
+          "artists": "连麻Swimming / K11"
+        },
+        {
+          "id": "1400031316",
+          "name": "蚂蚁",
+          "artists": "K11 / 布瑞吉Bridge / Gosh Music"
+        },
+        {
+          "id": "2099625932",
+          "name": "头炮",
+          "artists": "盛宇D-SHINE / K11"
+        }
+      ],
+      "biography": "Weibo:K_ELEVEN_\nInstagram:keleven0311\nEmail:keleven0311@gmail.com\n023Southside4Block",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12493703"
+    },
+    "12536854": {
+      "songs": [
+        {
+          "id": "1331610408",
+          "name": "太极·禅",
+          "artists": "霍尊 / 罗开元"
+        },
+        {
+          "id": "1941752828",
+          "name": "让钟逆时针地转",
+          "artists": "P.J是刑男 / 罗开元"
+        },
+        {
+          "id": "512085932",
+          "name": "JUST BE ALL RIGHT",
+          "artists": "俞思远 / 罗开元"
+        }
+      ],
+      "biography": "个人信息：罗开元，Style2K Inc.(2008)音乐工作室主理人，音乐制作人，词曲作者，编曲及MV导演，代表年轻潮流文化的BPM Youth Centre创始人。\n主要成就：国内最早那批B-Boy，第一波Hip-Hoper及街头文化玩家，初代说唱歌手，2006参加东方卫视我型我秀获得全国5强后正式出道，签约环球音乐上腾娱乐，之后开始钻研学习音乐制作继而转做幕后，但又不时会低调发布一些作品。\n作为歌手代表作品：《I Do》，《瘾》，《那几年》，《太极禅》(ft.霍尊)，《马戏小丑》(ft.薛之谦)...\n作为幕后代表作品：《尘》-薛之谦，《为什么》-薛之谦，《雅典娜》-薛之谦...\n主要电影电视作品：《爱情公寓4》中饰演王大卫，电影《菜鸟》中主演猴子…",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12536854"
+    },
+    "37447563": {
+      "songs": [
+        {
+          "id": "27566701",
+          "name": "轮回",
+          "artists": "小狮子"
+        },
+        {
+          "id": "3435043070",
+          "name": "沪上拾光",
+          "artists": "小狮子"
+        }
+      ],
+      "biography": "",
+      "biographyDate": "2026-11-15",
+      "songsFetchedOn": "2026-11-15",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=37447563"
+    },
     "2122": {
       "songs": [
         {

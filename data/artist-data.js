@@ -5780,6 +5780,221 @@ const artistUpdates20261114 = [
   });
 })();
 
+// 2026-11-16: user-supplied coordinates; exact NetEase artist matches checked on 2026-11-15.
+const veteranArtists20261116 = [
+  {
+    "name": "夜楠H.",
+    "aliases": [],
+    "neteaseId": "12119152",
+    "avatar": "https://p2.music.126.net/fHQbjZpMNsAqQWMCC4tr7w==/109951174225018140.jpg?param=130y130",
+    "fans": "6321",
+    "fanCount": 6321,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 34.310462,
+    "lng": 108.91385,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "大都督DOZ李岩恒",
+    "aliases": [],
+    "neteaseId": "789532",
+    "avatar": "https://p2.music.126.net/aArIbWxsYMGDoIUp0SPiaQ==/109951167848535925.jpg?param=130y130",
+    "fans": "3958",
+    "fanCount": 3958,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 34.303585,
+    "lng": 108.906608,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "老熊MOW",
+    "aliases": [],
+    "neteaseId": "12319701",
+    "avatar": "https://p1.music.126.net/gAzPKU67Ty2gHE49jUGFBQ==/109951163235007187.jpg?param=130y130",
+    "fans": "3821",
+    "fanCount": 3821,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 30.62681,
+    "lng": 104.168612,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "D-Lay",
+    "aliases": [
+      "FareWell"
+    ],
+    "neteaseId": "1078398",
+    "avatar": "https://p1.music.126.net/CyVaUYNbgZms8skcSYDnzw==/109951171501675776.jpg?param=130y130",
+    "fans": "4757",
+    "fanCount": 4757,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 30.824157,
+    "lng": 104.14012,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "润土",
+    "aliases": [],
+    "neteaseId": "4902",
+    "avatar": "https://p2.music.126.net/s7d7T2TO7k2m06JO-CcdDw==/3240260767686928.jpg?param=130y130",
+    "fans": "2786",
+    "fanCount": 2786,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 29.554585,
+    "lng": 106.418688,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "K11",
+    "aliases": [],
+    "neteaseId": "12493703",
+    "avatar": "https://p1.music.126.net/uXbpvnGfHDpub3CrOIgxwA==/109951172160438899.jpg?param=130y130",
+    "fans": "1.9万",
+    "fanCount": 19269,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 29.521919,
+    "lng": 106.672934,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "小狮子",
+    "aliases": [
+      "MC唐"
+    ],
+    "neteaseId": "37447563",
+    "avatar": "https://p2.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg?param=130y130",
+    "fans": "291",
+    "fanCount": 291,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 30.994457,
+    "lng": 121.449385,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "罗开元",
+    "aliases": [],
+    "neteaseId": "12536854",
+    "avatar": "https://p2.music.126.net/EwCwE38qNMz2muX13ppUIA==/109951162989866375.jpg?param=130y130",
+    "fans": "645",
+    "fanCount": 645,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 31.376291,
+    "lng": 121.445238,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "Vyan",
+    "aliases": [],
+    "neteaseId": "12265481",
+    "avatar": "https://p1.music.126.net/cN5kR6-f1sLvrSU4rVA8mA==/109951164610446716.jpg?param=130y130",
+    "fans": "4.5万",
+    "fanCount": 44775,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 23.168718,
+    "lng": 113.460047,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "老黎ShellLee",
+    "aliases": [],
+    "neteaseId": "12059060",
+    "avatar": "https://p1.music.126.net/0jBdq0h1AP17NKyYlivPlA==/109951163094128435.jpg?param=130y130",
+    "fans": "783",
+    "fanCount": 783,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 30.61159,
+    "lng": 114.148901,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "唐人踢",
+    "aliases": [
+      "Tokill"
+    ],
+    "neteaseId": "5251",
+    "avatar": "https://p2.music.126.net/-F6jW24LTBFiX6hr7LoxTg==/109951164031871061.jpg?param=130y130",
+    "fans": "6600",
+    "fanCount": 6600,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 25.038255,
+    "lng": 102.793174,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  },
+  {
+    "name": "司徒骏文",
+    "aliases": [],
+    "neteaseId": "12099108",
+    "avatar": "https://p2.music.126.net/j_zs_ei6Dglpjwov-iU24A==/109951164948457571.jpg?param=130y130",
+    "fans": "8.8万",
+    "fanCount": 88432,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-15",
+    "lat": 25.066089,
+    "lng": 102.651404,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "profileStatus": "verified-account",
+    "metadataVerifiedOn": "2026-11-15",
+    "collaborators": []
+  }
+];
+singers.push(...veteranArtists20261116);
+
 const relationshipArtists = [...singers, ...profiles];
 
 // 仅以已核实的歌曲署名补充合作关系，不将共同所属团体推断为合作。
@@ -8346,6 +8561,20 @@ const verifiedSongPairs20261105 = [
       if (!artist.collaborators) artist.collaborators = [];
       artist.collaborators.push({ name: peer.name });
       linked.get(artist).add(peer.name);
+    });
+  });
+})();
+
+// Verified co-credits from the saved public song lists; group membership is not a collaboration.
+(function addVeteranCredits20261116() {
+  const byId = new Map(relationshipArtists.filter(item => item.neteaseId).map(item => [String(item.neteaseId), item]));
+  const pairs = [["12119152","35784564"],["12119152","12200580"],["12084497","12119152"],["1203015","12119152"],["12119152","12127362"],["12071015","12119152"],["12119152","12124013"],["12119152","188141"],["12119152","12286477"],["12206205","12319701"],["12319701","12605500"],["12319701","13796823"],["1086078","12319701"],["1078398","12236125"],["1078398","12663194"],["1078398","847107"],["12064019","12493703"],["12493701","12493703"],["12493703","12605500"],["12493703","12788674"],["12320060","12493703"],["12111129","12493703"],["12002184","12265481"],["1204010","12265481"],["12265481","12643557"],["12094099","12265481"],["12003187","12265481"],["12265481","2802"],["12265481","12788674"],["12265481","12360325"],["1203045","12265481"],["12059060","12453329"],["187462","5251"],["2802","5251"],["12024274","5251"]];
+  pairs.forEach(([leftId, rightId]) => {
+    const left = byId.get(leftId), right = byId.get(rightId);
+    if (!left || !right || left === right) return;
+    [[left, right], [right, left]].forEach(([person, peer]) => {
+      if (!person.collaborators) person.collaborators = [];
+      if (!person.collaborators.some(item => item.name === peer.name)) person.collaborators.push({ name: peer.name });
     });
   });
 })();
