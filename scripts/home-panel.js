@@ -117,7 +117,7 @@
       schedule();
     }
     function titleOf(item) {
-      return item.headline || item.artistLabel + (item.type === 'single' ? '新歌' : '新' + item.format) + '《' + item.title + '》';
+      return item.headline || item.artistLabel + (item.type === 'single' ? '' : '新' + item.format) + '「' + item.title + '」';
     }
     function releaseAction(item, className) {
       const open = element(item.type === 'single' && (item.songId || item.albumId) ? 'a' : 'button', className);
@@ -153,18 +153,20 @@
     }
     function singleTitle(item, title) {
       const text = titleOf(item);
+      const artistsLine = element('span', 'home-release-artists-row');
+      const songLine = element('span', 'home-release-song-line');
       const names = item.artists.flatMap(name => {
         const label = name === item.artist ? item.artistLabel : name;
         return [...new Set([label, name])].map(label => ({ name, label }));
       });
       function appendSongText(text) {
         if (!text) return;
-        if (/^[\s/、&+]+$/.test(text)) title.append(element('span', 'home-release-title-separator', text));
+        if (/^[\s/、&+]+$/.test(text)) artistsLine.append(element('span', 'home-release-title-separator', text));
         else {
           const link = releaseAction(item, 'home-release-title-link');
           link.textContent = text;
           link.setAttribute('aria-label', '在网易云打开歌曲：' + (item.title || titleOf(item)));
-          title.append(link);
+          songLine.append(link);
         }
       }
       // Inline profile buttons are siblings of song links, never nested inside them.
@@ -174,9 +176,11 @@
           .filter(person => person.at >= 0).sort((a, b) => a.at - b.at || b.label.length - a.label.length)[0];
         if (!match) { appendSongText(text.slice(cursor)); break; }
         appendSongText(text.slice(cursor, match.at));
-        title.append(artistAction(match.name, match.label));
+        artistsLine.append(artistAction(match.name, match.label));
         cursor = match.at + match.label.length;
       }
+      if (artistsLine.childNodes.length) title.append(artistsLine);
+      if (songLine.childNodes.length) title.append(songLine);
     }
     function renderRelease(item, i) {
       const slide = element('article', 'home-release-slide');
@@ -191,7 +195,7 @@
       const cover = artwork(item, 'home-release-image', i !== 0);
       if (!item.image) cover.append(element('span', 'home-release-image-pending', '封面待补充'));
       const copy = element('span', 'home-release-copy');
-      copy.append(title);
+      copy.append(element('span', 'home-release-type', item.type === 'single' ? '单曲' : '专辑'), title);
       open.append(cover, element('span', 'home-release-shade'));
       slide.append(open);
       if (item.type === 'single') {

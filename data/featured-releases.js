@@ -20,7 +20,7 @@
     },
     {
       type: 'single', artist: 'Young Cash Jason', artists: ['Young Cash Jason', 'Lil Asian'],
-      title: 'Sing My Song', headline: 'Young Cash Jason/Lil Asian新歌《Sing My Song》',
+      title: 'Sing My Song', headline: 'Young Cash Jason/Lil Asian「Sing My Song」',
       albumId: '408819124', songId: '3459362349',
       image: 'https://p1.music.126.net/ev_AmZAc4OR-fIaCL9vo2g==/109951174255317732.jpg?param=750y750'
     }
