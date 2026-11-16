@@ -20,13 +20,11 @@
     const scroller = doc.getElementById('home-panel-scroll');
     const carousel = doc.getElementById('home-release-carousel');
     const slidesHost = doc.getElementById('home-release-slides');
-    const restore = doc.getElementById('home-panel-restore');
     const collapse = doc.getElementById('home-panel-collapse');
     const controls = doc.getElementById('home-carousel-controls');
     const dotsHost = doc.getElementById('home-carousel-dots');
     const previous = doc.getElementById('home-carousel-previous');
     const next = doc.getElementById('home-carousel-next');
-    const pause = doc.getElementById('home-carousel-pause');
     const status = doc.getElementById('home-release-status');
     const announcement = doc.getElementById('home-carousel-announcement');
     const filterSection = doc.getElementById('home-filter-section');
@@ -38,7 +36,7 @@
     const covered = new Set();
     const cleanups = [];
     let items = [], slides = [], dots = [], index = 0, collapsed = false, timer;
-    let hovered = false, focused = false, paused = false, drag;
+    let hovered = false, focused = false, drag;
     let moving = false, shiftedIndex = null, shiftedBy = 0, settleTimer, swipeTimer, suppressSwipeClick = false;
 
     function listen(target, type, handler, options) {
@@ -65,7 +63,7 @@
     }
     function schedule() {
       win.clearTimeout(timer); timer = undefined;
-      const playing = items.length > 1 && !collapsed && !covered.size && !paused && !hovered && !focused
+      const playing = items.length > 1 && !covered.size && !hovered && !focused
         && doc.visibilityState !== 'hidden' && !reduced.matches;
       carousel.dataset.playing = String(playing);
       if (playing) timer = win.setTimeout(() => select(index + 1), 6000);
@@ -205,11 +203,15 @@
     }
     function sync() {
       const blocked = covered.size > 0;
-      panel.hidden = collapsed;
-      panel.inert = collapsed || blocked;
-      panel.setAttribute('aria-hidden', String(collapsed || blocked));
+      // Collapsing hides only filters; the artwork and its carousel remain interactive.
+      panel.hidden = false;
+      panel.inert = blocked;
+      panel.setAttribute('aria-hidden', String(blocked));
       panel.classList.toggle('is-covered', blocked);
-      restore.hidden = !collapsed || blocked;
+      panel.classList.toggle('is-collapsed', collapsed);
+      filterSection.hidden = collapsed;
+      collapse.setAttribute('aria-expanded', String(!collapsed));
+      collapse.setAttribute('aria-label', collapsed ? '展开筛选内容' : '收起筛选内容');
       schedule();
     }
     function cover(reason, active) { if (active) covered.add(reason); else covered.delete(reason); sync(); }
@@ -222,15 +224,13 @@
       scroller.scrollTo({ top: filterSection.offsetTop, behavior: reduced.matches ? 'instant' : 'smooth' });
       filterSection.focus({ preventScroll: true });
     }
-    listen(collapse, 'click', () => { collapsed = true; sync(); restore.focus({ preventScroll: true }); });
-    listen(restore, 'click', () => expand());
+    listen(collapse, 'click', () => {
+      collapsed = !collapsed;
+      if (collapsed) scroller.scrollTop = 0;
+      sync();
+    });
     listen(previous, 'click', () => select(index - 1, true));
     listen(next, 'click', () => select(index + 1, true));
-    listen(pause, 'click', () => {
-      paused = !paused; pause.setAttribute('aria-pressed', String(paused));
-      pause.setAttribute('aria-label', paused ? '恢复自动轮播' : '暂停自动轮播');
-      pause.classList.toggle('is-paused', paused); schedule();
-    });
     listen(carousel, 'pointerenter', () => { hovered = true; schedule(); });
     listen(carousel, 'pointerleave', () => { hovered = false; schedule(); });
     listen(carousel, 'focusin', () => { focused = true; schedule(); });

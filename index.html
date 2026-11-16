@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./css/artist-profiles.css?v=20261116-members">
   <link rel="stylesheet" href="./css/network-scene.css">
   <link rel="stylesheet" href="./css/mobile-navigation.css">
-  <link rel="stylesheet" href="./css/home-panel.css?v=20261115-polish">
+  <link rel="stylesheet" href="./css/home-panel.css?v=20261117-home">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -244,13 +244,12 @@
   <div id="map"></div>
 <!-- 首页底卡始终保留；资料卡和排行榜覆盖它，不重建筛选控件。 -->
 <aside id="map-home-panel" class="map-home-panel" aria-label="新作推荐与地图筛选">
-  <button id="home-panel-collapse" class="home-panel-collapse" type="button" aria-controls="map-home-panel" aria-label="收起首页卡片">收起</button>
+  <button id="home-panel-collapse" class="home-panel-collapse" type="button" aria-controls="home-filter-section" aria-expanded="true" aria-label="收起筛选内容"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button>
   <div id="home-panel-scroll" class="home-panel-scroll">
     <section id="home-release-carousel" class="home-release-carousel" role="region" aria-roledescription="轮播" aria-label="新作推荐">
       <div id="home-release-slides" class="home-release-slides"></div>
       <div id="home-carousel-controls" class="home-carousel-controls" role="group" aria-label="轮播控制" hidden>
         <button id="home-carousel-previous" class="home-carousel-arrow home-carousel-previous" type="button" aria-label="上一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
-        <button id="home-carousel-pause" class="home-carousel-pause" type="button" aria-label="暂停自动轮播" aria-pressed="false"><svg class="home-pause-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 5h3v10H6zm5 0h3v10h-3z"/></svg><svg class="home-play-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m7 5 8 5-8 5z"/></svg></button>
         <button id="home-carousel-next" class="home-carousel-arrow home-carousel-next" type="button" aria-label="下一张"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
         <div id="home-carousel-dots" class="home-carousel-dots" role="group" aria-label="选择轮播页"></div>
       </div>
@@ -263,7 +262,6 @@
     </section>
   </div>
 </aside>
-<button id="home-panel-restore" class="home-panel-restore" type="button" aria-controls="map-home-panel" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="3"/><path d="M8 3v14m3-10 3 3-3 3"/></svg>展开首页</button>
 <script src="./fans-cache.js"></script>
 <script src="./data/artist-data.js?v=20261116-members"></script>
 <script src="./data/fanclub-data.js"></script>
@@ -272,8 +270,8 @@
 <script src="./scripts/artist-profiles.js?v=20261116-members"></script>
 <script src="./scripts/network-scene.js?v=20261115-polish"></script>
 <script src="./scripts/mobile-navigation.js"></script>
-<script src="./scripts/home-panel.js?v=20261115-polish"></script>
-<script src="./scripts/app.js?v=20261116-members"></script>
+<script src="./scripts/home-panel.js?v=20261117-home"></script>
+<script src="./scripts/app.js?v=20261117-home"></script>
 </body>
 </html>
 

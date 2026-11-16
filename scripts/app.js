@@ -389,7 +389,7 @@ document.getElementById('dots-only-toggle')?.addEventListener('change', event =>
 
 // 其他地图操作按钮/可点击列表项开始执行前，自动退出全局红点模式。
 document.addEventListener('click', event => {
-  if (!dotsOnlyMode || event.target.closest('#dots-only-option, #home-panel-collapse, #home-panel-restore, #home-carousel-controls, .home-release-open')) return;
+  if (!dotsOnlyMode || event.target.closest('#dots-only-option, #home-panel-collapse, #home-carousel-controls, .home-release-open')) return;
   const action = event.target.closest(
     'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .index-row, .rank-tab, .index-tab, .rank-fan-month-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
   );
