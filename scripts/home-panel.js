@@ -119,13 +119,8 @@
     function titleOf(item) {
       return item.headline || item.artistLabel + (item.type === 'single' ? '新歌' : '新' + item.format) + '《' + item.title + '》';
     }
-    function renderRelease(item, i) {
-      const slide = element('article', 'home-release-slide');
-      slide.id = 'home-release-slide-' + i;
-      slide.classList.toggle('is-single', item.type === 'single');
-      slide.setAttribute('role', 'group'); slide.setAttribute('aria-roledescription', '幻灯片');
-      slide.setAttribute('aria-label', (i + 1) + '：' + titleOf(item));
-      const open = element(item.type === 'single' && (item.songId || item.albumId) ? 'a' : 'button', 'home-release-open');
+    function releaseAction(item, className) {
+      const open = element(item.type === 'single' && (item.songId || item.albumId) ? 'a' : 'button', className);
       if (open.tagName.toLowerCase() === 'a') {
         // Never guess a song ID from an album ID. The supplied release page is a temporary fallback.
         open.href = 'https://music.163.com/#/' + (item.songId ? 'song?id=' + item.songId : 'album?id=' + item.albumId);
@@ -139,34 +134,70 @@
           } else status.textContent = '这首歌曲的网易云链接待补充。';
         });
       }
-      const title = element('span', 'home-release-title', titleOf(item));
+      return open;
+    }
+    function artistAction(name, label) {
+      const person = findArtist && findArtist(name);
+      const artist = element('button', 'home-release-artist'); artist.type = 'button';
+      artist.disabled = !person;
+      artist.setAttribute('aria-label', person ? '查看' + label + '的资料' : '暂未收录' + label + '的资料');
+      const avatar = artwork(person || {}, 'home-release-artist-avatar', true);
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.prepend(element('span', '', Array.from(label)[0]));
+      artist.append(avatar, element('span', 'home-release-artist-name', label));
+      artist.addEventListener('click', event => {
+        event.stopPropagation();
+        if (person && onArtist) onArtist(person.name);
+      });
+      return artist;
+    }
+    function singleTitle(item, title) {
+      const text = titleOf(item);
+      const names = item.artists.flatMap(name => {
+        const label = name === item.artist ? item.artistLabel : name;
+        return [...new Set([label, name])].map(label => ({ name, label }));
+      });
+      function appendSongText(text) {
+        if (!text) return;
+        if (/^[\s/、&+]+$/.test(text)) title.append(element('span', 'home-release-title-separator', text));
+        else {
+          const link = releaseAction(item, 'home-release-title-link');
+          link.textContent = text;
+          link.setAttribute('aria-label', '在网易云打开歌曲：' + (item.title || titleOf(item)));
+          title.append(link);
+        }
+      }
+      // Inline profile buttons are siblings of song links, never nested inside them.
+      let cursor = 0;
+      while (cursor < text.length) {
+        const match = names.map(person => ({ ...person, at: text.indexOf(person.label, cursor) }))
+          .filter(person => person.at >= 0).sort((a, b) => a.at - b.at || b.label.length - a.label.length)[0];
+        if (!match) { appendSongText(text.slice(cursor)); break; }
+        appendSongText(text.slice(cursor, match.at));
+        title.append(artistAction(match.name, match.label));
+        cursor = match.at + match.label.length;
+      }
+    }
+    function renderRelease(item, i) {
+      const slide = element('article', 'home-release-slide');
+      slide.id = 'home-release-slide-' + i;
+      slide.classList.toggle('is-single', item.type === 'single');
+      slide.setAttribute('role', 'group'); slide.setAttribute('aria-roledescription', '幻灯片');
+      slide.setAttribute('aria-label', (i + 1) + '：' + titleOf(item));
+      const open = releaseAction(item, 'home-release-open');
+      open.setAttribute('aria-label', titleOf(item));
+      const title = element('span', 'home-release-title');
       title.setAttribute('role', 'heading'); title.setAttribute('aria-level', '2');
       const cover = artwork(item, 'home-release-image', i !== 0);
       if (!item.image) cover.append(element('span', 'home-release-image-pending', '封面待补充'));
       const copy = element('span', 'home-release-copy');
       copy.append(title);
-      open.append(cover, element('span', 'home-release-shade'), copy);
+      open.append(cover, element('span', 'home-release-shade'));
       slide.append(open);
       if (item.type === 'single') {
-        const artists = element('div', 'home-release-artists');
-        item.artists.forEach(name => {
-          const person = findArtist && findArtist(name);
-          const label = name === item.artist ? item.artistLabel : name;
-          const artist = element('button', 'home-release-artist'); artist.type = 'button';
-          artist.disabled = !person;
-          artist.setAttribute('aria-label', person ? '查看' + label + '的资料' : '暂未收录' + label + '的资料');
-          const avatar = artwork(person || {}, 'home-release-artist-avatar', true);
-          avatar.prepend(element('span', '', Array.from(label)[0]));
-          artist.append(avatar, element('span', 'home-release-artist-name', label), element('span', 'home-release-artist-arrow', '>'));
-          artist.addEventListener('click', event => {
-            event.stopPropagation();
-            if (person && onArtist) onArtist(person.name);
-          });
-          artists.append(artist);
-        });
-        // Only singles retain artist shortcuts, separate from the work link.
-        slide.append(artists);
-      }
+        singleTitle(item, title);
+        slide.append(copy);
+      } else { title.textContent = titleOf(item); open.append(copy); }
       return slide;
     }
     function setReleases(values) {
