@@ -61,16 +61,50 @@
     }
     function avatar(item, className, lazy, imageSize) {
       const frame = element('span', 'profile-avatar-frame ' + className);
-      const fallback = element('span', 'profile-avatar-fallback', Array.from(item.name || '?')[0]);
-      fallback.setAttribute('aria-hidden', 'true');
-      frame.append(fallback);
+      const cover = className === 'profile-cover-avatar';
+      let placeholder, spinner, loadingText;
+      if (cover) {
+        placeholder = element('span', 'profile-cover-loading');
+        placeholder.setAttribute('role', 'status');
+        spinner = element('span', 'profile-cover-spinner');
+        spinner.setAttribute('aria-hidden', 'true');
+        spinner.hidden = true;
+        loadingText = element('span', 'profile-cover-loading-text', '暂无头像');
+        placeholder.append(spinner, loadingText);
+        frame.setAttribute('aria-busy', 'false');
+      } else {
+        placeholder = element('span', 'profile-avatar-fallback', Array.from(item.name || '?')[0]);
+        placeholder.setAttribute('aria-hidden', 'true');
+      }
+      frame.append(placeholder);
       if (typeof item.avatar === 'string' && /^(https?:\/\/|\.?\.?\/|assets\/)/.test(item.avatar)) {
         const image = element('img');
         image.alt = item.name;
         image.decoding = 'async';
         if (lazy) image.loading = 'lazy';
         else image.fetchPriority = 'high';
-        image.addEventListener('error', () => { image.hidden = true; });
+        let settle;
+        if (cover) {
+          let settled = false;
+          image.hidden = true;
+          spinner.hidden = false;
+          loadingText.textContent = '正在加载头像';
+          frame.classList.add('is-loading');
+          frame.setAttribute('aria-busy', 'true');
+          // Keep each request scoped to its own frame when profiles are switched quickly.
+          settle = loaded => {
+            if (settled) return;
+            settled = true;
+            image.hidden = !loaded;
+            placeholder.hidden = loaded;
+            spinner.hidden = true;
+            frame.classList.remove('is-loading');
+            frame.setAttribute('aria-busy', 'false');
+            if (!loaded) loadingText.textContent = '头像暂不可用';
+          };
+          image.addEventListener('load', () => settle(image.naturalWidth > 0), { once: true });
+          image.addEventListener('error', () => settle(false), { once: true });
+        } else image.addEventListener('error', () => { image.hidden = true; });
         let source = item.avatar;
         if (imageSize && /^https?:\/\/p\d+\.music\.126\.net\//.test(source)) {
           source = /([?&])param=\d+y\d+/.test(source)
@@ -79,6 +113,7 @@
         }
         image.src = source;
         frame.append(image);
+        if (cover && image.complete) settle(image.naturalWidth > 0);
       }
       return frame;
     }

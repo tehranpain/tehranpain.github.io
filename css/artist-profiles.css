@@ -58,8 +58,12 @@
 .artist-profile-panel .profile-section { margin-left: 13px; margin-right: 13px; }
 .profile-hero-cover { isolation: isolate; aspect-ratio: 1; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding: 22px; border-radius: 0; text-align: left; background: #302a27; overflow: hidden; }
 .profile-hero-cover::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #0000 25%, #0003 48%, #000c 100%); pointer-events: none; }
-.profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #463e38; }
-.profile-cover-avatar .profile-avatar-fallback { font-size: 84px; color: #ffffff38; }
+.profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #b8bdc4; }
+.profile-cover-loading { position: absolute; top: 36%; left: 0; right: 0; display: grid; justify-items: center; gap: 10px; transform: translateY(-50%); color: #ffffffed; pointer-events: none; }
+.profile-cover-spinner { width: 28px; height: 28px; border: 3px solid #ffffff4d; border-top-color: #fff; border-radius: 50%; }
+.profile-cover-avatar.is-loading .profile-cover-spinner { animation: profile-avatar-spin .9s linear infinite; }
+.profile-cover-loading-text { font-size: 12px; line-height: 1.5; font-weight: 500; }
+.profile-cover-loading[hidden], .profile-cover-spinner[hidden] { display: none; }
 .profile-hero-cover .profile-title { margin: 0; color: #fff; font-size: 32px; line-height: 1.16; letter-spacing: -.5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 /* Group headings share the cover title style without an extra location control. */
 .profile-group-heading { display: flex; align-items: center; gap: 12px; }
@@ -123,6 +127,7 @@
 .member-profile-link { border: 0; padding: 2px 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; text-decoration-color: #ddd; text-underline-offset: 3px; cursor: pointer; }
 .member-profile-link:hover { color: #e60012; }
 @keyframes profile-enter { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes profile-avatar-spin { to { transform: rotate(360deg); } }
 @media (max-width: 600px) {
   .artist-profile-panel { top: auto; bottom: 0; left: 0; right: 0; width: 100%; max-height: 72dvh; border-bottom: 0; border-radius: 26px 26px 0 0; z-index: 1700; animation: profile-rise .22s ease-out both; }
   .profile-toolbar { padding: 15px 18px 11px; }
@@ -132,4 +137,6 @@
   .profile-hero-avatar { width: 94px; height: 94px; }
   @keyframes profile-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 }
-@media (prefers-reduced-motion: reduce) { .artist-profile-panel { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .artist-profile-panel, .profile-cover-avatar.is-loading .profile-cover-spinner { animation: none; }
+}
