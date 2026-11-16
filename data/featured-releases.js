@@ -10,12 +10,12 @@
   const releases = [
     {
       type: 'album', format: 'Mixtape', artist: 'THOME',
-      title: 'SAYLESS MIXTAPE VOL.1', headline: 'THOME新Mixtape发布', albumId: '408811475',
+      title: 'SAYLESS MIXTAPE VOL.1', headline: 'THOME「SAYLESS MIXTAPE VOL.1」', albumId: '408811475',
       image: 'https://p2.music.126.net/RcX7rPxi9gtMbrAOR4hZlw==/109951174255162100.jpg?param=750y750'
     },
     {
       type: 'album', format: 'EP', artist: '三火flame',
-      headline: '三火flame新EP发布', albumId: '408322398',
+      headline: '三火flame「我看不清」', albumId: '408322398',
       image: 'https://p2.music.126.net/RvJKkFCm7LAve3fL_l-YIQ==/109951174237715977.jpg?param=750y750'
     },
     {
