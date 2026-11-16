@@ -6,6 +6,256 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "12127154": {
+      "songs": [
+        {
+          "id": "503819010",
+          "name": "做我女朋友",
+          "artists": "扬科YANGK / 吴海啸Tsunami"
+        },
+        {
+          "id": "2021615316",
+          "name": "绕一周",
+          "artists": "杨胖雨 / 吴海啸Tsunami"
+        },
+        {
+          "id": "494170718",
+          "name": "不意外",
+          "artists": "吴海啸Tsunami / 扬科YANGK"
+        }
+      ],
+      "biography": "独立音乐人 词曲人\n\n合作联系V：wuhaixiao_",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12127154"
+    },
+    "12128074": {
+      "songs": [
+        {
+          "id": "2147460821",
+          "name": "会陪你",
+          "artists": "DP龙猪 / 火枪FIREGUN（刀哥）"
+        },
+        {
+          "id": "1906298903",
+          "name": "我会陪你",
+          "artists": "DP龙猪 / Lccc / 火枪FIREGUN（刀哥）"
+        },
+        {
+          "id": "1444156117",
+          "name": "有你就足够",
+          "artists": "艾诗雨Sherry / 火枪FIREGUN（刀哥）"
+        }
+      ],
+      "biography": "我虽然叫小刀 但现在我能砍大树",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12128074"
+    },
+    "12333145": {
+      "songs": [
+        {
+          "id": "465920905",
+          "name": "全部都是你",
+          "artists": "DP龙猪 / 宝楽CNBALLER / 王云 Cloud Wang"
+        },
+        {
+          "id": "1851258433",
+          "name": "风吹一夏",
+          "artists": "DP龙猪 / 阿水SWEI / Rays"
+        },
+        {
+          "id": "2046829307",
+          "name": "翠花",
+          "artists": "DP龙猪 / 王云宏 / 陷阱表哥"
+        }
+      ],
+      "biography": "DP龙猪 是国内十分罕见的“黑嗓” ，拥有着扎实的学院派音乐功底，同时融合了极具魅力的多元化音乐元素，已形成了自己不可复制的个性音乐风格，人称：Hook man。",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12333145"
+    },
+    "12528836": {
+      "songs": [
+        {
+          "id": "2050683064",
+          "name": "迷失ft.歪丁",
+          "artists": "Nxmad诺曼德 / WILDIN"
+        },
+        {
+          "id": "1890529045",
+          "name": "心碎纪念日（heartbreakanniversary remix）",
+          "artists": "WILDIN / 用户已注销"
+        },
+        {
+          "id": "3329589394",
+          "name": "24 7 365",
+          "artists": "MEGA / 用户已注销 / WILDIN / 唐兆星"
+        }
+      ],
+      "biography": "与其依赖灵感 不如养成习惯\n与其养成习惯 不如把握机遇\n与其把握机遇 不如凑凑字数",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=12528836"
+    },
+    "13006194": {
+      "songs": [
+        {
+          "id": "1479198446",
+          "name": "恋爱的麻烦 (Live)",
+          "artists": "斯威特MCSWEET / Subs 张毅成 / 沙一汀EL / 江奈生 / 石玺彤 / 花季男女生"
+        },
+        {
+          "id": "1950293994",
+          "name": "其实你不够爱我",
+          "artists": "ONEdB / RevoJay / 江奈生 / Lil Song / 鲨鱼Shark"
+        },
+        {
+          "id": "1423062931",
+          "name": "二十年之后咯",
+          "artists": "江奈生"
+        }
+      ],
+      "biography": "我有一个大计划，可 ",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=13006194"
+    },
+    "29270843": {
+      "songs": [
+        {
+          "id": "2093069887",
+          "name": "归零",
+          "artists": "北海Dy / 陷阱表哥 / 梁展程CKAY"
+        },
+        {
+          "id": "2750478818",
+          "name": "南部啰啰",
+          "artists": "火枪FIREGUN（刀哥） / 双面 / 梁展程CKAY / DOHK.O童虎 / 王锐淇Ricky / 黄达DA / 滇声气大辉Daphe / 新秀"
+        },
+        {
+          "id": "1870027452",
+          "name": "宇宙 Universe",
+          "artists": "HULK / LOKO8! / 梁展程CKAY"
+        }
+      ],
+      "biography": "万家灯火会轮到我\n\n  ",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=29270843"
+    },
+    "32289793": {
+      "songs": [
+        {
+          "id": "1870027452",
+          "name": "宇宙 Universe",
+          "artists": "HULK / LOKO8! / 梁展程CKAY"
+        },
+        {
+          "id": "1407112541",
+          "name": "桃園cita",
+          "artists": "LOKO8!"
+        },
+        {
+          "id": "1418791309",
+          "name": "覺醒青年阿灰",
+          "artists": "LOKO8!"
+        }
+      ],
+      "biography": "A1SOUTHSIDE BABE #LOYALTY MUSIC# CANTON RAPPER广州饶舌歌手",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=32289793"
+    },
+    "33581921": {
+      "songs": [
+        {
+          "id": "2046829307",
+          "name": "翠花",
+          "artists": "DP龙猪 / 王云宏 / 陷阱表哥"
+        },
+        {
+          "id": "2055617551",
+          "name": "翠花",
+          "artists": "DP龙猪 / 王云宏 / 陷阱表哥"
+        },
+        {
+          "id": "2093069887",
+          "name": "归零",
+          "artists": "北海Dy / 陷阱表哥 / 梁展程CKAY"
+        }
+      ],
+      "biography": "27 CLUB 999\n",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=33581921"
+    },
+    "34311081": {
+      "songs": [
+        {
+          "id": "3358874882",
+          "name": "swag boy",
+          "artists": "Siky"
+        },
+        {
+          "id": "3448191750",
+          "name": "Flexin’Jackie Chan",
+          "artists": "Siky"
+        },
+        {
+          "id": "2746836440",
+          "name": "Pass Out From My Whip",
+          "artists": "Siky"
+        }
+      ],
+      "biography": "我只想当个swagger\nChatGroup： LUxh2005（非本人，进群备注来意）\n",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=34311081"
+    },
+    "55392630": {
+      "songs": [
+        {
+          "id": "2045109776",
+          "name": "RUN MY CITY",
+          "artists": "王齐铭WatchMe / 金蛇TrapHouse / 布瑞吉Bridge"
+        },
+        {
+          "id": "2601992001",
+          "name": "骑马打仗",
+          "artists": "布瑞吉Bridge / 盛宇D-SHINE / 金蛇TrapHouse"
+        },
+        {
+          "id": "2706323092",
+          "name": "麻烦与答案",
+          "artists": "王齐铭WatchMe / 金蛇TrapHouse / 朴鲨VPS"
+        }
+      ],
+      "biography": "隱於TrapHouse的山城金蛇\n以川渝方言為骨 迷幻低頻鑄魂\n一半落筆市井煙火 述說街頭舊事\n一半韻染煙雨雲境 勾勒巴渝古風\n快慢律動交錯 虛實意境相融\n一曲聽盡霧都山水兩江底色",
+      "biographyDate": "2026-11-16",
+      "songsFetchedOn": "2026-11-16",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=55392630"
+    },
     "4902": {
       "songs": [
         {

@@ -92,14 +92,14 @@
 .profile-relation { max-width: 100%; display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px 5px 5px; border: 0; border-radius: 999px; background: #f4f1ec; color: #463d33; text-align: left; cursor: pointer; }
 .profile-relation .profile-person-avatar { width: 28px; height: 28px; }
 .profile-relation .profile-avatar-fallback { font-size: 10px; }
-.profile-member:hover .profile-person-name, .profile-relation:hover .profile-person-name { color: var(--profile-red); }
+.profile-member:not(.is-static):hover .profile-person-name, .profile-relation:hover .profile-person-name { color: var(--profile-red); }
 /* Collaborators use a separate grid so membership chips remain unchanged. */
 .profile-collaborators { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 20px 10px; }
 .profile-collaborator { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: #302a24; cursor: pointer; text-align: center; }
 .profile-collaborator .profile-person-avatar { width: 52px; height: 52px; }
 .profile-collaborator .profile-person-name { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 11px; line-height: 1.4; }
-.profile-collaborator:hover .profile-person-name { color: var(--profile-red); }
-.is-unresolved { cursor: default; }
+.profile-collaborator:not(.is-static):hover .profile-person-name { color: var(--profile-red); }
+.is-unresolved, .is-static { cursor: default; }
 .profile-song-list { margin: 0; padding: 0; list-style: none; }
 .profile-song { display: flex; align-items: center; gap: 11px; padding: 13px 0; border-bottom: 1px solid #f0ede8; }
 .profile-song:first-child { padding-top: 0; }

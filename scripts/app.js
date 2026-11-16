@@ -125,7 +125,7 @@ const singersWithType = singers.map(singer => ({
 }));
 
 const profilesWithType = profiles.map(person => ({ ...person, type: 'singer' }));
-const allData = [...singersWithType, ...profilesWithType, ...labels];
+const allData = [...singersWithType, ...profilesWithType, ...labels].filter(item => !item.profileDisabled);
 let selectedProfileName = null;
 let mobileNavigation = null;
 let homePanel = null;
@@ -182,7 +182,7 @@ function positionDesktopPopover(panel, anchor, { width = 320, alignRight = false
 }
 
 const profileUI = window.RapArtistProfiles.create({
-  detailsUrl: './data/artist-details.js?v=20261116-veterans',
+  detailsUrl: './data/artist-details.js?v=20261116-members',
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
@@ -546,7 +546,7 @@ function renderMarkers(filterType = "all") {
   
   // 1. 重置搜索列表，并立即把城市数据重新加进去
   searchNameList = [];
-  profilesWithType.concat(labels.filter(item => !profileUI.hasMapLocation(item))).forEach(item => {
+  profilesWithType.filter(item => !item.profileDisabled).concat(labels.filter(item => !profileUI.hasMapLocation(item))).forEach(item => {
     searchNameList.push({ raw: item.name, lower: item.name.toLowerCase(), type: item.type });
     (item.aliases || []).forEach(alias => searchNameList.push({ raw: item.name, lower: alias.toLowerCase(), type: item.type, alias }));
   });

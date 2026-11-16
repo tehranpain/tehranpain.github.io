@@ -1,6 +1,6 @@
 (function (root) {
   function hasMapLocation(item) {
-    return Boolean(item && item.mapVisible !== false && Number.isFinite(item.lat) && Number.isFinite(item.lng)
+    return Boolean(item && !item.profileDisabled && item.mapVisible !== false && Number.isFinite(item.lat) && Number.isFinite(item.lng)
       && Math.abs(item.lat) <= 90 && Math.abs(item.lng) <= 180);
   }
 
@@ -11,7 +11,7 @@
     const namesOf = item => [item.name].concat(item.aliases || []).map(normalize);
     const all = artists.concat(groups);
     const allNames = indexNames(all);
-    const artistNames = indexNames(artists);
+    const artistNames = indexNames(artists.filter(item => !item.profileDisabled));
     let panel, scroller, closeButton, backButton, returnFocus, selected, revision = 0;
     let history = [];
     let snapshot = details || root.RapArtistDetails;
@@ -35,7 +35,7 @@
     function memberLinks(names) {
       return names.map(name => {
         const person = find(name);
-        return person
+        return person && !person.profileDisabled
           ? '<button type="button" class="member-profile-link" data-artist-profile="' + escape(person.name) + '">' + escape(name) + '</button>'
           : '<span>' + escape(name) + '</span>';
       }).join(' · ');
@@ -96,11 +96,13 @@
       return node;
     }
     function personLink(person, displayName, className) {
-      const node = person
+      const clickable = person && !person.profileDisabled;
+      const node = clickable
         ? button(className, undefined, () => open(person.name, { remember: true }))
-        : element('div', className + ' is-unresolved');
+        : element('div', className + (person ? ' is-static' : ' is-unresolved'));
       node.append(avatar(person || { name: displayName }, 'profile-person-avatar', true), element('span', 'profile-person-name', displayName));
-      if (!person) node.append(element('span', 'profile-person-status', '待建资料'));
+      const status = person ? person.roleLabel : '待建资料';
+      if (status) node.append(element('span', 'profile-person-status', status));
       return node;
     }
     function networkIcon() {
@@ -242,7 +244,7 @@
     }
     function open(name, { remember = false, fromHistory = false, viewState } = {}) {
       const item = find(name);
-      if (!item) return false;
+      if (!item || item.profileDisabled) return false;
       ensurePanel();
       const wasOpen = isOpen();
       if (remember && wasOpen && selected === item) return true;
@@ -337,7 +339,7 @@
       if (peers.length) {
         const collaborators = section('合作关系', peers.length);
         const list = element('div', 'profile-collaborators');
-        peers.forEach(peer => list.append(personLink(findArtist(peer), peer, 'profile-collaborator')));
+        peers.forEach(peer => list.append(personLink(find(peer), peer, 'profile-collaborator')));
         collaborators.append(list);
         scroller.append(collaborators);
       }

@@ -107,7 +107,7 @@ collaborators: [
   avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130",
   neteaseId: "1132392",
 collaborators: [
-    { name: "邓典果DDG"},{ name: "Ty."},{ name: "FENDIGHEE RICH"},{ name: "YOUNG13DBABY"},{ name: "TSP安琪"},{ name: "KnowKnow"},{ name: "PSY.P"},{ name: "Melo"},{ name: "谢帝"},{ name: "李尔新"},{ name: "AnsrJ"},{ name: "Mengzi"},{ name: "王以太"},{ name: "Sleepy Cat"},{ name: "P.O.E"},{ name: "罗言"},{ name: "地磁卡"},{ name: "Bohan 冷博涵"},{ name: "NINEONE#乃万"},{ name: "阿达娃"},{ name: "THOME"},{ name: "GALI"},{ name: "MC HotDog热狗"},{ name: "ljz329"},{ name: "CashTrippy"},{ name: "YTH Chopie"},{ name: "TizzyT"},{ name: "斑比Bambii"}
+    {"name":"邓典果DDG"},{"name":"Ty."},{"name":"FENDIGHEE RICCH"},{"name":"YOUNG13DBABY"},{"name":"TSP安琪"},{"name":"KnowKnow"},{"name":"PSY.P"},{"name":"Melo"},{"name":"谢帝"},{"name":"李尔新"},{"name":"AnsrJ"},{"name":"Mengzi"},{"name":"王以太"},{"name":"Sleepy Cat"},{"name":"P.O.E"},{"name":"罗言"},{"name":"地磁卡"},{"name":"Bohan 冷博涵"},{"name":"NINEONE#乃万"},{"name":"阿达娃"},{"name":"THOME"},{"name":"GALI"},{"name":"MC HotDog热狗"},{"name":"ljz329"},{"name":"CashTrippy"},{"name":"YTH Chopie"},{"name":"TizzyT"},{"name":"斑比Bambii"}
   ]
 
 },
@@ -179,7 +179,7 @@ collaborators: [
   avatar: "https://p2.music.126.net/m09Iq7mS9luDeIM0DIi02A==/109951174017359706.jpg?param=130y130",
   neteaseId: "12064019",
 collaborators: [
-    { name: "JinJiBeWater-隼"},{ name: "RICHNNOMADIC"},{ name: "邓典果DDG"},{ name: "刀脚"},{ name: "kkluv"},{ name: "CashTrippy"},{ name: "斑比Bambii"},{ name: "那奇沃夫"},{ name: "ICE杨长青"},{ name: "刀脚"},{ name: "布瑞吉Bridge"},{ name: "Player J"},{ name: "JarStick"},{ name: "阿牛"},{ name: "狂兆北"},{ name: "小安迪LilAndyKillThemAll"},{ name: "八口8uck"},{ name: "希介"},{ name: "AnsrJ"},{ name: "盛宇D-SHINE"},{ name: "步步高先生"}
+    {"name":"JinJiBeWater-隼"},{"name":"RICHNOMADIC"},{"name":"邓典果DDG"},{"name":"刀脚"},{"name":"kkluv"},{"name":"CashTrippy"},{"name":"斑比Bambii"},{"name":"那奇沃夫"},{"name":"ICE杨长青"},{"name":"布瑞吉Bridge"},{"name":"Player J"},{"name":"JarStick"},{"name":"阿牛"},{"name":"狂兆北"},{"name":"小安迪LilAndyKillThemAll"},{"name":"八口8uck"},{"name":"希介"},{"name":"AnsrJ"},{"name":"盛宇D-SHINE"},{"name":"步步高先生"}
   ]
 
 },
@@ -671,7 +671,7 @@ desc:"「说唱新世代」冠军"
   avatar: "https://p1.music.126.net/_a8e2BhWCxV7kYaUBU_l2Q==/109951173489955335.jpg?param=130y130",
   neteaseId: "14925064",
 collaborators: [
-    { name: "TOYOKI"},{ name: "KIV"},{ name: "THOME"},{ name: "PSY.P"},{ name: "KenRobb"},{ name: "kkluv"},{ name: "UDIGG"},{ name: "KnowKnow"},{ name: "离合"},{ name: "APMOZART"},{ name: "谢帝"},{ name: "CashTTrippy"},{ name: "Melo"}
+    {"name":"TOYOKI"},{"name":"KIV"},{"name":"THOME"},{"name":"PSY.P"},{"name":"KenRobb"},{"name":"kkluv"},{"name":"UDIGG"},{"name":"KnowKnow"},{"name":"离合"},{"name":"APMOZART"},{"name":"谢帝"},{"name":"CashTrippy"},{"name":"Melo"}
   ]
 
 },
@@ -1333,7 +1333,7 @@ desc:"「新说唱2025」亚军 · 「说唱听我的第二季」亚军"
   neteaseId: "12127362",
 desc:"「中国新说唱2020」并列季军",
 collaborators: [
-    { name: "Sean T肖恩恩"},{ name: "mac ova seas"},{ name: "李大奔BENZO"},{ name: "KenRobb"},{ name: "李佳隆"},{ name: "ICE杨长青"},{ name: "俞天时"},{ name: "BroFA"},{ name: "黄之仪Kyra Zilver"},{ name: "王以太"},{ name: "VaVa娃娃"},{ name: "V.O.B"},{ name: "KnowKnow"},{ name: "BrAnTB白景屹"},{ name: "刘炫廷"},{ name: "Capper"},{ name: "Rapeter"},{ name: "MC HotDog热狗"},{ name: "CHOCKEY有三"},{ name: "满舒克"},{ name: "谟西Mercy"},{ name: "LEGGO"},{ name: "三火flame"},{ name: "TizzyT"},{ name: "Tlatre特雷西"},{ name: "Nxmad诺曼德"},{ name: "离合"},{ name: "黄建威"},{ name: "Cee"},{ name: "艾志恒Asen"},{ name: "万妮达Vinida Weng"},{ name: "派克特"}
+    {"name":"SeanT肖恩恩"},{"name":"mac ova seas"},{"name":"李大奔BENZO"},{"name":"KenRobb"},{"name":"李佳隆"},{"name":"ICE杨长青"},{"name":"俞天时"},{"name":"BroFA"},{"name":"黄之仪Kyra Zilver"},{"name":"王以太"},{"name":"VaVa娃娃"},{"name":"V.O.B"},{"name":"KnowKnow"},{"name":"BrAnTB白景屹"},{"name":"刘炫廷"},{"name":"Capper"},{"name":"Rapeter"},{"name":"MC HotDog热狗"},{"name":"CHOCKEY有三"},{"name":"满舒克"},{"name":"谟西Mercy"},{"name":"LEGGO"},{"name":"三火flame"},{"name":"TizzyT"},{"name":"Tlatre特雷西"},{"name":"Nxmad诺曼德"},{"name":"离合"},{"name":"黄建威"},{"name":"Cee"},{"name":"艾志恒Asen"},{"name":"万妮达Vinida Weng"},{"name":"派克特"}
   ]
 
 },
@@ -1818,6 +1818,7 @@ collaborators: [
 },
 {
   name: "小安迪LilAndyKillThemAll",
+  aliases: ["小安迪"],
   fans: "8.9万",
   lat:31.92 , lng: 117.29,
   avatar: "https://p1.music.126.net/zBohDeP6IJNK7ANkJTXe5A==/109951173619830342.jpg?param=130y130",
@@ -1831,7 +1832,7 @@ collaborators: [
   avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130",
   neteaseId: "865007",
 collaborators: [
-    { name: "阿达娃"},{ name: "KKECHO"},{ name: "小精灵"},{ name: "王以太"},{ name: "MC HotDog热狗"},{ name: "肯迪仔"},{ name: "邓典果DDG"},{ name: "万妮达Vinida Weng"},{ name: "龙崎"},{ name: "陆政廷Lil Jet"},{ name: "杨和苏KeyNG"},{ name: "KnowKnow"},{ name: "徐骁宇DEAN K"},{ name: "JarStick"},{ name: "李毅杰PISSY"},{ name: "Buzzy"},{ name: "DANNY K"},{ name: "EINK"},{ name: "FEEEleven"},{ name: "Spylent"},{ name: "Mc光光"},{ name: "艾热AIR"},{ name: "NINEONE#乃万"},{ name: "派克特"},{ name: "姜云升"},{ name: "小安迪"},{ name: "侃迪Kandi"},{ name: "Wiz-H张子豪"},{ name: "高天佐"},{ name: "Saber梁维嘉"},{ name: "鬼卞"},{ name: "巴顿"},{ name: "AA"},{ name: "Ice Paper"}
+    {"name":"阿达娃"},{"name":"KKECHO"},{"name":"小精灵"},{"name":"王以太"},{"name":"MC HotDog热狗"},{"name":"肯迪仔"},{"name":"邓典果DDG"},{"name":"万妮达Vinida Weng"},{"name":"龙崎"},{"name":"陆政廷Lil Jet"},{"name":"杨和苏KeyNG"},{"name":"KnowKnow"},{"name":"徐骁宇DEAN K"},{"name":"JarStick"},{"name":"李毅杰PISSY"},{"name":"Buzzy"},{"name":"DANNY K"},{"name":"EINK"},{"name":"FEEEleven"},{"name":"Spylent"},{"name":"Mc光光"},{"name":"艾热AIR"},{"name":"NINEONE#乃万"},{"name":"派克特"},{"name":"姜云升"},{"name":"小安迪LilAndyKillThemAll"},{"name":"侃迪Kandi"},{"name":"Wiz-H张子豪"},{"name":"高天佐"},{"name":"Saber梁维嘉"},{"name":"鬼卞"},{"name":"巴顿"},{"name":"AA"},{"name":"Ice Paper"}
   ]
 
 },
@@ -5670,7 +5671,6 @@ const artistUpdates20261114 = [
   {"name":"爽子","aliases":[],"neteaseId":"4935","avatar":"https://p1.music.126.net/OXv2WoNJR2Z0Mh-NQ1BV3w==/109951170542369102.jpg?param=130y130","fans":"6.7万","fanCount":67036,"lat":39.95212,"lng":116.181751,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
   {"name":"孙骁","aliases":["龙井说唱 孙骁"],"neteaseId":"12868703","avatar":"https://p1.music.126.net/S9eob51fw8TAwemGxuJuLQ==/109951163065254819.jpg?param=130y130","fans":"6071","fanCount":6071,"lat":40.080526,"lng":116.422343,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
   {"name":"小老虎 J-Fever","aliases":["小老虎","J-Fever"],"neteaseId":"187462","avatar":"https://p2.music.126.net/iBcpiF7rcLonCk-bvUDlWg==/109951170117663504.jpg?param=130y130","fans":"12.6万","fanCount":126021,"lat":39.897227,"lng":116.329089,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
-  {"name":"奕文","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"龙井说唱成员；未确认可独立匹配的网易云艺人账号。","lat":40.024568,"lng":116.224957,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
   {"name":"益晗","aliases":["益含","龙井说唱益晗"],"neteaseId":"31089739","avatar":"https://p2.music.126.net/xItXqKfJhUKlbsa6vF48Aw==/109951165846064907.jpg?param=130y130","fans":"1135","fanCount":1135,"lat":39.818999,"lng":116.333157,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
   {"name":"JahjahWay","aliases":[],"neteaseId":"35570236","avatar":"https://p1.music.126.net/r8SLhHD1ww-wVMX2Gk2Yvg==/109951169869001317.jpg?param=130y130","fans":"3.4万","fanCount":33710,"lat":39.946439,"lng":116.586304,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
   {"name":"Nasty Ray","aliases":[],"neteaseId":"12293847","avatar":"https://p1.music.126.net/9ZvOZ_pjA6lIWX5vgTRSeA==/109951165819425692.jpg?param=130y130","fans":"2.2万","fanCount":22013,"lat":40.00406,"lng":116.617714,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-14"},
@@ -5716,23 +5716,22 @@ const artistUpdates20261114 = [
   {"name":"滇声气大辉Daphe","aliases":["大晖"],"neteaseId":"57598485","avatar":"https://p1.music.126.net/-kV3x22qbUGPPq4D4Yb8cQ==/109951168713926721.jpg?param=130y130","fans":"1879","fanCount":1879},
   {"name":"井剑歌","aliases":[],"neteaseId":"12570295","avatar":"https://p2.music.126.net/icNzx0I1MULkIp3u6StRYg==/109951168665062097.jpg?param=130y130","fans":"966","fanCount":966},
   {"name":"求索4 (qs4)","aliases":["求索4"],"neteaseId":"37335544","avatar":"https://p1.music.126.net/uqIff01tjxjTrkqFiufpMg==/109951171928599340.jpg?param=130y130","fans":"3461","fanCount":3461},
-  {"name":"小艾EYE","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Gosh Music 成员；旧艺名的独立网易云账号尚未确认，未使用同名小艾账号。"},
+  {"name":"金蛇TrapHouse","aliases":["金蛇王朝","小艾EYE","小艾","E.Y.E","EddyTheBomber"],"neteaseId":"55392630","avatar":"https://p2.music.126.net/zsARKFsUhm0jUQNbm1SIdQ==/109951170155317503.jpg?param=130y130","fans":"1.5万","fanCount":15118,"fansSource":"网易云艺人检索 fansSize","fansUpdatedOn":"2026-11-16","lat":29.667771,"lng":106.556271,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-16","indexLetter":"J","profileStatus":"verified-account","metadataCheckedOn":"2026-11-16","metadataVerifiedOn":"2026-11-16","desc":"Gosh Music 成员"},
   {"name":"卓卓","aliases":["Double Zhuo","ZhuoZhuo"],"neteaseId":"12256361","avatar":"https://p2.music.126.net/VHm8nbVjUSkbbBCN1SP_-w==/109951173751771952.jpg?param=130y130","fans":"5万","fanCount":49852},
   {"name":"ANE","aliases":["安"],"neteaseId":"34050704","avatar":"https://p1.music.126.net/_2C-BeCezUc5JnY4yMdlhw==/109951168355590145.jpg?param=130y130","fans":"625","fanCount":625},
-  {"name":"ANT NIRVANA","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Virtual Adam 成员；有团体作品中的署名，尚未确认独立网易云艺人账号。"},
   {"name":"ATM Hanson","aliases":["ATM Hasnson"],"neteaseId":"13911452","avatar":"https://p2.music.126.net/G4han0GjhygZruxsll7_Lw==/109951173643567238.jpg?param=130y130","fans":"9.2万","fanCount":92188},
   {"name":"Aye叶师傅","aliases":["叶师傅"],"neteaseId":"48422815","avatar":"https://p2.music.126.net/yzpYhpR3H5FNRDbmMC69Lg==/109951173467311472.jpg?param=130y130","fans":"757","fanCount":757},
   {"name":"Big Light","aliases":[],"neteaseId":"46441791","avatar":"https://p1.music.126.net/-zRVyLS7lDlR9Ow9PTR1kg==/109951167068601224.jpg?param=130y130","fans":"429","fanCount":429},
   {"name":"BigYear大年","aliases":["Big Year"],"neteaseId":"12227290","avatar":"https://p2.music.126.net/1cwEWgErGhOhxbcwj2urUQ==/109951169254347661.jpg?param=130y130","fans":"87.7万","fanCount":876889},
   {"name":"burning在飞","aliases":["burning"],"neteaseId":"58262954","avatar":"https://p2.music.126.net/5-4oeE08qvpuBdaXGkx7Fg==/109951172266040680.jpg?param=130y130","fans":"2895","fanCount":2895},
   {"name":"Omega","aliases":["Crazy Omega"],"neteaseId":"12758024","avatar":"https://p2.music.126.net/a-UXOcVGzPIWpV5tzVEupA==/109951165023191007.jpg?param=130y130","fans":"4493","fanCount":4493},
-  {"name":"D-roc","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"滇声气制作人；未使用检索到的海外同名 D-ROC 账号。"},
+  {"name":"D-roc","aliases":[],"avatar":"https://p1.music.126.net/5dEUmKOrBn-yKEnKuwrCnA==/109951168762553034.jpg?param=130y130","profileStatus":"team-contributor","desc":"滇声气制作人；未使用检索到的海外同名 D-ROC 账号。","profileDisabled":true,"roleLabel":"","metadataCheckedOn":"2026-11-16","lat":null,"lng":null,"mapVisible":false},
   {"name":"DP","aliases":[],"neteaseId":"59308541","avatar":"https://p2.music.126.net/WQw_MLEgWJsWU6VTqypcGg==/109951169123130183.jpg?param=130y130","fans":"1203","fanCount":1203},
-  {"name":"duckroi","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Human Register 成员；未确认独立网易云艺人账号。"},
+  {"name":"duckroi","aliases":[],"avatar":"https://p2.music.126.net/ItuxjP2v-coLKVi_hF_HHg==/109951169962583151.jpg?param=130y130","profileStatus":"team-contributor","desc":"Human Register 的 DJ","profileDisabled":true,"roleLabel":"DJ","metadataCheckedOn":"2026-11-16","lat":null,"lng":null,"mapVisible":false},
   {"name":"G Sauce","aliases":["Asian Trapper"],"neteaseId":"31049343","avatar":"https://p1.music.126.net/H-aBnEoGhmfC9Oq2CyCjmQ==/109951173562406975.jpg?param=130y130","fans":"4497","fanCount":4497},
   {"name":"泳恩Joannne","aliases":["Joannne"],"neteaseId":"12471974","avatar":"https://p1.music.126.net/r9JgKggMnBj5ObUJv2zMng==/109951173369524687.jpg?param=130y130","fans":"3.1万","fanCount":30833},
   {"name":"Kravn","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Wave Gang 成员；当前同名网易云账号不足以确认身份。"},
-  {"name":"Leadest","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Human Register 成员、创意总监；未确认独立网易云艺人账号。"},
+  {"name":"Leadest","aliases":[],"avatar":"assets/artist-placeholder.svg","profileStatus":"team-contributor","desc":"Human Register 的设计师","profileDisabled":true,"roleLabel":"设计师","metadataCheckedOn":"2026-11-16","lat":null,"lng":null,"mapVisible":false},
   {"name":"LEON LEE","aliases":[],"neteaseId":"35252449","avatar":"https://p2.music.126.net/_pVf4oHxytR9rm52-1Q8Nw==/109951170956707482.jpg?param=130y130","fans":"3832","fanCount":3832},
   {"name":"Lil Chucky","aliases":[],"neteaseId":"54459580","avatar":"https://p1.music.126.net/GD41WrRQgePiEV3MKFjUnw==/109951169909385383.jpg?param=130y130","fans":"1924","fanCount":1924},
   {"name":"LitXu力旭","aliases":["力旭"],"neteaseId":"32463970","avatar":"https://p1.music.126.net/T56vNo8E9vdKDTw2GzWYLw==/109951172007270997.jpg?param=130y130","fans":"903","fanCount":903},
@@ -5743,7 +5742,7 @@ const artistUpdates20261114 = [
   {"name":"Sealikethis","aliases":[],"neteaseId":"13699897","avatar":"https://p1.music.126.net/E3S67zWUCxfUvfnx-_3hzw==/109951170141811994.jpg?param=130y130","fans":"170","fanCount":170},
   {"name":"TivaAaa","aliases":["TivAaa"],"neteaseId":"46356652","avatar":"https://p1.music.126.net/OfIM9V8je1xFhdi66FJ7Qg==/109951169872863922.jpg?param=130y130","fans":"2524","fanCount":2524},
   {"name":"tree","aliases":[],"neteaseId":"37621718","avatar":"https://p2.music.126.net/Drn_kcCqkNtAfoevBvXN_A==/109951168852858248.jpg?param=130y130","fans":"3.1万","fanCount":31246},
-  {"name":"WILDIN","aliases":[],"avatar":"assets/artist-placeholder.svg","fans":"待核实","profileStatus":"pending-account","desc":"Wave Gang 成员；同名账号存在，团体身份尚未唯一确认。"},
+  {"name":"WILDIN","aliases":["歪丁"],"neteaseId":"12528836","avatar":"https://p1.music.126.net/wcCtMCZNW0wFYnqde92vGA==/109951172223097063.jpg?param=130y130","fans":"5899","fanCount":5899,"fansSource":"网易云艺人检索 fansSize","fansUpdatedOn":"2026-11-16","lat":29.659368,"lng":106.513887,"mapVisible":true,"coordinatesUpdatedOn":"2026-11-16","indexLetter":"W","profileStatus":"verified-account","metadataCheckedOn":"2026-11-16","metadataVerifiedOn":"2026-11-16","desc":"Wave Gang 成员"},
   {"name":"YBlanket","aliases":[],"neteaseId":"34635035","avatar":"https://p1.music.126.net/X1drHZ9-7JFctx025hMtKg==/109951169916436490.jpg?param=130y130","fans":"605","fanCount":605},
   {"name":"YU张渝","aliases":["YU","鱼丸","LilHeidi"],"neteaseId":"46998751","avatar":"https://p1.music.126.net/cQg4qPPcO3eCvFEjAbhS2A==/109951172484566419.jpg?param=130y130","fans":"1696","fanCount":1696},
   {"name":"ZenithILuvYou","aliases":["ZenithLuvYou"],"neteaseId":"31012563","avatar":"https://p1.music.126.net/hiIjZM6lJ-E4SuwqyM2b2g==/109951173592143441.jpg?param=130y130","fans":"2287","fanCount":2287},
@@ -5763,14 +5762,15 @@ const artistUpdates20261114 = [
     const { name, aliases, ...fields } = update;
     Object.assign(person, fields);
     person.aliases = [...new Set((person.aliases || []).concat(aliases, name).filter(alias => alias && alias !== person.name))];
-    person.metadataCheckedOn = '2026-11-14';
+    const checkedOn = update.metadataCheckedOn || '2026-11-14';
+    person.metadataCheckedOn = checkedOn;
     if (Number.isFinite(update.fanCount)) {
       person.fansSource = '网易云艺人检索 fansSize';
-      person.fansUpdatedOn = '2026-11-14';
+      person.fansUpdatedOn = update.fansUpdatedOn || checkedOn;
     }
     if (update.neteaseId) {
       person.profileStatus = 'verified-account';
-      person.metadataVerifiedOn = '2026-11-14';
+      person.metadataVerifiedOn = update.metadataVerifiedOn || checkedOn;
     }
     if (update.mapVisible === true) {
       const index = profiles.indexOf(person);
@@ -5791,8 +5791,8 @@ const veteranArtists20261116 = [
     "fanCount": 6321,
     "fansSource": "网易云艺人检索 fansSize",
     "fansUpdatedOn": "2026-11-15",
-    "lat": 34.310462,
-    "lng": 108.91385,
+    "lat": 34.397533,
+    "lng": 108.944979,
     "mapVisible": true,
     "coordinatesUpdatedOn": "2026-11-16",
     "profileStatus": "verified-account",
@@ -5994,6 +5994,176 @@ const veteranArtists20261116 = [
   }
 ];
 singers.push(...veteranArtists20261116);
+
+// 2026-11-16: user-confirmed locations and uniquely identified NetEase artists.
+const matchedArtists20261116 = [
+  {
+    "name": "江奈生",
+    "aliases": [
+      "hky"
+    ],
+    "neteaseId": "13006194",
+    "avatar": "https://p1.music.126.net/iFsJx7RxtFdbUNzz4Wu2tA==/109951171403922471.jpg?param=130y130",
+    "fans": "5.5万",
+    "fanCount": 54539,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 24.326133,
+    "lng": 109.409189,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "J",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "吴海啸Tsunami",
+    "aliases": [
+      "吴海啸"
+    ],
+    "neteaseId": "12127154",
+    "avatar": "https://p1.music.126.net/unW-gPF5eoureamR82lK4Q==/109951172820633550.jpg?param=130y130",
+    "fans": "6.4万",
+    "fanCount": 64411,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 22.773269,
+    "lng": 108.447439,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "W",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "火枪FIREGUN",
+    "aliases": [
+      "刀哥",
+      "火枪FIREGUN（刀哥）"
+    ],
+    "neteaseId": "12128074",
+    "avatar": "https://p2.music.126.net/lnGfbo-1zuagYsFiE9rGzQ==/109951169926656850.jpg?param=130y130",
+    "fans": "2.2万",
+    "fanCount": 22494,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 25.55526,
+    "lng": 100.342106,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "F",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "DP龙猪",
+    "aliases": [
+      "李龙飞"
+    ],
+    "neteaseId": "12333145",
+    "avatar": "https://p1.music.126.net/BHOD_lIj1huusJRIenbSjg==/109951172063659601.jpg?param=130y130",
+    "fans": "48.8万",
+    "fanCount": 487841,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 26.105396,
+    "lng": 99.976374,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "D",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "梁展程CKAY",
+    "aliases": [],
+    "neteaseId": "29270843",
+    "avatar": "https://p1.music.126.net/j9tDcJikWHDw_xNbtcbKjw==/109951169873507547.jpg?param=130y130",
+    "fans": "1.2万",
+    "fanCount": 11642,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 23.230036,
+    "lng": 113.415668,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "L",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "陷阱表哥",
+    "aliases": [
+      "庞熙明"
+    ],
+    "neteaseId": "33581921",
+    "avatar": "https://p1.music.126.net/Yn7T62GnWPq1uOpI4dMVHA==/109951169719607136.jpg?param=130y130",
+    "fans": "1.8万",
+    "fanCount": 18153,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 23.034034,
+    "lng": 113.267445,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "X",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "LOKO8!",
+    "aliases": [],
+    "neteaseId": "32289793",
+    "avatar": "https://p2.music.126.net/WB_rGX5G6mS2gJeQ6NsnTQ==/109951170410266248.jpg?param=130y130",
+    "fans": "1.1万",
+    "fanCount": 11447,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 22.995963,
+    "lng": 113.372551,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "L",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  },
+  {
+    "name": "Siky",
+    "aliases": [
+      "Siky Revange"
+    ],
+    "neteaseId": "34311081",
+    "avatar": "https://p2.music.126.net/Wh9o7jQO9vuX9zN68DJpTQ==/109951174222933141.jpg?param=130y130",
+    "fans": "4776",
+    "fanCount": 4776,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-16",
+    "lat": 30.740595,
+    "lng": 103.911981,
+    "mapVisible": true,
+    "coordinatesUpdatedOn": "2026-11-16",
+    "indexLetter": "S",
+    "profileStatus": "verified-account",
+    "metadataCheckedOn": "2026-11-16",
+    "metadataVerifiedOn": "2026-11-16",
+    "collaborators": []
+  }
+];
+singers.push(...matchedArtists20261116);
 
 const relationshipArtists = [...singers, ...profiles];
 
@@ -8579,6 +8749,20 @@ const verifiedSongPairs20261105 = [
   });
 })();
 
+// 2026-11-16: verified public song co-credits for the newly matched artists.
+(function addMatchedArtistCredits20261116() {
+  const byId = new Map(relationshipArtists.filter(item => item.neteaseId).map(item => [String(item.neteaseId), item]));
+  const pairs = [["12198789","13006194"],["13006194","13027202"],["13006194","31561897"],["12320060","55392630"],["12493701","55392630"],["12605500","55392630"],["12481977","55392630"],["12488150","55392630"],["12870490","55392630"],["12111129","55392630"],["12484112","12528836"],["12128074","12333145"],["12094099","12128074"],["12128074","188141"],["12128074","29270843"],["12128074","32743623"],["12128074","57598485"],["12128074","12357157"],["12333145","33581921"],["1132392","12333145"],["1086078","12333145"],["12333145","12965215"],["12039173","12333145"],["12236125","12333145"],["29270843","33581921"],["29270843","32743623"],["29270843","57598485"],["12357157","29270843"],["29270843","32289793"],["32289793","33581921"]];
+  pairs.forEach(([leftId, rightId]) => {
+    const left = byId.get(leftId), right = byId.get(rightId);
+    if (!left || !right || left === right) return;
+    [[left, right], [right, left]].forEach(([person, peer]) => {
+      if (!person.collaborators) person.collaborators = [];
+      if (!person.collaborators.some(item => item.name === peer.name)) person.collaborators.push({ name: peer.name });
+    });
+  });
+})();
+
 // 在双向补全前，先标记原始数据中明确有 collaborators 的歌手
 relationshipArtists.forEach(singer => {
   if (singer.collaborators && singer.collaborators.length > 0) {
@@ -8650,7 +8834,7 @@ const cities = [
     avatar: "./assets/labels/virtual-adam.jpg",
     neteaseId: "53937586",
     type: "label",
-    members: ["delphia!", "Wade Warhol", "lov3chanel", "tonymvn!a", "ANT NIRVANA", "JNOLAZY", "ANE"]
+    members: ["delphia!","Wade Warhol","lov3chanel","tonymvn!a","JNOLAZY","ANE"]
   },
         {
     name: "成都集团",
@@ -8692,7 +8876,7 @@ members: ["ljz329", "弹壳Danko", "AZ阿之", "", "毕冉","DP"]
     founded: "2012年",
     foundedSource: "https://music.163.com/#/artist/desc?id=12072073",
     type: "label",
-members: ["GAI周延","Toryondacloud","雾都L4WUDU","王嗣尧TURBO","布瑞吉Bridge", "Pop J", "REGI陈彦希", "OG ROLLY", "希介","小艾EYE"]
+members: ["GAI周延","Toryondacloud","雾都L4WUDU","王嗣尧TURBO","布瑞吉Bridge","Pop J","REGI陈彦希","OG ROLLY","希介","金蛇TrapHouse"]
   },
  {
     name: "觀山水",
@@ -8853,7 +9037,7 @@ members: ["辉子", "秃子2z", "金剑GOLDENSWORD","赵山河"]
   founded: "2007年",
   foundedSource: "https://www.sohu.com/a/358582188_765652",
 type: "label",
-members: ["孙骁","孙旭","奕文","益含"]
+members: ["孙骁","孙旭","益含"]
 },
 
 {
