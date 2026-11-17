@@ -6,6 +6,19 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "35192777": {
+      "songs": [
+        { "id": "2721432033", "name": "唐·侃爷", "artists": "Bsh-1 / 凯子哥danith" },
+        { "id": "3326768054", "name": "别装逼了", "artists": "凯子哥danith / 热七哥" },
+        { "id": "2739014454", "name": "我有块表（Feat.揽小）", "artists": "凯子哥danith / 揽小" }
+      ],
+      "biography": "来自浙江绍兴的音乐人\n感觉蓬蓬的 有时候萌萌的",
+      "biographyDate": "2026-11-17",
+      "songsFetchedOn": "2026-11-17",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=35192777"
+    },
     "48678321": {
       "songs": [
         { "id": "3416469334", "name": "中国人不会飞", "artists": "Eminem Rap祥龙 / Rap祥龙Slim" },

@@ -2,6 +2,16 @@
 window.RapMapData = (() => {
 const singers = [
   {
+    name: "凯子哥danith",
+    aliases: ["凯子哥"],
+    fans: "6614", fanCount: 6614,
+    fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-17",
+    lat: 30.046789, lng: 120.594714,
+    coordinatesUpdatedOn: "2026-11-17",
+    avatar: "https://p1.music.126.net/x70SOzM1Yo9f23lyuyQnGg==/109951168539384886.jpg?param=130y130",
+    neteaseId: "35192777", metadataVerifiedOn: "2026-11-17"
+  },
+  {
     name: "Eminem Rap祥龙",
     fans: "6031", fanCount: 6031,
     fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-17",

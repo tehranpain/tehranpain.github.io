@@ -177,7 +177,7 @@ function positionDesktopPopover(panel, anchor, { width = 320, alignRight = false
 }
 
 const profileUI = window.RapArtistProfiles.create({
-  detailsUrl: './data/artist-details.js?v=20261117-xianglong',
+  detailsUrl: './data/artist-details.js?v=20261117-danith',
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
