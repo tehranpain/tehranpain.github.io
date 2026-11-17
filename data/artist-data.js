@@ -2,6 +2,15 @@
 window.RapMapData = (() => {
 const singers = [
   {
+    name: "Eminem Rap祥龙",
+    fans: "6031", fanCount: 6031,
+    fansSource: "网易云艺人检索 fansSize", fansUpdatedOn: "2026-11-17",
+    lat: 39.0547, lng: 117.118272,
+    coordinatesUpdatedOn: "2026-11-17",
+    avatar: "https://p1.music.126.net/Gz5pXo6pN-K4DORkTbrl1Q==/109951173237998604.jpg?param=130y130",
+    neteaseId: "48678321", metadataVerifiedOn: "2026-11-17"
+  },
+  {
     name: "Lu1",
     aliases: ["路壹", "Lu1路壹"],
     fans: "13.3万",

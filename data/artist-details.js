@@ -6,6 +6,19 @@ window.RapArtistDetails = {
     "biographiesFetchedOn": "2026-11-05"
   },
   "byArtist": {
+    "48678321": {
+      "songs": [
+        { "id": "3416469334", "name": "中国人不会飞", "artists": "Eminem Rap祥龙 / Rap祥龙Slim" },
+        { "id": "2689685786", "name": "Kanye把谢帝干流产了！", "artists": "Eminem Rap祥龙 / Rap祥龙Slim" },
+        { "id": "3313620084", "name": "Asen怀了法老的孩子", "artists": "Eminem Rap祥龙 / Rap祥龙Slim" }
+      ],
+      "biography": "rap祥龙，男，大陆男嘻哈歌手，代表作品《说唱之神》《Rap祥龙与Digi Ghetto》《CDC华裔贫民窟》",
+      "biographyDate": "2026-11-17",
+      "songsFetchedOn": "2026-11-17",
+      "biographySource": "网易云音乐公开艺人简介",
+      "biographySummary": false,
+      "sourceUrl": "https://music.163.com/artist?id=48678321"
+    },
     "12127154": {
       "songs": [
         {
