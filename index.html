@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>中国说唱地图</title>
   
-  <link rel="stylesheet" href="./css/map-ui.css">
+  <link rel="stylesheet" href="./css/map-ui.css?v=20261117-cleanup">
   <link rel="stylesheet" href="./css/responsive.css">
   <link rel="stylesheet" href="./css/mobile-drawer.css">
   <link rel="stylesheet" href="./css/landmarks.css">
@@ -64,7 +64,7 @@
           </svg>说唱地标
         </button>
         <div id="action-group">
-          <button id="more-options-btn">
+          <button id="more-options-btn" hidden>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/>
               <line x1="6" y1="12" x2="18" y2="12"/>
@@ -217,12 +217,7 @@
     <div class="rank-tab active" data-tab="fan">乐迷团排行榜</div>
     <div class="rank-tab"        data-tab="fans">粉丝数量排行榜</div>
   </div>
-  <div id="rank-panel-subtitle">点击歌手名可定位到地图</div>
-  <div id="rank-fan-month-bar">
-    <div id="rank-fan-month-slider"></div>
-    <div class="rank-fan-month-tab" data-month="september">9月</div>
-    <div class="rank-fan-month-tab active" data-month="october">10月</div>
-  </div>
+  <div id="rank-panel-subtitle">乐迷团月榜（10月）</div>
   <div id="rank-panel-body"></div>
 </div>
 
@@ -262,16 +257,16 @@
     </section>
   </div>
 </aside>
-<script src="./fans-cache.js"></script>
+<script src="./fans-cache.js?v=20261117-fans-complete"></script>
 <script src="./data/artist-data.js?v=20261116-members"></script>
-<script src="./data/fanclub-data.js"></script>
+<script src="./data/fanclub-data.js?v=20261117-october-only"></script>
 <script src="./data/featured-releases.js?v=20261117-release-labels"></script>
 <script src="./data/landmark-data.js"></script>
-<script src="./scripts/artist-profiles.js?v=20261117-avatar-loading"></script>
+<script src="./scripts/artist-profiles.js?v=20261117-cleanup"></script>
 <script src="./scripts/network-scene.js?v=20261115-polish"></script>
 <script src="./scripts/mobile-navigation.js"></script>
 <script src="./scripts/home-panel.js?v=20261117-release-labels"></script>
-<script src="./scripts/app.js?v=20261117-home"></script>
+<script src="./scripts/app.js?v=20261117-cleanup"></script>
 </body>
 </html>
 

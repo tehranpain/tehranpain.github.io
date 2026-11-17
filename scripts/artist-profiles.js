@@ -266,10 +266,10 @@
         const text = element('p', 'profile-biography', characters.length > 180 ? characters.slice(0, 180).join('') + '…' : biography);
         bioSection.append(text);
         if (characters.length > 180) {
-          const toggle = button('profile-biography-toggle', '展开完整简介', () => {
+          const toggle = button('profile-biography-toggle', '展开', () => {
             const expanded = toggle.getAttribute('aria-expanded') === 'true';
             text.textContent = expanded ? characters.slice(0, 180).join('') + '…' : biography;
-            toggle.textContent = expanded ? '展开完整简介' : '收起简介';
+            toggle.textContent = expanded ? '展开' : '收起';
             toggle.setAttribute('aria-expanded', String(!expanded));
           });
           toggle.setAttribute('aria-expanded', 'false');
@@ -317,7 +317,6 @@
       }
       if (item.desc && !['自动添加', '网易云自动补全'].includes(item.desc)) identity.append(element('p', 'profile-description', item.desc));
       hero.append(identity);
-      if (!hasMapLocation(item)) hero.append(element('p', 'profile-only-note', '仅收录资料，不在地图显示'));
       const actions = element('div', 'profile-actions');
       if (group) {
         // Group IDs are added only after matching the account's biography or member credits.

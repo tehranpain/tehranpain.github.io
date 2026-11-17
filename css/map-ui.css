@@ -707,7 +707,10 @@ margin-top: 1px;
 
 
 
-/* ===== action-group：筛选 + 排行榜按钮行 ===== */
+/* Keep the retired filter trigger inert while its shared filter state remains available. */
+#more-options-btn[hidden] { display: none !important; }
+
+/* ===== action-group：排行榜按钮行 ===== */
 #action-group {
   display: flex;
   gap: 8px;
@@ -821,53 +824,6 @@ margin-top: 1px;
   flex-shrink: 0;
 }
 
-#rank-fan-month-bar {
-  display: flex;
-  align-items: center;
-  background: #f7f7f7;
-  border-radius: 10px;
-  margin: 8px 12px 0;
-  padding: 3px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-#rank-fan-month-bar.hidden {
-  display: none;
-}
-
-#rank-fan-month-slider {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  height: calc(100% - 6px);
-  width: calc(50% - 3px);
-  background: rgba(230, 0, 18, 0.10);
-  border: 1px solid rgba(230, 0, 18, 0.18);
-  border-radius: 7px;
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
-}
-
-.rank-fan-month-tab {
-  flex: 1;
-  text-align: center;
-  padding: 5px 4px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 7px;
-  position: relative;
-  z-index: 1;
-  color: #888;
-  transition: color 0.25s;
-  user-select: none;
-  white-space: nowrap;
-}
-
-.rank-fan-month-tab.active {
-  color: #e60012;
-}
 
 /* 可滚动内容区 */
 #rank-panel-body {

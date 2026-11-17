@@ -149,7 +149,6 @@ function captureProfileReturnTarget() {
   const list = document.getElementById(kind === 'rank' ? 'rank-panel-body' : 'index-list');
   const scrollTop = list.scrollTop;
   const tab = document.querySelector('.' + kind + '-tab.active')?.dataset.tab;
-  const month = document.querySelector('.rank-fan-month-tab.active')?.dataset.month;
   return {
     label: kind === 'rank' ? '排行榜' : '索引',
     restore() {
@@ -159,10 +158,6 @@ function captureProfileReturnTarget() {
       else if (!document.getElementById(kind + '-panel').classList.contains('show')) button.click();
       const selectedTab = document.querySelector('.' + kind + '-tab[data-tab="' + tab + '"]');
       if (selectedTab && !selectedTab.classList.contains('active')) selectedTab.click();
-      if (kind === 'rank') {
-        const selectedMonth = document.querySelector('.rank-fan-month-tab[data-month="' + month + '"]');
-        if (selectedMonth && !selectedMonth.classList.contains('active')) selectedMonth.click();
-      }
       list.scrollTop = scrollTop;
       if (!mobile) button.focus({ preventScroll: true });
     }
@@ -213,6 +208,8 @@ if (window.FANS_CACHE) {
   allData.forEach(item => {
     if (item.neteaseId && window.FANS_CACHE[item.neteaseId]) {
       item.fans = window.FANS_CACHE[item.neteaseId];
+      const count = window.FANS_CACHE_COUNTS?.[item.neteaseId];
+      if (Number.isFinite(count)) item.fanCount = count;
     }
   });
 }
@@ -391,7 +388,7 @@ document.getElementById('dots-only-toggle')?.addEventListener('change', event =>
 document.addEventListener('click', event => {
   if (!dotsOnlyMode || event.target.closest('#dots-only-option, #home-panel-collapse, #home-carousel-controls, .home-release-open')) return;
   const action = event.target.closest(
-    'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .index-row, .rank-tab, .index-tab, .rank-fan-month-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
+    'button, [role="button"], .leaflet-control-zoom a, .suggestion-item, .rank-row, .index-row, .rank-tab, .index-tab, .mobile-history-item, .city-nav-btn, .mobile-city-btn'
   );
   if (action) setDotsOnlyMode(false);
 }, true);
@@ -625,60 +622,6 @@ if (item.aliases && item.aliases.length > 0) {
   // Monthly counts are separate from the live follower-count leaderboard.
   const fanClubRankings = window.RapFanClubData;
 
-  // ★ 粉丝数量数据（字符串，按从多到少排列）
-  const fansCountData = [
-{ name: "法老",  val: "507.3万", avatar: "https://p1.music.126.net/mXAWgUNp5pLAzmphYvBrzQ==/109951170711607308.jpg?param=130y130" },
-  { name: "马思唯",  val: "411.5万", avatar: "https://p1.music.126.net/WDPjjeAunxIC8DVGWjG6Lw==/109951170646736523.jpg?param=130y130" },
-  { name: "姜云升",  val: "371.9万", avatar: "https://p1.music.126.net/VOXA9iqlExh6hruuPamo0Q==/109951166533103808.jpg?param=130y130" },
-  { name: "Jony J",  val: "368.5万", avatar: "https://p1.music.126.net/W1LehYLdq0UjvZ2rl3Wk0Q==/1383185640161008.jpg?param=130y130" },
-  { name: "NINEONE#乃万",  val: "247.5万", avatar: "https://p2.music.126.net/IOKcH64pITl0kow2gZ0RSQ==/109951171845583865.jpg?param=130y130" },
-  { name: "GAI周延",  val: "238万", avatar: "https://p1.music.126.net/iR9WU0iTKx6BiMycNJjIQg==/109951167592056590.jpg?param=130y130" },
-  { name: "沙一汀EL",  val: "221.2万", avatar: "https://p2.music.126.net/uoZCzadyd_0_TACb5gClRQ==/109951169875390584.jpg?param=130y130" },
-  { name: "Capper",  val: "194.9万", avatar: "https://p2.music.126.net/jO2Eb9wSdS6hbc2UQK1Y8w==/109951172402665734.jpg?param=130y130" },
-  { name: "杨和苏KeyNG",  val: "188.6万", avatar: "https://p2.music.126.net/-Xy6jVswqXtI5h7duPNSHw==/109951171453051553.jpg?param=130y130" },
-  { name: "王以太",  val: "179.5万", avatar: "https://p1.music.126.net/pc3F98VkKXATBlFsq6tFJQ==/109951169748487115.jpg?param=130y130" },
-  { name: "KEY.L刘聪",  val: "175.7万", avatar: "https://p2.music.126.net/l9wMo8vk2k3gOaN1zA3yLQ==/109951169838626318.jpg?param=130y130" },
-  { name: "万妮达Vinida Weng",  val: "146.6万", avatar: "https://p2.music.126.net/J8HQhBU2XAN3xNXuwvGCtQ==/109951170131065765.jpg?param=130y130" },
-  { name: "TizzyT",  val: "146.6万", avatar: "https://p1.music.126.net/Vbo8K447I5LLvH9VpdTfww==/109951166527176990.jpg?param=130y130" },
-  { name: "Ice Paper",  val: "142.3万", avatar: "https://p1.music.126.net/fzWDTckJqRqApWSYxUzKzA==/109951171972222899.jpg?param=130y130" },
-  { name: "满舒克",  val: "141.8万", avatar: "https://p2.music.126.net/ZY6pRcKLqzMNbGTrbWb_6Q==/109951167525919164.jpg?param=130y130" },
-  { name: "艾志恒Asen",  val: "135.8万", avatar: "https://p1.music.126.net/alpJxinPEXCuYkeEMnCDWA==/109951172058047957.jpg?param=130y130" },
-  { name: "ljz329",  val: "134.6万", avatar: "https://p2.music.126.net/2HWBehaTrcYUZAByJh-mDg==/109951170681263534.jpg?param=130y130" },
-  { name: "罗言",  val: "131.5万", avatar: "https://p1.music.126.net/ZrO8gJjxSmlmadJeRiqOPw==/109951172417958240.jpg?param=130y130" },
-  { name: "加木",  val: "130.4万", avatar: "https://p2.music.126.net/L0tacglZLODHeLoXFs2TWg==/109951172029543102.jpg?param=130y130" },
-  { name: "FOX胡天渝",  val: "129.7万", avatar: "https://p1.music.126.net/u3EX7EVjel9Ec0QC2sIhvg==/109951172561820413.jpg?param=130y130" },
-  { name: "艾热AIR",  val: "125.5万", avatar: "https://p2.music.126.net/tvy9BeZWZhqKfYKLHsSf-w==/109951172651091852.jpg?param=130y130" },
-  { name: "GALI",  val: "120.8万", avatar: "https://p2.music.126.net/YSda_aNO30ZGCsxoTgch8Q==/109951169463813274.jpg?param=130y130" },
-  { name: "Spylent",  val: "115.7万", avatar: "https://p2.music.126.net/JrffoAOTiQqOrOkjKQA-dg==/109951164612126790.jpg?param=130y130" },
-  { name: "KnowKnow",  val: "114.9万", avatar: "https://p2.music.126.net/EI-opdeBAR11phjG14fwbg==/109951172883193186.jpg?param=130y130" },
-  { name: "卦者灵风",  val: "104.9万", avatar: "https://p1.music.126.net/mBgnEujefu514dNL5HxxQg==/109951171814382535.jpg?param=130y130" },
-  { name: "蛋堡",  val: "104.2万", avatar: "https://p1.music.126.net/7hJaoKjkzsPzKz5vK4qW9g==/109951169249111436.jpg?param=130y130" },
-  { name: "宝石Gem",  val: "101.8万", avatar: "https://p1.music.126.net/cuxYBa8_n97yinJI22Sd4A==/109951172840033492.jpg?param=130y130" },
-  { name: "海洋Bo",  val: "99.7万", avatar: "https://p2.music.126.net/YXC1dKYtoYeNODtOVtI0Vw==/109951169955219117.jpg?param=130y130" },
-  { name: "kkluv",  val: "96.5万", avatar: "https://p2.music.126.net/krPkb_D4b63eIP5kbj6lqQ==/109951172293193743.jpg?param=130y130" },
-  { name: "那奇沃夫",  val: "95万", avatar: "https://p2.music.126.net/jRRnJKg9cNoavwSZNgZe6w==/109951172840846010.jpg?param=130y130" },
-  { name: "Rapeter",  val: "94.3万", avatar: "https://p1.music.126.net/-14yOGYmESuvaPbXGintKg==/109951170489763444.jpg?param=130y130" },
-  { name: "谢帝",  val: "91.4万", avatar: "https://p2.music.126.net/ETplhG5gXynEQoLQkRhHXg==/109951171813624638.jpg?param=130y130" },
-  { name: "Wiz-H张子豪",  val: "89.7万", avatar: "https://p1.music.126.net/6NW4JkNt9b73P2nZkkg9kA==/109951172528960503.jpg?param=130y130" },
-  { name: "连麻Swimming",  val: "86.5万", avatar: "https://p2.music.126.net/wI7g6jyH8959a1Q3WTftkw==/109951169607704628.jpg?param=130y130" },
-  { name: "THOME",  val: "82.4万", avatar: "https://p1.music.126.net/rIr78XiLso-Dlz00JjcLxw==/109951170999422334.jpg?param=130y130" },
-  { name: "盛宇D-SHINE",  val: "81.5万", avatar: "https://p2.music.126.net/SUz_YVh0pA9wWmM1CXgdqg==/109951170040821218.jpg?param=130y130" },
-  { name: "XMASwu(吴骜)",  val: "81.5万", avatar: "https://p1.music.126.net/KwzHH0PS0vsiwkyROP3nNg==/109951171807994362.jpg?param=130y130" },
-  { name: "Lambert凌杰",  val: "76.2万", avatar: "https://p1.music.126.net/jKNKPRUkxpWiXmm40wxMTQ==/109951171295629808.jpg?param=130y130" },
-  { name: "Ty.",  val: "74.8万", avatar: "https://p2.music.126.net/bQkoAJSN2mkUmDZDejF_Tg==/109951167060520225.jpg?param=130y130" },
-  { name: "李佳隆",  val: "74.4万", avatar: "https://p2.music.126.net/5ZNAae-eS01zCR4F1Xr5DA==/109951172561473437.jpg?param=130y130" },
-  { name: "艾福杰尼",  val: "73万", avatar: "https://p1.music.126.net/sRT4-AH1RpaeGxBI8G_8_g==/109951169446600145.jpg?param=130y130" },
-  { name: "Top Barry",  val: "73万", avatar: "https://p1.music.126.net/fvKBiGSsbxmgCK0GBog0qA==/109951171380523664.jpg?param=130y130" },
-  { name: "SASIOVERLXRD",  val: "71.8万", avatar: "https://p1.music.126.net/78xGrcvMMxQkc5tJgouEDQ==/109951172070467513.jpg?param=130y130" },
-  { name: "张方钊",  val: "70.4万", avatar: "https://p2.music.126.net/V9c13mCQzxj6eBvzUMHqpQ==/109951169860936662.jpg?param=130y130" },
-  { name: "KKECHO",  val: "68.4万", avatar: "https://p2.music.126.net/LaYKY3KFwO0JM6dRjVvjXw==/109951172012057555.jpg?param=130y130" },
-  { name: "mac ova seas",  val: "68.4万", avatar: "https://p1.music.126.net/0VgIdaOVWbyPo_-0i-1hpw==/109951168559129539.jpg?param=130y130" },
-  { name: "ICE杨长青",  val: "67万", avatar: "https://p2.music.126.net/7V-tVve07mAeHhoN6HGhVw==/109951171484108629.jpg?param=130y130" },
-  { name: "MC HotDog热狗",  val: "64.5万", avatar: "https://p2.music.126.net/5ViEXoj1xti2RzahxIMzZQ==/109951169161434274.jpg?param=130y130" },
-  { name: "JinJiBeWater-隼",  val: "60.3万", avatar: "https://p1.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg?param=180y180" },
-    // ... 补充你的真实数据
-  ];
-
   function parseFansValue(value) {
     const text = String(value || '').trim();
     const num = parseFloat(text);
@@ -686,22 +629,22 @@ if (item.aliases && item.aliases.length > 0) {
     return text.includes('万') ? num * 10000 : num;
   }
 
+  // Rebuild the top 50 from current singers instead of reordering an outdated shortlist.
   function getFansCountData() {
-    return fansCountData
-      .map(item => {
-        const singerData = allData.find(s => s.name === item.name);
-        return {
-          ...item,
-          val: singerData && singerData.fans ? singerData.fans : item.val
-        };
-      })
-      .sort((a, b) => parseFansValue(b.val) - parseFansValue(a.val));
+    return allData.filter(item => item.type === 'singer').map(item => {
+      const exactCount = window.FANS_CACHE_COUNTS?.[item.neteaseId];
+      return { name: item.name, val: item.fans, avatar: item.avatar,
+        sortValue: Number.isFinite(exactCount) ? exactCount : parseFansValue(item.fans) };
+    }).filter(item => item.sortValue > 0)
+      .sort((a, b) => b.sortValue - a.sortValue)
+      .slice(0, 50);
   }
 
   const fanClubMonthData = fanClubRankings.months;
+  const currentFanClub = fanClubMonthData[fanClubRankings.defaultMonth];
 
   function getCurrentFanClubData() {
-    return (fanClubMonthData[currentFanMonth] || fanClubMonthData[fanClubRankings.defaultMonth]).entries;
+    return currentFanClub.entries;
   }
 
   // 渲染榜单
@@ -771,47 +714,20 @@ row.innerHTML = `
   function updateRankPanelSubtitle() {
     const subtitle = document.getElementById('rank-panel-subtitle');
     if (currentTab === 'fan') {
-      subtitle.textContent = `点击歌手名可定位到地图 · 乐迷团月榜（${fanClubMonthData[currentFanMonth].label}）`;
+      subtitle.textContent = `乐迷团月榜（${currentFanClub.label}）`;
     } else {
       subtitle.textContent = '点击歌手名可定位到地图';
     }
   }
 
-  function updateFanMonthBarVisibility() {
-    const monthBar = document.getElementById('rank-fan-month-bar');
-    monthBar.classList.toggle('hidden', currentTab !== 'fan');
-  }
-
   // 初始显示乐迷团榜
   let currentTab = 'fan';
-  let currentFanMonth = fanClubRankings.defaultMonth;
   renderList(getCurrentFanClubData());
   updateRankPanelSubtitle();
-  updateFanMonthBarVisibility();
 
   // 切换标签逻辑
   const tabs   = document.querySelectorAll('.rank-tab');
   const slider = document.getElementById('rank-tab-slider');
-  const monthTabs = document.querySelectorAll('.rank-fan-month-tab');
-  const monthSlider = document.getElementById('rank-fan-month-slider');
-  monthSlider.style.transform = `translateX(${Array.from(monthTabs).findIndex(tab => tab.dataset.month === currentFanMonth) * 100}%)`;
-
-  monthTabs.forEach((tab, idx) => {
-    tab.addEventListener('click', function() {
-      if (this.dataset.month === currentFanMonth) return;
-      currentFanMonth = this.dataset.month;
-
-      monthTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      monthSlider.style.transform = `translateX(${idx * 100}%)`;
-
-      if (currentTab === 'fan') {
-        renderList(getCurrentFanClubData());
-        updateRankPanelSubtitle();
-      }
-    });
-  });
-
   tabs.forEach((tab, idx) => {
     tab.addEventListener('click', function() {
       if (this.dataset.tab === currentTab) return;
@@ -825,7 +741,6 @@ row.innerHTML = `
       slider.style.transform = idx === 0 ? 'translateX(0)' : 'translateX(100%)';
 
       // 渲染对应数据
-      updateFanMonthBarVisibility();
       updateRankPanelSubtitle();
       renderList(currentTab === 'fan' ? getCurrentFanClubData() : getFansCountData());
     });
