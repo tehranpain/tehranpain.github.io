@@ -110,7 +110,8 @@
         image.src = person.avatar;
         avatar.append(image);
       }
-      reveal.append(avatar, element('span', 'network-node-name', person.name));
+      reveal.append(avatar);
+      if (!center) reveal.append(element('span', 'network-node-name', person.name));
       frame.append(reveal); offset.append(frame);
       const size = center ? 64 : 42;
       const item = L.marker([person.lat, person.lng], {
@@ -153,10 +154,6 @@
       const anchors = nodes.map((entry, i) => ({
         ...map.latLngToContainerPoint(entry.marker.getLatLng()), radius: entry.size * scale / 2 + (i ? 0 : 18)
       }));
-      const labelWidth = Math.min(175, Array.from(centerName).length * 10 + 20) * scale;
-      const labelTop = anchors[0].y + (nodes[0].size / 2 + 12) * scale;
-      anchors[0].labelBox = { left: anchors[0].x - labelWidth / 2, right: anchors[0].x + labelWidth / 2,
-        top: labelTop, bottom: labelTop + 30 * scale };
       const positions = spreadNodes(anchors, { left: padding.left / 2, right: size.x - padding.right / 2, top: padding.top, bottom: size.y - padding.bottom });
       nodes.forEach((entry, index) => {
         const position = positions[index];

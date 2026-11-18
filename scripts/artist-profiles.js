@@ -343,20 +343,33 @@
       return detailsRequest;
     }
     function renderMusic(item, songsSection, bioSection, source) {
-      songsSection.replaceChildren(element('h3', 'profile-section-title', '代表作品'));
+      songsSection.replaceChildren(element('h3', 'profile-section-title', '热门作品'));
       bioSection.replaceChildren(element('h3', 'profile-section-title', '艺人简介'));
       const entry = source && source.byArtist && source.byArtist[String(item.neteaseId)];
       const songs = entry && Array.isArray(entry.songs)
         ? entry.songs.filter(song => /^\d+$/.test(String(song.id)) && typeof song.name === 'string').slice(0, 3) : [];
-      const list = element('ol', 'profile-song-list');
-      songs.forEach((song, index) => {
+      const list = element('ul', 'profile-song-list');
+      songs.forEach(song => {
         const row = element('li', 'profile-song');
+        const cover = element('span', 'profile-song-cover');
+        const source = (root.RapSongCovers || {})[String(song.id)];
+        if (source && /^https?:\/\//.test(source)) {
+          const image = element('img');
+          image.alt = '';
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.src = source + (source.includes('?') ? '&' : '?') + 'param=100y100';
+          image.addEventListener('error', () => { image.hidden = true; });
+          cover.append(image);
+        }
         const copy = element('div', 'profile-song-copy');
         copy.append(element('span', 'profile-song-name', song.name), element('span', 'profile-song-artists', song.artists || item.name));
+        copy.firstElementChild.title = song.name;
+        copy.lastElementChild.title = song.artists || item.name;
         const link = musicLink('profile-song-open', '', 'song', String(song.id));
         link.setAttribute('aria-label', '在网易云打开歌曲：' + song.name);
         link.title = '在网易云打开';
-        row.append(element('span', 'profile-song-order', String(index + 1)), copy, link);
+        row.append(cover, copy, link);
         list.append(row);
       });
       if (songs.length) {
@@ -444,7 +457,7 @@
 
       let songsSection, bioSection;
       if (!group) {
-        songsSection = section('代表作品');
+        songsSection = section('热门作品');
         bioSection = section('艺人简介');
         if (snapshot || root.RapArtistDetails) renderMusic(item, songsSection, bioSection, snapshot || root.RapArtistDetails);
         else {
