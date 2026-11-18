@@ -1347,8 +1347,17 @@ margin-top: 1px;
   #action-group { gap: 8px; margin: 0; }
   #more-options-btn, #rank-btn { height: 40px; padding: 0 14px; }
   #search-suggestions { box-sizing: border-box; position: absolute; top: 54px; left: 0; width: 334px; max-width: calc(100vw - 80px); margin: 0; }
+  #mobile-history-section.desktop-history-open { display: block; box-sizing: border-box; position: absolute; z-index: 2; top: 54px; left: 0; width: 334px; max-width: calc(100vw - 80px); padding: 12px 14px; border: 1px solid #f1ece8; border-radius: 16px; background: #fff; box-shadow: 0 8px 20px #0002; }
+  #mobile-history-section .mobile-sheet-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; color: #71665f; font-size: 13px; font-weight: 600; }
+  #mobile-history-clear { padding: 4px; border: 0; background: none; color: #71665f; font: inherit; cursor: pointer; }
+  #mobile-history-list { display: flex; flex-wrap: wrap; gap: 6px; max-height: 220px; overflow: auto; }
+  .mobile-history-item { max-width: 100%; padding: 6px 10px; overflow: hidden; border: 1px solid #eee8e3; border-radius: 999px; background: #faf8f5; color: #302a24; font-size: 13px; white-space: nowrap; text-overflow: ellipsis; cursor: pointer; }
+  .mobile-history-item:hover { background: #fff0f0; color: #b40012; }
+  #mobile-history-section button:focus-visible { outline: 2px solid #e60012; outline-offset: -2px; }
+  .mobile-history-empty { padding: 4px 0; color: #71665f; font-size: 13px; }
   #more-options-dropdown { overflow-y: auto; overscroll-behavior: contain; }
 }
+#mobile-history-clear:disabled { opacity: .5; cursor: default; }
 @media (min-width: 481px) and (max-width: 740px) {
   :root { --map-panel-top: 128px; }
   #search-input-wrap { grid-template-columns: minmax(0, 1fr) 44px; row-gap: 10px; }

@@ -199,7 +199,7 @@ const profileUI = window.RapArtistProfiles.create({
     });
     document.getElementById('index-btn').setAttribute('aria-expanded', 'false');
     document.getElementById('search-container').classList.remove('mobile-expanded', 'mobile-searching', 'mobile-mode-open');
-    document.getElementById('search-suggestions').style.display = 'none';
+    hideSearchPanels();
   }
 });
 
@@ -1479,33 +1479,88 @@ setActiveLandmarkCategory('all', false);
     window.addEventListener('resize', relocateMobilePanels);
     relocateMobilePanels();
 
-    const MOBILE_HISTORY_KEY = 'rapMapMobileSearchHistory';
+    const SEARCH_HISTORY_KEY = 'rapMapSearchHistory';
+    const LEGACY_SEARCH_HISTORY_KEY = 'rapMapMobileSearchHistory';
+    const SEARCH_HISTORY_LIMIT = 10;
+    let searchHistory;
 
-    function getMobileHistory() {
-      try {
-        return JSON.parse(localStorage.getItem(MOBILE_HISTORY_KEY) || '[]');
-      } catch (e) {
-        return [];
+    function isHistoryKind(type) {
+      return ['singer', 'label', 'city'].includes(type);
+    }
+
+    function resolveHistoryItem({ name, type } = {}) {
+      if (typeof name !== 'string' || !name.trim()) return null;
+      if (!type || type === 'city') {
+        const city = cities.find(item => item.name.toLowerCase() === name.trim().toLowerCase());
+        if (city) return { raw: city.name, type: 'city', lat: city.lat, lng: city.lng };
       }
+      if (type && type !== 'singer' && type !== 'label') return null;
+      const person = profileUI.find(name);
+      return person && !person.profileDisabled && (!type || person.type === type)
+        ? { raw: person.name, type: person.type } : null;
     }
 
-    function saveMobileHistory(keyword) {
-      if (!keyword || !isMobileLayout()) return;
-      const next = [keyword, ...getMobileHistory().filter(item => item !== keyword)].slice(0, 6);
-      localStorage.setItem(MOBILE_HISTORY_KEY, JSON.stringify(next));
-      renderMobileHistory();
+    function getSearchHistory() {
+      if (!searchHistory) {
+        searchHistory = [];
+        try {
+          const saved = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)
+            ?? localStorage.getItem(LEGACY_SEARCH_HISTORY_KEY) ?? '[]');
+          if (Array.isArray(saved)) {
+            const seen = new Set();
+            for (const entry of saved) {
+              const item = resolveHistoryItem(typeof entry === 'string' ? { name: entry } : entry || {});
+              if (!item || !isHistoryKind(item.type)) continue;
+              const key = item.type + ':' + item.raw;
+              if (seen.has(key)) continue;
+              seen.add(key);
+              searchHistory.push({ name: item.raw, type: item.type });
+              if (searchHistory.length === SEARCH_HISTORY_LIMIT) break;
+            }
+          }
+        } catch { /* Search remains available when browser storage is disabled. */ }
+      }
+      return searchHistory;
     }
 
-    function renderMobileHistory() {
-      if (!mobileHistoryList) return;
-      const history = getMobileHistory();
+    function persistSearchHistory(entries) {
+      searchHistory = entries;
+      try {
+        localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(entries));
+        localStorage.removeItem(LEGACY_SEARCH_HISTORY_KEY);
+      } catch { /* Keep the current tab's history even without persistent storage. */ }
+      renderSearchHistory();
+    }
+
+    function saveSearchHistory(item) {
+      if (!isHistoryKind(item.type)) return;
+      const previous = getSearchHistory().filter(entry => entry.name !== item.raw || entry.type !== item.type);
+      persistSearchHistory([{ name: item.raw, type: item.type }, ...previous].slice(0, SEARCH_HISTORY_LIMIT));
+    }
+
+    function renderSearchHistory() {
+      const history = getSearchHistory();
+      mobileHistoryClear.disabled = history.length === 0;
       if (!history.length) {
         mobileHistoryList.innerHTML = '<div class="mobile-history-empty">还没有历史搜索</div>';
         return;
       }
       mobileHistoryList.innerHTML = history.map(item => (
-        `<button class="mobile-history-item" type="button" data-keyword="${escapeHtml(item)}">${escapeHtml(item)}</button>`
+        `<button class="mobile-history-item" type="button" data-keyword="${escapeHtml(item.name)}" data-type="${item.type}" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</button>`
       )).join('');
+    }
+
+    function hideSearchPanels() {
+      document.getElementById('search-suggestions').style.display = 'none';
+      mobileHistorySection.classList.remove('desktop-history-open');
+    }
+
+    function openDesktopSearchHistory() {
+      if (isMobileLayout() || searchInput.value.trim()) return;
+      hideSearchPanels();
+      closeIndexPanel();
+      renderSearchHistory();
+      mobileHistorySection.classList.add('desktop-history-open');
     }
 
     function openMobileSheet(panel = 'filter') {
@@ -1543,7 +1598,7 @@ setActiveLandmarkCategory('all', false);
       searchContainer.classList.add('mobile-searching');
       searchContainer.classList.remove('mobile-mode-open');
       moreOptionsDropdown.classList.remove('show');
-      renderMobileHistory();
+      renderSearchHistory();
       openIndexPanel();
     }
 
@@ -1884,8 +1939,8 @@ updateModeFilterSlider();
     if (mobileHistoryClear) {
       mobileHistoryClear.addEventListener('click', function(e) {
         e.stopPropagation();
-        localStorage.removeItem(MOBILE_HISTORY_KEY);
-        renderMobileHistory();
+        searchInput.focus();
+        persistSearchHistory([]);
       });
     }
 
@@ -1893,9 +1948,13 @@ updateModeFilterSlider();
       mobileHistoryList.addEventListener('click', function(e) {
         const item = e.target.closest('.mobile-history-item');
         if (!item) return;
-        searchInput.value = item.dataset.keyword || '';
-        updateClearBtn();
-        executeSearch();
+        const target = resolveHistoryItem({ name: item.dataset.keyword, type: item.dataset.type });
+        if (!target) return;
+        if (!isMobileLayout()) {
+          searchInput.value = target.raw;
+          searchInput.focus({ preventScroll: true });
+        }
+        selectSearchResult(target);
       });
     }
 
@@ -1976,9 +2035,11 @@ updateModeFilterSlider();
 
     function updateSuggestions(val) {
       if (!val.trim()) {
-        suggestionsDiv.style.display = 'none';
+        hideSearchPanels();
+        openDesktopSearchHistory();
         return;
       }
+      mobileHistorySection.classList.remove('desktop-history-open');
       const lowerVal = val.toLowerCase();
       const matches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower.includes(lowerVal)).slice(0, 8);
       if (matches.length === 0) {
@@ -2005,18 +2066,7 @@ updateModeFilterSlider();
           div.innerHTML = highlightKeyword(m.raw, val);
         }
 
-        div.addEventListener('click', () => {
-          searchInput.value = m.raw;
-          saveMobileHistory(m.raw);
-          suggestionsDiv.style.display = 'none';
-          if (m.type === 'city') {
-              locateCity(m);
-            } else if (isLandmarkSearchType(m.type)) {
-              locateMapPoint(m);
-            } else {
-              locateAndAnimate(m.raw);
-            }
-        });
+        div.addEventListener('click', () => selectSearchResult(m));
         suggestionsDiv.appendChild(div);
       });
       suggestionsDiv.style.display = 'block';
@@ -2031,7 +2081,7 @@ function locateCity(cityObj) {
       }
 
     function locateMapPoint(pointObj) {
-      if (!RAP_LANDMARKS_ENABLED) return;
+      if (!RAP_LANDMARKS_ENABLED) return false;
       if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       activeLandmarkTheme = 'landmark';
       setActiveLandmarkCategory(pointObj.landmarkCategory || 'all', false);
@@ -2049,6 +2099,7 @@ function locateCity(cityObj) {
       map.flyTo([pointObj.lat, pointObj.lng], 16, { duration: 1.0, easeLinearity: 0.3 });
       showTip(`已定位：${pointObj.raw}`, false, 1800);
       addPulseEffect([pointObj.lat, pointObj.lng]);
+      return true;
     }
 
 
@@ -2056,8 +2107,7 @@ function locateCity(cityObj) {
     function locateAndAnimate(name, showProfile = true) {
       const person = profileUI.find(name);
       if (person && !profileUI.hasMapLocation(person)) {
-        profileUI.open(person.name);
-        return;
+        return profileUI.open(person.name);
       }
       const exitBtn = document.getElementById('exit-network-btn');
       if (networkScene && networkScene.isActive()) {
@@ -2085,33 +2135,32 @@ function locateCity(cityObj) {
         markerObj = searchMarkerMap.get(lowerName);
       }
       if (markerObj && markerObj.marker) {
-        smartLocateAndPopup(markerObj.marker, markerObj.rawName, showProfile);
-      } else {
-        showTip('没找到 "' + name + '"，试试其他关键词', true);
+        return smartLocateAndPopup(markerObj.marker, markerObj.rawName, showProfile);
       }
+      showTip('没找到 "' + name + '"，试试其他关键词', true);
+      return false;
+    }
+
+    function selectSearchResult(item) {
+      searchInput.value = item.raw;
+      updateClearBtn();
+      hideSearchPanels();
+      if (item.type === 'city') locateCity(item);
+      else if (isLandmarkSearchType(item.type)) return locateMapPoint(item);
+      else if (!locateAndAnimate(item.raw)) return;
+      saveSearchHistory(item);
     }
 
     // 搜索执行
    function executeSearch() {
         const keyword = searchInput.value.trim();
         if (!keyword) { showTip('输入歌手、团体或城市名称吧', false, 1200); return; }
-        saveMobileHistory(keyword);
       const lowerKw = keyword.toLowerCase();
         const exactMatches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower === lowerKw);
         const exactMatch = exactMatches.find(item => item.raw.toLowerCase() === lowerKw) || exactMatches[0];
-      if (exactMatch) {
-          suggestionsDiv.style.display = 'none';
-          if (exactMatch.type === 'city') locateCity(exactMatch);
-          else if (isLandmarkSearchType(exactMatch.type)) locateMapPoint(exactMatch);
-          else locateAndAnimate(exactMatch.raw);
-          return;
-        }
-      const fuzzyMatches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower.includes(lowerKw));
-        if (fuzzyMatches.length > 0) {
-          suggestionsDiv.style.display = 'none';
-          if (fuzzyMatches[0].type === 'city') locateCity(fuzzyMatches[0]);
-          else if (isLandmarkSearchType(fuzzyMatches[0].type)) locateMapPoint(fuzzyMatches[0]);
-          else locateAndAnimate(fuzzyMatches[0].raw);
+        const match = exactMatch || searchNameList.find(item => isSearchItemAllowed(item) && item.lower.includes(lowerKw));
+        if (match) {
+          selectSearchResult(match);
         } else {
           showTip(`暂未收录 "${keyword}"`, true);
         }
@@ -2126,29 +2175,44 @@ function locateCity(cityObj) {
       e.stopPropagation();
       searchInput.value = '';
       updateClearBtn();
-      suggestionsDiv.style.display = 'none';
+      hideSearchPanels();
       searchInput.focus();
+      openDesktopSearchHistory();
     });
 
     searchInput.addEventListener('input', (e) => {
       updateSuggestions(e.target.value);
       updateClearBtn();
     });
-    searchInput.addEventListener('focus', openMobileSearch);
-    searchInput.addEventListener('click', openMobileSearch);
+    function openSearchInput() {
+      if (isMobileLayout()) openMobileSearch();
+      else openDesktopSearchHistory();
+    }
+    searchInput.addEventListener('focus', openSearchInput);
+    searchInput.addEventListener('click', openSearchInput);
     searchBtn.addEventListener('click', executeSearch);
-    searchInput.addEventListener('keypress', (e) => {
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.isComposing || e.keyCode === 229) return;
       if (e.key === 'Enter') {
         e.preventDefault();
         executeSearch();
+      } else if (e.key === 'ArrowDown' && mobileHistorySection.classList.contains('desktop-history-open')) {
+        const first = mobileHistoryList.querySelector('button');
+        if (first) { e.preventDefault(); first.focus(); }
       }
+    });
+    searchContainer.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !mobileHistorySection.classList.contains('desktop-history-open')) return;
+      event.stopPropagation();
+      searchInput.focus();
+      hideSearchPanels();
     });
     document.addEventListener('click', (e) => {
-      if (mobileNavigation && mobileNavigation.contains(e.target)) return;
-      if (!document.getElementById('search-container').contains(e.target)) {
-        suggestionsDiv.style.display = 'none';
+      if (isMobileLayout()) return;
+      if (!searchContainer.contains(e.target) || e.target.closest('#index-btn, #rank-btn, #more-options-btn')) {
+        hideSearchPanels();
       }
-    });
+    }, true);
 
     // ===== 索引面板逻辑 =====
     const indexBtn   = document.getElementById('index-btn');
@@ -2569,7 +2633,8 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
           modeFilterTabs.classList.remove('mobile-open');
           dismissMobilePanels();
           if (key === 'search') {
-            renderMobileHistory();
+            mobileHistorySection.classList.remove('desktop-history-open');
+            renderSearchHistory();
             updateSuggestions(searchInput.value);
             updateClearBtn();
           } else if (key === 'filter') {
@@ -2582,7 +2647,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         },
         onClose: () => {
           dismissMobilePanels();
-          suggestionsDiv.style.display = 'none';
+          hideSearchPanels();
           document.body.append(searchTipDiv);
           requestAnimationFrame(() => setFanSliderPercent(fanSliderPercent));
         }
