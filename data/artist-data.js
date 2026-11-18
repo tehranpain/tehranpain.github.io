@@ -5906,25 +5906,6 @@ const veteranArtists20261116 = [
     "collaborators": []
   },
   {
-    "name": "小狮子",
-    "aliases": [
-      "MC唐"
-    ],
-    "neteaseId": "37447563",
-    "avatar": "https://p2.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg?param=130y130",
-    "fans": "291",
-    "fanCount": 291,
-    "fansSource": "网易云艺人检索 fansSize",
-    "fansUpdatedOn": "2026-11-15",
-    "lat": 30.994457,
-    "lng": 121.449385,
-    "mapVisible": true,
-    "coordinatesUpdatedOn": "2026-11-16",
-    "profileStatus": "verified-account",
-    "metadataVerifiedOn": "2026-11-15",
-    "collaborators": []
-  },
-  {
     "name": "罗开元",
     "aliases": [],
     "neteaseId": "12536854",

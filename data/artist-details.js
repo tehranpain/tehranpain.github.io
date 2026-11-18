@@ -1882,26 +1882,6 @@ window.RapArtistDetails = {
       "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=12536854"
     },
-    "37447563": {
-      "songs": [
-        {
-          "id": "27566701",
-          "name": "轮回",
-          "artists": "小狮子"
-        },
-        {
-          "id": "3435043070",
-          "name": "沪上拾光",
-          "artists": "小狮子"
-        }
-      ],
-      "biography": "",
-      "biographyDate": "2026-11-15",
-      "songsFetchedOn": "2026-11-15",
-      "biographySource": "网易云音乐公开艺人简介",
-      "biographySummary": false,
-      "sourceUrl": "https://music.163.com/artist?id=37447563"
-    },
     "2122": {
       "songs": [
         {
