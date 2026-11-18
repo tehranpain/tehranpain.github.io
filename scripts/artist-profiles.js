@@ -12,7 +12,7 @@
     const all = artists.concat(groups);
     const allNames = indexNames(all);
     const artistNames = indexNames(artists.filter(item => !item.profileDisabled));
-    let panel, scroller, closeButton, backButton, returnFocus, selected, revision = 0;
+    let panel, scroller, content, closeButton, backButton, returnFocus, selected, revision = 0;
     let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
@@ -156,6 +156,101 @@
       });
       return svg;
     }
+    function setupScrollbar() {
+      const view = doc.defaultView || root;
+      const track = element('div', 'profile-scrollbar');
+      const thumb = element('div', 'profile-scrollbar-thumb');
+      thumb.tabIndex = 0;
+      Object.entries({ role: 'scrollbar', 'aria-label': '滚动资料卡', 'aria-controls': scroller.id,
+        'aria-orientation': 'vertical', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': '0' })
+        .forEach(([key, value]) => thumb.setAttribute(key, value));
+      track.hidden = true;
+      track.append(thumb);
+      panel.append(track);
+      let timer, frame, drag;
+      const reveal = () => {
+        track.classList.add('is-active');
+        view.clearTimeout(timer);
+        timer = view.setTimeout(() => track.classList.remove('is-active'), 900);
+      };
+      function metrics() {
+        const height = track.clientHeight;
+        const max = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+        const thumbHeight = Math.min(height, Math.max(32, height * scroller.clientHeight / Math.max(1, scroller.scrollHeight)));
+        return { max, thumbHeight, travel: Math.max(0, height - thumbHeight) };
+      }
+      function update() {
+        frame = null;
+        track.hidden = panel.hidden || scroller.scrollHeight <= scroller.clientHeight + 1;
+        if (track.hidden) return;
+        const { max, thumbHeight, travel } = metrics();
+        const progress = max ? Math.min(1, Math.max(0, scroller.scrollTop / max)) : 0;
+        thumb.style.height = thumbHeight + 'px';
+        thumb.style.transform = 'translateY(' + progress * travel + 'px)';
+        thumb.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+      }
+      const schedule = () => {
+        if (frame == null) frame = view.requestAnimationFrame(update);
+      };
+      scroller.addEventListener('scroll', () => { schedule(); reveal(); }, { passive: true });
+      // Content resizing covers lazy images, loaded metadata, and biography expansion.
+      if (view.ResizeObserver) {
+        const observer = new view.ResizeObserver(schedule);
+        observer.observe(scroller);
+        observer.observe(content);
+      }
+      view.addEventListener('resize', schedule);
+      track.addEventListener('wheel', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? scroller.clientHeight : 1;
+        scroller.scrollTop += event.deltaY * unit;
+        schedule();
+        reveal();
+      }, { passive: false });
+      track.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        event.preventDefault();
+        thumb.focus({ preventScroll: true });
+        const { max, thumbHeight, travel } = metrics();
+        if (!travel) return;
+        if (event.target !== thumb) {
+          const position = event.clientY - track.getBoundingClientRect().top - thumbHeight / 2;
+          scroller.scrollTop = Math.min(1, Math.max(0, position / travel)) * max;
+        }
+        drag = { pointer: event.pointerId, y: event.clientY, top: scroller.scrollTop };
+        track.setPointerCapture(event.pointerId);
+        track.classList.add('is-dragging');
+        reveal();
+        schedule();
+      });
+      track.addEventListener('pointermove', event => {
+        if (!drag || drag.pointer !== event.pointerId) return;
+        const { max, travel } = metrics();
+        if (travel) scroller.scrollTop = drag.top + (event.clientY - drag.y) * max / travel;
+      });
+      const endDrag = () => { drag = null; track.classList.remove('is-dragging'); };
+      track.addEventListener('lostpointercapture', endDrag);
+      track.addEventListener('pointerup', event => {
+        if (!drag || drag.pointer !== event.pointerId) return;
+        track.releasePointerCapture(event.pointerId);
+        endDrag();
+        reveal();
+      });
+      track.addEventListener('pointercancel', endDrag);
+      thumb.addEventListener('keydown', event => {
+        const next = { ArrowDown: scroller.scrollTop + 40, ArrowUp: scroller.scrollTop - 40,
+          PageDown: scroller.scrollTop + scroller.clientHeight, PageUp: scroller.scrollTop - scroller.clientHeight,
+          Home: 0, End: scroller.scrollHeight }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        scroller.scrollTop = next;
+        schedule();
+        reveal();
+      });
+      return schedule;
+    }
+    let updateScrollbar;
     function ensurePanel() {
       if (panel) return;
       panel = element('aside', 'artist-profile-panel');
@@ -177,8 +272,15 @@
       closeButton.setAttribute('aria-label', '关闭资料卡片');
       toolbar.append(closeButton);
       scroller = element('div', 'profile-scroll');
+      scroller.id = 'artist-profile-scroll';
+      scroller.tabIndex = 0;
+      scroller.setAttribute('role', 'region');
+      scroller.setAttribute('aria-label', '资料卡内容');
+      content = element('div', 'profile-content');
+      scroller.append(content);
       panel.append(toolbar, scroller);
       doc.body.appendChild(panel);
+      updateScrollbar = setupScrollbar();
     }
     function close({ restoreFocus = true } = {}) {
       if (!panel || panel.hidden) return;
@@ -338,7 +440,7 @@
         actions.append(relation);
       }
       if (actions.children.length) hero.append(actions);
-      scroller.replaceChildren(hero);
+      content.replaceChildren(hero);
 
       let songsSection, bioSection;
       if (!group) {
@@ -349,7 +451,7 @@
           bioSection.append(element('p', 'profile-empty', '正在加载艺人简介…'));
           songsSection.append(element('p', 'profile-empty', '正在加载作品资料…'));
         }
-        scroller.append(bioSection, songsSection);
+        content.append(bioSection, songsSection);
       }
       if (group) {
         const roster = section('团体成员', members.length);
@@ -358,7 +460,7 @@
         members.forEach(name => grid.append(personLink(find(name), name, 'profile-member')));
         if (members.length) roster.append(grid);
         else roster.append(element('p', 'profile-empty', '暂未收录成员资料。'));
-        scroller.append(roster);
+        content.append(roster);
       } else {
         const memberships = groups.filter(group => memberNames(group).some(member => findArtist(member) === item));
         if (memberships.length) {
@@ -366,7 +468,7 @@
           const links = element('div', 'profile-relations');
           memberships.forEach(group => links.append(personLink(group, group.name, 'profile-relation')));
           membershipsSection.append(links);
-          scroller.append(membershipsSection);
+          content.append(membershipsSection);
         }
       }
       const peers = [...new Set((item.collaborators || []).map(peer => typeof peer === 'string' ? peer : peer.name).filter(Boolean))];
@@ -375,11 +477,12 @@
         const list = element('div', 'profile-collaborators');
         peers.forEach(peer => list.append(personLink(find(peer), peer, 'profile-collaborator')));
         collaborators.append(list);
-        scroller.append(collaborators);
+        content.append(collaborators);
       }
       panel.hidden = false;
       updateBackButton();
       restoreView(viewState);
+      updateScrollbar();
       if (onOpen) onOpen(item);
       if (!wasOpen) closeButton.focus({ preventScroll: true });
       if (!group && !snapshot) {

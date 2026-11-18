@@ -32,7 +32,15 @@
 .profile-close { margin-left: auto; }
 .profile-close { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: #eeeae4; color: #655e56; font-size: 24px !important; line-height: 1; padding: 0; cursor: pointer; }
 .profile-close:hover { background: #e8e1d9; color: #191919; }
-.profile-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding: 0 13px 14px; scrollbar-width: thin; scrollbar-color: #d8d0c6 transparent; }
+.profile-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding: 0 13px 14px; scrollbar-width: none; }
+.profile-scroll::-webkit-scrollbar { display: none; }
+.profile-content { display: flow-root; }
+/* The floating thumb never reserves space beside the cover or profile sections. */
+.profile-scrollbar { position: absolute; z-index: 4; top: 8px; right: 1px; bottom: 8px; width: 12px; opacity: 0; transition: opacity .18s ease; touch-action: none; }
+.profile-scrollbar[hidden] { display: none; }
+.profile-scrollbar:hover, .profile-scrollbar:has(:focus-visible), .profile-scrollbar.is-active, .profile-scrollbar.is-dragging { opacity: 1; }
+.profile-scrollbar-thumb { position: absolute; top: 0; right: 3px; width: 5px; border-radius: 999px; background: #655e5680; cursor: grab; }
+.profile-scrollbar.is-dragging .profile-scrollbar-thumb { cursor: grabbing; background: #655e56b3; }
 .profile-hero { position: relative; text-align: center; padding: 25px 19px 22px; background: #fff; border-radius: 23px; }
 .profile-kind { position: absolute; top: 14px; left: 17px; margin: 0; color: var(--profile-red); font-size: 11px; font-weight: 700; }
 .profile-avatar-frame { position: relative; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; border-radius: 50%; background: #eeeae4; vertical-align: middle; }
@@ -139,4 +147,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .artist-profile-panel, .profile-cover-avatar.is-loading .profile-cover-spinner { animation: none; }
+  .profile-scrollbar { transition: none; }
 }
