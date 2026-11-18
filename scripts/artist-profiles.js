@@ -406,7 +406,11 @@
           if (target && typeof target.restore === 'function') history.push({ target });
         }
       }
-      if (!wasOpen) returnFocus = doc.activeElement;
+      if (!wasOpen) {
+        const opener = doc.activeElement;
+        // Leaflet pans to focused markers, even with preventScroll.
+        returnFocus = opener?.closest('.leaflet-marker-icon')?.closest('.leaflet-container') || opener;
+      }
       selected = item;
       const currentRevision = ++revision;
       const group = item.type === 'label';
