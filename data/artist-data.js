@@ -6184,6 +6184,1267 @@ const matchedArtists20261116 = [
 ];
 singers.push(...matchedArtists20261116);
 
+// 2026-11-18: verified accounts with user-supplied longitude/latitude.
+const supplementalArtists20261118 = [
+  {
+    "name": "大宝西",
+    "fans": "3万",
+    "fanCount": 29923,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 38.848389,
+    "lng": 117.459188,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/b4RP9Ewxhd64W9o7Agu33Q==/109951170094286425.jpg?param=130y130",
+    "neteaseId": "12037259",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "刘悦spam-生番"
+      },
+      {
+        "name": "V.O.B"
+      },
+      {
+        "name": "LEGGO"
+      }
+    ]
+  },
+  {
+    "name": "JAMA",
+    "fans": "9650",
+    "fanCount": 9650,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 39.18359,
+    "lng": 117.260845,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/clLQZgOzGnLB8BBnBb0pXA==/109951169850641571.jpg?param=130y130",
+    "neteaseId": "30773842",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "J",
+    "collaborators": []
+  },
+  {
+    "name": "天津饭",
+    "fans": "6391",
+    "fanCount": 6391,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 39.07489,
+    "lng": 117.397963,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/q0USHvUBNqV54ZqDJ2bT0g==/7976956860786219.jpg?param=130y130",
+    "neteaseId": "5250",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "T",
+    "collaborators": []
+  },
+  {
+    "name": "张雪飞",
+    "fans": "13.7万",
+    "fanCount": 136519,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 33.647325,
+    "lng": 115.166611,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/OMCKGmiAPzHWrRKnhRDoaQ==/109951165805820223.jpg?param=130y130",
+    "neteaseId": "12138252",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "Z",
+    "collaborators": [
+      {
+        "name": "YOUNGLEGO"
+      },
+      {
+        "name": "姜云升"
+      }
+    ]
+  },
+  {
+    "name": "熊猫五分裤",
+    "aliases": [
+      "二哥"
+    ],
+    "fans": "2.4万",
+    "fanCount": 23876,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 33.74566,
+    "lng": 113.242608,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/0jXhnii_rC9cjEhpU-BBRA==/109951172201924299.jpg?param=130y130",
+    "neteaseId": "30234153",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "X",
+    "collaborators": [
+      {
+        "name": "隆历奇"
+      },
+      {
+        "name": "李尔新"
+      },
+      {
+        "name": "Lambert凌杰"
+      }
+    ]
+  },
+  {
+    "name": "吉丁Kiddin",
+    "fans": "1.5万",
+    "fanCount": 15022,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 36.096672,
+    "lng": 114.328852,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/K06MP2fY_cNR8oF0T205PA==/109951168303231543.jpg?param=130y130",
+    "neteaseId": "12760545",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "J",
+    "collaborators": [
+      {
+        "name": "云别"
+      },
+      {
+        "name": "直火帮Feezy"
+      },
+      {
+        "name": "TangoZ"
+      }
+    ]
+  },
+  {
+    "name": "红中Redok",
+    "fans": "1.4万",
+    "fanCount": 14459,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 36.104858,
+    "lng": 114.469483,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/lIxRRGHWb1-aWf7dIX7BaA==/109951164807942242.jpg?param=130y130",
+    "neteaseId": "30129802",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "H",
+    "collaborators": []
+  },
+  {
+    "name": "迪迪",
+    "fans": "5678",
+    "fanCount": 5678,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 34.825477,
+    "lng": 113.74857,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/Xzihl8Pks5PSKcnZFa0RgA==/109951165994825097.jpg?param=130y130",
+    "neteaseId": "12185615",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "gs.l"
+      },
+      {
+        "name": "直火帮Feezy"
+      }
+    ]
+  },
+  {
+    "name": "刘震doublez",
+    "fans": "4096",
+    "fanCount": 4096,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 34.892268,
+    "lng": 113.673988,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/5vBkmRsDC_vDjcGBrb3DLQ==/109951163317243838.jpg?param=130y130",
+    "neteaseId": "11975046",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "L",
+    "collaborators": []
+  },
+  {
+    "name": "Kevin罗凯文",
+    "aliases": [
+      "07Kevin",
+      "开开"
+    ],
+    "fans": "7.8万",
+    "fanCount": 78486,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 28.559547,
+    "lng": 115.839728,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/5ajJnjcGAcWc2wmyOagp-w==/109951173239944459.jpg?param=130y130",
+    "neteaseId": "56033687",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "K",
+    "collaborators": [
+      {
+        "name": "Top Barry"
+      },
+      {
+        "name": "沧桑Cang333"
+      },
+      {
+        "name": "翁杰Winjay"
+      }
+    ]
+  },
+  {
+    "name": "DavidWAn万冠辰",
+    "fans": "1.1万",
+    "fanCount": 11371,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 28.666963,
+    "lng": 115.99282,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/2nFrh9FPK3jNgT3437B0Ig==/109951169658651922.jpg?param=130y130",
+    "neteaseId": "12443839",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": []
+  },
+  {
+    "name": "泥鳅zinco",
+    "fans": "26.7万",
+    "fanCount": 266935,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.570445,
+    "lng": 114.235667,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/Kx-SHHfC3Vpi848zAWm3eg==/109951168691269689.jpg?param=130y130",
+    "neteaseId": "12264643",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "N",
+    "collaborators": [
+      {
+        "name": "Mc光光"
+      },
+      {
+        "name": "隆历奇"
+      },
+      {
+        "name": "Yee"
+      }
+    ]
+  },
+  {
+    "name": "坚强的小黄瓜",
+    "fans": "8286",
+    "fanCount": 8286,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.612288,
+    "lng": 114.380978,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/AkUgT0aqAOYRxJMMyvY6Vw==/109951166908741447.jpg?param=130y130",
+    "neteaseId": "12063117",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "J",
+    "collaborators": []
+  },
+  {
+    "name": "心妹",
+    "fans": "7583",
+    "fanCount": 7583,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.42893,
+    "lng": 114.293904,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/7Bryyryp00fRPyGEiaF-QQ==/109951171016618744.jpg?param=130y130",
+    "neteaseId": "12185681",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "X",
+    "collaborators": [
+      {
+        "name": "隆历奇"
+      }
+    ]
+  },
+  {
+    "name": "忘词Thugkid",
+    "fans": "5466",
+    "fanCount": 5466,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.490742,
+    "lng": 114.436752,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/7UGCI3Wb_S9pKZ9bYwO_Sg==/109951169034837111.jpg?param=130y130",
+    "neteaseId": "12173498",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "W",
+    "collaborators": []
+  },
+  {
+    "name": "Stygian仙尤里",
+    "fans": "4278",
+    "fanCount": 4278,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.495264,
+    "lng": 114.234119,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/eK-gXimMtxcoYD9ZNEhELQ==/109951172747447700.jpg?param=130y130",
+    "neteaseId": "12663901",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "S",
+    "collaborators": []
+  },
+  {
+    "name": "克隆人CLON",
+    "fans": "4256",
+    "fanCount": 4256,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.685633,
+    "lng": 114.343587,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/sfmLjs4R60UErUcyLzwWXg==/109951170295255210.jpg?param=130y130",
+    "neteaseId": "12319012",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "K",
+    "collaborators": [
+      {
+        "name": "梁淞Tsong"
+      }
+    ]
+  },
+  {
+    "name": "傲傲",
+    "fans": "3472",
+    "fanCount": 3472,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.608417,
+    "lng": 114.291781,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/H_RDF60JHJ7KLe3J6Zl3YQ==/109951167124973142.jpg?param=130y130",
+    "neteaseId": "12195306",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "A",
+    "collaborators": [
+      {
+        "name": "梁淞Tsong"
+      },
+      {
+        "name": "周夏影"
+      },
+      {
+        "name": "Cloud9"
+      }
+    ]
+  },
+  {
+    "name": "笑Xiao",
+    "fans": "3223",
+    "fanCount": 3223,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.583726,
+    "lng": 114.455677,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/UrDX7oWP9qRLRRRO2ZTrGQ==/109951167851766936.jpg?param=130y130",
+    "neteaseId": "12787386",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "X",
+    "collaborators": [
+      {
+        "name": "AA"
+      },
+      {
+        "name": "FEEEleven"
+      }
+    ]
+  },
+  {
+    "name": "于贞",
+    "fans": "58.9万",
+    "fanCount": 589252,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.751536,
+    "lng": 106.109462,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/lwS8cLO29amo7vv-5EgMJw==/109951172852029768.jpg?param=130y130",
+    "neteaseId": "12798895",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "Y",
+    "collaborators": [
+      {
+        "name": "NINEONE#乃万"
+      },
+      {
+        "name": "Subs张毅成"
+      },
+      {
+        "name": "谢子通"
+      }
+    ]
+  },
+  {
+    "name": "G.G张思源",
+    "fans": "39.3万",
+    "fanCount": 392616,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 35.048173,
+    "lng": 111.001033,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/85qHF-Wx66FFuaUUlY7OBw==/109951170421907434.jpg?param=130y130",
+    "neteaseId": "12050057",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "G",
+    "collaborators": [
+      {
+        "name": "Mc光光"
+      },
+      {
+        "name": "侃迪Kandi"
+      }
+    ]
+  },
+  {
+    "name": "CJ周密",
+    "fans": "26.5万",
+    "fanCount": 265089,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.660707,
+    "lng": 103.893985,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/0dFK2fDRU832fZwfyYKZNw==/109951172477021288.jpg?param=130y130",
+    "neteaseId": "12700520",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "C",
+    "collaborators": [
+      {
+        "name": "Swang多雷"
+      },
+      {
+        "name": "KnowKnow"
+      },
+      {
+        "name": "DP龙猪"
+      }
+    ]
+  },
+  {
+    "name": "廖效浓",
+    "fans": "22.3万",
+    "fanCount": 222917,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 23.07664,
+    "lng": 113.49691,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/zWzdsjZiXruf6TEc2S_ttA==/109951169872000699.jpg?param=130y130",
+    "neteaseId": "1051026",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "L",
+    "collaborators": [
+      {
+        "name": "GALI"
+      },
+      {
+        "name": "瘦恒SoulHan"
+      },
+      {
+        "name": "弹壳Danko"
+      }
+    ]
+  },
+  {
+    "name": "Doggie",
+    "fans": "18.4万",
+    "fanCount": 183534,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 22.739415,
+    "lng": 113.942067,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/yWFD_7MP0qGVWOtXsKOKEQ==/109951168003409529.jpg?param=130y130",
+    "neteaseId": "31060560",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "刘炫廷"
+      },
+      {
+        "name": "无脸男葫芦"
+      }
+    ]
+  },
+  {
+    "name": "SHARK卫彬月",
+    "fans": "18万",
+    "fanCount": 179806,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 27.718623,
+    "lng": 109.192599,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/e1njEAhUmQh6LUHJvRX-1A==/109951173983440504.jpg?param=130y130",
+    "neteaseId": "12184568",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "S",
+    "collaborators": [
+      {
+        "name": "施鑫文月"
+      },
+      {
+        "name": "高天佐"
+      },
+      {
+        "name": "Yee"
+      }
+    ]
+  },
+  {
+    "name": "Gibb-Z黄泽",
+    "fans": "13万",
+    "fanCount": 129511,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.714375,
+    "lng": 103.881458,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/MmDgl9x9J0L8SdtqFZoTbA==/109951173117570143.jpg?param=130y130",
+    "neteaseId": "13112541",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "G",
+    "collaborators": [
+      {
+        "name": "SASIOVERLXRD"
+      },
+      {
+        "name": "HEAT J"
+      },
+      {
+        "name": "王齐铭WatchMe"
+      }
+    ]
+  },
+  {
+    "name": "大笑",
+    "fans": "10万",
+    "fanCount": 99827,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 41.872491,
+    "lng": 123.442801,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/dze05AXbTZAPQyKllkWBgg==/109951172006939231.jpg?param=130y130",
+    "neteaseId": "12084525",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "Buzzy"
+      },
+      {
+        "name": "SIMBA辛巴"
+      }
+    ]
+  },
+  {
+    "name": "BLOWFEVER",
+    "fans": "8.5万",
+    "fanCount": 84675,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 31.193861,
+    "lng": 121.214191,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/Hj9reiOeCm-V6PJFEXr7Gw==/109951166029016417.jpg?param=130y130",
+    "neteaseId": "12085017",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "B",
+    "collaborators": [
+      {
+        "name": "ICE杨长青"
+      },
+      {
+        "name": "俞天时"
+      },
+      {
+        "name": "李佳隆"
+      }
+    ]
+  },
+  {
+    "name": "Fi9江澈",
+    "fans": "8.3万",
+    "fanCount": 82521,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 34.313965,
+    "lng": 117.169692,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/JzmghZF17aA7usYo44eT7A==/109951166256183027.jpg?param=130y130",
+    "neteaseId": "12052056",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "F",
+    "collaborators": []
+  },
+  {
+    "name": "Tphunk",
+    "fans": "6.8万",
+    "fanCount": 68362,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 29.607884,
+    "lng": 90.996904,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/gdZA7Wrpr4p4TptHhlDkJw==/109951168663206092.jpg?param=130y130",
+    "neteaseId": "13152751",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "T",
+    "collaborators": [
+      {
+        "name": "SASIOVERLXRD"
+      },
+      {
+        "name": "delphia!"
+      },
+      {
+        "name": "河北吴孟达"
+      }
+    ]
+  },
+  {
+    "name": "Max马俊",
+    "fans": "6.5万",
+    "fanCount": 65299,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 45.684718,
+    "lng": 85.085394,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/bFyhQkNgyzRBzGHIWyXzSA==/109951174186464741.jpg?param=130y130",
+    "neteaseId": "13415208",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "M",
+    "collaborators": [
+      {
+        "name": "艾热AIR"
+      },
+      {
+        "name": "叶尔林"
+      }
+    ]
+  },
+  {
+    "name": "叶晓粤",
+    "fans": "6.3万",
+    "fanCount": 62564,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 23.407132,
+    "lng": 116.833082,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/nqXJ2A9EiSPbJnRQnCHtCw==/109951167871068501.jpg?param=130y130",
+    "neteaseId": "12126382",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "Y",
+    "collaborators": [
+      {
+        "name": "林渝植Anoryz"
+      },
+      {
+        "name": "MC脏脏"
+      },
+      {
+        "name": "直火帮Feezy"
+      }
+    ]
+  },
+  {
+    "name": "何美延HAMY",
+    "fans": "5.3万",
+    "fanCount": 53274,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 23.01053,
+    "lng": 113.451773,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/MNXrVeU2lw70ZVmlC82QfA==/109951172669445077.jpg?param=130y130",
+    "neteaseId": "13227448",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "H",
+    "collaborators": [
+      {
+        "name": "梁淞Tsong"
+      }
+    ]
+  },
+  {
+    "name": "Toy王奕",
+    "fans": "4.9万",
+    "fanCount": 49068,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 28.206913,
+    "lng": 112.833193,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/8YMRnwjZeonZ9JyLXEFjNA==/109951172546293761.jpg?param=130y130",
+    "neteaseId": "1043093",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "T",
+    "collaborators": [
+      {
+        "name": "林渝植Anoryz"
+      },
+      {
+        "name": "AZ啊之"
+      },
+      {
+        "name": "法老"
+      }
+    ]
+  },
+  {
+    "name": "福来",
+    "fans": "4万",
+    "fanCount": 40080,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.824643,
+    "lng": 104.036365,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/o82unHdg9ujbX-ZoPihwBw==/109951172329169460.jpg?param=130y130",
+    "neteaseId": "12304473",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "F",
+    "collaborators": [
+      {
+        "name": "夏之禹"
+      },
+      {
+        "name": "贰万"
+      },
+      {
+        "name": "MC HotDog热狗"
+      }
+    ]
+  },
+  {
+    "name": "Doooboi",
+    "fans": "3.8万",
+    "fanCount": 38388,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 38.51712,
+    "lng": 102.186668,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/beHBLoU7nwfsL_z4Gv_VNw==/109951169818136611.jpg?param=130y130",
+    "neteaseId": "12358200",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "FOX胡天渝"
+      },
+      {
+        "name": "3Bangz"
+      },
+      {
+        "name": "YOUNGLEGO"
+      }
+    ]
+  },
+  {
+    "name": "JR Fog",
+    "aliases": [
+      "霍嘉骏"
+    ],
+    "fans": "3.3万",
+    "fanCount": 32617,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 22.71442,
+    "lng": 114.098093,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/mAhFxoC7XT7WQwZ-c9inwg==/109951171450310748.jpg?param=130y130",
+    "neteaseId": "3526",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "J",
+    "collaborators": [
+      {
+        "name": "Vyan"
+      },
+      {
+        "name": "瘦恒SoulHan"
+      },
+      {
+        "name": "西奥Sio"
+      }
+    ]
+  },
+  {
+    "name": "王骞Boc",
+    "fans": "3万",
+    "fanCount": 30352,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 35.402693,
+    "lng": 119.529293,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/kL8vs2DYWNjiiFvIMVyDYg==/109951166362356804.jpg?param=130y130",
+    "neteaseId": "787166",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "W",
+    "collaborators": [
+      {
+        "name": "Jony J"
+      },
+      {
+        "name": "黄旭"
+      },
+      {
+        "name": "NINEONE#乃万"
+      }
+    ]
+  },
+  {
+    "name": "Wya乌鸦",
+    "aliases": [
+      "吴程臣"
+    ],
+    "fans": "2.2万",
+    "fanCount": 21631,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 29.592141,
+    "lng": 106.676988,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/_4LYFLAmHz8FNf6zvyEbGw==/109951167163341168.jpg?param=130y130",
+    "neteaseId": "13527275",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "W",
+    "collaborators": [
+      {
+        "name": "龙崎"
+      },
+      {
+        "name": "朴鲨VPS"
+      }
+    ]
+  },
+  {
+    "name": "梦徐MX",
+    "aliases": [
+      "IG:mtothex023"
+    ],
+    "fans": "2万",
+    "fanCount": 19886,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 29.658703,
+    "lng": 106.624573,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/1suDrfqo3q93b3NJ8PSdrw==/109951173831389317.jpg?param=130y130",
+    "neteaseId": "12419060",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "M",
+    "collaborators": [
+      {
+        "name": "鬼卞"
+      },
+      {
+        "name": "徐真真"
+      },
+      {
+        "name": "朴鲨VPS"
+      }
+    ]
+  },
+  {
+    "name": "王洋EVIS",
+    "fans": "2万",
+    "fanCount": 19740,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.790522,
+    "lng": 104.205424,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/bLFwqEWUB1vVSVLZnqXGmA==/109951174117462847.jpg?param=130y130",
+    "neteaseId": "12370200",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "W",
+    "collaborators": [
+      {
+        "name": "GALI"
+      },
+      {
+        "name": "鱼头_killa4nia"
+      },
+      {
+        "name": "宝石Gem"
+      }
+    ]
+  },
+  {
+    "name": "陷阱歌手克劳德",
+    "aliases": [
+      "郭阳正"
+    ],
+    "fans": "1.9万",
+    "fanCount": 18654,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 35.093532,
+    "lng": 102.87961,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/r7LTFa7UZ-XAdZMAzgsj-w==/109951173440590193.jpg?param=130y130",
+    "neteaseId": "15199355",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "X",
+    "collaborators": [
+      {
+        "name": "张方钊"
+      },
+      {
+        "name": "河北吴孟达"
+      },
+      {
+        "name": "Udigg"
+      }
+    ]
+  },
+  {
+    "name": "陈泽希",
+    "fans": "1.2万",
+    "fanCount": 12327,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 28.078558,
+    "lng": 113.011181,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/J1z_UInCTRskIpY85V3vdw==/109951172522266419.jpg?param=130y130",
+    "neteaseId": "12610201",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "C",
+    "collaborators": [
+      {
+        "name": "李尔新"
+      },
+      {
+        "name": "盛宇D-SHINE"
+      }
+    ]
+  },
+  {
+    "name": "NOTTIBO1",
+    "aliases": [
+      "孙老师"
+    ],
+    "fans": "1.2万",
+    "fanCount": 11525,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 29.632913,
+    "lng": 106.434129,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/Ya1YotSPrAjB_kj1pXgagA==/109951173769972608.jpg?param=130y130",
+    "neteaseId": "47127495",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "N",
+    "collaborators": [
+      {
+        "name": "Rich4ever"
+      }
+    ]
+  },
+  {
+    "name": "Lil Boo",
+    "fans": "1.1万",
+    "fanCount": 11397,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 37.939973,
+    "lng": 112.527867,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/-JXqqrxIzLt72jtQzTLKBg==/109951166999440533.jpg?param=130y130",
+    "neteaseId": "1043161",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "L",
+    "collaborators": [
+      {
+        "name": "杨和苏KeyNG"
+      },
+      {
+        "name": "刘炫廷"
+      }
+    ]
+  },
+  {
+    "name": "BABYBO",
+    "fans": "8022",
+    "fanCount": 8022,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 31.998421,
+    "lng": 118.8506,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/Z5EV0khKN7i8LRE9AMMM0g==/109951171829135955.jpg?param=130y130",
+    "neteaseId": "12200400",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "B",
+    "collaborators": [
+      {
+        "name": "八口8uck"
+      },
+      {
+        "name": "KnowKnow"
+      }
+    ]
+  },
+  {
+    "name": "邓云峰Mr.Krystal",
+    "fans": "7166",
+    "fanCount": 7166,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 29.580011,
+    "lng": 106.412141,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/qeVzrNC_IDLFuVE8gFbVLw==/109951163100456287.jpg?param=130y130",
+    "neteaseId": "12351125",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "D",
+    "collaborators": [
+      {
+        "name": "JD"
+      },
+      {
+        "name": "3Bangz"
+      },
+      {
+        "name": "土人儿TRE"
+      }
+    ]
+  },
+  {
+    "name": "蜜妞miko",
+    "fans": "7155",
+    "fanCount": 7155,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 34.276932,
+    "lng": 117.102176,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/Mq9VQK0POcIkdEUWuvBq_w==/109951165815859120.jpg?param=130y130",
+    "neteaseId": "12055077",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "M",
+    "collaborators": [
+      {
+        "name": "MC HotDog热狗"
+      },
+      {
+        "name": "俞天时"
+      },
+      {
+        "name": "GAI周延"
+      }
+    ]
+  },
+  {
+    "name": "ANT1BOI",
+    "aliases": [
+      "安泰波"
+    ],
+    "fans": "6967",
+    "fanCount": 6967,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 34.251502,
+    "lng": 108.999515,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/dUEUbBhzoOrdA124Hu9ICg==/109951170406067873.jpg?param=130y130",
+    "neteaseId": "12277748",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "A",
+    "collaborators": [
+      {
+        "name": "谟西Mercy"
+      },
+      {
+        "name": "SeanT肖恩恩"
+      },
+      {
+        "name": "连麻Swimming"
+      }
+    ]
+  },
+  {
+    "name": "SWALEN",
+    "aliases": [
+      "王伟伦"
+    ],
+    "fans": "6855",
+    "fanCount": 6855,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 37.86992,
+    "lng": 112.621375,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/NntUvxYKjGOw_tjTy98rpw==/109951171330584330.jpg?param=130y130",
+    "neteaseId": "12788492",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "S",
+    "collaborators": [
+      {
+        "name": "王齐铭WatchMe"
+      },
+      {
+        "name": "YOUNGLEGO"
+      },
+      {
+        "name": "泰格西"
+      }
+    ]
+  },
+  {
+    "name": "KSA",
+    "fans": "6277",
+    "fanCount": 6277,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 36.82133,
+    "lng": 118.016342,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/JJmNYYal_SpKt_knn1yenA==/109951170331697162.jpg?param=130y130",
+    "neteaseId": "12529503",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "K",
+    "collaborators": [
+      {
+        "name": "Udigg"
+      },
+      {
+        "name": "TOYOKI"
+      }
+    ]
+  },
+  {
+    "name": "amazi",
+    "fans": "5946",
+    "fanCount": 5946,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 30.585906,
+    "lng": 104.214238,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p1.music.126.net/K2A-_-lVJjmJWQWvzDFqyw==/109951174081737811.jpg?param=130y130",
+    "neteaseId": "33990144",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "A",
+    "collaborators": [
+      {
+        "name": "KenRobb"
+      },
+      {
+        "name": "狂兆北"
+      },
+      {
+        "name": "APMOZART"
+      }
+    ]
+  },
+  {
+    "name": "白路COIN",
+    "fans": "5266",
+    "fanCount": 5266,
+    "fansSource": "网易云艺人检索 fansSize",
+    "fansUpdatedOn": "2026-11-18",
+    "lat": 43.815271,
+    "lng": 81.247169,
+    "coordinatesUpdatedOn": "2026-11-18",
+    "avatar": "https://p2.music.126.net/kZbf3TdbFMnwI7Wh-tEfvw==/109951163137067133.jpg?param=130y130",
+    "neteaseId": "12324547",
+    "metadataVerifiedOn": "2026-11-18",
+    "profileStatus": "verified-account",
+    "indexLetter": "B",
+    "collaborators": [
+      {
+        "name": "Athree"
+      },
+      {
+        "name": "儿几"
+      },
+      {
+        "name": "Hayrul海力"
+      }
+    ]
+  }
+];
+singers.push(...supplementalArtists20261118);
+
 const relationshipArtists = [...singers, ...profiles];
 
 // 仅以已核实的歌曲署名补充合作关系，不将共同所属团体推断为合作。
