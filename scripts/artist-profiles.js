@@ -4,7 +4,8 @@
       && Math.abs(item.lat) <= 90 && Math.abs(item.lng) <= 180);
   }
 
-  function create({ artists, groups, locate, network, showMemberDistribution, onOpen, onClose, getReturnTarget, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
+  function create({ artists, groups, locate, network, showMemberDistribution, onOpen, onClose, getReturnTarget, details,
+    albums = {}, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
     const doc = suppliedDocument || root.document;
     const normalize = value => String(value || '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
     const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -16,6 +17,7 @@
     let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
+    let albumDialog;
 
     function indexNames(items) {
       const index = new Map();
@@ -129,6 +131,55 @@
       if (count !== undefined) heading.append(element('span', 'profile-section-count', String(count)));
       node.append(heading);
       return node;
+    }
+    function albumCover(album, size) {
+      const frame = element('span', 'profile-album-cover');
+      frame.setAttribute('aria-hidden', 'true');
+      if (!/^https:\/\/p\d+\.music\.126\.net\//.test(album.cover || '')) return frame;
+      const image = element('img');
+      image.alt = '';
+      image.width = image.height = size;
+      image.loading = size > 300 ? 'eager' : 'lazy';
+      image.decoding = 'async';
+      image.addEventListener('error', () => { image.hidden = true; }, { once: true });
+      const source = new URL(album.cover);
+      source.searchParams.set('param', size + 'y' + size);
+      image.src = source.href;
+      frame.append(image);
+      return frame;
+    }
+    function openAlbum(album, item) {
+      const release = { type: 'album', albumId: album.id, title: album.title, image: album.cover,
+        format: album.format, artist: item.name, artistId: String(item.neteaseId) };
+      // A future album page can handle this event instead of the temporary view.
+      if (!doc.dispatchEvent(new root.CustomEvent('rapmap:open-album', { detail: release, cancelable: true }))) return;
+      if (!albumDialog) {
+        albumDialog = element('dialog', 'profile-album-dialog');
+        albumDialog.setAttribute('aria-labelledby', 'profile-album-dialog-title');
+        doc.body.append(albumDialog);
+      }
+      const backToProfile = button('profile-album-return', '返回资料卡', () => albumDialog.close());
+      backToProfile.autofocus = true;
+      const title = element('h2', 'profile-album-dialog-title', album.title);
+      title.id = 'profile-album-dialog-title';
+      albumDialog.replaceChildren(backToProfile, albumCover(album, 500), title,
+        element('p', 'profile-album-dialog-artist', item.name),
+        element('p', 'profile-album-dialog-note', '专辑详情暂未开放'));
+      if (!albumDialog.open) albumDialog.showModal();
+    }
+    function renderAlbums(item) {
+      const entries = albums[String(item.neteaseId)];
+      if (!Array.isArray(entries) || !entries.length) return;
+      const albumSection = section('代表专辑');
+      const grid = element('div', 'profile-album-grid');
+      for (const album of entries.slice(0, 3)) {
+        const card = button('profile-album-card', undefined, () => openAlbum(album, item));
+        card.title = album.title;
+        card.append(albumCover(album, 300), element('span', 'profile-album-name', album.title));
+        grid.append(card);
+      }
+      albumSection.append(grid);
+      content.append(albumSection);
     }
     function personLink(person, displayName, className) {
       const clickable = person && !person.profileDisabled;
@@ -469,6 +520,7 @@
           songsSection.append(element('p', 'profile-empty', '正在加载作品资料…'));
         }
         content.append(bioSection, songsSection);
+        renderAlbums(item);
       }
       if (group) {
         const roster = section('团体成员', members.length);
@@ -552,7 +604,10 @@
         open(trigger.dataset.artistProfile, { remember: Boolean(panel && panel.contains(trigger)) });
       }, true);
       doc.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !event.defaultPrevented && isOpen()) { event.preventDefault(); close(); }
+        if (event.key === 'Escape' && !event.defaultPrevented && !albumDialog?.open && isOpen()) {
+          event.preventDefault();
+          close();
+        }
       });
     }
     return { open, close, back, isOpen, find, memberLinks, hasMapLocation, preview };
