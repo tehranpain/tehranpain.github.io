@@ -4,7 +4,7 @@
       && Math.abs(item.lat) <= 90 && Math.abs(item.lng) <= 180);
   }
 
-  function create({ artists, groups, locate, network, onOpen, onClose, getReturnTarget, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
+  function create({ artists, groups, locate, network, showMemberDistribution, onOpen, onClose, getReturnTarget, details, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
     const doc = suppliedDocument || root.document;
     const normalize = value => String(value || '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
     const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -472,9 +472,19 @@
       }
       if (group) {
         const roster = section('团体成员', members.length);
+        const resolved = members.map(name => ({ name, person: find(name) }));
+        if (showMemberDistribution) {
+          const mapped = [...new Set(resolved.map(({ person }) => person).filter(hasMapLocation))];
+          const action = button('profile-member-map', '查看成员分布', () => showMemberDistribution(item, mapped));
+          action.disabled = !mapped.length;
+          if (action.disabled) action.title = '暂无可定位的成员';
+          const header = element('div', 'profile-roster-heading');
+          header.append(roster.firstElementChild, action);
+          roster.append(header);
+        }
         const grid = element('div', 'profile-members');
         // Some roster entries, such as Round_2, are subgroups rather than solo artists.
-        members.forEach(name => grid.append(personLink(find(name), name, 'profile-member')));
+        resolved.forEach(({ person, name }) => grid.append(personLink(person, name, 'profile-member')));
         if (members.length) roster.append(grid);
         else roster.append(element('p', 'profile-empty', '暂未收录成员资料。'));
         content.append(roster);

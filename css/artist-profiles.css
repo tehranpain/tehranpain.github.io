@@ -57,7 +57,7 @@
 .profile-actions { display: flex; gap: 8px; margin-top: 22px; }
 .profile-actions > * { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 7px; border: 0; border-radius: 12px; background: #eeeae4; color: #463d33; text-decoration: none; font-size: 12px !important; line-height: 1.3; font-weight: 700 !important; cursor: pointer; }
 .profile-actions > *:hover { filter: brightness(.96); }
-/* Both profile types share a square, full-bleed cover; membership chips are independent. */
+/* Full-bleed covers are square for artists and landscape for groups. */
 .artist-profile-panel .profile-toolbar { position: absolute; inset: 0 0 auto; z-index: 3; justify-content: flex-end; padding: 12px; pointer-events: none; }
 .artist-profile-panel .profile-toolbar-label { display: none; }
 .artist-profile-panel .profile-close { pointer-events: auto; background: #0005; color: #fff; backdrop-filter: blur(8px); }
@@ -65,6 +65,7 @@
 .artist-profile-panel .profile-scroll { padding: 0 0 14px; }
 .artist-profile-panel .profile-section { margin-left: 13px; margin-right: 13px; }
 .profile-hero-cover { isolation: isolate; aspect-ratio: 1; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; padding: 22px; border-radius: 0; text-align: left; background: #302a27; overflow: hidden; }
+.artist-profile-panel[data-profile-type="label"] .profile-hero-cover { aspect-ratio: 4 / 3; }
 .profile-hero-cover::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #0000 25%, #0003 48%, #000c 100%); pointer-events: none; }
 .profile-cover-avatar { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; border: 0; border-radius: 0; background: #b8bdc4; }
 .profile-cover-loading { position: absolute; top: 36%; left: 0; right: 0; display: grid; justify-items: center; gap: 10px; transform: translateY(-50%); color: #ffffffed; pointer-events: none; }
@@ -92,9 +93,19 @@
 .profile-section { margin-top: 12px; padding: 20px 17px; border-radius: 20px; background: #fff; }
 .profile-section-title { margin: 0 0 17px; font-size: 15px; font-weight: 800; line-height: 1.4; }
 .profile-section-count { margin-left: 9px; color: #aaa299; font-size: 11px; font-weight: 400; }
+.profile-roster-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.profile-roster-heading .profile-section-title { margin: 0; }
+.artist-profile-panel .profile-member-map { flex-shrink: 0; padding: 8px 12px; border: 0; border-radius: 8px; background: var(--profile-red); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.4; cursor: pointer; transition: background-color .16s ease; }
+.artist-profile-panel .profile-member-map:disabled { opacity: .45; cursor: not-allowed; }
 /* Group members are one uninterrupted vertical list, not the artist's collaborator grid. */
 .profile-members { display: flex; flex-direction: column; gap: 6px; }
-.profile-member { min-width: 0; width: 100%; display: flex; align-items: center; gap: 12px; padding: 8px 2px; border: 0; background: none; color: #302a24; text-align: left; cursor: pointer; }
+.profile-member { min-width: 0; width: 100%; display: flex; align-items: center; gap: 12px; padding: 8px 6px; border: 0; border-radius: 9px; background: none; color: #302a24; text-align: left; cursor: pointer; transition: background-color .16s ease; }
+button.profile-member:focus-visible { background: #f2f2f2; }
+.artist-profile-panel .profile-member-map:focus-visible { background: #c90010; }
+@media (hover: hover) {
+  button.profile-member:hover { background: #f2f2f2; }
+  .artist-profile-panel .profile-member-map:hover:not(:disabled) { background: #c90010; }
+}
 .profile-member .profile-person-avatar { width: 44px; height: 44px; }
 .profile-member .profile-person-name { flex: 1; font-size: 14px; font-weight: 600; }
 .profile-member .profile-person-status { flex-shrink: 0; }
@@ -104,7 +115,7 @@
 .profile-relation { max-width: 100%; display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px 5px 5px; border: 0; border-radius: 999px; background: #f4f1ec; color: #463d33; text-align: left; cursor: pointer; }
 .profile-relation .profile-person-avatar { width: 28px; height: 28px; }
 .profile-relation .profile-avatar-fallback { font-size: 10px; }
-.profile-member:not(.is-static):hover .profile-person-name, .profile-relation:hover .profile-person-name { color: var(--profile-red); }
+.profile-relation:hover .profile-person-name { color: var(--profile-red); }
 /* Collaborators use a separate grid so membership chips remain unchanged. */
 .profile-collaborators { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 20px 10px; }
 .profile-collaborator { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: #302a24; cursor: pointer; text-align: center; }
@@ -149,5 +160,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .artist-profile-panel, .profile-cover-avatar.is-loading .profile-cover-spinner { animation: none; }
-  .profile-scrollbar { transition: none; }
+  .profile-scrollbar, .profile-member, .artist-profile-panel .profile-member-map { transition: none; }
 }

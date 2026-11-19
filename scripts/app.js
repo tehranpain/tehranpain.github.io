@@ -102,6 +102,7 @@ updateProfileAvatarScale();
 
 const networkLayer = L.layerGroup().addTo(map);
 let networkScene = null;
+let memberDistributionActive = false;
 function clearNetworkScene() {
   if (networkScene) networkScene.clear();
   else networkLayer.clearLayers();
@@ -181,6 +182,7 @@ const profileUI = window.RapArtistProfiles.create({
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
+  showMemberDistribution,
   getReturnTarget: captureProfileReturnTarget,
   onClose: () => {
     setSelectedProfileMarker();
@@ -364,6 +366,7 @@ function setDotsOnlyMode(enabled) {
   if (toggle) toggle.checked = dotsOnlyMode;
 
   if (dotsOnlyMode) {
+    if (memberDistributionActive) renderMarkers(getActiveMarkerFilterType());
     map.closePopup();
     profileMarkerRefs.forEach(({ marker }) => marker.closePopup());
     clearNetworkScene();
@@ -536,7 +539,81 @@ function updateProfileMarkerDisplay() {
 
 // 缩放仅更新共享尺寸变量；仅圆点模式切换时才重建标记。
 
+function addProfileMarker(item) {
+  const labelCardWidth = item.type === 'label'
+    ? Math.min(520, Math.max(340, item.name.length * 18 + 150))
+    : null;
+  const icon = createProfileMarkerIcon(item, labelCardWidth);
+  const marker = L.marker([item.lat, item.lng], { icon, title: item.name, alt: item.name + '的资料' });
+  profileMarkerRefs.push({ marker, item, labelCardWidth });
+  bindProfilePreview(marker, item);
+  markerClusterGroup.addLayer(marker);
+  return marker;
+}
+
+function clearMemberDistribution() {
+  if (!memberDistributionActive) return;
+  memberDistributionActive = false;
+  map.stop();
+  const exit = document.getElementById('exit-network-btn');
+  exit.classList.remove('network-dock');
+  exit.style.display = 'none';
+  if (homePanel) homePanel.cover('member-distribution', false);
+}
+
+function showMemberDistribution(group, members) {
+  if (!members.length) return;
+  if (dotsOnlyMode) setDotsOnlyMode(false);
+  const wasNetwork = networkScene?.isActive();
+  clearNetworkScene();
+  if (landmarkVisible || wasNetwork) {
+    document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.type === 'all');
+    });
+    updateModeFilterSlider();
+    syncMobileControls();
+  }
+  if (landmarkVisible) hideLandmarks();
+  map.closePopup();
+  markerClusterGroup.clearLayers();
+  profileMarkerRefs = [];
+  const points = members.map(item => addProfileMarker(item).getLatLng());
+  memberDistributionActive = true;
+  if (homePanel) homePanel.cover('member-distribution', true);
+
+  const exit = document.getElementById('exit-network-btn');
+  const copy = document.createElement('span');
+  copy.className = 'network-dock-title';
+  copy.textContent = group.name + ' · ' + members.length + ' 位成员';
+  const close = document.createElement('span');
+  close.className = 'network-dock-close';
+  close.textContent = '退出';
+  exit.replaceChildren(copy, close);
+  exit.setAttribute('aria-label', '退出成员分布');
+  exit.title = '退出成员分布';
+  exit.classList.add('network-dock');
+  exit.style.display = 'flex';
+
+  const panel = document.getElementById('artist-profile-panel');
+  const mobile = window.innerWidth <= 600;
+  const panelRight = !mobile && panel && !panel.hidden ? panel.getBoundingClientRect().right : 0;
+  if (mobile) {
+    profileUI.close({ restoreFocus: false });
+    exit.focus({ preventScroll: true });
+  }
+  const size = map.getSize();
+  const bounds = L.latLngBounds(points);
+  const options = {
+    paddingTopLeft: [Math.min(panelRight + 44, size.x * .72), Math.min(96, size.y * .24)],
+    paddingBottomRight: [44, Math.min(mobile ? 152 : 94, size.y * .36)],
+    maxZoom: 10
+  };
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) map.fitBounds(bounds, { ...options, animate: false });
+  else map.flyToBounds(bounds, { ...options, duration: .85 });
+}
+
 function renderMarkers(filterType = "all") {
+  clearMemberDistribution();
   markerClusterGroup.clearLayers();
   searchMarkerMap.clear();
   profileMarkerRefs = [];
@@ -585,17 +662,7 @@ function renderMarkers(filterType = "all") {
   });
       
       filtered.forEach(item => {
-// 找到 renderMarkers 函数里的这段并替换
-const labelCardWidth = item.type === "label"
-  ? Math.min(520, Math.max(340, item.name.length * 18 + 150))
-  : null;
-const icon = createProfileMarkerIcon(item, labelCardWidth);
-        
-        const marker = L.marker([item.lat, item.lng], { icon, title: item.name, alt: item.name + '的资料' });
-        profileMarkerRefs.push({ marker, item, labelCardWidth });
-        bindProfilePreview(marker, item);
-
-        markerClusterGroup.addLayer(marker);
+        const marker = addProfileMarker(item);
         
        const lowerKey = item.name.toLowerCase();
     searchMarkerMap.set(lowerKey, { marker, rawName: item.name, type: item.type, latlng: marker.getLatLng() });
@@ -1283,6 +1350,7 @@ function hideLandmarks() {
 
 function ensureLandmarkMode() {
   if (!RAP_LANDMARKS_ENABLED) return;
+  clearMemberDistribution();
   const landmarkBtn = document.querySelector('.filter-btn[data-type="landmark"]');
   document.querySelectorAll(".filter-btn[data-type]").forEach(btn => btn.classList.remove("active"));
   if (landmarkBtn) landmarkBtn.classList.add('active');
@@ -1299,6 +1367,7 @@ function ensureLandmarkMode() {
 
 function launchLandmarkExplorer() {
   if (!RAP_LANDMARKS_ENABLED) return;
+  clearMemberDistribution();
   if (typeof networkLayer !== 'undefined') {
     clearNetworkScene();
   }
@@ -2074,6 +2143,7 @@ updateModeFilterSlider();
     
 function locateCity(cityObj) {
         if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
+        if (memberDistributionActive) renderMarkers(getActiveMarkerFilterType());
         // 飞行到该城市并增加轻微的缩放展示
         map.flyTo([cityObj.lat, cityObj.lng], 10, { duration: 1.2, easeLinearity: 0.3 });
         showTip(`已前往城市：${cityObj.raw}`, false, 2000);
@@ -2082,6 +2152,7 @@ function locateCity(cityObj) {
 
     function locateMapPoint(pointObj) {
       if (!RAP_LANDMARKS_ENABLED) return false;
+      clearMemberDistribution();
       if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
       activeLandmarkTheme = 'landmark';
       setActiveLandmarkCategory(pointObj.landmarkCategory || 'all', false);
@@ -2109,6 +2180,7 @@ function locateCity(cityObj) {
       if (person && !profileUI.hasMapLocation(person)) {
         return profileUI.open(person.name);
       }
+      if (memberDistributionActive) renderMarkers(getActiveMarkerFilterType());
       const exitBtn = document.getElementById('exit-network-btn');
       if (networkScene && networkScene.isActive()) {
         exitBtn.style.display = 'none';
@@ -2564,6 +2636,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         return;
       }
       if (!keepProfile) profileUI.close({ restoreFocus: false });
+      clearMemberDistribution();
       map.closePopup();
       markerClusterGroup.clearLayers(); 
 
@@ -2576,6 +2649,11 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
 
 // 退出关系网的交互
     document.getElementById('exit-network-btn').addEventListener('click', function() {
+      if (memberDistributionActive) {
+        renderMarkers(getActiveMarkerFilterType());
+        map.getContainer().focus({ preventScroll: true });
+        return;
+      }
       // 1. 隐藏退出按钮
       this.style.display = 'none';
       
