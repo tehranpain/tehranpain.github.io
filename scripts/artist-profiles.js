@@ -5,7 +5,7 @@
   }
 
   function create({ artists, groups, locate, network, showMemberDistribution, onOpen, onClose, getReturnTarget, details,
-    albums = {}, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
+    albums = {}, albumDetailsUrl, detailsUrl = './data/artist-details.js', document: suppliedDocument }) {
     const doc = suppliedDocument || root.document;
     const normalize = value => String(value || '').normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
     const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -13,11 +13,13 @@
     const all = artists.concat(groups);
     const allNames = indexNames(all);
     const artistNames = indexNames(artists.filter(item => !item.profileDisabled));
+    const peopleById = new Map(all.filter(item => item.neteaseId && !item.profileDisabled)
+      .map(item => [String(item.neteaseId), item]));
     let panel, scroller, content, closeButton, backButton, returnFocus, selected, revision = 0;
     let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
-    let albumDialog;
+    let activeAlbum, albumDetailsRequest, introObserver;
 
     function indexNames(items) {
       const index = new Map();
@@ -148,24 +150,147 @@
       frame.append(image);
       return frame;
     }
-    function openAlbum(album, item) {
-      const release = { type: 'album', albumId: album.id, title: album.title, image: album.cover,
-        format: album.format, artist: item.name, artistId: String(item.neteaseId) };
-      // A future album page can handle this event instead of the temporary view.
-      if (!doc.dispatchEvent(new root.CustomEvent('rapmap:open-album', { detail: release, cancelable: true }))) return;
-      if (!albumDialog) {
-        albumDialog = element('dialog', 'profile-album-dialog');
-        albumDialog.setAttribute('aria-labelledby', 'profile-album-dialog-title');
-        doc.body.append(albumDialog);
+    function loadAlbumDetails() {
+      if (root.RapAlbumDetails || !albumDetailsUrl) return Promise.resolve(root.RapAlbumDetails);
+      if (!albumDetailsRequest) {
+        albumDetailsRequest = new Promise(resolve => {
+          const script = element('script');
+          script.src = albumDetailsUrl;
+          script.onload = () => resolve(root.RapAlbumDetails);
+          script.onerror = () => { script.remove(); resolve(null); };
+          doc.body.append(script);
+        }).then(value => { if (!value) albumDetailsRequest = null; return value; });
       }
-      const backToProfile = button('profile-album-return', '返回资料卡', () => albumDialog.close());
-      backToProfile.autofocus = true;
-      const title = element('h2', 'profile-album-dialog-title', album.title);
-      title.id = 'profile-album-dialog-title';
-      albumDialog.replaceChildren(backToProfile, albumCover(album, 500), title,
-        element('p', 'profile-album-dialog-artist', item.name),
-        element('p', 'profile-album-dialog-note', '专辑详情暂未开放'));
-      if (!albumDialog.open) albumDialog.showModal();
+      return albumDetailsRequest;
+    }
+    function bookmarkIcon() {
+      const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      const path = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
+      Object.entries({ width:18, height:18, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor',
+        'stroke-width':1.8, 'stroke-linejoin':'round', 'aria-hidden':'true' })
+        .forEach(([key,value]) => svg.setAttribute(key,value));
+      path.setAttribute('d','M6 4h12v16l-6-4-6 4z');
+      svg.append(path);
+      return svg;
+    }
+    function albumIntro(summary) {
+      const intro = section('专辑介绍');
+      if (!summary) {
+        intro.append(element('p', 'profile-empty', '网易云暂未提供专辑介绍。'));
+        return intro;
+      }
+      const text = element('p', 'profile-biography profile-album-intro is-clamped', summary);
+      text.id = 'profile-album-intro';
+      const toggle = button('profile-biography-toggle profile-album-intro-toggle', '展开', () => {
+        const collapsed = text.classList.toggle('is-clamped');
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        toggle.textContent = collapsed ? '展开' : '收起';
+        updateScrollbar();
+      });
+      toggle.hidden = true;
+      toggle.setAttribute('aria-controls', text.id);
+      toggle.setAttribute('aria-expanded', 'false');
+      const measure = () => {
+        if (text.classList.contains('is-clamped')) toggle.hidden = text.scrollHeight <= text.clientHeight + 1;
+      };
+      intro.append(text, toggle);
+      const view = doc.defaultView || root;
+      if (view.ResizeObserver) {
+        introObserver = new view.ResizeObserver(measure);
+        introObserver.observe(text);
+      }
+      view.requestAnimationFrame(measure);
+      return intro;
+    }
+    function albumPeople(title, ids, people, emptyText) {
+      const block = section(title);
+      const list = element('div', 'profile-album-people');
+      for (const key of ids || []) {
+        const person = people[key];
+        if (!person) continue;
+        const local = peopleById.get(key);
+        const row = local ? button('profile-album-person', undefined, () => open(local.name, { remember:true }))
+          : /^\d+$/.test(key) ? musicLink('profile-album-person', undefined, 'artist', key)
+          : element('div', 'profile-album-person is-static');
+        row.append(avatar({ name:person.name, avatar:local?.avatar || person.avatar }, 'profile-person-avatar', true, 130),
+          element('span', 'profile-person-name', person.name));
+        list.append(row);
+      }
+      block.append(list.children.length ? list : element('p', 'profile-empty', emptyText));
+      return block;
+    }
+    function openAlbum(release, { remember = true, fromHistory = false, viewState } = {}) {
+      const id = String(release?.albumId ?? release?.id ?? '');
+      if (!/^\d+$/.test(id)) return false;
+      const entry = { id, title:release.title || '', cover:release.cover || release.image };
+      ensurePanel();
+      const wasOpen = isOpen();
+      if (!fromHistory && wasOpen && activeAlbum?.id === id) return true;
+      beginView({ wasOpen, remember, fromHistory });
+      selected = null;
+      activeAlbum = entry;
+      const currentRevision = ++revision;
+      panel.dataset.profileType = 'album';
+      delete panel.dataset.profileName;
+      panel.dataset.albumId = id;
+      const hero = element('div', 'profile-album-hero');
+      const image = albumCover(entry, 300);
+      const copy = element('div', 'profile-album-identity');
+      const title = element('h2', 'profile-album-title', entry.title || '专辑');
+      title.id = 'artist-profile-title';
+      const date = element('time', 'profile-album-date');
+      date.hidden = true;
+      copy.append(title, date);
+      hero.append(image, copy);
+      const actions = element('div', 'profile-album-actions');
+      const saves = element('span', 'profile-album-saves');
+      const count = element('span', '', '—');
+      saves.setAttribute('aria-label', '收藏量暂不可用');
+      saves.append(bookmarkIcon(), count);
+      const listen = musicLink('profile-album-listen', '去收听', 'album', id);
+      listen.href = 'https://music.163.com/album?id=' + id;
+      actions.append(saves, listen);
+      const body = element('div', 'profile-album-body');
+      content.replaceChildren(hero, actions, body);
+      panel.hidden = false;
+      updateBackButton();
+      if (onOpen) onOpen(null);
+      if (!fromHistory) (backButton.hidden ? closeButton : backButton).focus({ preventScroll:true });
+      function show(snapshot) {
+        if (revision !== currentRevision || !isOpen()) return;
+        const data = snapshot?.albums?.[id];
+        if (!data) {
+          body.replaceChildren(element('p', 'profile-empty profile-album-message', '暂未获取到专辑详情，可前往网易云查看。'));
+          updateScrollbar();
+          return;
+        }
+        title.textContent = entry.title = data.title;
+        if (data.cover && data.cover !== entry.cover) hero.replaceChild(albumCover(data, 300), image);
+        if (data.date) {
+          date.dateTime = date.textContent = data.date;
+          date.hidden = false;
+        }
+        if (data.saves != null) {
+          count.textContent = new Intl.NumberFormat('zh-CN').format(data.saves);
+          saves.setAttribute('aria-label', '收藏量 ' + count.textContent);
+          saves.title = snapshot.captured ? '网易云收藏量，采集于 ' + snapshot.captured : '网易云收藏量';
+        }
+        body.replaceChildren(albumIntro(data.intro),
+          albumPeople('创作者', data.creators, snapshot.people, '暂无可核实的创作者署名。'),
+          albumPeople('合作歌手', data.collaborators, snapshot.people, '暂无其他曲目艺人署名。'));
+        if (viewState) restoreView(viewState);
+        updateScrollbar();
+      }
+      restoreView();
+      if (root.RapAlbumDetails) show(root.RapAlbumDetails);
+      else {
+        const loading = element('p', 'profile-empty profile-album-message', '正在加载专辑详情…');
+        loading.setAttribute('role', 'status');
+        body.append(loading);
+        loadAlbumDetails().then(show);
+      }
+      updateScrollbar();
+      return true;
     }
     function renderAlbums(item) {
       const entries = albums[String(item.neteaseId)];
@@ -173,7 +298,8 @@
       const albumSection = section('代表专辑');
       const grid = element('div', 'profile-album-grid');
       for (const album of entries.slice(0, 3)) {
-        const card = button('profile-album-card', undefined, () => openAlbum(album, item));
+        const card = button('profile-album-card', undefined, () => openAlbum(album));
+        card.dataset.openAlbumId = album.id;
         card.title = album.title;
         card.append(albumCover(album, 300), element('span', 'profile-album-name', album.title));
         grid.append(card);
@@ -337,6 +463,8 @@
       if (!panel || panel.hidden) return;
       panel.hidden = true;
       selected = null;
+      activeAlbum = null;
+      introObserver?.disconnect();
       history = [];
       updateBackButton();
       revision++;
@@ -350,13 +478,14 @@
       const previous = history[history.length - 1];
       backButton.hidden = !previous;
       panel.setAttribute('data-profile-history', String(Boolean(previous)));
-      const label = '返回' + (previous?.name || previous?.target?.label || '上一页');
+      const label = '返回' + (previous?.name || previous?.album?.title || previous?.target?.label || '上一页');
       backButton.title = label;
       backButton.setAttribute('aria-label', label);
     }
     function captureView() {
       return { scrollTop: scroller.scrollTop || 0,
-        expanded: scroller.querySelector('.profile-biography-toggle')?.getAttribute('aria-expanded') === 'true' };
+        expanded: scroller.querySelector('.profile-biography-toggle')?.getAttribute('aria-expanded') === 'true',
+        albumFocus: doc.activeElement?.dataset?.openAlbumId };
     }
     function restoreView(state) {
       if (!state) { scroller.scrollTop = 0; return; }
@@ -364,15 +493,37 @@
       if (state.expanded && toggle && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
       scroller.scrollTop = state.scrollTop;
     }
+    function beginView({ wasOpen, remember, fromHistory }) {
+      introObserver?.disconnect();
+      if (!fromHistory) {
+        if (remember && wasOpen && (selected || activeAlbum)) {
+          history.push({ name: selected?.name, album: activeAlbum, state: captureView() });
+        } else {
+          history = [];
+          const target = getReturnTarget && getReturnTarget();
+          if (target && typeof target.restore === 'function') history.push({ target });
+        }
+      }
+      if (!wasOpen) {
+        const opener = doc.activeElement;
+        // Leaflet pans to focused markers, even with preventScroll.
+        returnFocus = opener?.closest('.leaflet-marker-icon')?.closest('.leaflet-container') || opener;
+      }
+    }
     function back() {
       const previous = history.pop();
       if (!previous) return false;
       if (previous.target) {
         close({ restoreFocus: false });
         previous.target.restore();
+      } else if (previous.album) {
+        openAlbum(previous.album, { fromHistory:true, viewState:previous.state });
+        (backButton.hidden ? closeButton : backButton).focus({ preventScroll:true });
       } else {
         open(previous.name, { fromHistory: true, viewState: previous.state });
-        if (backButton.hidden) closeButton.focus({ preventScroll: true });
+        const trigger = [...scroller.querySelectorAll('[data-open-album-id]')]
+          .find(node => node.dataset.openAlbumId === previous.state?.albumFocus);
+        (trigger || (backButton.hidden ? closeButton : backButton)).focus({ preventScroll:true });
       }
       return true;
     }
@@ -449,19 +600,9 @@
       ensurePanel();
       const wasOpen = isOpen();
       if (remember && wasOpen && selected === item) return true;
-      if (!fromHistory) {
-        if (remember && wasOpen && selected) history.push({ name: selected.name, state: captureView() });
-        else {
-          history = [];
-          const target = getReturnTarget && getReturnTarget();
-          if (target && typeof target.restore === 'function') history.push({ target });
-        }
-      }
-      if (!wasOpen) {
-        const opener = doc.activeElement;
-        // Leaflet pans to focused markers, even with preventScroll.
-        returnFocus = opener?.closest('.leaflet-marker-icon')?.closest('.leaflet-container') || opener;
-      }
+      beginView({ wasOpen, remember, fromHistory });
+      activeAlbum = null;
+      delete panel.dataset.albumId;
       selected = item;
       const currentRevision = ++revision;
       const group = item.type === 'label';
@@ -604,13 +745,13 @@
         open(trigger.dataset.artistProfile, { remember: Boolean(panel && panel.contains(trigger)) });
       }, true);
       doc.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !event.defaultPrevented && !albumDialog?.open && isOpen()) {
+        if (event.key === 'Escape' && !event.defaultPrevented && isOpen()) {
           event.preventDefault();
-          close();
+          if (!activeAlbum || !back()) close();
         }
       });
     }
-    return { open, close, back, isOpen, find, memberLinks, hasMapLocation, preview };
+    return { open, openAlbum, close, back, isOpen, find, memberLinks, hasMapLocation, preview };
   }
 
   const api = { create, hasMapLocation };

@@ -180,6 +180,7 @@ function positionDesktopPopover(panel, anchor, { width = 320, alignRight = false
 const profileUI = window.RapArtistProfiles.create({
   detailsUrl: './data/artist-details.js?v=20261118-song-art',
   albums: window.RapArtistAlbums,
+  albumDetailsUrl: './data/album-details.js?v=20261120-album-page',
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),
@@ -193,7 +194,7 @@ const profileUI = window.RapArtistProfiles.create({
     if (homePanel) homePanel.cover('profile', true);
     if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
     map.closePopup();
-    setSelectedProfileMarker(item.name);
+    setSelectedProfileMarker(item?.name);
     ['more-options-dropdown', 'rank-panel', 'index-panel'].forEach(id => {
       document.getElementById(id).classList.remove('show');
     });
@@ -2683,11 +2684,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         releases: window.RapFeaturedReleases || [],
         findArtist: name => profileUI.find(name),
         onArtist: name => profileUI.open(name),
-        onAlbum: release => {
-          // A future album view can prevent this event and take over navigation.
-          const event = new CustomEvent('rapmap:open-album', { detail: release, cancelable: true });
-          if (document.dispatchEvent(event)) homePanel.announce('专辑详情入口已预留，作品资料将在后续补充。');
-        }
+        onAlbum: release => profileUI.openAlbum(release)
       });
       requestAnimationFrame(() => { updateModeFilterSlider(); setFanSliderPercent(fanSliderPercent); });
     }

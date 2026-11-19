@@ -143,15 +143,29 @@ button.profile-member:focus-visible { background: #f2f2f2; }
 .profile-album-cover img[hidden] { display: none; }
 .profile-album-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; font-size: 12px; line-height: 1.4; font-weight: 700; }
 .profile-album-card:is(:hover, :focus-visible) .profile-album-name { color: var(--profile-red); }
-.profile-album-dialog { box-sizing: border-box; width: min(350px, calc(100% - 36px)); max-height: calc(100% - 36px); padding: 18px 22px 24px; border: 0; border-radius: 22px; background: #faf8f5; color: #191919; box-shadow: 0 16px 50px #211a1a38; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-.profile-album-dialog::backdrop { background: #25202068; }
-.profile-album-dialog .profile-album-cover { width: min(100%, 240px); margin: 12px auto 16px; border-radius: 11px; }
-.profile-album-return { border: 0; border-radius: 8px; background: #eeeae4; color: #4f453c; padding: 8px 12px; font: inherit; font-size: 12px; cursor: pointer; }
-.profile-album-return:hover { background: #e6dfd7; }
-.profile-album-return:focus-visible { outline: 2px solid #e60012; outline-offset: 3px; }
-.profile-album-dialog-title { margin: 0; overflow-wrap: anywhere; text-align: center; font-size: 21px; line-height: 1.25; }
-.profile-album-dialog-artist, .profile-album-dialog-note { margin: 7px 0 0; color: #655e56; text-align: center; font-size: 13px; }
-.profile-album-dialog-note { margin-top: 14px; color: #776d63; font-size: 12px; }
+.artist-profile-panel[data-profile-type="album"] .profile-toolbar { position: relative; inset: auto; padding-bottom: 6px; }
+.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close) { color: #4f453c; background: #eeeae4; backdrop-filter: none; }
+.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close):hover { background: #e6dfd7; }
+.profile-album-hero { display: grid; grid-template-columns: clamp(76px, 34%, 120px) minmax(0, 1fr); align-items: stretch; gap: 14px; margin: 4px 20px 0; }
+.profile-album-hero .profile-album-cover { align-self: start; border-radius: 10px; }
+.profile-album-identity { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; min-width: 0; padding: 2px 0; }
+.profile-album-title { margin: 0; font-size: clamp(18px, 5vw, 23px); line-height: 1.23; font-weight: 850; overflow-wrap: anywhere; }
+.profile-album-date { color: #6d645e; font-size: 12px; font-variant-numeric: tabular-nums; }
+.profile-album-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 15px 20px 17px; }
+.profile-album-actions > * { display: flex; justify-content: center; align-items: center; gap: 7px; min-width: 0; min-height: 39px; padding: 7px; border-radius: 999px; }
+.profile-album-saves { color: #191919; background: #fff; border: 1px solid #eeeae4; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.profile-album-saves svg { flex-shrink: 0; }
+.profile-album-actions .profile-album-listen { color: #fff; background: var(--profile-red); text-decoration: none; font-size: 13px; font-weight: 750; }
+.profile-album-listen:hover { background: #c90010; }
+.profile-album-intro.is-clamped { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.profile-album-intro-toggle[hidden] { display: none; }
+.profile-album-people { display: grid; gap: 4px; }
+.profile-album-people .profile-album-person { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; min-height: 46px; padding: 5px 8px; border: 0; border-radius: 9px; background: transparent; color: var(--profile-ink); text-align: left; text-decoration: none; }
+.profile-album-person:is(a, button) { cursor: pointer; }
+.profile-album-person:is(:hover, :focus-visible) { background: #eeeae6; }
+.profile-album-person .profile-person-avatar { width: 36px; height: 36px; }
+.profile-album-person .profile-person-name { font-size: 13px; font-weight: 650; }
+.profile-album-message { padding: 0 20px 12px; }
 .profile-biography { margin: 0; color: #665e57; font-size: 13px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
 .profile-biography-toggle { display: block; margin-top: 9px; padding: 0; border: 0; background: none; color: var(--profile-red); font-size: 12px !important; cursor: pointer; }
 .profile-empty { margin: 0; color: #938a80; font-size: 12px; line-height: 1.8; }
