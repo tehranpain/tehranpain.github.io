@@ -19,7 +19,7 @@
     let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
-    let activeAlbum, albumDetailsRequest, introObserver;
+    let activeAlbum, albumDetailsRequest;
 
     function indexNames(items) {
       const index = new Map();
@@ -196,36 +196,15 @@
       link.href = 'https://music.163.com/album?id=' + id;
       return link;
     }
-    function albumIntro(summary, id) {
+    function albumIntro(hasIntro, id) {
       const intro = section('专辑介绍');
-      if (!summary) {
+      if (!hasIntro) {
         intro.append(element('p', 'profile-empty', '网易云暂未提供专辑介绍。'));
         return intro;
       }
       const heading = element('div', 'profile-album-intro-heading');
       heading.append(intro.firstElementChild, albumLink('profile-album-intro-source', '查看网易云原文', id));
       intro.append(heading);
-      const text = element('p', 'profile-biography profile-album-intro is-clamped', summary);
-      text.id = 'profile-album-intro';
-      const toggle = button('profile-biography-toggle profile-album-intro-toggle', '展开', () => {
-        const collapsed = text.classList.toggle('is-clamped');
-        toggle.setAttribute('aria-expanded', String(!collapsed));
-        toggle.textContent = collapsed ? '展开' : '收起';
-        updateScrollbar();
-      });
-      toggle.hidden = true;
-      toggle.setAttribute('aria-controls', text.id);
-      toggle.setAttribute('aria-expanded', 'false');
-      const measure = () => {
-        if (text.classList.contains('is-clamped')) toggle.hidden = text.scrollHeight <= text.clientHeight + 1;
-      };
-      intro.append(text, toggle);
-      const view = doc.defaultView || root;
-      if (view.ResizeObserver) {
-        introObserver = new view.ResizeObserver(measure);
-        introObserver.observe(text);
-      }
-      view.requestAnimationFrame(measure);
       return intro;
     }
     function albumPeople(title, ids, people, emptyText) {
@@ -304,7 +283,7 @@
         }
         saves.show(data.saves, snapshot.captured);
         shares.show(data.shares, snapshot.captured);
-        const sections = [albumIntro(data.intro, id),
+        const sections = [albumIntro(data.hasIntro, id),
           albumPeople('创作者', data.creators, snapshot.people, '暂无可核实的创作者署名。'),
           albumPeople('合作歌手', data.collaborators, snapshot.people),
           albumTracks(data.tracks)];
@@ -495,7 +474,6 @@
       panel.hidden = true;
       selected = null;
       activeAlbum = null;
-      introObserver?.disconnect();
       history = [];
       updateBackButton();
       revision++;
@@ -525,7 +503,6 @@
       scroller.scrollTop = state.scrollTop;
     }
     function beginView({ wasOpen, remember, fromHistory }) {
-      introObserver?.disconnect();
       if (!fromHistory) {
         if (remember && wasOpen && (selected || activeAlbum)) {
           history.push({ name: selected?.name, album: activeAlbum, state: captureView() });
