@@ -13,20 +13,6 @@
     });
   }
 
-  function curvePoints(start, end, project, unproject, index = 0) {
-    const a = project(start), b = project(end);
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const distance = Math.hypot(dx, dy);
-    if (distance < .01) return [start, end];
-    const bend = Math.min(130, distance * (.13 + index % 3 * .025)) * (index % 2 ? -1 : 1);
-    const control = { x: (a.x + b.x) / 2 - dy / distance * bend, y: (a.y + b.y) / 2 + dx / distance * bend };
-    return Array.from({ length: 25 }, (_, step) => {
-      const t = step / 24, s = 1 - t;
-      return unproject({ x: s * s * a.x + 2 * s * t * control.x + t * t * b.x,
-        y: s * s * a.y + 2 * s * t * control.y + t * t * b.y });
-    });
-  }
-
   // Resolve collisions in screen space; artist coordinates and marker LatLngs stay unchanged.
   function spreadNodes(nodes, bounds) {
     const placed = [];
@@ -92,7 +78,7 @@
       if (!active) return;
       container.classList.toggle('network-has-focus', index !== null && index !== 0);
       nodes.forEach((entry, i) => entry.marker.getElement()?.classList.toggle('is-network-focused', i === index));
-      links.forEach((entry, i) => entry.paths.forEach(path => path.getElement()?.classList.toggle('is-network-focused', i + 1 === index)));
+      links.forEach((path, i) => path.getElement()?.classList.toggle('is-network-focused', i + 1 === index));
     }
     function marker(person, center, index) {
       const offset = element('div', 'network-node-offset');
@@ -128,13 +114,10 @@
       item.getElement().addEventListener('focusout', () => focus(null));
       return { marker: item, person, size };
     }
-    function line(className, index) {
-      const path = L.polyline([], { pane: paneName, renderer, interactive: false, className,
-        color: className.includes('halo') ? '#fff' : '#ce555c', weight: className.includes('halo') ? 5 : 1.6,
-        opacity: 1, lineCap: 'round', lineJoin: 'round', smoothFactor: .4 }).addTo(layer);
-      const svg = path.getElement();
-      svg.setAttribute('pathLength', '1');
-      svg.style.setProperty('--network-line-delay', Math.min(120, index * 6) + 'ms');
+    function line(index) {
+      const path = L.polyline([], { pane: paneName, renderer, interactive: false, className: 'network-link',
+        color: '#656565', weight: 1.6, dashArray: '5 5', lineCap: 'butt' }).addTo(layer);
+      path.getElement().style.setProperty('--network-line-delay', Math.min(120, index * 6) + 'ms');
       return path;
     }
     function cameraPadding() {
@@ -180,17 +163,13 @@
     // Reproject during zoom without rerunning the collision solver on every frame.
     function drawLinks() {
       if (!active || !nodes.length) return;
-      const zoom = map.getZoom();
-      const project = value => map.project(value, zoom);
-      const unproject = point => map.unproject(L.point(point.x, point.y), zoom);
       const center = nodes[0].marker.getLatLng();
-      links.forEach((entry, index) => {
+      links.forEach((path, index) => {
         const target = nodes[index + 1];
         const anchor = target.marker.getLatLng();
         const point = map.latLngToContainerPoint(anchor);
         const end = map.containerPointToLatLng(L.point(point.x + target.offset.x, point.y + target.offset.y));
-        const curve = curvePoints(center, end, project, unproject, index);
-        entry.paths.forEach(path => path.setLatLngs(curve));
+        path.setLatLngs([center, end]);
         if (target.tether) target.tether.setLatLngs([anchor, end]);
       });
     }
@@ -239,7 +218,7 @@
         map.distance([center.lat, center.lng], [a.lat, a.lng]) - map.distance([center.lat, center.lng], [b.lat, b.lng]) || a.name.localeCompare(b.name));
       container.classList.add('network-view'); updateScale();
       nodes = [marker(center, true, 0), ...peers.map((person, index) => marker(person, false, index + 1))];
-      links = peers.map((person, index) => ({ paths: [line('network-link network-link-halo', index), line('network-link network-link-ink', index)] }));
+      links = peers.map((_, index) => line(index));
       const copy = element('span', 'network-dock-copy');
       const count = element('span', 'network-dock-count');
       count.append(element('span', '', '合作'), element('strong', 'network-dock-number', peers.length), element('span', '', '人'));
@@ -266,7 +245,7 @@
     map.on('zoomend moveend resize', layout);
     return { show, clear, isActive: () => active };
   }
-  const api = { create, mappedPeers, curvePoints, spreadNodes, nodeScale, NETWORK_ZOOM };
+  const api = { create, mappedPeers, spreadNodes, nodeScale, NETWORK_ZOOM };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.RapNetworkScene = api;
 })(typeof window !== 'undefined' ? window : globalThis);
