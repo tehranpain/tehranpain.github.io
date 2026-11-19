@@ -163,22 +163,48 @@
       }
       return albumDetailsRequest;
     }
-    function bookmarkIcon() {
+    function albumMetricIcon(iconPath) {
       const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg');
       const path = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
       Object.entries({ width:18, height:18, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor',
-        'stroke-width':1.8, 'stroke-linejoin':'round', 'aria-hidden':'true' })
+        'stroke-width':1.8, 'stroke-linejoin':'round', 'stroke-linecap':'round', 'aria-hidden':'true' })
         .forEach(([key,value]) => svg.setAttribute(key,value));
-      path.setAttribute('d','M6 4h12v16l-6-4-6 4z');
+      path.setAttribute('d', iconPath);
       svg.append(path);
       return svg;
     }
-    function albumIntro(summary) {
+    function albumStat(className, label, iconPath) {
+      const badge = element('span', 'profile-album-stat ' + className);
+      const count = element('span', '', '—');
+      count.setAttribute('aria-hidden', 'true');
+      badge.setAttribute('role', 'img');
+      badge.setAttribute('aria-label', label + '暂不可用');
+      badge.title = label;
+      badge.append(albumMetricIcon(iconPath), count);
+      return {
+        badge,
+        show(value, captured) {
+          if (!Number.isSafeInteger(value) || value < 0) return;
+          count.textContent = new Intl.NumberFormat('zh-CN').format(value);
+          badge.setAttribute('aria-label', label + ' ' + count.textContent);
+          badge.title = '网易云' + label + (captured ? '，采集于 ' + captured : '');
+        }
+      };
+    }
+    function albumLink(className, text, id) {
+      const link = musicLink(className, text, 'album', id);
+      link.href = 'https://music.163.com/album?id=' + id;
+      return link;
+    }
+    function albumIntro(summary, id) {
       const intro = section('专辑介绍');
       if (!summary) {
         intro.append(element('p', 'profile-empty', '网易云暂未提供专辑介绍。'));
         return intro;
       }
+      const heading = element('div', 'profile-album-intro-heading');
+      heading.append(intro.firstElementChild, albumLink('profile-album-intro-source', '查看网易云原文', id));
+      intro.append(heading);
       const text = element('p', 'profile-biography profile-album-intro is-clamped', summary);
       text.id = 'profile-album-intro';
       const toggle = button('profile-biography-toggle profile-album-intro-toggle', '展开', () => {
@@ -216,7 +242,17 @@
           element('span', 'profile-person-name', person.name));
         list.append(row);
       }
-      block.append(list.children.length ? list : element('p', 'profile-empty', emptyText));
+      if (list.children.length) block.append(list);
+      else if (emptyText) block.append(element('p', 'profile-empty', emptyText));
+      else return null;
+      return block;
+    }
+    function albumTracks(tracks) {
+      if (!tracks?.length) return null;
+      const block = section('曲目列表');
+      const list = element('ol', 'profile-album-tracks');
+      for (const title of tracks) list.append(element('li', 'profile-album-track', title));
+      block.append(list);
       return block;
     }
     function openAlbum(release, { remember = true, fromHistory = false, viewState } = {}) {
@@ -243,13 +279,9 @@
       copy.append(title, date);
       hero.append(image, copy);
       const actions = element('div', 'profile-album-actions');
-      const saves = element('span', 'profile-album-saves');
-      const count = element('span', '', '—');
-      saves.setAttribute('aria-label', '收藏量暂不可用');
-      saves.append(bookmarkIcon(), count);
-      const listen = musicLink('profile-album-listen', '去收听', 'album', id);
-      listen.href = 'https://music.163.com/album?id=' + id;
-      actions.append(saves, listen);
+      const saves = albumStat('profile-album-saves', '收藏量', 'M6 4h12v16l-6-4-6 4z');
+      const shares = albumStat('profile-album-shares', '转发量', 'M14 4l6 6-6 6v-4h-2c-4 0-6 2-8 6 0-7 3-10 8-10h2z');
+      actions.append(saves.badge, shares.badge, albumLink('profile-album-listen', '去收听', id));
       const body = element('div', 'profile-album-body');
       content.replaceChildren(hero, actions, body);
       panel.hidden = false;
@@ -270,14 +302,13 @@
           date.dateTime = date.textContent = data.date;
           date.hidden = false;
         }
-        if (data.saves != null) {
-          count.textContent = new Intl.NumberFormat('zh-CN').format(data.saves);
-          saves.setAttribute('aria-label', '收藏量 ' + count.textContent);
-          saves.title = snapshot.captured ? '网易云收藏量，采集于 ' + snapshot.captured : '网易云收藏量';
-        }
-        body.replaceChildren(albumIntro(data.intro),
+        saves.show(data.saves, snapshot.captured);
+        shares.show(data.shares, snapshot.captured);
+        const sections = [albumIntro(data.intro, id),
           albumPeople('创作者', data.creators, snapshot.people, '暂无可核实的创作者署名。'),
-          albumPeople('合作歌手', data.collaborators, snapshot.people, '暂无其他曲目艺人署名。'));
+          albumPeople('合作歌手', data.collaborators, snapshot.people),
+          albumTracks(data.tracks)];
+        body.replaceChildren(...sections.filter(Boolean));
         if (viewState) restoreView(viewState);
         updateScrollbar();
       }
