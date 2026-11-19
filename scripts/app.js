@@ -1555,11 +1555,33 @@ setActiveLandmarkCategory('all', false);
     const SEARCH_HISTORY_LIMIT = 10;
     let searchHistory;
 
+    // Keep this index independent of map filters and deduplicate shared albums by NetEase ID.
+    const searchableAlbums = new Map();
+    const albumOwners = new Map(allData.filter(item => item.neteaseId).map(item => [String(item.neteaseId), item.name]));
+    function indexSearchAlbum(release, owner) {
+      const id = String(release.albumId ?? release.id ?? '');
+      if (!/^\d+$/.test(id)) return;
+      if (!searchableAlbums.has(id) && release.title?.trim()) {
+        const title = release.title.trim();
+        searchableAlbums.set(id, { raw: title, lower: title.toLowerCase(), type: 'album',
+          album: { id, title, cover: release.cover || release.image }, owners: new Set() });
+      }
+      if (owner) searchableAlbums.get(id)?.owners.add(owner);
+    }
+    for (const [ownerId, releases] of Object.entries(window.RapArtistAlbums || {})) {
+      releases.forEach(release => indexSearchAlbum(release, albumOwners.get(ownerId)));
+    }
+    for (const release of window.RapFeaturedReleases || []) {
+      if (release.type === 'album') indexSearchAlbum(release, release.artist);
+    }
+    const albumSearchItems = [...searchableAlbums.values()];
+
     function isHistoryKind(type) {
-      return ['singer', 'label', 'city'].includes(type);
+      return ['singer', 'label', 'city', 'album'].includes(type);
     }
 
-    function resolveHistoryItem({ name, type } = {}) {
+    function resolveHistoryItem({ name, type, albumId } = {}) {
+      if (type === 'album') return searchableAlbums.get(String(albumId)) || null;
       if (typeof name !== 'string' || !name.trim()) return null;
       if (!type || type === 'city') {
         const city = cities.find(item => item.name.toLowerCase() === name.trim().toLowerCase());
@@ -1569,6 +1591,16 @@ setActiveLandmarkCategory('all', false);
       const person = profileUI.find(name);
       return person && !person.profileDisabled && (!type || person.type === type)
         ? { raw: person.name, type: person.type } : null;
+    }
+
+    function toHistoryEntry(item) {
+      const entry = { name: item.raw, type: item.type };
+      if (item.type === 'album') entry.albumId = item.album.id;
+      return entry;
+    }
+
+    function historyEntryKey(entry) {
+      return entry.type + ':' + (entry.albumId ?? entry.name);
     }
 
     function getSearchHistory() {
@@ -1582,10 +1614,11 @@ setActiveLandmarkCategory('all', false);
             for (const entry of saved) {
               const item = resolveHistoryItem(typeof entry === 'string' ? { name: entry } : entry || {});
               if (!item || !isHistoryKind(item.type)) continue;
-              const key = item.type + ':' + item.raw;
+              const record = toHistoryEntry(item);
+              const key = historyEntryKey(record);
               if (seen.has(key)) continue;
               seen.add(key);
-              searchHistory.push({ name: item.raw, type: item.type });
+              searchHistory.push(record);
               if (searchHistory.length === SEARCH_HISTORY_LIMIT) break;
             }
           }
@@ -1605,8 +1638,9 @@ setActiveLandmarkCategory('all', false);
 
     function saveSearchHistory(item) {
       if (!isHistoryKind(item.type)) return;
-      const previous = getSearchHistory().filter(entry => entry.name !== item.raw || entry.type !== item.type);
-      persistSearchHistory([{ name: item.raw, type: item.type }, ...previous].slice(0, SEARCH_HISTORY_LIMIT));
+      const record = toHistoryEntry(item);
+      const previous = getSearchHistory().filter(entry => historyEntryKey(entry) !== historyEntryKey(record));
+      persistSearchHistory([record, ...previous].slice(0, SEARCH_HISTORY_LIMIT));
     }
 
     function renderSearchHistory() {
@@ -1616,9 +1650,14 @@ setActiveLandmarkCategory('all', false);
         mobileHistoryList.innerHTML = '<div class="mobile-history-empty">还没有历史搜索</div>';
         return;
       }
-      mobileHistoryList.innerHTML = history.map(item => (
-        `<button class="mobile-history-item" type="button" data-keyword="${escapeHtml(item.name)}" data-type="${item.type}" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</button>`
-      )).join('');
+      mobileHistoryList.innerHTML = history.map(item => {
+        const album = item.type === 'album' ? searchableAlbums.get(item.albumId) : null;
+        const owners = album ? [...album.owners].join(' / ') : '';
+        const title = item.name + (owners ? ' · ' + owners : '');
+        const albumAttrs = album ? ` data-album-id="${item.albumId}"` : '';
+        const tag = album ? ' <span class="city-tag">专辑</span>' : '';
+        return `<button class="mobile-history-item" type="button" data-keyword="${escapeHtml(item.name)}" data-type="${item.type}"${albumAttrs} title="${escapeHtml(title)}">${escapeHtml(item.name)}${tag}</button>`;
+      }).join('');
     }
 
     function hideSearchPanels() {
@@ -2019,7 +2058,7 @@ updateModeFilterSlider();
       mobileHistoryList.addEventListener('click', function(e) {
         const item = e.target.closest('.mobile-history-item');
         if (!item) return;
-        const target = resolveHistoryItem({ name: item.dataset.keyword, type: item.dataset.type });
+        const target = resolveHistoryItem({ name: item.dataset.keyword, type: item.dataset.type, albumId: item.dataset.albumId });
         if (!target) return;
         if (!isMobileLayout()) {
           searchInput.value = target.raw;
@@ -2084,10 +2123,15 @@ updateModeFilterSlider();
     // 工具函数：将文本中匹配的关键词片段用红色高亮包裹
     function highlightKeyword(text, keyword) {
       if (!keyword) return escapeHtml(text);
-      const escapedText = escapeHtml(text);
-      const escapedKw = escapeHtml(keyword);
-      const reg = new RegExp(escapedKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-      return escapedText.replace(reg, match => `<mark style="background:transparent;color:#e60012;font-weight:700;">${match}</mark>`);
+      const reg = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      let result = '';
+      let end = 0;
+      for (const match of text.matchAll(reg)) {
+        result += escapeHtml(text.slice(end, match.index));
+        result += `<mark style="background:transparent;color:#e60012;font-weight:700;">${escapeHtml(match[0])}</mark>`;
+        end = match.index + match[0].length;
+      }
+      return result + escapeHtml(text.slice(end));
     }
 
     function isLandmarkSearchType(type) {
@@ -2095,6 +2139,7 @@ updateModeFilterSlider();
     }
 
     function isSearchItemAllowed(item) {
+      if (item.type === 'album') return true;
       const activeThemeBtn = document.querySelector('.filter-btn[data-type="landmark"].active');
       if (!activeThemeBtn) return !isLandmarkSearchType(item.type);
       if (activeThemeBtn.dataset.type === 'landmark') {
@@ -2104,41 +2149,59 @@ updateModeFilterSlider();
       return true;
     }
 
+    function searchMatches(keyword) {
+      const lower = keyword.toLowerCase();
+      const priority = item => item.lower === lower ? (item.raw.toLowerCase() === lower ? 0 : 1) : 2;
+      return [...searchNameList, ...albumSearchItems]
+        .filter(item => item.lower.includes(lower) && isSearchItemAllowed(item))
+        .sort((a, b) => priority(a) - priority(b));
+    }
+
     function updateSuggestions(val) {
-      if (!val.trim()) {
+      const keyword = val.trim();
+      if (!keyword) {
         hideSearchPanels();
         openDesktopSearchHistory();
         return;
       }
       mobileHistorySection.classList.remove('desktop-history-open');
-      const lowerVal = val.toLowerCase();
-      const matches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower.includes(lowerVal)).slice(0, 8);
+      const matches = searchMatches(keyword).slice(0, 8);
       if (matches.length === 0) {
         suggestionsDiv.style.display = 'none';
         return;
       }
       suggestionsDiv.innerHTML = '';
       matches.forEach(m => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'suggestion-item';
 
         if (m.type === 'city') {
           // 城市类型：名称标红 + 城市角标
-          div.classList.add('city-type');
-          div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">城市</span>`;
+          button.classList.add('city-type');
+          button.innerHTML = `${highlightKeyword(m.raw, keyword)} <span class="city-tag">城市</span>`;
+        } else if (m.type === 'album') {
+          const owners = [...m.owners].join(' / ');
+          button.innerHTML = `${highlightKeyword(m.raw, keyword)} <span class="city-tag">专辑</span>`;
+          if (owners) {
+            const credit = document.createElement('span');
+            credit.className = 'suggestion-album-artist';
+            credit.textContent = owners;
+            button.appendChild(credit);
+          }
         } else if (isLandmarkSearchType(m.type)) {
           const tag = LANDMARK_CATEGORY_META[m.landmarkCategory || 'lyric']?.shortTag || '地标';
-          div.innerHTML = `${highlightKeyword(m.raw, val)} <span class="city-tag">${tag}</span>`;
+          button.innerHTML = `${highlightKeyword(m.raw, keyword)} <span class="city-tag">${tag}</span>`;
         } else if (m.alias) {
           // 别名命中：展示"真实姓名 • 别名标红"
-          div.innerHTML = `${escapeHtml(m.raw)} <span style="color:#aaa;font-size:12px;font-weight:400">• ${highlightKeyword(m.alias, val)}</span>`;
+          button.innerHTML = `${escapeHtml(m.raw)} <span style="color:#aaa;font-size:12px;font-weight:400">• ${highlightKeyword(m.alias, keyword)}</span>`;
         } else {
           // 普通歌手/厂牌：名称标红
-          div.innerHTML = highlightKeyword(m.raw, val);
+          button.innerHTML = highlightKeyword(m.raw, keyword);
         }
 
-        div.addEventListener('click', () => selectSearchResult(m));
-        suggestionsDiv.appendChild(div);
+        button.addEventListener('click', () => selectSearchResult(m));
+        suggestionsDiv.appendChild(button);
       });
       suggestionsDiv.style.display = 'block';
     }
@@ -2221,24 +2284,20 @@ function locateCity(cityObj) {
       hideSearchPanels();
       if (item.type === 'city') locateCity(item);
       else if (isLandmarkSearchType(item.type)) return locateMapPoint(item);
-      else if (!locateAndAnimate(item.raw)) return;
+      else if (item.type === 'album') {
+        if (!profileUI.openAlbum(item.album)) return;
+      } else if (!locateAndAnimate(item.raw)) return;
       saveSearchHistory(item);
     }
 
     // 搜索执行
-   function executeSearch() {
-        const keyword = searchInput.value.trim();
-        if (!keyword) { showTip('输入歌手、团体或城市名称吧', false, 1200); return; }
-      const lowerKw = keyword.toLowerCase();
-        const exactMatches = searchNameList.filter(item => isSearchItemAllowed(item) && item.lower === lowerKw);
-        const exactMatch = exactMatches.find(item => item.raw.toLowerCase() === lowerKw) || exactMatches[0];
-        const match = exactMatch || searchNameList.find(item => isSearchItemAllowed(item) && item.lower.includes(lowerKw));
-        if (match) {
-          selectSearchResult(match);
-        } else {
-          showTip(`暂未收录 "${keyword}"`, true);
-        }
-      }
+    function executeSearch() {
+      const keyword = searchInput.value.trim();
+      if (!keyword) { showTip('输入歌手、团体、专辑或城市名称吧', false, 1200); return; }
+      const [match] = searchMatches(keyword);
+      if (match) selectSearchResult(match);
+      else showTip(`暂未收录 "${keyword}"`, true);
+    }
 
     // ===== 搜索框清除按钮逻辑 =====
     const clearBtn = document.getElementById('search-clear-btn');
@@ -2270,13 +2329,14 @@ function locateCity(cityObj) {
       if (e.key === 'Enter') {
         e.preventDefault();
         executeSearch();
-      } else if (e.key === 'ArrowDown' && mobileHistorySection.classList.contains('desktop-history-open')) {
-        const first = mobileHistoryList.querySelector('button');
+      } else if (e.key === 'ArrowDown') {
+        const first = suggestionsDiv.style.display === 'block' ? suggestionsDiv.querySelector('button')
+          : mobileHistorySection.classList.contains('desktop-history-open') ? mobileHistoryList.querySelector('button') : null;
         if (first) { e.preventDefault(); first.focus(); }
       }
     });
     searchContainer.addEventListener('keydown', event => {
-      if (event.key !== 'Escape' || !mobileHistorySection.classList.contains('desktop-history-open')) return;
+      if (event.key !== 'Escape' || (suggestionsDiv.style.display !== 'block' && !mobileHistorySection.classList.contains('desktop-history-open'))) return;
       event.stopPropagation();
       searchInput.focus();
       hideSearchPanels();
