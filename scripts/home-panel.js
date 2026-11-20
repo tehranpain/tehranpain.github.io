@@ -21,6 +21,7 @@
     const carousel = doc.getElementById('home-release-carousel');
     const slidesHost = doc.getElementById('home-release-slides');
     const collapse = doc.getElementById('home-panel-collapse');
+    const desktopToolbar = doc.getElementById('desktop-home-toolbar');
     const controls = doc.getElementById('home-carousel-controls');
     const dotsHost = doc.getElementById('home-carousel-dots');
     const previous = doc.getElementById('home-carousel-previous');
@@ -35,7 +36,7 @@
     const reduced = win.matchMedia('(prefers-reduced-motion: reduce)');
     const covered = new Set();
     const cleanups = [];
-    let items = [], slides = [], dots = [], index = 0, collapsed = false, timer;
+    let items = [], slides = [], dots = [], index = 0, collapsed = false, desktopView = null, timer;
     let hovered = false, focused = false, drag;
     let moving = false, shiftedIndex = null, shiftedBy = 0, settleTimer, swipeTimer, suppressSwipeClick = false;
 
@@ -63,7 +64,7 @@
     }
     function schedule() {
       win.clearTimeout(timer); timer = undefined;
-      const playing = items.length > 1 && !covered.size && !hovered && !focused
+      const playing = items.length > 1 && !covered.size && (desktopView === null || desktopView === 'recommend') && !hovered && !focused
         && doc.visibilityState !== 'hidden' && !reduced.matches;
       carousel.dataset.playing = String(playing);
       if (playing) timer = win.setTimeout(() => select(index + 1), 6000);
@@ -239,17 +240,29 @@
     function sync() {
       const blocked = covered.size > 0;
       // Collapsing hides only filters; the artwork and its carousel remain interactive.
-      panel.hidden = false;
+      const desktop = desktopView !== null;
+      panel.hidden = desktopView === 'closed';
       panel.inert = blocked;
       panel.setAttribute('aria-hidden', String(blocked));
       panel.classList.toggle('is-covered', blocked);
-      panel.classList.toggle('is-collapsed', collapsed);
-      filterSection.hidden = collapsed;
+      panel.classList.toggle('is-collapsed', !desktop && collapsed);
+      filterSection.hidden = desktop ? desktopView !== 'filter' : collapsed;
+      carousel.hidden = desktop && desktopView !== 'recommend';
+      collapse.hidden = desktop;
+      if (desktopToolbar) desktopToolbar.hidden = !desktop;
+      panel.setAttribute('aria-label', desktopView === 'recommend' ? '推荐' : desktopView === 'filter' ? '筛选' : '新作推荐与地图筛选');
       collapse.setAttribute('aria-expanded', String(!collapsed));
       collapse.setAttribute('aria-label', collapsed ? '展开筛选内容' : '收起筛选内容');
       schedule();
     }
     function cover(reason, active) { if (active) covered.add(reason); else covered.delete(reason); sync(); }
+    function setDesktopView(view) {
+      if (desktopView === view) return;
+      if (view !== null && view !== 'recommend') hovered = focused = false;
+      desktopView = view;
+      sync();
+      scroller.scrollTop = 0;
+    }
     function expand({ focus = true } = {}) {
       collapsed = false; sync();
       if (focus && !covered.size) collapse.focus({ preventScroll: true });
@@ -306,7 +319,7 @@
     observer.observe(doc.getElementById('rank-panel'), { attributes: true, attributeFilter: ['class'] });
     observer.observe(doc.getElementById('mobile-control-dialog'), { attributes: true, attributeFilter: ['open'] });
     setReleases(releases); sync();
-    return { setReleases, cover, expand, showFilters, announce: text => { status.textContent = text; },
+    return { setReleases, cover, setDesktopView, expand, showFilters, announce: text => { status.textContent = text; },
       destroy() { win.clearTimeout(timer); win.clearTimeout(swipeTimer); finishMotion(); observer.disconnect(); cleanups.forEach(cleanup => cleanup()); } };
   }
   const api = { create, normalizeRelease };

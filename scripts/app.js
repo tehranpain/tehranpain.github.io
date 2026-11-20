@@ -106,6 +106,7 @@ let memberDistributionActive = false;
 function clearNetworkScene() {
   if (networkScene) networkScene.clear();
   else networkLayer.clearLayers();
+  desktopRail?.setNetworkArtist(null);
 }
 
 
@@ -130,6 +131,7 @@ const allData = [...singersWithType, ...profilesWithType, ...labels].filter(item
 let selectedProfileName = null;
 let mobileNavigation = null;
 let homePanel = null;
+let desktopRail = null;
 
 function setSelectedProfileMarker(name = null) {
   selectedProfileName = name;
@@ -146,7 +148,12 @@ function captureProfileReturnTarget() {
     ? mobileNavigation.activePanel() : null;
   const kind = ['rank', 'index'].includes(mobilePanel) ? mobilePanel
     : ['rank', 'index'].find(key => document.getElementById(key + '-panel').classList.contains('show'));
-  if (!kind) return null;
+  if (!kind) {
+    if (desktopRail?.activeView() === 'recommend' && document.getElementById('map-home-panel').contains(document.activeElement)) {
+      return { label: '推荐', restore: () => desktopRail.show('recommend', { focus: true }) };
+    }
+    return null;
+  }
   const list = document.getElementById(kind === 'rank' ? 'rank-panel-body' : 'index-list');
   const scrollTop = list.scrollTop;
   const tab = document.querySelector('.' + kind + '-tab.active')?.dataset.tab;
@@ -156,11 +163,12 @@ function captureProfileReturnTarget() {
       const mobile = mobileNavigation && mobileNavigation.isEnabled();
       const button = document.getElementById(kind + '-btn');
       if (mobile) mobileNavigation.open(kind);
+      else if (kind === 'rank' && desktopRail?.isEnabled()) desktopRail.show('rank', { focus: true });
       else if (!document.getElementById(kind + '-panel').classList.contains('show')) button.click();
       const selectedTab = document.querySelector('.' + kind + '-tab[data-tab="' + tab + '"]');
       if (selectedTab && !selectedTab.classList.contains('active')) selectedTab.click();
       list.scrollTop = scrollTop;
-      if (!mobile) button.focus({ preventScroll: true });
+      if (!mobile && !(kind === 'rank' && desktopRail?.isEnabled())) button.focus({ preventScroll: true });
     }
   };
 }
@@ -191,6 +199,7 @@ const profileUI = window.RapArtistProfiles.create({
     if (homePanel) homePanel.cover('profile', false);
   },
   onOpen: item => {
+    desktopRail?.close();
     if (homePanel) homePanel.cover('profile', true);
     if (mobileNavigation) mobileNavigation.close({ immediate: true, restoreFocus: false });
     map.closePopup();
@@ -835,6 +844,11 @@ row.innerHTML = `
 
   rankBtn.addEventListener('click', function(e) {
     e.stopPropagation();
+    if (desktopRail?.isEnabled()) {
+      if (desktopRail.activeView() === 'rank') desktopRail.close();
+      else desktopRail.show('rank');
+      return;
+    }
     if (homePanel) profileUI.close({ restoreFocus: false });
     if (window.innerWidth <= 480) openMobileSheet('rank');
     const isOpen = rankPanel.classList.contains('show');
@@ -853,6 +867,7 @@ document.getElementById('more-options-dropdown').classList.remove('show');
   });
 
   function closeRankPanel() {
+    if (desktopRail?.isEnabled()) { desktopRail.close({ focus: true }); return; }
     rankPanel.classList.remove('show');
     rankBtn.classList.remove('open');
     rankBtn.focus({ preventScroll: true });
@@ -867,7 +882,7 @@ document.getElementById('more-options-dropdown').classList.remove('show');
   });
 
   document.addEventListener('click', function(e) {
-    if (window.innerWidth <= 480) return;
+    if (window.innerWidth <= 480 || desktopRail?.isEnabled()) return;
     if (!rankBtn.contains(e.target) && !rankPanel.contains(e.target)) {
       rankPanel.classList.remove('show');
       rankBtn.classList.remove('open');
@@ -1864,6 +1879,7 @@ setActiveLandmarkCategory('all', false);
 
 moreOptionsBtn.addEventListener('click', function(e) {
   e.stopPropagation();
+  if (desktopRail?.isEnabled()) { desktopRail.show('filter'); return; }
   if (homePanel && window.innerWidth > 480) {
     profileUI.close({ restoreFocus: false });
     document.getElementById('rank-panel').classList.remove('show');
@@ -2625,6 +2641,7 @@ const sortedKeys = Object.keys(groups).sort((a, b) => {
     }
     function openIndexPanel() {
       profileUI.close({ restoreFocus: false });
+      desktopRail?.close();
       document.getElementById('rank-panel').classList.remove('show');
       document.getElementById('rank-btn').classList.remove('open');
       document.getElementById('more-options-dropdown').classList.remove('show');
@@ -2706,7 +2723,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
       updateModeFilterSlider();
 
-      networkScene.show(centerSinger);
+      if (networkScene.show(centerSinger)) desktopRail?.setNetworkArtist(centerSinger.name);
     };
 
 // 退出关系网的交互
@@ -2787,6 +2804,22 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
           document.body.append(searchTipDiv);
           requestAnimationFrame(() => setFanSliderPercent(fanSliderPercent));
         }
+      });
+    }
+    if (window.RapDesktopRail) {
+      desktopRail = window.RapDesktopRail.create({
+        homePanel,
+        beforeOpen: () => {
+          profileUI.close({ restoreFocus: false });
+          closeIndexPanel();
+          hideSearchPanels();
+        },
+        onFilter: () => { updateModeFilterSlider(); setFanSliderPercent(fanSliderPercent); },
+        getNetworkArtists: () => singersWithType.filter(item => !item.profileDisabled && profileUI.hasMapLocation(item)).map(item => ({
+          name: item.name, aliases: item.aliases, fans: parseFanThresholdValue(item.fans),
+          count: window.RapNetworkScene.mappedPeers(item, profileUI.find, profileUI.hasMapLocation).length
+        })).filter(item => item.count > 0).sort((a, b) => b.fans - a.fans || b.count - a.count || a.name.localeCompare(b.name, 'zh-CN')),
+        onNetwork: name => window.showNetwork(name)
       });
     }
   }); // 对应开头的 DOMContentLoaded 监听

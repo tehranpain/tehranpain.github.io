@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./css/network-scene.css?v=20261120-gray-dash">
   <link rel="stylesheet" href="./css/mobile-navigation.css">
   <link rel="stylesheet" href="./css/home-panel.css?v=20261117-title-alignment">
+  <link rel="stylesheet" href="./css/desktop-rail.css?v=20261120">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -22,7 +23,15 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 </head>
-<body data-rap-landmarks-enabled="false" data-map-home="true">
+<body data-rap-landmarks-enabled="false" data-map-home="true" data-map-layout="rail">
+  <nav id="desktop-map-rail" class="desktop-map-rail" aria-label="地图功能" hidden>
+    <button type="button" data-rail-view="recommend" aria-controls="map-home-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 14.4 9l6.6 3-6.6 2.6L12 21l-2.6-6.4L3 12l6.4-3z"/></svg><span>推荐</span></button>
+    <button type="button" data-rail-view="filter" aria-controls="map-home-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="9" cy="6" r="1.8"/><circle cx="15" cy="12" r="1.8"/></svg><span>筛选</span></button>
+    <button type="button" data-rail-view="rank" aria-controls="rank-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M4 20v-7h5v7m0 0V8h6v12m0 0v-9h5v9"/></svg><span>排行榜</span></button>
+    <button type="button" data-rail-view="network" aria-controls="desktop-rail-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.5"/><circle cx="18" cy="5" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m7.3 10.8 8.5-4.6m-8.5 7 8.5 4.6"/></svg><span>关系网</span></button>
+    <button type="button" data-rail-view="albums" aria-controls="desktop-rail-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><span>专辑</span></button>
+    <button type="button" data-rail-view="settings" aria-controls="desktop-rail-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 3-.7 2.3-2 .9-2.2-1.1-2 3.5L5 10.4v2.2l-1.9 1.7 2 3.5 2.2-1 2 .9.7 2.3h4l.7-2.3 2-.9 2.2 1 2-3.5-1.9-1.7v-2.2l1.9-1.8-2-3.5-2.2 1.1-2-.9L14 3z"/><circle cx="12" cy="11.5" r="3"/></svg><span>设置</span></button>
+  </nav>
   <div id="top-bar">
     <div id="search-container">
       <div id="mobile-sheet-handle" aria-hidden="true"></div>
@@ -237,8 +246,17 @@
 <!-- 城市快捷列表（嵌入搜索栏，在说唱地标按钮下方展开） -->
 
   <div id="map"></div>
+<aside id="desktop-rail-panel" class="desktop-rail-panel" aria-labelledby="desktop-rail-panel-title" hidden>
+  <header class="desktop-rail-toolbar"><h2 id="desktop-rail-panel-title"></h2><button type="button" data-rail-close aria-label="关闭面板">×</button></header>
+  <div id="desktop-network-content" class="desktop-network-content" hidden>
+    <label for="desktop-network-search">选择一位歌手查看合作关系</label>
+    <input id="desktop-network-search" type="search" placeholder="搜索可查看关系网的歌手" autocomplete="off">
+    <div id="desktop-network-results"></div>
+  </div>
+</aside>
 <!-- 首页底卡始终保留；资料卡和排行榜覆盖它，不重建筛选控件。 -->
 <aside id="map-home-panel" class="map-home-panel" aria-label="新作推荐与地图筛选">
+  <header id="desktop-home-toolbar" class="desktop-rail-toolbar" hidden><h2 id="desktop-home-title"></h2><button type="button" data-rail-close aria-label="关闭面板">×</button></header>
   <button id="home-panel-collapse" class="home-panel-collapse" type="button" aria-controls="home-filter-section" aria-expanded="true" aria-label="收起筛选内容"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button>
   <div id="home-panel-scroll" class="home-panel-scroll">
     <section id="home-release-carousel" class="home-release-carousel" role="region" aria-roledescription="轮播" aria-label="新作推荐">
@@ -266,8 +284,9 @@
 <script src="./scripts/artist-profiles.js?v=20261120-album-source"></script>
 <script src="./scripts/network-scene.js?v=20261120-gray-dash"></script>
 <script src="./scripts/mobile-navigation.js"></script>
-<script src="./scripts/home-panel.js?v=20261117-release-labels"></script>
-<script src="./scripts/app.js?v=20261120-album-search"></script>
+<script src="./scripts/home-panel.js?v=20261120-desktop-rail"></script>
+<script src="./scripts/desktop-rail.js?v=20261120"></script>
+<script src="./scripts/app.js?v=20261120-desktop-rail"></script>
 </body>
 </html>
 
