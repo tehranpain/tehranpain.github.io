@@ -42,11 +42,6 @@
     "1050364": [
       {"id":"259187468","title":"幸福城市里总有人不幸福","cover":"https://p2.music.126.net/xby3wVonBkxk4XXqRqxZtw==/109951170362729020.jpg","format":"专辑"}
     ],
-    "1083118": [
-      {"id":"275330251","title":"MAGICMAN 2","cover":"https://p2.music.126.net/HBdnyICeh_Qro6n5cxzawg==/109951171315896344.jpg","format":"专辑"},
-      {"id":"151293087","title":"MAGIC MAN","cover":"https://p2.music.126.net/sKSiz0v9C4WlNyi3OLyLEg==/109951167859205961.jpg","format":"专辑"},
-      {"id":"141208076","title":"LOST & FOUND","cover":"https://p1.music.126.net/YUMGgVuJMW-5mpCxPNi9RQ==/109951167108330074.jpg","format":"专辑"}
-    ],
     "1086078": [
       {"id":"124579030","title":"朝九晚五","cover":"https://p1.music.126.net/p3BIcP44Q-dwrpK8huQgpg==/109951165809301019.jpg","format":"专辑"}
     ],

@@ -3557,31 +3557,6 @@ window.RapArtistDetails = {
       "biographySummary": false,
       "sourceUrl": "https://music.163.com/artist?id=1050156"
     },
-    "1083118": {
-      "songs": [
-        {
-          "id": "1804879213",
-          "name": "过",
-          "artists": "王嘉尔 / 林俊杰"
-        },
-        {
-          "id": "3434710986",
-          "name": "Thank You",
-          "artists": "王嘉尔"
-        },
-        {
-          "id": "2011553686",
-          "name": "Why Why Why",
-          "artists": "王嘉尔"
-        }
-      ],
-      "biography": "王嘉尔（Jackson Wang），1994年3月28日出生于中国香港，歌手、表演者、主设计师、创意总监、TEAM WANG records & TEAM WANG design创始人。\n2017年开始发布个人音乐作品。2018年，获得全美青少年选择奖明日之星奖，成为首位获此殊荣的中国人。2019年，推出个人首张数字专辑《MIRRORS》。2020年，发行个人英文单曲《100Ways》，成为首位进入Mediabase电台榜单TOP40 的华人歌手。2021年，发行个人英文单曲《LMLY》。2022年3月，发行英文单曲《Blow》，该歌曲登顶iTunes 32个国家&地区 TOP1；4月，成为首位登上Coachella音乐节主舞台的中国SOLO歌手；7月，发行英文单曲《Cruel》；9月，推出专辑《MAGIC MAN》，该专辑空降Billboard 200公告牌专辑榜第15位，成为首位进入榜单Top20的中国艺人；11月，开启个人首次世界巡演，跨越亚洲、欧洲、北美洲与南美洲，共15座城市。2023年4月，受Coachella音乐节官方邀请，成为唯一一位二登Coachella的中国SOLO歌手，并与格莱美奖获得者、歌手Ciara推出合作曲《Slow》，随后发行2023年首支个人单曲《Cheetah》。",
-      "biographyDate": "2026-11-14",
-      "songsFetchedOn": "2026-11-14",
-      "biographySource": "网易云音乐公开艺人简介",
-      "biographySummary": false,
-      "sourceUrl": "https://music.163.com/artist?id=1083118"
-    },
     "1203015": {
       "songs": [
         {
@@ -3600,7 +3575,7 @@ window.RapArtistDetails = {
           "artists": "Dough-Boy / 余佳运"
         }
       ],
-      "biography": "Dough-Boy 全能音乐制作人、说唱歌手、艺术家、演员、香港说唱组合 BAKERIE 最主要的一员。Dough-Boy 出生于香港，在多伦多和新加坡长大，是香港乃至全国最具影响力的音乐制作人和说唱歌手之一。代表作品：《MK Circus》、《望穿抽水》、《Noisy》等。作为说唱歌手，Dough-Boy 共发行《CHINGLISH》(2018)、《Good, Bad & Ugly》(2019)、《POWER》(2021)、《Departure》(2022)、《Better Days》(2024) 、《当你回头发现人生只剩一半时(国语极品之选)》(2025) 六张个人录音室专辑，首张个人专辑《CHINGLISH》便入围了 「阿比鹿音乐奖」。第二张专辑联合时尚品牌上官喆 SANKUANZ，清河联合（擦主席）以及 Bong Studio 一起出品全新的概念玩具，第三张开始逐渐转型为制作人专辑。\n\n作为全能音乐制作人，Dough-Boy 合作的音乐人遍布全球各地，他曾为王嘉尔、Lil Yachty 、顽童 MJ116、侧田、欧阳靖、热狗、Tizzy T 、梦飞船等众多国内外知名音乐人操刀制作。2019 年开始涉足影视圈，在“翻生争霸赛”、“总有爱在隔离”、“金童”等都饰演重要角色。同时独特的形象气质以及前卫的时尚品味，也让他深受各大品牌的喜爱，仅仅一年内就担任了 CHANEL，Adidas Origins，Vans，Places+Faces，SANKUANZ 等的形象代言人，无论什么身份，Dough-Boy 都以先行者的姿态存在于大众视野。\n\n微博 @DoughBoyHK\nInstagram @doughboybeastsyou\n抖音 @Dough-Boy\n小红书 @Dough-Boy",
+      "biography": "Dough-Boy 全能音乐制作人、说唱歌手、艺术家、演员、香港说唱组合 BAKERIE 最主要的一员。Dough-Boy 出生于香港，在多伦多和新加坡长大，是香港乃至全国最具影响力的音乐制作人和说唱歌手之一。代表作品：《MK Circus》、《望穿抽水》、《Noisy》等。作为说唱歌手，Dough-Boy 共发行《CHINGLISH》(2018)、《Good, Bad & Ugly》(2019)、《POWER》(2021)、《Departure》(2022)、《Better Days》(2024) 、《当你回头发现人生只剩一半时(国语极品之选)》(2025) 六张个人录音室专辑，首张个人专辑《CHINGLISH》便入围了 「阿比鹿音乐奖」。第二张专辑联合时尚品牌上官喆 SANKUANZ，清河联合（擦主席）以及 Bong Studio 一起出品全新的概念玩具，第三张开始逐渐转型为制作人专辑。\n\n作为全能音乐制作人，Dough-Boy 合作的音乐人遍布全球各地，他曾为Lil Yachty 、顽童 MJ116、侧田、欧阳靖、热狗、Tizzy T 、梦飞船等众多国内外知名音乐人操刀制作。2019 年开始涉足影视圈，在“翻生争霸赛”、“总有爱在隔离”、“金童”等都饰演重要角色。同时独特的形象气质以及前卫的时尚品味，也让他深受各大品牌的喜爱，仅仅一年内就担任了 CHANEL，Adidas Origins，Vans，Places+Faces，SANKUANZ 等的形象代言人，无论什么身份，Dough-Boy 都以先行者的姿态存在于大众视野。\n\n微博 @DoughBoyHK\nInstagram @doughboybeastsyou\n抖音 @Dough-Boy\n小红书 @Dough-Boy",
       "biographyDate": "2026-11-14",
       "songsFetchedOn": "2026-11-14",
       "biographySource": "网易云音乐公开艺人简介",
@@ -4087,7 +4062,7 @@ window.RapArtistDetails = {
         {
           "id": "3361120050",
           "name": "Deadend(活该)",
-          "artists": "Tyson Yoshi / 王嘉尔"
+          "artists": "Tyson Yoshi"
         },
         {
           "id": "2069931450",
@@ -9651,7 +9626,7 @@ window.RapArtistDetails = {
           "artists": "法老 / KnowKnow"
         }
       ],
-      "biography": "被纽约时报赞誉为“中国Hip-Hop界突破性明星说唱组合 - Higher Brothers“ 的唱将担当，KnowKnow早已是一个耳熟能详的名字。这位96年出生的天才旋律制造者出道至今已发布一张个人Mixtape《MEDM》和一张个人正式专辑《Mr. Enjoy Da Money》， 并凭借“R&B All Night”，“Lover Boy 88“， “Midsummer Madness” “Made in China” 等数首单曲屡次在全球范围掀起狂潮，全球试听量超过4.5亿。从2017年与团队Higher Brothers发布首张正式专辑《Black Cab》开始，国内外巡演“座无虚席”；到2018年8月KnowKnow和组合中其他三人共同登上了福布斯中国“30岁以下精英榜”；再到2019年团队第二张正式专辑《Five Stars》中与优秀Hip-hop音乐人们的合作包括Schoolboy Q，Denzel Curry，Soulja Boy，J.I.D等；2019年与Snoop Dogg合作发布单曲“Friends and Foes”，成为首个与欧美rapper共同为美剧打造主题曲的中国rapper。其团队大热单曲《恭喜发财》在抖音更是有超过40万视频使用，全球总播放量超过40亿。2018年KnowKnow与同厂牌88rising旗下艺人Joji，Rich Brian 和 August 08合作88rising厂牌夏日合辑主打歌《Midsummer Madness》，并凭借这首单曲成为中国唯一获得RIAA认证金唱片的说唱歌手，歌曲更是登顶Spotify “全球热门50“榜单。他的2019年年度浪漫金曲“R&B All Night” 在全网掀起翻唱热潮，在抖音互动人数破20万次，单曲播放量超过2亿，包揽各大流媒体榜单第一名。首张个人专辑《Mr. Enjoy Da Money》不仅包含了代表中国顶尖Hip-Hop水平的佳作，更有无法取代的Know式金曲，体现了KnowKnow说唱俱佳的多面天赋，专辑中还有马思唯贡献的两首强力feature，以及中国流行音乐唱作人王嘉尔的倾力加盟。2020年KnowKnow首次以导师身份与黄子韬，Rich Brian，马思唯，李宇春，MC Hotdog同台加入bilibili首档S+级综艺《说唱新世代》，成为2020音乐综艺中一匹黑马，创下单集播放量过亿的惊人成绩。毋庸置疑的是，KnowKnow正用他独有的音乐风格，具有感染力的歌词，和无限的创造力，引领着新一代中国说唱界风潮。",
+      "biography": "被纽约时报赞誉为“中国Hip-Hop界突破性明星说唱组合 - Higher Brothers“ 的唱将担当，KnowKnow早已是一个耳熟能详的名字。这位96年出生的天才旋律制造者出道至今已发布一张个人Mixtape《MEDM》和一张个人正式专辑《Mr. Enjoy Da Money》， 并凭借“R&B All Night”，“Lover Boy 88“， “Midsummer Madness” “Made in China” 等数首单曲屡次在全球范围掀起狂潮，全球试听量超过4.5亿。从2017年与团队Higher Brothers发布首张正式专辑《Black Cab》开始，国内外巡演“座无虚席”；到2018年8月KnowKnow和组合中其他三人共同登上了福布斯中国“30岁以下精英榜”；再到2019年团队第二张正式专辑《Five Stars》中与优秀Hip-hop音乐人们的合作包括Schoolboy Q，Denzel Curry，Soulja Boy，J.I.D等；2019年与Snoop Dogg合作发布单曲“Friends and Foes”，成为首个与欧美rapper共同为美剧打造主题曲的中国rapper。其团队大热单曲《恭喜发财》在抖音更是有超过40万视频使用，全球总播放量超过40亿。2018年KnowKnow与同厂牌88rising旗下艺人Joji，Rich Brian 和 August 08合作88rising厂牌夏日合辑主打歌《Midsummer Madness》，并凭借这首单曲成为中国唯一获得RIAA认证金唱片的说唱歌手，歌曲更是登顶Spotify “全球热门50“榜单。他的2019年年度浪漫金曲“R&B All Night” 在全网掀起翻唱热潮，在抖音互动人数破20万次，单曲播放量超过2亿，包揽各大流媒体榜单第一名。首张个人专辑《Mr. Enjoy Da Money》不仅包含了代表中国顶尖Hip-Hop水平的佳作，更有无法取代的Know式金曲，体现了KnowKnow说唱俱佳的多面天赋，专辑中还有马思唯贡献的两首强力feature。2020年KnowKnow首次以导师身份与黄子韬，Rich Brian，马思唯，李宇春，MC Hotdog同台加入bilibili首档S+级综艺《说唱新世代》，成为2020音乐综艺中一匹黑马，创下单集播放量过亿的惊人成绩。毋庸置疑的是，KnowKnow正用他独有的音乐风格，具有感染力的歌词，和无限的创造力，引领着新一代中国说唱界风潮。",
       "biographyDate": "2026-11-05"
     },
     "27869677": {
