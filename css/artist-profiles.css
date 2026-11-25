@@ -143,18 +143,20 @@ button.profile-member:focus-visible { background: #f2f2f2; }
 .profile-album-cover img[hidden] { display: none; }
 .profile-album-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; font-size: 12px; line-height: 1.4; font-weight: 700; }
 .profile-album-card:is(:hover, :focus-visible) .profile-album-name { color: var(--profile-red); }
-.artist-profile-panel[data-profile-type="album"] { background: #fff; }
-.artist-profile-panel[data-profile-type="album"] .profile-toolbar { position: relative; inset: auto; padding-bottom: 6px; }
-.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close) { color: #4f453c; background: #eeeae4; backdrop-filter: none; }
-.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close):hover { background: #e6dfd7; }
-.profile-album-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin: 4px 20px 0; }
-.profile-album-hero .profile-album-cover { border-radius: 10px; }
+#artist-profile-panel.artist-profile-panel[data-profile-type="album"] { border-width: 0; background: #fff; }
+.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close) { color: #fff; background: transparent; backdrop-filter: none; }
+.artist-profile-panel[data-profile-type="album"] :is(.profile-back, .profile-close):is(:hover, :focus-visible) { background: #0005; }
+.artist-profile-panel[data-profile-type="album"] .profile-back svg { filter: drop-shadow(0 1px 2px #000a); }
+.artist-profile-panel[data-profile-type="album"] .profile-close { font-size: 20px !important; text-shadow: 0 1px 3px #000a; }
+.profile-album-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.profile-album-hero .profile-album-cover { border-radius: 0; }
+.profile-album-identity { margin-inline: 20px; }
 .profile-album-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 12px; }
 .profile-album-title { margin: 0; font-size: clamp(18px, 5vw, 23px); line-height: 1.23; font-weight: 850; overflow-wrap: anywhere; }
 .profile-album-date { color: #6d645e; font-size: 12px; font-variant-numeric: tabular-nums; }
 .profile-album-date:not([hidden]) { display: block; margin-top: 2px; }
 .profile-album-listen { width: 28px; height: 28px; }
-.profile-album-stats { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0 0; color: #6d645e; font-size: 12px; font-variant-numeric: tabular-nums; }
+.profile-album-stats { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0 0; color: #6d645e; font-size: 14px; font-variant-numeric: tabular-nums; }
 .profile-album-stat { display: inline-flex; align-items: center; gap: 5px; line-height: 1.35; }
 .profile-album-stat svg { width: 17px; height: 17px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .profile-album-favorite svg { fill: #f0b519; stroke: none; }
@@ -162,7 +164,7 @@ button.profile-member:focus-visible { background: #f2f2f2; }
 .artist-profile-panel .profile-album-favorite { margin-left: -6px; padding: 4px 6px; border: 0; border-radius: 6px; color: inherit; line-height: 1.35; background: none; }
 .profile-album-favorite:enabled { cursor: pointer; }
 .profile-album-favorite:enabled:hover { background: #fff7dc; }
-.profile-album-intro-copy.is-collapsed { max-block-size: 11.4em; max-block-size: 6lh; overflow: hidden; }
+.profile-album-intro-copy.is-collapsed { max-block-size: 7.6em; max-block-size: 4lh; overflow: hidden; }
 .profile-album-intro-toggle[hidden] { display: none; }
 .profile-album-details { padding-block: 0; border-radius: 0; background: none; }
 .profile-album-detail-section { padding-block: 16px; }
@@ -176,8 +178,10 @@ button.profile-member:focus-visible { background: #f2f2f2; }
 .profile-album-creators { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 10px; }
 .profile-album-creators .profile-section-title { margin: 0; }
 .profile-album-creators .profile-album-people { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #ded8d1 transparent; }
-.profile-album-creators .profile-album-person { flex: 0 0 auto; width: auto; min-height: 36px; padding: 3px 5px; gap: 6px; white-space: nowrap; }
-.profile-album-creators .profile-person-avatar { width: 30px; height: 30px; }
+.profile-album-creators .profile-album-person { flex: 0 0 auto; width: auto; min-height: 40px; padding: 3px 6px; gap: 7px; white-space: nowrap; }
+.profile-album-creators .profile-person-avatar { width: 34px; height: 34px; }
+.profile-album-creators .profile-person-name { font-size: 14px; }
+.profile-album-creators .profile-album-person:is(a, button):is(:hover, :focus-visible) { background: #f3f0ed; }
 .profile-album-creators .profile-album-person:focus-visible { outline-offset: -2px; }
 .profile-album-tracks { margin: 0; padding-inline-start: 26px; }
 .profile-album-track { padding: 6px 0 6px 5px; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
