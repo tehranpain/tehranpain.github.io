@@ -64,7 +64,9 @@
     }
     function schedule() {
       win.clearTimeout(timer); timer = undefined;
+      const mobileView = carousel.closest('#mobile-view-recommend');
       const playing = items.length > 1 && !covered.size && (desktopView === null || desktopView === 'recommend') && !hovered && !focused
+        && (!mobileView || !mobileView.hidden && mobileView.closest('dialog')?.open)
         && doc.visibilityState !== 'hidden' && !reduced.matches;
       carousel.dataset.playing = String(playing);
       if (playing) timer = win.setTimeout(() => select(index + 1), 6000);
@@ -314,10 +316,11 @@
     listen(reduced, 'change', () => { finishMotion(); schedule(); });
     const observer = new win.MutationObserver(() => {
       cover('rank', doc.getElementById('rank-panel').classList.contains('show'));
-      cover('mobile', doc.getElementById('mobile-control-dialog').hasAttribute('open'));
+      const dialog = doc.getElementById('mobile-control-dialog');
+      cover('mobile', dialog.open && dialog.dataset.panel !== 'recommend');
     });
     observer.observe(doc.getElementById('rank-panel'), { attributes: true, attributeFilter: ['class'] });
-    observer.observe(doc.getElementById('mobile-control-dialog'), { attributes: true, attributeFilter: ['open'] });
+    observer.observe(doc.getElementById('mobile-control-dialog'), { attributes: true, attributeFilter: ['open', 'data-panel'] });
     setReleases(releases); sync();
     return { setReleases, cover, setDesktopView, expand, showFilters, announce: text => { status.textContent = text; },
       destroy() { win.clearTimeout(timer); win.clearTimeout(swipeTimer); finishMotion(); observer.disconnect(); cleanups.forEach(cleanup => cleanup()); } };

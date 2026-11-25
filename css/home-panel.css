@@ -111,11 +111,7 @@ body[data-map-home="true"] #rank-panel-body { overscroll-behavior: contain; }
   }
 }
 @media (max-width: 480px) {
-  body[data-map-home="true"][data-mobile-navigation="v2"] .map-home-panel,
-  body[data-map-home="true"][data-mobile-navigation="v2"] .artist-profile-panel {
-    top: 24px; bottom: var(--mobile-nav-space); left: 12px; right: 12px; width: auto; height: auto; max-height: none; border: 1px solid #ffffffd9; border-radius: 26px;
-  }
-  body[data-map-home="true"] #mobile-control-dialog[data-panel="rank"] .mobile-panel-sheet { top: 24px; height: auto; max-height: none; border-radius: 26px; }
+  body[data-map-home="true"][data-mobile-navigation="v2"] .map-home-panel { display: none; }
   body[data-map-home="true"] #mobile-control-dialog #rank-panel { position: static !important; inset: auto !important; width: 100% !important; height: 100%; max-height: none; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
   #mobile-control-dialog .rank-card-toolbar { display: none; }
   .home-release-title { font-size: 18px; }
@@ -129,9 +125,6 @@ body[data-map-home="true"] #rank-panel-body { overscroll-behavior: contain; }
 body[data-map-home="true"] .map-home-panel.is-collapsed { bottom: auto; height: auto; max-height: calc(100dvh - var(--map-panel-top, 78px) - var(--map-card-bottom)); }
 @media (min-width: 481px) and (max-width: 600px) {
   body[data-map-home="true"] .map-home-panel.is-collapsed { top: auto; bottom: 0; max-height: 72dvh; }
-}
-@media (max-width: 480px) {
-  body[data-map-home="true"][data-mobile-navigation="v2"] .map-home-panel.is-collapsed { top: 24px; bottom: auto; height: auto; max-height: calc(100dvh - 24px - var(--mobile-nav-space)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .map-home-panel { animation: none; }

@@ -1,5 +1,5 @@
 (function (root) {
-  const panels = ['search', 'filter', 'rank', 'index'];
+  const panels = ['search', 'filter', 'rank', 'index', 'recommend'];
   function createState({ activate, show, reveal, conceal, hide, prefersReducedMotion = () => false, timers = root }) {
     let phase = 'closed', active = null, pending, revision = 0;
     function cancel() { revision++; timers.clearTimeout(pending); pending = null; }
@@ -31,8 +31,7 @@
   }
 
   function create({ beforeOpen, onActivate, onClose, persistentFilters = false, document: doc = root.document, window: win = root }) {
-    const nav = doc.getElementById('mobile-bottom-nav');
-    const home = doc.getElementById('mobile-navigation-home');
+    const nav = doc.getElementById('mobile-map-tools');
     const dialog = doc.getElementById('mobile-control-dialog');
     const sheet = dialog.querySelector('.mobile-panel-sheet');
     const header = dialog.querySelector('.mobile-panel-header');
@@ -42,12 +41,12 @@
     const title = doc.getElementById('mobile-panel-title');
     const buttons = [...nav.querySelectorAll('[data-mobile-panel]')];
     const views = panels.map(key => doc.getElementById('mobile-view-' + key));
-    const labels = { search: '搜索', filter: '筛选', rank: '排行榜', index: '艺人索引' };
+    const labels = { search: '搜索', filter: '筛选', rank: '排行榜', index: '艺人索引', recommend: '新作推荐' };
     const destinations = {
       'search-input-inner': 'mobile-search-toolbar', 'search-btn': 'mobile-search-toolbar',
       'search-suggestions': 'mobile-search-results', 'mobile-history-section': 'mobile-search-results',
       'mode-filter-tabs': 'mobile-filter-mode', 'more-options-dropdown': 'mobile-filter-options',
-      'rank-panel': 'mobile-view-rank', 'index-panel': 'mobile-view-index'
+      'rank-panel': 'mobile-view-rank', 'index-panel': 'mobile-view-index', 'home-release-carousel': 'mobile-view-recommend'
     };
     const portals = Object.entries(destinations).map(([id, target]) => {
       const node = doc.getElementById(id);
@@ -95,15 +94,12 @@
         resetDrag(); sheet.inert = false;
         dialog.dataset.panel = key;
         title.textContent = labels[key];
-        nav.style.setProperty('--mobile-nav-index', String(panels.indexOf(key)));
-        nav.classList.add('has-active-panel');
         buttons.forEach(button => button.setAttribute('aria-expanded', String(button.dataset.mobilePanel === key)));
         views.forEach((view, index) => { view.hidden = panels[index] !== key; });
         if (onActivate) onActivate(key);
         searchStatus();
       },
       show() {
-        dialog.append(nav);
         viewport();
         if (typeof dialog.showModal === 'function') dialog.showModal();
         else dialog.setAttribute('open', '');
@@ -128,8 +124,6 @@
       hide(key, { restoreFocus }) {
         if (dialog.open && typeof dialog.close === 'function') dialog.close();
         else dialog.removeAttribute('open');
-        home.append(nav);
-        nav.classList.remove('has-active-panel');
         buttons.forEach(button => button.setAttribute('aria-expanded', 'false'));
         resetDrag();
         sheet.inert = false;

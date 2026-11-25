@@ -16,6 +16,7 @@
     const peopleById = new Map(all.filter(item => item.neteaseId && !item.profileDisabled)
       .map(item => [String(item.neteaseId), item]));
     let panel, scroller, content, closeButton, backButton, returnFocus, selected, revision = 0;
+    let mobileSheet, sheetSummary;
     let history = [];
     let snapshot = details || root.RapArtistDetails;
     let detailsRequest;
@@ -53,7 +54,7 @@
     function button(className, text, action) {
       const node = element('button', className, text);
       node.type = 'button';
-      node.addEventListener('click', action);
+      if (action) node.addEventListener('click', action);
       return node;
     }
     function musicLink(className, text, kind, id) {
@@ -281,7 +282,9 @@
       hero.append(image, copy);
       const body = element('div', 'profile-album-body');
       content.replaceChildren(hero, body);
+      setSheetSummary(albumCover(entry, 130), entry.title || '专辑', '专辑');
       panel.hidden = false;
+      mobileSheet?.setExpanded(viewState?.sheetExpanded ?? (remember && wasOpen && mobileSheet.isExpanded()));
       updateBackButton();
       if (onOpen) onOpen(null);
       if (!fromHistory) (backButton.hidden ? closeButton : backButton).focus({ preventScroll:true });
@@ -299,6 +302,7 @@
           date.dateTime = date.textContent = data.date;
           date.hidden = false;
         }
+        setSheetSummary(albumCover(data, 130), data.title, data.date ? '专辑 · ' + data.date : '专辑');
         saves.show(data.saves, snapshot.captured);
         shares.show(data.shares, snapshot.captured);
         const intro = albumIntro(data.description, id);
@@ -487,13 +491,28 @@
       scroller.setAttribute('aria-label', '资料卡内容');
       content = element('div', 'profile-content');
       scroller.append(content);
-      panel.append(toolbar, scroller);
+      const handle = button('profile-sheet-handle');
+      sheetSummary = button('profile-sheet-preview');
+      for (const control of [handle, sheetSummary]) {
+        control.hidden = true;
+        control.setAttribute('aria-controls', scroller.id);
+      }
+      panel.append(toolbar, handle, sheetSummary, scroller);
       doc.body.appendChild(panel);
+      mobileSheet = root.RapMobileProfileSheet?.create({ panel, scroller, handle, summary: sheetSummary, close });
       updateScrollbar = setupScrollbar();
+    }
+    function setSheetSummary(image, title, subtitle) {
+      if (!mobileSheet) return;
+      const copy = element('span', 'profile-sheet-copy');
+      copy.append(element('strong', 'profile-sheet-title', title), element('span', 'profile-sheet-meta', subtitle));
+      sheetSummary.replaceChildren(image, copy, element('span', 'profile-sheet-hint', '上滑查看'));
+      sheetSummary.setAttribute('aria-label', '展开完整资料：' + title + '，' + subtitle);
     }
     function close({ restoreFocus = true } = {}) {
       if (!panel || panel.hidden) return;
       panel.hidden = true;
+      mobileSheet?.setExpanded(false);
       selected = null;
       activeAlbum = null;
       history = [];
@@ -515,6 +534,7 @@
     }
     function captureView() {
       return { scrollTop: scroller.scrollTop || 0,
+        sheetExpanded: mobileSheet?.isExpanded(),
         expanded: scroller.querySelector('.profile-biography-toggle')?.getAttribute('aria-expanded') === 'true',
         albumFocus: doc.activeElement?.dataset?.openAlbumId };
     }
@@ -629,7 +649,7 @@
       if (!item || item.profileDisabled) return false;
       ensurePanel();
       const wasOpen = isOpen();
-      if (remember && wasOpen && selected === item) return true;
+      if (!fromHistory && wasOpen && selected === item && (remember || mobileSheet?.isEnabled())) return true;
       beginView({ wasOpen, remember, fromHistory });
       activeAlbum = null;
       delete panel.dataset.albumId;
@@ -729,7 +749,10 @@
         collaborators.append(list);
         content.append(collaborators);
       }
+      setSheetSummary(avatar(item, 'profile-sheet-avatar' + (group ? ' is-group' : ''), true, 130),
+        item.name, group ? '团体 · ' + members.length + ' 位成员' : '歌手 · ' + fans(item) + ' 粉丝');
       panel.hidden = false;
+      mobileSheet?.setExpanded(viewState?.sheetExpanded ?? (remember && wasOpen && mobileSheet.isExpanded()));
       updateBackButton();
       restoreView(viewState);
       updateScrollbar();
@@ -777,11 +800,14 @@
       doc.addEventListener('keydown', event => {
         if (event.key === 'Escape' && !event.defaultPrevented && isOpen()) {
           event.preventDefault();
-          if (!activeAlbum || !back()) close();
+          if (mobileSheet?.isEnabled()) mobileSheet.collapseOrClose();
+          else if (!activeAlbum || !back()) close();
         }
       });
     }
-    return { open, openAlbum, close, back, isOpen, find, memberLinks, hasMapLocation, preview };
+    function collapseMobile() { if (isOpen() && mobileSheet?.isEnabled()) mobileSheet.setExpanded(false); }
+    function dismissMobile() { if (isOpen() && mobileSheet?.isEnabled()) mobileSheet.collapseOrClose(); }
+    return { open, openAlbum, close, back, isOpen, find, memberLinks, hasMapLocation, preview, collapseMobile, dismissMobile };
   }
 
   const api = { create, hasMapLocation };

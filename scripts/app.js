@@ -146,6 +146,16 @@ function setSelectedProfileMarker(name = null) {
 function captureProfileReturnTarget() {
   const mobilePanel = mobileNavigation && mobileNavigation.isEnabled() && mobileNavigation.isOpen()
     ? mobileNavigation.activePanel() : null;
+  if (mobilePanel === 'recommend') {
+    return { label: '推荐', restore: () => mobileNavigation.open('recommend') };
+  }
+  if (mobilePanel === 'search') {
+    const query = searchInput.value;
+    return { label: '搜索', restore: () => {
+      searchInput.value = query;
+      mobileNavigation.open('search');
+    } };
+  }
   const kind = ['rank', 'index'].includes(mobilePanel) ? mobilePanel
     : ['rank', 'index'].find(key => document.getElementById(key + '-panel').classList.contains('show'));
   if (!kind) {
@@ -306,14 +316,14 @@ function getProfilePopupOffset(cardWidth) {
   return [x, isMobile ? 46 : 55];
 }
 
-// Hover shows a compact preview; clicking the avatar opens its full profile directly.
+// Desktop hover uses a separate popup so Leaflet cannot open it on a tap.
 function bindProfilePreview(marker, item, options = {}) {
   const preview = profileUI.preview(item);
-  marker.bindPopup(preview, { autoPan: false, ...options });
-  const popup = marker.getPopup();
+  const popup = L.popup({ autoPan: false, ...options }, marker).setContent(preview);
   const baseOffset = L.point(popup.options.offset);
+  const mobile = window.matchMedia('(max-width: 480px)');
   let popupTimeout;
-  marker.on('popupopen', () => {
+  popup.on('add', () => {
     // Keep both actions reachable at map edges without panning the map on hover.
     popup.options.offset = baseOffset;
     popup.update();
@@ -328,31 +338,41 @@ function bindProfilePreview(marker, item, options = {}) {
   });
   function closeLater() {
     clearTimeout(popupTimeout);
-    popupTimeout = setTimeout(() => marker.closePopup(), 200);
+    if (popup.isOpen()) popupTimeout = setTimeout(() => map.closePopup(popup), 200);
   }
   preview.addEventListener('mouseenter', () => clearTimeout(popupTimeout));
   preview.addEventListener('mouseleave', closeLater);
   marker.on('mouseover', () => {
-    if (dotsOnlyMode || profileUI.isOpen()) return;
+    if (mobile.matches || dotsOnlyMode || profileUI.isOpen()) return;
     clearTimeout(popupTimeout);
     popupTimeout = setTimeout(() => {
-      if (!profileUI.isOpen()) marker.openPopup();
+      if (!mobile.matches && !profileUI.isOpen()) popup.setLatLng(marker.getLatLng()).openOn(map);
     }, 150);
   });
   marker.on('mouseout', closeLater);
   marker.on('click', event => {
     L.DomEvent.stopPropagation(event);
     clearTimeout(popupTimeout);
-    if (dotsOnlyMode) { marker.closePopup(); return; }
-    profileUI.open(item.name);
+    if (dotsOnlyMode) { map.closePopup(popup); return; }
+    if (profileUI.open(item.name) && mobile.matches) {
+      const sheet = document.getElementById('artist-profile-panel');
+      if (sheet.dataset.profileSheet === 'peek') {
+        const freeHeight = map.getSize().y - sheet.offsetHeight;
+        const y = map.latLngToContainerPoint(marker.getLatLng()).y;
+        if (y > freeHeight - 30) map.panBy([0, y - freeHeight + 30], { animate: false });
+      }
+    }
   });
-  marker.on('popupclose', () => {
+  popup.on('remove', () => {
     clearTimeout(popupTimeout);
   });
   marker.on('add', () => {
     if (selectedProfileName === item.name) setSelectedProfileMarker(item.name);
   });
-  marker.on('remove', () => clearTimeout(popupTimeout));
+  marker.on('remove', () => {
+    clearTimeout(popupTimeout);
+    if (popup.isOpen()) map.closePopup(popup);
+  });
 }
 
 
@@ -1486,6 +1506,7 @@ window.addEventListener('resize', positionLandmarkCityDropdown);
 // 点击地图空白处关闭所有弹窗
 map.on('click', function() {
   closeLandmarkCityDropdown();
+  if (!mobileNavigation?.isOpen()) profileUI.dismissMobile();
   if (currentOpenPopupEl) {
     currentOpenPopupEl.classList.remove('show');
     currentOpenPopupEl = null;
@@ -2300,14 +2321,14 @@ function locateCity(cityObj) {
     }
 
     function selectSearchResult(item) {
-      searchInput.value = item.raw;
-      updateClearBtn();
       hideSearchPanels();
       if (item.type === 'city') locateCity(item);
       else if (isLandmarkSearchType(item.type)) return locateMapPoint(item);
       else if (item.type === 'album') {
         if (!profileUI.openAlbum(item.album)) return;
       } else if (!locateAndAnimate(item.raw)) return;
+      searchInput.value = item.raw;
+      updateClearBtn();
       saveSearchHistory(item);
     }
 
@@ -2720,6 +2741,7 @@ document.querySelectorAll('.index-tab').forEach((tab, idx) => {
         return;
       }
       if (!keepProfile) profileUI.close({ restoreFocus: false });
+      else profileUI.collapseMobile();
       clearMemberDistribution();
       map.closePopup();
       markerClusterGroup.clearLayers(); 
