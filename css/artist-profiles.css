@@ -159,16 +159,25 @@ button.profile-member:focus-visible { background: #f2f2f2; }
 .profile-album-listen:hover { background: #c90010; }
 .profile-album-intro-copy.is-collapsed { max-block-size: 11.4em; max-block-size: 6lh; overflow: hidden; }
 .profile-album-intro-toggle[hidden] { display: none; }
+.profile-album-details { padding-block: 0; }
+.profile-album-detail-section { padding-block: 16px; }
+.profile-album-detail-section + .profile-album-detail-section { border-top: 1px solid #efebe7; }
 .profile-album-people { display: grid; gap: 4px; }
 .profile-album-people .profile-album-person { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; min-height: 46px; padding: 5px 8px; border: 0; border-radius: 9px; background: transparent; color: var(--profile-ink); text-align: left; text-decoration: none; }
 .profile-album-person:is(a, button) { cursor: pointer; }
 .profile-album-person:is(:hover, :focus-visible) { background: #eeeae6; }
 .profile-album-person .profile-person-avatar { width: 36px; height: 36px; }
 .profile-album-person .profile-person-name { font-size: 13px; font-weight: 650; }
+.profile-album-creators { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 10px; }
+.profile-album-creators .profile-section-title { margin: 0; }
+.profile-album-creators .profile-album-people { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #ded8d1 transparent; }
+.profile-album-creators .profile-album-person { flex: 0 0 auto; width: auto; min-height: 36px; padding: 3px 5px; gap: 6px; white-space: nowrap; }
+.profile-album-creators .profile-person-avatar { width: 30px; height: 30px; }
+.profile-album-creators .profile-album-person:focus-visible { outline-offset: -2px; }
 .profile-album-tracks { margin: 0; padding-inline-start: 26px; }
-.profile-album-track { padding: 9px 0 9px 5px; border-bottom: 1px solid #f1eeea; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.profile-album-track { padding: 6px 0 6px 5px; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
 .profile-album-track:first-child { padding-top: 0; }
-.profile-album-track:last-child { padding-bottom: 0; border-bottom: 0; }
+.profile-album-track:last-child { padding-bottom: 0; }
 .profile-album-track::marker { color: #837a73; font-size: 11px; font-variant-numeric: tabular-nums; }
 .profile-album-message { padding: 0 20px 12px; }
 .profile-biography { margin: 0; color: #665e57; font-size: 13px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -127,8 +127,8 @@
     function fans(item) {
       return String((root.FANS_CACHE && root.FANS_CACHE[item.neteaseId]) || item.fans || '待补充');
     }
-    function section(title, count) {
-      const node = element('section', 'profile-section');
+    function section(title, count, className = 'profile-section') {
+      const node = element('section', className);
       const heading = element('h3', 'profile-section-title', title);
       if (count !== undefined) heading.append(element('span', 'profile-section-count', String(count)));
       node.append(heading);
@@ -221,8 +221,9 @@
       const hidden = text.scrollHeight <= text.clientHeight + 1;
       if (toggle.hidden !== hidden) toggle.hidden = hidden;
     }
-    function albumPeople(title, ids, people, emptyText) {
-      const block = section(title);
+    function albumPeople(title, ids, people, { inline = false, emptyText } = {}) {
+      const block = section(title, undefined, 'profile-album-detail-section');
+      if (inline) block.classList.add('profile-album-creators');
       const list = element('div', 'profile-album-people');
       for (const key of ids || []) {
         const person = people[key];
@@ -242,7 +243,7 @@
     }
     function albumTracks(tracks) {
       if (!tracks?.length) return null;
-      const block = section('曲目列表');
+      const block = section('曲目列表', undefined, 'profile-album-detail-section');
       const list = element('ol', 'profile-album-tracks');
       for (const title of tracks) list.append(element('li', 'profile-album-track', title));
       block.append(list);
@@ -297,11 +298,13 @@
         }
         saves.show(data.saves, snapshot.captured);
         shares.show(data.shares, snapshot.captured);
-        const sections = [albumIntro(data.description, id),
-          albumPeople('创作者', data.creators, snapshot.people, '暂无可核实的创作者署名。'),
+        const intro = albumIntro(data.description, id);
+        const details = element('div', 'profile-section profile-album-details');
+        const sections = [albumPeople('创作者', data.creators, snapshot.people, { inline: true, emptyText: '暂无可核实的创作者署名。' }),
           albumPeople('合作歌手', data.collaborators, snapshot.people),
           albumTracks(data.tracks)];
-        body.replaceChildren(...sections.filter(Boolean));
+        details.append(...sections.filter(Boolean));
+        body.replaceChildren(...(intro ? [intro, details] : [details]));
         updateAlbumIntroToggle();
         if (viewState) restoreView(viewState);
         updateScrollbar();
