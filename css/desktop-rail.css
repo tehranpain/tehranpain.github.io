@@ -2,8 +2,8 @@
 
 @media (min-width: 481px) {
   body[data-desktop-rail="true"] {
-    --rail-edge-gap: 4px;
-    --rail-width: 70px;
+    --rail-edge-gap: 6px;
+    --rail-width: 64px;
     --rail-card-gap: 8px;
     --rail-card-top: 8px;
     --rail-ink: #282523;
