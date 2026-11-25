@@ -794,7 +794,12 @@ row.innerHTML = `
     if (currentTab === 'fan') {
       subtitle.textContent = `乐迷团月榜（${currentFanClub.label}）`;
     } else {
-      subtitle.textContent = '点击歌手名可定位到地图';
+      const updatedAt = new Date(window.FANS_CACHE_UPDATED_AT || '');
+      subtitle.textContent = Number.isFinite(updatedAt.getTime())
+        ? '最近同步：' + new Intl.DateTimeFormat('zh-CN', {
+          timeZone:'Asia/Shanghai', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hourCycle:'h23'
+        }).format(updatedAt) + '（北京时间）'
+        : '网易云粉丝数 · 暂无同步时间';
     }
   }
 

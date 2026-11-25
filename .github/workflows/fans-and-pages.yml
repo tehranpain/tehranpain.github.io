@@ -1,0 +1,117 @@
+name: Fan counts and GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'probe: check 5 accounts; refresh: sync and publish; deploy: publish only'
+        required: true
+        default: probe
+        type: choice
+        options:
+          - probe
+          - refresh
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && inputs.mode == 'probe'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Test collector safeguards
+        run: node --test sync-fans.test.cjs
+      - name: Check five public NetEase accounts without writing
+        run: node sync-fans.js --probe
+
+  build:
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'workflow_dispatch' || inputs.mode != 'probe')
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    permissions:
+      contents: write
+      pages: read
+    concurrency:
+      group: rap-map-pages-build
+      cancel-in-progress: false
+    outputs:
+      enabled: ${{ steps.pages.outputs.enabled }}
+    steps:
+      - name: Check that Actions is the Pages source
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type')"
+          if [ "$source" = workflow ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'Set Settings > Pages > Source to GitHub Actions before publishing.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v6
+        if: steps.pages.outputs.enabled == 'true'
+        with:
+          ref: main
+      - uses: actions/setup-node@v6
+        if: steps.pages.outputs.enabled == 'true' && (github.event_name == 'schedule' || inputs.mode == 'refresh')
+        with:
+          node-version: '22'
+      - name: Collect and store a verified cache
+        if: steps.pages.outputs.enabled == 'true' && (github.event_name == 'schedule' || inputs.mode == 'refresh')
+        run: |
+          node --test sync-fans.test.cjs
+          node sync-fans.js --publish
+          if ! git diff --quiet -- fans-cache.js; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- fans-cache.js
+            git commit -m 'Refresh NetEase fan counts'
+            git push origin HEAD:main
+          fi
+      - name: Package the current site
+        if: steps.pages.outputs.enabled == 'true'
+        run: |
+          site="$RUNNER_TEMP/rap-map-site"
+          mkdir -p "$site"
+          git archive HEAD -- . ':(exclude).github' ':(exclude)sync-fans.js' ':(exclude)sync-fans.test.cjs' | tar -xf - -C "$site"
+          test -s "$site/index.html"
+          test -s "$site/fans-cache.js"
+          hash="$(sha256sum "$site/fans-cache.js" | cut -c1-16)"
+          sed -i -E "s@(\./fans-cache\.js\?v=)[^\" ]+@\1$hash@g" "$site/index.html"
+      - uses: actions/upload-pages-artifact@v4
+        if: steps.pages.outputs.enabled == 'true'
+        with:
+          path: ${{ runner.temp }}/rap-map-site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: rap-map-pages-deploy
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
