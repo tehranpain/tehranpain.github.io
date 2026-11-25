@@ -188,7 +188,7 @@ function positionDesktopPopover(panel, anchor, { width = 320, alignRight = false
 const profileUI = window.RapArtistProfiles.create({
   detailsUrl: './data/artist-details.js?v=20261118-song-art',
   albums: window.RapArtistAlbums,
-  albumDetailsUrl: './data/album-details.js?v=20261120-album-top-up',
+  albumDetailsUrl: './data/album-details.js?v=20261126-album-intro',
   artists: [...singersWithType, ...profilesWithType], groups: labels,
   locate: name => locateAndAnimate(name, false),
   network: (name, options) => window.showNetwork(name, options),

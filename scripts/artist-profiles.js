@@ -196,16 +196,30 @@
       link.href = 'https://music.163.com/album?id=' + id;
       return link;
     }
-    function albumIntro(hasIntro, id) {
+    function albumIntro(description, id) {
+      if (typeof description !== 'string' || !description.trim()) return null;
       const intro = section('专辑介绍');
-      if (!hasIntro) {
-        intro.append(element('p', 'profile-empty', '网易云暂未提供专辑介绍。'));
-        return intro;
-      }
-      const heading = element('div', 'profile-album-intro-heading');
-      heading.append(intro.firstElementChild, albumLink('profile-album-intro-source', '查看网易云原文', id));
-      intro.append(heading);
+      const text = element('p', 'profile-biography profile-album-intro-copy is-collapsed', description);
+      text.id = 'profile-album-intro-' + id;
+      const toggle = button('profile-biography-toggle profile-album-intro-toggle', '展开', () => {
+        const expanded = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.textContent = expanded ? '收起' : '展开';
+        text.classList.toggle('is-collapsed', !expanded);
+        updateScrollbar();
+      });
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-controls', text.id);
+      toggle.hidden = true;
+      intro.append(text, toggle);
       return intro;
+    }
+    function updateAlbumIntroToggle() {
+      const toggle = content.querySelector('.profile-album-intro-toggle');
+      if (!toggle || toggle.getAttribute('aria-expanded') === 'true') return;
+      const text = toggle.previousElementSibling;
+      const hidden = text.scrollHeight <= text.clientHeight + 1;
+      if (toggle.hidden !== hidden) toggle.hidden = hidden;
     }
     function albumPeople(title, ids, people, emptyText) {
       const block = section(title);
@@ -283,11 +297,12 @@
         }
         saves.show(data.saves, snapshot.captured);
         shares.show(data.shares, snapshot.captured);
-        const sections = [albumIntro(data.hasIntro, id),
+        const sections = [albumIntro(data.description, id),
           albumPeople('创作者', data.creators, snapshot.people, '暂无可核实的创作者署名。'),
           albumPeople('合作歌手', data.collaborators, snapshot.people),
           albumTracks(data.tracks)];
         body.replaceChildren(...sections.filter(Boolean));
+        updateAlbumIntroToggle();
         if (viewState) restoreView(viewState);
         updateScrollbar();
       }
@@ -368,6 +383,7 @@
       }
       function update() {
         frame = null;
+        if (!panel.hidden) updateAlbumIntroToggle();
         track.hidden = panel.hidden || scroller.scrollHeight <= scroller.clientHeight + 1;
         if (track.hidden) return;
         const { max, thumbHeight, travel } = metrics();
