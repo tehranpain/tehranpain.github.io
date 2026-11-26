@@ -244,6 +244,9 @@
     function albumTracks(tracks) {
       if (!tracks?.length) return null;
       const block = section('曲目列表', undefined, 'profile-album-detail-section');
+      const heading = block.firstElementChild;
+      heading.classList.add('profile-album-track-heading');
+      heading.append(element('span', 'profile-album-track-count', '共' + tracks.length + '首'));
       const list = element('ol', 'profile-album-tracks');
       for (const title of tracks) list.append(element('li', 'profile-album-track', title));
       block.append(list);
@@ -264,7 +267,16 @@
       delete panel.dataset.profileName;
       panel.dataset.albumId = id;
       const hero = element('div', 'profile-album-hero');
-      const image = albumCover(entry, 720);
+      let image;
+      const setCover = (album) => {
+        const frame = albumCover(album, 720);
+        const source = frame.querySelector('img')?.src;
+        panel.style.setProperty('--album-cover-backdrop', source ? 'url(' + JSON.stringify(source) + ')' : 'none');
+        if (image) image.replaceWith(frame);
+        else hero.prepend(frame);
+        image = frame;
+      };
+      setCover(entry);
       const copy = element('div', 'profile-album-identity');
       const heading = element('div', 'profile-album-heading');
       const titleAndDate = element('div');
@@ -279,7 +291,7 @@
       titleAndDate.append(title, date);
       heading.append(titleAndDate, albumListenLink(id));
       copy.append(heading, stats);
-      hero.append(image, copy);
+      hero.append(copy);
       const body = element('div', 'profile-album-body');
       content.replaceChildren(hero, body);
       setSheetSummary(albumCover(entry, 130), entry.title || '专辑', '专辑');
@@ -297,7 +309,10 @@
           return;
         }
         title.textContent = entry.title = data.title;
-        if (data.cover && data.cover !== entry.cover) hero.replaceChild(albumCover(data, 720), image);
+        if (data.cover && data.cover !== entry.cover) {
+          entry.cover = data.cover;
+          setCover(entry);
+        }
         if (data.date) {
           date.dateTime = date.textContent = data.date;
           date.hidden = false;
@@ -469,6 +484,7 @@
       panel = element('aside', 'artist-profile-panel');
       panel.id = 'artist-profile-panel';
       panel.hidden = true;
+      panel.style.removeProperty('--album-cover-backdrop');
       panel.setAttribute('role', 'region');
       panel.setAttribute('aria-labelledby', 'artist-profile-title');
       const toolbar = element('div', 'profile-toolbar');
@@ -653,6 +669,7 @@
       beginView({ wasOpen, remember, fromHistory });
       activeAlbum = null;
       delete panel.dataset.albumId;
+      panel.style.removeProperty('--album-cover-backdrop');
       selected = item;
       const currentRevision = ++revision;
       const group = item.type === 'label';
