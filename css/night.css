@@ -1,0 +1,206 @@
+body[data-map-theme="night"] {
+  color-scheme: dark;
+  --night-ink: #f4f1ee;
+  --night-copy: #d7d2d0;
+  --night-muted: #b1a9a9;
+  --night-red: #da1833;
+  --night-accent: #ff8897;
+  --night-border: #ffffff24;
+  --night-surface: #1b1a20;
+  --night-wash: #ffffff0d;
+  --night-hover: #fff0ef15;
+  --night-glass: linear-gradient(153deg, #292329f7 0%, #1a191fef 42%, #15151bed 100%);
+  --night-shadow: 0 18px 55px #0006, 0 2px 9px #0004;
+  background: #181b22;
+  color: var(--night-ink);
+}
+
+/* Filter only the raster tiles; keep photos, network vectors and controls intact. */
+body[data-map-theme="night"] #map,
+body[data-map-theme="night"] #map.network-view { background: #1b2028; }
+body[data-map-theme="night"] #map .leaflet-tile-pane {
+  filter: grayscale(1) invert(1) brightness(.86) contrast(.83) sepia(.23) hue-rotate(158deg) saturate(1.23) !important;
+}
+#map .leaflet-control-zoom { border: 1px solid var(--night-border); box-shadow: 0 5px 18px #0005; border-radius: 11px; overflow: hidden; }
+#map .leaflet-control-zoom a { color: var(--night-ink); background: #1a191fec; border-color: var(--night-border); }
+#map .leaflet-control-zoom a:is(:hover, :focus-visible) { background: #3b3038; }
+#map .leaflet-control-zoom a.leaflet-disabled { color: #8f858b; background: #221f26; }
+#map .leaflet-control-attribution { background: #15161dd9; color: var(--night-muted); }
+#map .leaflet-control-attribution a { color: #bdd2e2; }
+#map .singer-avatar-main { border-color: #b3b5b9; box-shadow: 0 3px 10px #0009; }
+#map .singer-custom-marker.is-profile-selected .singer-avatar-main { border-color: #fff5ef; box-shadow: 0 0 0 2px var(--night-red), 0 4px 22px #000a; }
+#map .network-link { stroke: #adb4bf; }
+#map .network-has-focus .network-link.is-network-focused { stroke: #ede4dc; }
+#map :is(.leaflet-popup-content-wrapper, .leaflet-popup-tip, .network-node-name),
+#exit-network-btn.network-dock,
+#exit-network-btn.network-dock:hover {
+  background: var(--night-glass); color: var(--night-ink); border-color: var(--night-border); box-shadow: var(--night-shadow);
+}
+#map .leaflet-popup-content :is(.singer-card, .singer-card.label-card) { background: transparent; color: var(--night-ink); }
+#map .leaflet-popup-content .singer-card-name { color: var(--night-ink); }
+#map .leaflet-popup-content :is(.singer-card-fans, .singer-card-desc, .singer-card-members-title, .singer-card-members-list) { color: var(--night-muted); }
+#map .leaflet-popup-content :is(.singer-card-close-btn, .singer-card-btn.network-icon-btn) { background: var(--night-hover); color: var(--night-ink); }
+.network-dock :is(.network-dock-count, .network-dock-number) { color: var(--night-accent); }
+.network-dock-avatar, .network-avatar-fallback { background: #353039; color: var(--night-copy); }
+
+body[data-map-theme="night"] #desktop-map-rail {
+  background: linear-gradient(160deg, #29252cec, #17171ef7); color: var(--night-copy);
+  border-color: var(--night-border); box-shadow: var(--night-shadow); backdrop-filter: blur(14px);
+}
+#desktop-map-rail button:hover { background: #353039; color: var(--night-ink); }
+#desktop-map-rail button[aria-expanded="true"] { color: #ff9ca9; background: #512434; box-shadow: inset 0 0 0 1px #ff81952f; }
+#desktop-map-rail button[data-rail-view="filter"] circle { fill: #242129; }
+#desktop-map-rail button[data-rail-view="filter"]:hover circle { fill: #353039; }
+#desktop-map-rail button[data-rail-view="filter"][aria-expanded="true"] circle { fill: #512434; }
+
+body[data-map-theme="night"] #singer-search,
+#mobile-control-dialog #singer-search {
+  background: #1d1b22f5; color: var(--night-ink); border-color: #ffffff30; box-shadow: 0 4px 18px #0005;
+}
+body[data-map-theme="night"] #singer-search:focus { border-color: #ee7a8baf; }
+body[data-map-theme="night"] #singer-search::placeholder { color: var(--night-muted); }
+body[data-map-theme="night"] #search-btn { background: var(--night-red); color: #fff; box-shadow: 0 5px 20px #a90a3850; }
+body[data-map-theme="night"] #search-btn:hover { background: #ba1530; }
+#search-input-wrap #index-btn { color: var(--night-copy); background: transparent; }
+#search-input-wrap #index-btn:is(:hover, .active) { color: var(--night-accent); background: var(--night-hover); }
+#search-inner, #search-input-inner { color: var(--night-copy); }
+#search-input-inner::before { border-color: var(--night-muted); }
+#search-input-inner::after, #search-clear-btn { background: #747078; }
+.suggestion-item mark { background: transparent; color: var(--night-accent); }
+.suggestion-album-artist { color: var(--night-muted); }
+body[data-map-theme="night"] .suggestion-item.city-type { color: var(--night-copy); }
+.city-tag { background: #532734; color: #ffb2bd; }
+body[data-map-theme="night"] :is(#search-suggestions, #index-panel, #mobile-history-section.desktop-history-open),
+#mobile-control-dialog #search-suggestions {
+  background: var(--night-glass); color: var(--night-ink); border-color: var(--night-border); box-shadow: var(--night-shadow);
+}
+
+body[data-map-theme="night"] :is(#map-home-panel, #rank-panel, #desktop-rail-panel),
+body[data-map-theme="night"] .mobile-panel-sheet {
+  color: var(--night-ink); background: var(--night-glass); border-color: var(--night-border);
+  box-shadow: var(--night-shadow); backdrop-filter: blur(18px);
+  isolation: isolate;
+}
+body[data-map-theme="night"] :is(.home-panel-scroll, #rank-panel-body, #index-list, #search-suggestions, .desktop-network-content, #mobile-view-filter) {
+  scrollbar-color: #ffffff45 transparent;
+}
+.rank-card-toolbar { color: var(--night-ink); }
+body[data-map-theme="night"] #artist-profile-panel:not([data-profile-type="album"]) {
+  --profile-paper: #221e26;
+  --profile-ink: var(--night-ink);
+  --profile-muted: var(--night-muted);
+  --profile-red: var(--night-red);
+  color: var(--profile-ink); background: var(--night-glass); border-color: var(--night-border);
+  box-shadow: var(--night-shadow); backdrop-filter: blur(18px);
+  isolation: isolate;
+}
+body[data-map-theme="night"] #artist-profile-panel[data-profile-type="album"] {
+  box-shadow: var(--night-shadow);
+}
+:is(#artist-profile-panel:not([data-profile-type="album"]), #map-home-panel[aria-label="推荐"], #mobile-control-dialog[data-panel="recommend"] .mobile-panel-sheet)::before {
+  content: ''; position: absolute; z-index: -1; inset: -55px; pointer-events: none;
+  background: linear-gradient(165deg, #0908104a 0%, #141319b8 43%, #131217 100%),
+    var(--night-artwork, none) center 10% / cover no-repeat;
+  filter: blur(46px) saturate(.9); opacity: .73;
+}
+#map-home-panel .home-release-carousel { width: calc(100% - 12px); margin: 0 6px 6px; border-radius: 16px; }
+#map-home-panel .home-filter-section { background: var(--night-wash); border: 1px solid var(--night-border); }
+#map-home-panel .home-filter-heading { color: var(--night-ink); }
+
+.artist-profile-panel:not([data-profile-type="album"]) .profile-hero-cover {
+  width: calc(100% - 12px); margin: 6px 6px 0; border-radius: 18px 18px 15px 15px;
+  background: #2e2831;
+}
+.artist-profile-panel:not([data-profile-type="album"]) .profile-hero-cover::after {
+  background: linear-gradient(180deg, #0c0a1000 15%, #100c1240 53%, #0c090de8 100%);
+}
+.artist-profile-panel:not([data-profile-type="album"]) .profile-section {
+  margin: 0 16px; padding: 17px 5px; border-radius: 0; background: transparent;
+}
+.artist-profile-panel:not([data-profile-type="album"]) .profile-section + .profile-section { border-top: 1px solid var(--night-border); }
+.artist-profile-panel:not([data-profile-type="album"]) :is(.profile-biography, .profile-member, .profile-collaborator) { color: var(--night-copy); }
+.artist-profile-panel :is(.profile-song-artists, .profile-section-count, .profile-sheet-meta, .profile-sheet-hint) { color: var(--night-muted); }
+.artist-profile-panel :is(.profile-song, .profile-hero-avatar) { border-color: var(--night-border); }
+.artist-profile-panel :is(.profile-avatar-frame, .profile-song-cover, .profile-album-cover) { background: #38323d; }
+.artist-profile-panel .profile-avatar-fallback { color: var(--night-copy); }
+.artist-profile-panel .profile-cover-avatar { background: #39343e; }
+.artist-profile-panel .profile-cover-loading-text { color: #e4dce2; }
+.artist-profile-panel .profile-relation { background: var(--night-wash); color: var(--night-copy); }
+.artist-profile-panel button.profile-member:is(:hover, :focus-visible),
+.artist-profile-panel .profile-relation:is(:hover, :focus-visible) { background: var(--night-hover); }
+.artist-profile-panel :is(.profile-album-card, .profile-relation, .profile-collaborator:not(.is-static)):is(:hover, :focus-visible) :is(.profile-album-name, .profile-person-name),
+.artist-profile-panel .profile-biography-toggle { color: var(--night-accent); }
+.artist-profile-panel :is(.profile-back, .profile-close) { background: #0e0c1348; color: #fff; }
+.artist-profile-panel :is(.profile-back, .profile-close):is(:hover, :focus-visible) { background: #151018bd; color: #fff; }
+.artist-profile-panel .profile-scrollbar-thumb { background: #f8ece86b; }
+
+body[data-map-theme="night"] :is(.desktop-rail-toolbar button, #rank-panel-close, #mobile-panel-close, .singer-card-close-btn, .rank-network-btn) {
+  background: var(--night-wash); color: var(--night-ink);
+}
+body[data-map-theme="night"] :is(.desktop-rail-toolbar button, #rank-panel-close, #mobile-panel-close, .singer-card-close-btn, .rank-network-btn):hover { background: var(--night-hover); color: var(--night-accent); }
+body[data-map-theme="night"] :is(#rank-tab-bar, #index-tab-bar, #map-home-panel #mode-filter-tabs, #mobile-control-dialog #mode-filter-tabs, .fan-threshold-track) {
+  background: #100f17b3; border-color: var(--night-border);
+}
+body[data-map-theme="night"] :is(.rank-name, .index-name, .suggestion-item, .mobile-history-item, .desktop-network-row, .dropdown-item, .dots-only-option, .fan-threshold-heading, .rank-tab, .index-tab) {
+  color: var(--night-copy);
+}
+body[data-map-theme="night"] :is(.rank-tab.active, .index-tab.active) { color: #fff; }
+body[data-map-theme="night"] :is(.rank-row, .index-row, .suggestion-item, .mobile-history-item, .dots-only-option, .fan-threshold-control, .dropdown-item, .dropdown-category-label) { border-color: var(--night-border); }
+body[data-map-theme="night"] :is(.rank-row, .index-row, .suggestion-item, .mobile-history-item, .desktop-network-row, .dropdown-item:not(.active)):hover,
+body[data-map-theme="night"] .desktop-network-row[aria-pressed="true"] { background: var(--night-hover); }
+body[data-map-theme="night"] :is(.rank-row:hover .rank-name, .index-row:hover .index-name, .rank-val, .fan-threshold-value) { color: var(--night-accent); }
+body[data-map-theme="night"] .rank-no { color: var(--night-muted); }
+body[data-map-theme="night"] :is(#rank-panel-subtitle, .index-section-header, .index-letter-header, .dropdown-category-label, .fan-threshold-labels,
+  .desktop-network-content label, .desktop-network-row small, .desktop-network-empty, .mobile-sheet-title, #mobile-history-clear, .mobile-history-empty, #mobile-search-empty) { color: var(--night-muted); }
+body[data-map-theme="night"] .rank-no.gold { color: #ffcd70; }
+body[data-map-theme="night"] .rank-no.silver { color: #d3dbe9; }
+body[data-map-theme="night"] .rank-no.bronze { color: #e4a881; }
+body[data-map-theme="night"] :is(.rank-avatar, .index-avatar) { border-color: #ffffff53; background: #302b35; }
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #mode-filter-tabs .filter-btn { color: var(--night-copy); }
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #mode-filter-tabs .filter-btn.active {
+  color: #fff; background: var(--night-red);
+}
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #more-options-dropdown { background: transparent; }
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #more-options-dropdown :is(.dots-only-option, .fan-threshold-control, .dropdown-item) {
+  color: var(--night-copy); border-color: var(--night-border);
+}
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #more-options-dropdown :is(.dropdown-category-label, .fan-threshold-labels) { color: var(--night-muted); }
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) #more-options-dropdown .dropdown-item:not(.active):hover {
+  background: var(--night-hover); color: var(--night-ink);
+}
+body[data-map-theme="night"] :is(#map-home-panel, #mobile-control-dialog) .dropdown-item.active {
+  background: #532734 !important; color: #ffb2bd !important;
+}
+.desktop-network-content input { color: var(--night-ink); background: #121118a6; border-color: var(--night-border); }
+body[data-map-theme="night"] :focus-visible { outline-color: var(--night-accent); }
+
+@media (min-width: 481px) {
+  body[data-map-theme="night"][data-desktop-rail="true"] :is(#map-home-panel, #rank-panel, #artist-profile-panel, #desktop-rail-panel) {
+    max-height: calc(var(--map-card-width) * 2.2);
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-map-theme="night"]:has(#artist-profile-panel[data-profile-sheet="peek"]:not([hidden])) #search-tip {
+    bottom: calc(var(--mobile-profile-peek) + 14px);
+  }
+  body[data-map-theme="night"]:has(#artist-profile-panel[data-profile-sheet="expanded"]:not([hidden])) #search-tip {
+    bottom: calc(min(76dvh, calc(100dvh - var(--mobile-tools-offset) - 8px)) + 14px);
+  }
+  body[data-map-theme="night"] #mobile-control-dialog {
+    --mobile-ink: var(--night-ink);
+    --mobile-muted: var(--night-muted);
+    --mobile-red: var(--night-red);
+  }
+  #mobile-map-tools :is(.mobile-map-search, .mobile-map-tool-rail) {
+    background: #1f1d25f0; color: var(--night-ink); border-color: var(--night-border); box-shadow: 0 5px 18px #0005;
+  }
+  #mobile-map-tools button { color: var(--night-copy); }
+  #mobile-map-tools .mobile-map-search svg { color: var(--night-accent); }
+  #mobile-map-tools button:is([aria-expanded="true"], :active) { color: var(--night-accent); background: #512434; }
+  .mobile-panel-handle, #artist-profile-panel[data-profile-sheet] .profile-sheet-handle::before { background: #e7dade6b; }
+  body[data-map-theme="night"] #mobile-control-dialog :is(#rank-panel, #index-panel) { background: transparent; box-shadow: none; backdrop-filter: none; }
+  body[data-map-theme="night"] #mobile-control-dialog :is(.rank-row, .index-row, .suggestion-item, .mobile-history-item) { border-color: var(--night-border); }
+  body[data-map-theme="night"] #mobile-control-dialog .suggestion-item:hover { background: var(--night-hover); }
+  #artist-profile-panel[data-profile-sheet]:not([data-profile-type="album"]) :is(.profile-back, .profile-close) { color: var(--night-ink); background: transparent; }
+}

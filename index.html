@@ -22,8 +22,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="./css/night.css?v=20261128">
+  <link rel="stylesheet" href="./css/rank-hub.css?v=20261128">
+  <script defer src="./scripts/night.js?v=20261128"></script>
 </head>
-<body data-rap-landmarks-enabled="false" data-map-home="true" data-map-layout="rail">
+<body data-map-theme="night" data-rap-landmarks-enabled="false" data-map-home="true" data-map-layout="rail">
   <nav id="desktop-map-rail" class="desktop-map-rail" aria-label="地图功能" hidden>
     <button type="button" data-rail-view="recommend" aria-controls="map-home-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 14.4 9l6.6 3-6.6 2.6L12 21l-2.6-6.4L3 12l6.4-3z"/></svg><span>推荐</span></button>
     <button type="button" data-rail-view="filter" aria-controls="map-home-panel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="9" cy="6" r="1.8"/><circle cx="15" cy="12" r="1.8"/></svg><span>筛选</span></button>
@@ -292,6 +295,9 @@
 <script src="./scripts/mobile-navigation.js?v=20261126-map-sheet"></script>
 <script src="./scripts/home-panel.js?v=20261126-map-sheet"></script>
 <script src="./scripts/desktop-rail.js?v=20261120"></script>
+<script src="./data/rank-data.js?v=20261128"></script>
+<script src="./data/rank-likes.js?v=20261128"></script>
+<script src="./scripts/rank-hub.js?v=20261128"></script>
 <script src="./scripts/app.js?v=20261126-map-sheet"></script>
 </body>
 </html>
