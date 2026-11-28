@@ -176,7 +176,7 @@ body[data-map-theme="night"] :focus-visible { outline-color: var(--night-accent)
 
 @media (min-width: 481px) {
   body[data-map-theme="night"][data-desktop-rail="true"] :is(#map-home-panel, #rank-panel, #artist-profile-panel, #desktop-rail-panel) {
-    max-height: calc(var(--map-card-width) * 2.2);
+    max-height: calc(var(--map-card-width) * 3);
   }
 }
 
